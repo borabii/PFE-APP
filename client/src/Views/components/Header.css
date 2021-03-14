@@ -1,11 +1,13 @@
 .header {
-    height: 60px;
+    height: 50px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    background-color: #131921;
+    background-color: #F45728;
     position: sticky;
     top: 0;
     z-index: 100;
+    
   }
   .header__logo {
     width: 100px;
@@ -13,49 +15,30 @@
     margin: 0 20px;
     margin-top: 18px;
   }
-  .header__search {
-    display: flex;
-    flex: 1;
-    align-items: center;
-    border-radius: 24px;
-  }
-  .header__searchInput {
-    height: 12px;
-    padding: 10px;
-    border: none;
-    width: 100%;
-  }
-  .header__searchIcon {
-    padding: 5px;
-    height: 22px !important;
-    background-color: #cd9042;
-  }
-  .header__optionLineOne {
-    font-size: 10px;
-  }
-  .header__optionLineTow {
-    font-size: 13px;
-    font-weight: 800;
-    color: white;
-  }
-  .header__optionBasket {
-    display: flex;
-    align-items: center;
-    color: white;
-  }
-  .header__basketCount {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
   .header__nav {
     display: flex;
     justify-content: space-evenly;
   }
   .header__option {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin-left: 10px;
-    margin-right: 10px;
     color: white;
+    
+  } 
+  .header__option > h6 {
+      color: #040941;
+      margin-right: 10px;
+      margin-top: 15px;
   }
-  
+  .header__option > button {
+    width: 90px;
+    height: 30px;
+    margin-top: 10px;
+    margin-right: 10px;
+    outline: none;
+    border: none;
+    color: #040941;
+    background: #3ACEB9;
+    border-radius: 50px;
+  }
