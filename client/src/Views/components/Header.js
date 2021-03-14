@@ -3,14 +3,12 @@ import "./Header.css";
 function Header() {
   return (
     <div className="header">
-      <img
-        className="header__logo"
-        src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
-        alt=""
-      />
+      <h4>logo</h4>
       <div className="header__option">
         <h6>Connexion</h6>
-        <button>S'inscrire</button>
+        <button>
+          <p>S'inscrire</p>
+        </button>
       </div>
     </div>
   );

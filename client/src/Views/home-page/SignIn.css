@@ -80,23 +80,33 @@
   border-radius: 10px;
   outline: none;
 }
+.form__containerInput > input:focus {
+  border-color:#55C3DE ;
+}
 .form__containerInput > button{
   width: 200px;
   height: 35px;
   margin-left: 40px;
   background: #3ACEB9;
   border: none;
-  border-radius: 20px;
+  border-radius: 10px;
   outline: none;
+  color: #040941;
+  transition-duration: 0.4s;
+}
+.form__containerInput > button:hover{
+  background-color: #55C3DE;
+    border: white;
+    color: white 
 }
 .form__container > h6 {
   margin-top: 20px;
   font-family: Roboto;
-  font-size: 15px;
+  font-size: 12px;
   line-height: 21px;
   letter-spacing: 0.01em
 }
-/* @media screen and (max-width: 600px) {
+@media screen and (max-width: 600px) {
   .signIn__left {
     display: none;
   }
@@ -104,4 +114,5 @@
     height: 100%;
     width: 100%;
   }
-} */
+  
+}

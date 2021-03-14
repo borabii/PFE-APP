@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #F45728;
+    background-color: #f4ae44;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -29,7 +29,11 @@
   .header__option > h6 {
       color: #040941;
       margin-right: 10px;
-      margin-top: 15px;
+      margin-top: 9%;
+      font-family: Roboto;
+      font-size: 15px;
+      line-height: 21px;
+      letter-spacing: 0.01em
   }
   .header__option > button {
     width: 90px;
@@ -38,7 +42,19 @@
     margin-right: 10px;
     outline: none;
     border: none;
+    font-family: Roboto;
+    font-size: 15px;
+    line-height: 15px;
+    letter-spacing: 0.01em;
     color: #040941;
     background: #3ACEB9;
     border-radius: 50px;
+    transition-duration: 0.4s;
+  }
+  .header__option > button:hover {
+    background-color: #55C3DE;
+    border: white;
+    color: white ;
+  }
+  .header__option > button > p{
   }

@@ -16,8 +16,8 @@ function SignIn() {
           <form className="form__container">
             <h1>Connexion</h1>
             <div className="form__containerInput">
-              <input type="text"></input>
-              <input type="text"></input>
+              <input type="text" placeholder="Email"></input>
+              <input type="text" placeholder="Mots de passe"></input>
               <button type="submit">Connexion</button>
             </div>
 
