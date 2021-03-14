@@ -5,8 +5,8 @@ import SignUp from "./Views/home-page/SignUp";
 function App() {
   return (
     <div className="app">
-      <Header />
-      <SignIn />
+     
+      <SignUp/>
     </div>
   );
 }
