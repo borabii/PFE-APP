@@ -19,9 +19,8 @@ function SignUp() {
               <input type="text"placeholder="Nom"/> 
               
                     <input type="text"placeholder="Prénom"/> 
-                       <h6>female/male</h6>
-                      
-                       
+                    <input type="date"placeholder="date"/>
+                       <h6>female/male</h6> 
                     <input type="email"placeholder="email"/>
                     <input type="password"placeholder="Mots de passe"/> 
                     <input type="password" placeholder="Confirmer votre mots de passe"/>   

@@ -1,0 +1,9 @@
+.home__container{
+    display: flex;
+    flex-direction: column;
+}
+.home__image{
+    width: 100%;
+  z-index: -1;
+  margin-bottom: -150px;
+}
