@@ -14,15 +14,11 @@
     height: calc(100vh - 100px);
     width: 60%;
     margin-top: 50px;
-<<<<<<< HEAD
     border-radius: 10px;
     
    
   }
 
-=======
-    }
->>>>>>> test
   .signUp__left {
     display: flex;
     justify-content: center;
@@ -131,20 +127,10 @@
     border-radius: 4px;
     box-sizing: border-box;
     border-color: #3ACEB9;
-<<<<<<< HEAD
  }  */
 
  
  /* button {
-=======
- } 
- table{
-      
-    font-family: Roboto;
-    font-size : small ;
- }
- button {
->>>>>>> test
     width: 50%;
     background-color: #3ACEB9;
     color: white;

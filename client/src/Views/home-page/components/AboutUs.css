@@ -1,0 +1,18 @@
+.aboutUS{
+    background-color: rgb(247, 187, 110);
+    display: flex;
+    align-items: center;
+    height: 400px;
+    width:100%;
+    
+
+}
+
+.aboutUS__container{
+    
+    width:50%;
+    height:70%;
+    align-content: center;
+    margin:300px
+   
+}
