@@ -1,0 +1,21 @@
+#aboutUs {
+    padding: 100px 0;
+    background-color: #F6F6F6;
+}
+#aboutUs .container{
+    
+}
+#aboutUs h2 {
+    font-family: 'Roboto';
+    font-size: 5rem;
+    letter-spacing: 0.02rem;
+    position: relative;
+	margin-bottom: 15px;
+	padding-bottom: 15px;
+}
+#aboutUs p {
+    font-size: 2rem;
+    letter-spacing: 0.02rem;
+    line-height: 24px;
+	margin: 30px 0;
+}

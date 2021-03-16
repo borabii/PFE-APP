@@ -11,14 +11,10 @@ function Home() {
   return (
     <div className="home">
       <Header />
-
       <div className="home__container">
         <WelcomImage />
-
         <TopThreeUser />
-
         <TopUserPerSport />
-
         <AboutUS />
         <ContactUs />
         <Footer />

@@ -1,0 +1,75 @@
+.topThreeUser__container{
+    /* height: 1000px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 100px 0;
+}
+.section-title > h1{
+    text-transform: uppercase;
+	margin: 0 0 20px 0;
+	font-weight: 800;
+	font-size: 36px;
+	color: #333;
+}
+.section-title {
+	margin-bottom: 70px;
+    text-align: center;
+}
+.topThreeUser__cardContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    
+}
+.topThreeUser__cardContainer >  div {
+    height: 600px;
+    width: 400px;
+    margin: 50px;
+    border-radius: 30px;
+} 
+.topThreeUser__cardContainer> .flip-card {
+    background-color: transparent;
+    border-radius: 30px;
+    perspective: 1000px; 
+  }
+  
+  .topThreeUser__cardContainer > .flip-card >.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+  .flip-card-front > img{
+    width:100%;
+    height:100%;
+  }
+  
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+  }
+  
+  /* Style the front side (fallback if image is missing) */
+  .flip-card-front {
+    border-radius: 30px;
+    background-color: #bbb;
+    color: black;
+  }
+  
+  /* Style the back side */
+  .flip-card-back {
+    border-radius: 30px;
+    background-color: dodgerblue;
+    color: white;
+    transform: rotateY(180deg);
+  }
