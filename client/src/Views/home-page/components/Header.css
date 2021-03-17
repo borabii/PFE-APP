@@ -15,9 +15,11 @@
     margin: 0 20px;
     margin-top: 18px;
   }
-  .header__nav {
+  .header__nav > ul  {
+    background-color: black;
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: row;
+    justify-content: space-between;
   }
   .header__option {
     display: flex;

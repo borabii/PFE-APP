@@ -53,14 +53,16 @@
     border: white;
     color: white ;
   } */
+  
+
 .intro {
 	display: table;
 	width: 100%;
-	
+	padding: 0;
+    margin: 0;
     height: 1000px;
     filter: brightness(75%);
-    
-	background: url(../../image/landing-page-image.jpg) center center no-repeat;
+    background: url(../../image/landing-page-image.jpg) center center no-repeat;
 	background-color: #e5e5e5;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;

@@ -4,9 +4,9 @@ function AboutUs() {
   return (
     <div id="aboutUs">
       <div className="container ">
-        <div className="row">
+        <div className="row justify-content-center">
           <div className="col-xs-12 col-md-7">
-            <div className="aboutUs-text">
+            <div className="aboutUs-text text-center ">
               <h2>About Us</h2>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Posuere

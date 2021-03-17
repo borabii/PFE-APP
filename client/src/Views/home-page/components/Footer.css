@@ -1,4 +1,4 @@
-.footer{
+/* .footer{
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -58,4 +58,8 @@
     .footer__rigthContainer > dl > dd {
       margin:10px;
   
+    } */
+    footer > div{
+      background-color: #fff;
+
     }
