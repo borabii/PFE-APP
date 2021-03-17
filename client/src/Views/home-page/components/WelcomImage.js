@@ -3,7 +3,7 @@ import "./WelcomImage.css";
 // import intro_image from "../../image/landing-page-image.jpg";
 function WelcomImage() {
   return (
-    <header className="welcomImage">
+    <header className="welcomImage" id="home">
       <div className="intro">
         <div className="overlay">
           <div className="container ">

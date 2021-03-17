@@ -7,8 +7,13 @@ function Header() {
       <div className="header__nav">
         <ul className="nav navbar-nav navbar-right">
           <li>
+            <a href="#home" className="page-scroll">
+              Home
+            </a>
+          </li>
+          <li>
             <a href="#topThreeUser" className="page-scroll">
-              Features
+              Top User
             </a>
           </li>
           <li>
@@ -18,7 +23,7 @@ function Header() {
           </li>
           <li>
             <a href="#contact" className="page-scroll">
-              Services
+              Contact
             </a>
           </li>
         </ul>

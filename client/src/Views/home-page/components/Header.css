@@ -16,10 +16,25 @@
     margin-top: 18px;
   }
   .header__nav > ul  {
-    background-color: black;
+    margin-top: 10px;
+    margin-left: 200px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+  }
+  .header__nav > ul > li {
+    color: white;
+    margin: 14px;
+  }
+  .header__nav > ul > li >  a {
+    color: white;
+    margin: 20px;
+    font-family: 'Roboto';
+    font-size: 20px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+
   }
   .header__option {
     display: flex;
@@ -36,6 +51,8 @@
       font-family: 'Roboto';
       font-size: 20px;
       line-height: 21px;
+      font-weight: 400;
+
       letter-spacing: 0.01em
   }
   .header__option > a:hover {
