@@ -13,9 +13,9 @@ function SignIn() {
           </div>
         </div>
         <div className="signIn__rigth">
-          <form className="form__container">
+          <form className="signUpform__container">
             <h1>Connexion</h1>
-            <div className="form__containerInput">
+            <div className="signUpform__containerInput">
               <input type="text" placeholder="Email"></input>
               <input type="text" placeholder="Mots de passe"></input>
               <button type="submit">Connexion</button>
