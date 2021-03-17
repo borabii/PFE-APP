@@ -1,11 +1,10 @@
 import "./App.css";
-import Header from "./Views/components/Header";
+import AdminHomePage from "./Views/admin-pages/AdminHomePage";
 import Home from "./Views/home-page/Home";
-import SignIn from "./Views/home-page/SignIn";
-import SignUp from "./Views/home-page/SignUp";
 function App() {
   return (
     <div className="app">
+<<<<<<< HEAD
  <SignUp />
       {/* <SignUp/>
 
@@ -15,6 +14,10 @@ function App() {
        <SignUp /> */}
 
 
+=======
+      {/* <Home /> */}
+      <AdminHomePage />
+>>>>>>> test
     </div>
   );
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .footer{
   display: flex;
   align-items: center;
@@ -25,6 +26,9 @@
    
   }
   .footer__leftContainer {
+=======
+/* .footer{
+>>>>>>> test
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -61,3 +65,11 @@
   }
  
   
+<<<<<<< HEAD
+=======
+    } */
+    footer > div{
+      background-color: #fff;
+
+    }
+>>>>>>> test

@@ -2,6 +2,7 @@ import React from "react";
 import "./Footer.css";
 function Footer() {
   return (
+<<<<<<< HEAD
     <div className="footer">
         <div className="footer__container">
           <div className="footer__left">
@@ -22,6 +23,11 @@ function Footer() {
     </div>  
 <p>2021 "nom app" all rights reserved </p>
     </div>
+=======
+    <footer class="bg-light text-center text-lg-start">
+      <div class="text-center p-3">©2021 “nom app- All rights Reserved</div>
+    </footer>
+>>>>>>> test
   );
 }
 

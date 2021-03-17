@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .aboutUS{
     background-color: rgb(247, 187, 110);
     display: flex;
@@ -15,4 +16,25 @@
     align-content: center;
     margin:300px
    
+=======
+#aboutUs {
+    padding: 100px 0;
+    height: 1000px;
+    background-color: #fff;
+}
+
+#aboutUs h2 {
+    font-family: 'Roboto';
+    font-size: 5rem;
+    letter-spacing: 0.02rem;
+    position: relative;
+	margin-bottom: 15px;
+	padding-bottom: 15px;
+}
+#aboutUs p {
+    font-size: 1rem;
+    letter-spacing: 0.02rem;
+    line-height: 24px;
+	margin: 30px 0;
+>>>>>>> test
 }

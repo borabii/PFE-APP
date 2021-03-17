@@ -3,18 +3,15 @@
 	background: linear-gradient(to right, #55C3DE 0%, #44C9BB 100%);
 	color: rgba(255,255,255,.75);
 }
-/* #contact .section-title {
-	margin-bottom: 40px;
-} */
+
 #contact .section-title p {
 	font-size: 20px;
 }
 #contact h2 {
 	color: #fff;
-	/* margin-top: 10px; */
 	margin-bottom: 15px;
 	padding-bottom: 15px;
-    font-size: 3rem;
+    font-size: 2rem;
 }
 
 #contact h3 {
@@ -37,12 +34,7 @@
 	color: #1f386e;
 	background: #fff;
 }
-label {
-	font-size: 12px;
-	font-weight: 400;
-	font-family: 'Open Sans', sans-serif;
-	float: left;
-}
+
 #contact .form-control {
 	display: block;
 	width: 100%;
