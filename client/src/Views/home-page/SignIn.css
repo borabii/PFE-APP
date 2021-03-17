@@ -1,13 +1,8 @@
-* {
-  margin: 0;
-  padding: 0;
-  
-}
 .signIn {
   display: flex;
   justify-content: center;
   font-family: Roboto;
-  background-color: #E5E5E5;
+  background-color: #e5e5e5;
 }
 .signIn__container {
   display: flex;
@@ -40,13 +35,13 @@
 .signIn__leftContainer > img {
   width: 200px;
   height: 200px;
-  margin:auto;
+  margin: auto;
   margin-bottom: 18px;
 }
 .signIn__leftContainer > h6 {
   margin-top: 10px;
   margin: auto;
-  font: 0.9em Roboto  ;
+  font: 0.9em Roboto;
 }
 .signIn__rigth {
   display: flex;
@@ -81,30 +76,30 @@
   outline: none;
 }
 .form__containerInput > input:focus {
-  border-color:#55C3DE ;
+  border-color: #55c3de;
 }
-.form__containerInput > button{
+.form__containerInput > button {
   width: 200px;
   height: 35px;
   margin-left: 40px;
-  background: #3ACEB9;
+  background: #3aceb9;
   border: none;
   border-radius: 10px;
   outline: none;
   color: #040941;
   transition-duration: 0.4s;
 }
-.form__containerInput > button:hover{
-  background-color: #55C3DE;
-    border: white;
-    color: white 
+.form__containerInput > button:hover {
+  background-color: #55c3de;
+  border: white;
+  color: white;
 }
 .form__container > h6 {
   margin-top: 20px;
   font-family: Roboto;
   font-size: 12px;
   line-height: 21px;
-  letter-spacing: 0.01em
+  letter-spacing: 0.01em;
 }
 @media screen and (max-width: 600px) {
   .signIn__left {
@@ -114,5 +109,4 @@
     height: 100%;
     width: 100%;
   }
-  
 }
