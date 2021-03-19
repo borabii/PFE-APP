@@ -1,23 +1,22 @@
 .adminHomePage{
-   
-    height: 100%;
 }
 .adminHomePage__navbar{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     background-color: #F6F5F5;
-    width: 100%;
-    height: 70px;
+    height: 8vh;
     position: sticky;
     top: 0;
     z-index: 100;
+    background-color:#F6F5F5;
+
 }
 .nav__option > h2{
     margin: 10px 10px;
 }
 .nav__option > h3 {
-    margin-top: 25%;
+    margin-top: 24px;
 }
 
 .nav__option > button{
@@ -29,7 +28,7 @@
 	background: #3ACEB9;
 	padding: 16px;
     letter-spacing: 0.01em;
-	margin-top: 14px;
+	margin-top: 19px;
     margin-right: 10px;
 	font-size: 20px;
 	font-weight: 400;
@@ -40,15 +39,56 @@
 }
 .adminHomePage__container{
     display: flex;
-    background-color: crimson;
-    height: 717px;
-    
 }
 .adminHomePage__sidbar{
-    height: 100%;
-    background-color: blue;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    width: 15%;
+    height: 92vh;
+    background: #3ACEB9;
+    }
+.adminHomePage__sidbar > .sidbar__item {
+    justify-content: center;
+    /* background-color: white; */
+    margin-left: 50px;
+    margin-top: 20%;
+    width:100%;
+    margin-left:0px;
+
 }
+.adminHomePage__sidbar > .sidbar__item > h2 {
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-bottom: 30px;
+  font-family: 'Roboto';
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #040941;
+}
+.adminHomePage__sidbar > .sidbar__item > h2:hover{
+   color:white;
+}
+.adminHomePage__sidbar>.sidbar__item > dd{
+    margin-top: 10px;
+    margin-left: 25px;
+}
+.adminHomePage__sidbar > .sidbar__item > dd >dl {
+    font-family: "Roboto";
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: #040941;
+}
+
 .adminHomePage__body{
-    height: 100%;
-    background-color: chartreuse;
+    width: 100%;
+    /* background-color: red; */
+}
+.adminHomePage__body > .body__container{
+    width: 100%;
+    height: 700px;   
+    margin-top: 30px; 
+    /* background-color: black; */
+    
 }
