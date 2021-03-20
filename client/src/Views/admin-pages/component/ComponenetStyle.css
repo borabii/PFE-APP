@@ -1,0 +1,77 @@
+.dataTable__top {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 4px;
+  }
+  .top__left{
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+  }
+ .data-card{
+    width: 17rem;
+    height: 7rem;
+    background-color: #F6F5F5;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin: 20px 0px 10px;
+    font-family:"Roboto";
+    font-size: 1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: black;
+  }
+.data-cardTitle{
+    font-family:"Roboto";
+    font-size: 1.4rem;
+    letter-spacing: 0.01rem;
+    font-weight: 300;
+  }
+.dataTable__top > form {
+    display: flex;
+    align-items: flex-end;
+    height: fit-content;
+    margin-top: 125px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #F6F5F5;
+}
+.dataTable__top > form > input{
+  outline: none;
+  border: none;
+  height: 40px;
+  width: 250px;
+  border-radius: 10px 0px 0px 10px;
+  background-color: transparent;
+}
+.my-custom-scrollbar {
+  position: relative;
+  height: 100%;
+  width:100% ;
+  border-radius: 10px  10px;
+  overflow: auto;
+}
+.table-wrapper-scroll-y {
+  display: block;
+}
+.dataTable__top > form > .icon {
+    margin-bottom: 7px;
+}
+.dataTable__bottom{
+    background-color: #F6F5F5;
+    height: 400px;
+    width: 100%;
+    border-radius: 20px;
+}
+.my-table > thead {
+    background-color:#F5B19D ;
+}
+
+
+
+
+
+
+
+

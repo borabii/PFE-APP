@@ -6,50 +6,54 @@ function Dashboard() {
       <div className="container-fluid   px-0 ">
         <div className="row justifycontent-centre  top ">
           <div className="col col-lg-4  ">
-            <div class="card my-card">
-              <div class="card-body">
-                <h5 class="card-title mycard-title">Nombre total Abonné</h5>
-                <p class="card-text">1000</p>
+            <div className="card my-card">
+              <div className="card-body">
+                <h5 className="card-title mycard-title">Nombre total Abonné</h5>
+                <p className="card-text">1000</p>
               </div>
             </div>
           </div>
           <div className="col col-lg-4 ">
-            <div class="card my-card">
-              <div class="card-body">
-                <h5 class="card-title mycard-title">Nombre total Annonceur</h5>
-                <p class="card-text">1000</p>
+            <div className="card my-card">
+              <div className="card-body">
+                <h5 className="card-title mycard-title">
+                  Nombre total Annonceur
+                </h5>
+                <p className="card-text">1000</p>
               </div>
             </div>
           </div>
           <div className="col col-lg-4 ">
-            <div class="card my-card">
-              <div class="card-body">
-                <h5 class="card-title mycard-title">Nombre total admin</h5>
-                <p class="card-text">1000</p>
+            <div className="card my-card">
+              <div className="card-body">
+                <h5 className="card-title mycard-title">Nombre total admin</h5>
+                <p className="card-text">1000</p>
               </div>
             </div>
           </div>
           <div className="col col-lg-4 ">
-            <div class="card my-card">
-              <div class="card-body">
-                <h5 class="card-title mycard-title">Nombre total évenement</h5>
-                <p class="card-text">1000</p>
+            <div className="card my-card">
+              <div className="card-body">
+                <h5 className="card-title mycard-title">
+                  Nombre total évenement
+                </h5>
+                <p className="card-text">1000</p>
               </div>
             </div>
           </div>
           <div className="col col-lg-4 ">
-            <div class="card my-card">
-              <div class="card-body">
-                <h5 class="card-title mycard-title">Nombre total annonce</h5>
-                <p class="card-text">1000</p>
+            <div className="card my-card">
+              <div className="card-body">
+                <h5 className="card-title ">Nombre total annonce</h5>
+                <p className="card-text">1000</p>
               </div>
             </div>
           </div>
           <div className="col col-lg-4 ">
-            <div class="card my-card">
-              <div class="card-body">
-                <h5 class="card-title mycard-title">Nombre total activité</h5>
-                <p class="card-text">1000</p>
+            <div className="card my-card">
+              <div className="card-body">
+                <h5 className="card-title">Nombre total activité</h5>
+                <p className="card-text">1000</p>
               </div>
             </div>
           </div>

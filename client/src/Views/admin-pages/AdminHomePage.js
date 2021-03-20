@@ -1,6 +1,19 @@
 import React from "react";
 import "./AdminHomePage.css";
+import "./component/ComponenetStyle.css";
+import BoiteMessage from "./component/BoiteMessage";
 import Dashboard from "./component/Dashboard";
+import Clock from "react-live-clock";
+import Demande from "./component/Demande";
+import CategoryManagment from "./component/CategoryManagment";
+import PublicationActivity from "./component/PublicationActivity";
+import PublicationAnnonce from "./component/PublicationAnnonce";
+import PublicationEvent from "./component/PublicationEvent";
+import UserAbonné from "./component/UserAbonné";
+import UserAnnonceur from "./component/UserAnnonceur";
+import Reclamation from "./component/Reclamation";
+import AdminManagment from "./component/AdminManagment";
+import AdressManagment from "./component/AdressManagment";
 
 function AdminHomePage() {
   return (
@@ -9,8 +22,8 @@ function AdminHomePage() {
         <div className="navbar nav__option">
           <h2>Welcome Admin</h2>
         </div>
-        <div className="nav__option">
-          <h3>11:12</h3>
+        <div className="nav__option clock">
+          <Clock format={"HH:mm:ss"} />{" "}
         </div>
         <div className="nav__option">
           <button>
@@ -19,30 +32,42 @@ function AdminHomePage() {
         </div>
       </div>
       <div className="adminHomePage__container">
-        <div className=" adminHomePage__sidbar">
+        <div className="container  adminHomePage__sidbar">
           <div className="sidbar__item">
-            <h2>Dashboard</h2>
-            <h2>Gestion admins</h2>
-            <h2>Gestion Catégorie</h2>
-            <h2>Gestion localité</h2>
-            <h2>Publication</h2>
+            <h4>Dashboard</h4>
+            <h3>Gestion admins</h3>
+            <h3>Gestion Catégorie</h3>
+            <h3>Gestion localité</h3>
+            <h3>Publication</h3>
             <dd>
               <dl>Annonce</dl>
               <dl>Activité</dl>
               <dl>Evénement</dl>
             </dd>
-            <h2>Users</h2>
+            <h3>Users</h3>
             <dd>
               <dl>Annonceur</dl>
               <dl>Abonné</dl>
             </dd>
-            <h2>Réclamation</h2>
-            <h2>Demmande</h2>
+            <h3>Réclamation</h3>
+            <h3>Demmande</h3>
           </div>
         </div>
-        <div className="adminHomePage__body">
-          <div className=" container-fluid body__container">
-            <Dashboard />
+
+        <div className=" container-fluid">
+          <div className=" container-fluid w-100 px-4  body-container">
+            {/* <Dashboard /> */}
+            {/* <BoiteMessage /> */}
+            {/* <Demande /> */}
+            {/* <CategoryManagment /> */}
+            {/* <PublicationActivity /> */}
+            {/* <PublicationAnnonce /> */}
+            {/* <PublicationEvent /> */}
+            {/* <UserAbonné /> */}
+            {/* <UserAnnonceur /> */}
+            {/* <Reclamation /> */}
+            {/* <AdminManagment /> */}
+            {/* <AdressManagment /> */}
           </div>
         </div>
       </div>

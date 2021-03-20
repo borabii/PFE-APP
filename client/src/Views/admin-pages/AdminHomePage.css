@@ -1,41 +1,46 @@
-.adminHomePage{
-}
 .adminHomePage__navbar{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     background-color: #F6F5F5;
-    height: 8vh;
+    height: 10vh;
     position: sticky;
     top: 0;
     z-index: 100;
     background-color:#F6F5F5;
+    overflow-x: hidden;
 
 }
 .nav__option > h2{
-    margin: 10px 10px;
+    margin-top: 4px ;
+    font-size: 1.5rem;
 }
 .nav__option > h3 {
     margin-top: 24px;
 }
+.clock{
+    font-size: 2rem;
+     margin-top: 10px;
+}
 
 .nav__option > button{
-    width: 170px;
-    height: 45px;
+    width: 100%;
+    height: 40px;
     font-family: 'Roboto';
 	text-transform: uppercase;
    	color: #fff;
 	background: #3ACEB9;
 	padding: 16px;
     letter-spacing: 0.01em;
-	margin-top: 19px;
+	margin-top: 15px;
     margin-right: 10px;
-	font-size: 20px;
+	font-size: 15px;
 	font-weight: 400;
     line-height: 10px;
     border-radius: 25px;
 	transition: all 0.5s linear;
-	border: 0
+	border: none;
+    outline: none;
 }
 .adminHomePage__container{
     display: flex;
@@ -43,9 +48,9 @@
 .adminHomePage__sidbar{
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
-    width: 15%;
-    height: 92vh;
+    width: 19%;
+    /* height: 100%; */
+    
     background: #3ACEB9;
     }
 .adminHomePage__sidbar > .sidbar__item {
@@ -57,20 +62,18 @@
     margin-left:0px;
 
 }
-.adminHomePage__sidbar > .sidbar__item > h2 {
-  margin-top: 20px;
-  margin-left: 10px;
-  margin-bottom: 30px;
+.adminHomePage__sidbar > .sidbar__item > h3 {
   font-family: 'Roboto';
-  font-weight: 700;
+  margin-bottom: 10px;
   letter-spacing: 0.02em;
   color: #040941;
 }
-.adminHomePage__sidbar > .sidbar__item > h2:hover{
+.adminHomePage__sidbar > .sidbar__item > h3:hover{
    color:white;
+   font-weight: 800;
 }
 .adminHomePage__sidbar>.sidbar__item > dd{
-    margin-top: 10px;
+    /* margin-top: 10px; */
     margin-left: 25px;
 }
 .adminHomePage__sidbar > .sidbar__item > dd >dl {
@@ -80,15 +83,6 @@
     letter-spacing: 0.01em;
     color: #040941;
 }
-
-.adminHomePage__body{
-    width: 100%;
-    /* background-color: red; */
-}
-.adminHomePage__body > .body__container{
-    width: 100%;
-    height: 700px;   
-    margin-top: 30px; 
-    /* background-color: black; */
-    
+.body-container{
+    margin-top: 10px;
 }

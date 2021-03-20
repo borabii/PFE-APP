@@ -1,15 +1,16 @@
 import React from "react";
-import DeleteIcon from "@material-ui/icons/Delete";
 import SearchIcon from "@material-ui/icons/Search";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-function PublicationEvent() {
+function AdminManagment() {
   return (
-    <div className="publicationEvent">
+    <div className="adminManagment">
       <div className="dataTable">
         <div className="dataTable__top">
           <div className="card data-card ">
-            <div className="card-body px-2  ">
-              <h5 className="card-title data-cardTitle"> Nombre évenement</h5>
+            <div className="card-body px-4  ">
+              <h5 className="card-title data-cardTitle"> Nombre admin</h5>
               <p className="card-text">1000</p>
             </div>
           </div>
@@ -25,30 +26,34 @@ function PublicationEvent() {
             </div>
           </form>
         </div>
-        {/* data table */}
         <div className="dataTable__bottom">
           <div class="table-wrapper-scroll-y my-custom-scrollbar">
             <table className="table  table-hover table-striped   text-center my-table">
               <thead>
                 <tr>
                   <th scope="col">id</th>
-                  <th scope="col">ID annonceur</th>
-                  <th scope="col">Nom annonceur</th>
-                  <th scope="col">Catégorie</th>
+                  <th scope="col">Nom</th>
+                  <th scope="col">Prenom</th>
+
+                  <th scope="col">Email</th>
                   <th scope="col">Date</th>
+                  <th scope="col">Permission</th>
+
                   <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <th scope="row">1</th>
-                  <td>ID</td>
-                  <td>ID annonceur</td>
-                  <td> Nom annonceur</td>
-                  <td>Catégorie</td>
+                  <td>114141414141414</td>
+                  <td>dddddddddddddd</td>
+                  <td>dddddddddddddd</td>
+                  <td>eeeeeee@gmail.com</td>
+                  <td>16/05/1999</td>
+                  <td>ddddddddddddddddddddddddd</td>
 
                   <td>
                     <DeleteIcon />
+                    <EditIcon />
                     <VisibilityIcon />
                   </td>
                 </tr>
@@ -61,4 +66,4 @@ function PublicationEvent() {
   );
 }
 
-export default PublicationEvent;
+export default AdminManagment;
