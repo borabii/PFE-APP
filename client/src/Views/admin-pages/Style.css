@@ -142,19 +142,19 @@
   width: 100%;
   height: 40px;
   font-family: 'Roboto';
-text-transform: uppercase;
-   color: #fff;
-background: #3ACEB9;
-padding: 16px;
+  text-transform: uppercase;
+  color: #fff;
+  background: #3ACEB9;
+  padding: 16px;
   letter-spacing: 0.01em;
-margin-top: 15px;
+  margin-top: 15px;
   margin-right: 10px;
-font-size: 15px;
-font-weight: 400;
+  font-size: 15px;
+  font-weight: 400;
   line-height: 10px;
   border-radius: 25px;
-transition: all 0.5s linear;
-border: none;
+  transition: all 0.5s linear;
+  border: none;
   outline: none;
 }
 .adminHomePage__container{
@@ -198,4 +198,134 @@ color: #040941;
 .body-container{
   margin-top: 10px;
   
+}
+
+/*  add admin popUp style*/
+.addAdminPopUP{
+  display: flex;
+  flex-direction: column;
+  
+  justify-content: center;
+}
+.addAdminPopUP > form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+}
+.addAdminPopUP > form > input {
+  height: 40px;
+  border: 2px solid #3aceb9;
+  border-radius: 10px;
+  margin-bottom:15px;
+}
+.addAdminPopUP > form > button {
+  background-color: #3aceb9;
+  border-radius: 10px;
+  margin-left: 30px;
+  margin-top:10px;
+  width: 150px;
+  transition: 0.4s;
+  
+}
+.addAdminPopUP > form > button:hover {
+  background-color: #55c3de;
+  color: white;
+}
+
+.addAdminPopUP > h3 {
+  font-family: "Roboto";
+  
+}
+
+/* edit admin popUp style */
+.editAdminPopUP {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.editAdminPopUP > h3 {
+  font-family: "Roboto";
+  margin: 20px;
+}
+.editAdminPopUP > form {
+  display: flex;
+  flex-direction: column;
+}
+.editAdminPopUP > form > input {
+  height: 40px;
+  border: 2px solid #3aceb9;
+  border-radius: 10px;
+  margin-bottom:15px;
+  outline: none;
+}
+.editAdminPopUP > form > button {
+  background-color: #3aceb9;
+  border-radius: 10px;
+  margin-left: 30px;
+  margin-top:10px;
+  width: 150px;
+  transition: 0.4s;
+}
+.editAdminPopUP > form > button:hover {
+  background-color: #55c3de;
+  color: white;
+}
+
+
+/* add adress popUp style */
+.addAdressPopUP{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.addAdressPopUP > form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.addAdressPopUP > form > input {
+
+  border: solid #3aceb9;
+  border-radius: 10px;
+  margin: 5px;
+}
+.addAdressPopUP > form > button {
+  background-color: #3aceb9;
+  border-radius: 10px;
+  margin-left: 30px;
+  width: 150px;
+}
+.addAdressPopUP > form > button:hover {
+  background-color: #55c3de;
+}
+
+.addAdressPopUP > h3 {
+  font: "Roboto";
+  margin: 20px;
+}
+
+/* add catégorie popUp style */
+.addCategoryPopUP{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.addCategoryPopUP > .img__holder{
+  height: 150px;
+  border: solid #3aceb9;
+
+}
+.addCategoryPopUP > form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10px;
+}
+.addCategoryPopUP > form > button {
+  background-color: #3aceb9;
+  border-radius: 10px;
+  margin-left: 30px;
+  margin-top: 20px;
+  width: 150px;
 }

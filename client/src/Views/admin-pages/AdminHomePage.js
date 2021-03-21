@@ -15,6 +15,10 @@ import UserAnnonceur from "./component/UserAnnonceur";
 import Reclamation from "./component/Reclamation";
 import AdminManagment from "./component/AdminManagment";
 import AdressManagment from "./component/AdressManagment";
+import AddAdminPopUp from "./component/AddAdminPopUp";
+import EditAdminPopUp from "./component/EditAdminPopUp";
+import AddAddressPopUp from "./component/AddAddressPopUp";
+import AddCategoryPopUP from "./component/AddCategoryPopUP";
 
 function AdminHomePage() {
   return (
@@ -58,7 +62,7 @@ function AdminHomePage() {
 
         <div className=" container-fluid">
           <div className=" container-fluid w-100 px-4  body-container">
-            <Dashboard />
+            {/* <Dashboard /> */}
             {/* <BoiteMessage /> */}
             {/* <Demande /> */}
             {/* <CategoryManagment /> */}
@@ -70,6 +74,11 @@ function AdminHomePage() {
             {/* <Reclamation /> */}
             {/* <AdminManagment /> */}
             {/* <AdressManagment /> */}
+
+            {/* <AddAdminPopUp /> */}
+            {/* <EditAdminPopUp /> */}
+            {/* <AddAddressPopUp /> */}
+            <AddCategoryPopUP />
           </div>
         </div>
       </div>
