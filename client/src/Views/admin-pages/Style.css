@@ -1,0 +1,201 @@
+.dataTable__top {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 4px;
+  }
+  .top__left{
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+  }
+ .data-card{
+    width: 17rem;
+    height: 7rem;
+    background-color: #F6F5F5;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin: 20px 0px 10px;
+    font-family:"Roboto";
+    font-size: 1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: black;
+  }
+.data-cardTitle{
+    font-family:"Roboto";
+    font-size: 1.4rem;
+    letter-spacing: 0.01rem;
+    font-weight: 300;
+  }
+
+.dataTable__top > form {
+    display: flex;
+    align-items: flex-end;
+    height: fit-content;
+    margin-top: 125px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #F6F5F5;
+}
+.dataTable__top > form > input{
+  outline: none;
+  border: none;
+  height: 40px;
+  width: 250px;
+  border-radius: 10px 0px 0px 10px;
+  background-color: transparent;
+}
+
+.dataTable__top > form > .icon {
+    margin-bottom: 7px;
+}
+.dataTable__bottom{
+    background-color: #F6F5F5;
+    height: 400px;
+    width: 100%;
+    border-radius: 20px;
+}
+.my-table > thead {
+    background-color:#F5B19D ;
+}
+
+.my-custom-scrollbar {
+  position: relative;
+  height: 100%;
+  width:100% ;
+  border-radius: 10px  10px;
+  overflow: auto;
+}
+.table-wrapper-scroll-y {
+  display: block;
+}
+
+/* style  for componenet with add button  */
+#form-1{
+  margin-top: 150px;
+  margin-bottom: 0px;
+}
+
+.addButton{
+  width: 150px;
+  height: 40px;
+  margin-top: 10px;
+  background: #3ACEB9;
+  border-radius: 15px; 
+  color: white;
+  font-family: 'Roboto';
+  
+}
+/* dashboard  style*/
+.my-card{
+  width: 20rem;
+  height: 10rem;
+  background-color: #F6F5F5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  margin: 20px;
+  font-family:"Roboto";
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: black;
+}
+.mycard-title{
+  font-family:"Roboto";
+  font-size: 1.5rem;
+  letter-spacing: 0.02rem;
+  font-weight: 400;
+}
+
+.bottom {
+  background-color: red;
+}
+
+/* Admin home page style */
+.adminHomePage__navbar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #F6F5F5;
+  height: 10vh;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color:#F6F5F5;
+  overflow-x: hidden;
+
+}
+.nav__option > h2{
+  margin-top: 4px ;
+  font-size: 1.5rem;
+}
+.nav__option > h3 {
+  margin-top: 24px;
+}
+.clock{
+  font-size: 2rem;
+   margin-top: 10px;
+}
+
+.nav__option > button{
+  width: 100%;
+  height: 40px;
+  font-family: 'Roboto';
+text-transform: uppercase;
+   color: #fff;
+background: #3ACEB9;
+padding: 16px;
+  letter-spacing: 0.01em;
+margin-top: 15px;
+  margin-right: 10px;
+font-size: 15px;
+font-weight: 400;
+  line-height: 10px;
+  border-radius: 25px;
+transition: all 0.5s linear;
+border: none;
+  outline: none;
+}
+.adminHomePage__container{
+  display: flex;
+}
+.adminHomePage__sidbar{
+  display: flex;
+  flex-direction: column;
+  width: 19%;
+  height: 100vh;
+  background: #3ACEB9;
+  }
+.adminHomePage__sidbar > .sidbar__item {
+  justify-content: center;
+  margin-left: 50px;
+  margin-top: 20%;
+  width:100%;
+  margin-left:0px;
+
+}
+.adminHomePage__sidbar > .sidbar__item > h3 {
+font-family: 'Roboto';
+margin-bottom: 10px;
+letter-spacing: 0.02em;
+color: #040941;
+}
+.adminHomePage__sidbar > .sidbar__item > h3:hover{
+ color:white;
+ font-weight: 800;
+}
+.adminHomePage__sidbar>.sidbar__item > dd{
+  margin-left: 25px;
+}
+.adminHomePage__sidbar > .sidbar__item > dd >dl {
+  font-family: "Roboto";
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: #040941;
+}
+.body-container{
+  margin-top: 10px;
+  
+}

@@ -1,10 +1,9 @@
 import React from "react";
-import "./Dashboard.css";
 function Dashboard() {
   return (
     <div className="dashboard">
       <div className="container-fluid   px-0 ">
-        <div className="row justifycontent-centre  top ">
+        <div className="card-deck">
           <div className="col col-lg-4  ">
             <div className="card my-card">
               <div className="card-body">
@@ -44,7 +43,9 @@ function Dashboard() {
           <div className="col col-lg-4 ">
             <div className="card my-card">
               <div className="card-body">
-                <h5 className="card-title ">Nombre total annonce</h5>
+                <h5 className="card-title mycard-title">
+                  Nombre total annonce
+                </h5>
                 <p className="card-text">1000</p>
               </div>
             </div>
@@ -52,7 +53,9 @@ function Dashboard() {
           <div className="col col-lg-4 ">
             <div className="card my-card">
               <div className="card-body">
-                <h5 className="card-title">Nombre total activité</h5>
+                <h5 className="card-title mycard-title">
+                  Nombre total activité
+                </h5>
                 <p className="card-text">1000</p>
               </div>
             </div>

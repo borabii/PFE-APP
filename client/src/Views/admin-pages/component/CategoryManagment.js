@@ -7,15 +7,25 @@ function CategoryManagment() {
     <div className="categoryManagment">
       <div className="dataTable">
         <div className="dataTable__top">
-          <div className="card data-card ">
-            <div className="card-body px-2  ">
-              <h5 className="card-title data-cardTitle"> Nombre Catégorie</h5>
-              <p className="card-text">1000</p>
+          <div className="container px-0">
+            <div className="row">
+              <div className="col-12 ">
+                <div className="card data-card ">
+                  <div className="card-body px-1  ">
+                    <h5 className="card-title data-cardTitle">
+                      Nombre catégorie
+                    </h5>
+                    <p className="card-text">1000</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-12 ">
+                <button className="btn addButton">Ajouter catégorie</button>
+              </div>
             </div>
           </div>
-          <button>feeeeeeee</button>
-
-          <form>
+          <form id="form-1">
             <input
               className="form-control mr-sm-2 "
               type="search"

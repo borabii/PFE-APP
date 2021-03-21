@@ -1,9 +1,10 @@
 import React from "react";
-import "./AdminHomePage.css";
-import "./component/ComponenetStyle.css";
+import "./Style.css";
+// React Clock for real time display
+import Clock from "react-live-clock";
+
 import BoiteMessage from "./component/BoiteMessage";
 import Dashboard from "./component/Dashboard";
-import Clock from "react-live-clock";
 import Demande from "./component/Demande";
 import CategoryManagment from "./component/CategoryManagment";
 import PublicationActivity from "./component/PublicationActivity";
@@ -23,7 +24,8 @@ function AdminHomePage() {
           <h2>Welcome Admin</h2>
         </div>
         <div className="nav__option clock">
-          <Clock format={"HH:mm:ss"} />{" "}
+          {/* displaying system time for user ( set ticking to true for auto upadate each second) */}
+          <Clock format={"HH:mm:ss"} ticking={true} />{" "}
         </div>
         <div className="nav__option">
           <button>
@@ -56,7 +58,7 @@ function AdminHomePage() {
 
         <div className=" container-fluid">
           <div className=" container-fluid w-100 px-4  body-container">
-            {/* <Dashboard /> */}
+            <Dashboard />
             {/* <BoiteMessage /> */}
             {/* <Demande /> */}
             {/* <CategoryManagment /> */}
