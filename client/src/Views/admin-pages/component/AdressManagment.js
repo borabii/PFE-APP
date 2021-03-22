@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import AddAddressPopUp from "./AddAddressPopUp";
 function AdressManagment() {
+  const [addAdressModalShow, setAddAdressModalShow] = useState(false);
+
   return (
     <div className="adressManagment">
       <div className="dataTable">
@@ -12,7 +15,7 @@ function AdressManagment() {
             <div className="container px-0">
               <div className="row">
                 <div className="col-6 ">
-                  <div className="card data-card ">
+                  <div className="data-card ">
                     <div className="card-body px-1  ">
                       <h5 className="card-title data-cardTitle">
                         Nombre gouvernorat
@@ -22,7 +25,7 @@ function AdressManagment() {
                   </div>
                 </div>
                 <div className="col-6 ">
-                  <div className="card data-card ">
+                  <div className="data-card ">
                     <div className="card-body px-1  ">
                       <h5 className="card-title data-cardTitle">
                         Nombre ville
@@ -33,7 +36,16 @@ function AdressManagment() {
                 </div>
 
                 <div className="col-12 ">
-                  <button className="btn addButton">Ajouter localité</button>
+                  <AddAddressPopUp
+                    show={addAdressModalShow}
+                    onHide={() => setAddAdressModalShow(false)}
+                  />
+                  <button
+                    className="addButton"
+                    onClick={() => setAddAdressModalShow(true)}
+                  >
+                    Ajouter localité
+                  </button>
                 </div>
               </div>
             </div>
@@ -75,10 +87,16 @@ function AdressManagment() {
                   <td>16/05/1999</td>
                   <td>ddddddddddddddddddddddddd</td>
 
-                  <td>
-                    <DeleteIcon />
-                    <EditIcon />
-                    <VisibilityIcon />
+                  <td id="icone-action">
+                    <div>
+                      <VisibilityIcon />
+                    </div>
+                    <div id="ff">
+                      <EditIcon />
+                    </div>
+                    <div>
+                      <DeleteIcon />
+                    </div>
                   </td>
                 </tr>
               </tbody>

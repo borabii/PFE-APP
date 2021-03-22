@@ -7,8 +7,8 @@ function UserAbonné() {
     <div className="userAbonné">
       <div className="dataTable">
         <div className="dataTable__top">
-          <div className="card data-card ">
-            <div className="card-body px-4  ">
+          <div className="data-card">
+            <div className="card-body px-4">
               <h5 className="card-title data-cardTitle"> Nombre abonné</h5>
               <p className="card-text">1000</p>
             </div>
@@ -47,9 +47,13 @@ function UserAbonné() {
                   <td> Nom annonceur</td>
                   <td>Catégorie</td>
 
-                  <td>
-                    <DeleteIcon />
-                    <VisibilityIcon />
+                  <td id="icone-action">
+                    <div>
+                      <VisibilityIcon />
+                    </div>
+                    <div id="ff">
+                      <DeleteIcon />
+                    </div>
                   </td>
                 </tr>
               </tbody>

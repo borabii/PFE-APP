@@ -7,7 +7,7 @@ function PublicationAnnonce() {
     <div className="publicationAnnonce">
       <div className="dataTable">
         <div className="dataTable__top">
-          <div className="card data-card ">
+          <div className=" data-card ">
             <div className="card-body px-4  ">
               <h5 className="card-title data-cardTitle"> Nombre Annonce</h5>
               <p className="card-text">1000</p>
@@ -47,9 +47,13 @@ function PublicationAnnonce() {
                   <td> Nom annonceur</td>
                   <td>Catégorie</td>
 
-                  <td>
-                    <DeleteIcon />
-                    <VisibilityIcon />
+                  <td id="icone-action">
+                    <div>
+                      <VisibilityIcon />
+                    </div>
+                    <div id="ff">
+                      <DeleteIcon />
+                    </div>
                   </td>
                 </tr>
               </tbody>

@@ -54,7 +54,7 @@ function BoiteMessage() {
     <div className="boiteMessage">
       <div className="dataTable">
         <div className="dataTable__top">
-          <div className="card data-card ">
+          <div className=" data-card ">
             <div className="card-body px-4  ">
               <h5 className="card-title data-cardTitle"> Nombre Message</h5>
               <p className="card-text">1000</p>

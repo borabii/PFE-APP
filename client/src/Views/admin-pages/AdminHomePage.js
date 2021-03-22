@@ -38,7 +38,7 @@ function AdminHomePage() {
         </div>
       </div>
       <div className="adminHomePage__container">
-        <div className="container  adminHomePage__sidbar">
+        <div className=" adminHomePage__sidbar">
           <div className="sidbar__item">
             <h4>Dashboard</h4>
             <h3>Gestion admins</h3>
@@ -72,13 +72,13 @@ function AdminHomePage() {
             {/* <UserAbonné /> */}
             {/* <UserAnnonceur /> */}
             {/* <Reclamation /> */}
-            {/* <AdminManagment /> */}
+            <AdminManagment />
             {/* <AdressManagment /> */}
 
             {/* <AddAdminPopUp /> */}
             {/* <EditAdminPopUp /> */}
             {/* <AddAddressPopUp /> */}
-            <AddCategoryPopUP />
+            {/* <AddCategoryPopUP /> */}
           </div>
         </div>
       </div>

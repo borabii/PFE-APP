@@ -10,7 +10,7 @@ function CategoryManagment() {
           <div className="container px-0">
             <div className="row">
               <div className="col-12 ">
-                <div className="card data-card ">
+                <div className="data-card ">
                   <div className="card-body px-1  ">
                     <h5 className="card-title data-cardTitle">
                       Nombre catégorie
@@ -21,7 +21,7 @@ function CategoryManagment() {
               </div>
 
               <div className="col-12 ">
-                <button className="btn addButton">Ajouter catégorie</button>
+                <button className=" addButton">Ajouter catégorie</button>
               </div>
             </div>
           </div>
@@ -53,9 +53,13 @@ function CategoryManagment() {
                   <th scope="row">1</th>
                   <td>ffff</td>
 
-                  <td>
-                    <VisibilityIcon />
-                    <DeleteIcon />
+                  <td id="icone-action">
+                    <div>
+                      <VisibilityIcon />
+                    </div>
+                    <div id="ff">
+                      <DeleteIcon />
+                    </div>
                   </td>
                 </tr>
               </tbody>

@@ -7,7 +7,7 @@ function UserAnnonceur() {
     <div className="userAnnonceur">
       <div className="dataTable">
         <div className="dataTable__top">
-          <div className="card data-card ">
+          <div className=" data-card ">
             <div className="card-body px-2  ">
               <h5 className="card-title data-cardTitle"> Nombre annonceur</h5>
               <p className="card-text">1000</p>
@@ -48,9 +48,13 @@ function UserAnnonceur() {
                   <td> Nom annonceur</td>
                   <td>Catégorie</td>
                   <td>16/09/000</td>
-                  <td>
-                    <DeleteIcon />
-                    <VisibilityIcon />
+                  <td id="icone-action">
+                    <div>
+                      <VisibilityIcon />
+                    </div>
+                    <div id="ff">
+                      <DeleteIcon />
+                    </div>
                   </td>
                 </tr>
               </tbody>
