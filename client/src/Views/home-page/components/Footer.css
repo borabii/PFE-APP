@@ -1,34 +1,4 @@
-<<<<<<< HEAD
-.footer{
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  height: 220px;
-  background-color: #f4ae44;
-}
-  .footer > p {
-    margin-bottom: 5px;
-  }
-  .footer__container {
-    display: flex;
-    flex-direction: row;
-    width:100%;
-    height: 200px;
-    }
-
-  .footer__left {
-    display: flex;
-    justify-content: center;
-    background: #f4ae44;
-    width:50%;
-    color:white;
-    
-   
-  }
-  .footer__leftContainer {
-=======
 /* .footer{
->>>>>>> test
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -65,11 +35,7 @@
   }
  
   
-<<<<<<< HEAD
-=======
     } */
-    footer > div{
-      background-color: #fff;
-
-    }
->>>>>>> test
+footer > div {
+  background-color: #fff;
+}

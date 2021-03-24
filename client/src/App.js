@@ -5,20 +5,8 @@ import Home from "./Views/home-page/Home";
 function App() {
   return (
     <div className="app">
-<<<<<<< HEAD
- <SignUp />
-      {/* <SignUp/>
-
-     <Home />
-      <Header />
-      <SignIn /> 
-       <SignUp /> */}
-
-
-=======
-      {/* <Home /> */}
-      <AdminHomePage />
->>>>>>> test
+      <Home />
+      {/* <AdminHomePage /> */}
     </div>
   );
 }
