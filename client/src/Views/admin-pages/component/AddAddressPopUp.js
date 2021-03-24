@@ -1,9 +1,6 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-import ModalHeader from "react-bootstrap/ModalHeader";
-import ModalTitle from "react-bootstrap/ModalTitle";
-import ModalBody from "react-bootstrap/ModalBody";
-import ModalFooter from "react-bootstrap/ModalFooter";
+
 function AddAddressPopUp(props) {
   return (
     <Modal
@@ -29,9 +26,6 @@ function AddAddressPopUp(props) {
           </form>
         </div>
       </Modal.Body>
-      {/* <Modal.Footer>
-        <button onClick={props.onHide}>Annuler</button>
-      </Modal.Footer> */}
     </Modal>
   );
 }
