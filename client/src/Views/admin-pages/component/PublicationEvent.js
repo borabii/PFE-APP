@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SearchIcon from "@material-ui/icons/Search";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import DetailEventPopUp from "./DetailEventPopUp";
 function PublicationEvent() {
+  const [addAdminModalShow, setAddAdminModalShow] = useState(false);
+
   return (
     <div className="publicationEvent">
       <div className="dataTable">
@@ -49,7 +52,13 @@ function PublicationEvent() {
 
                   <td id="icone-action">
                     <div>
-                      <VisibilityIcon />
+                      <DetailEventPopUp
+                        show={addAdminModalShow}
+                        onHide={() => setAddAdminModalShow(false)}
+                      />
+                      <VisibilityIcon
+                        onClick={() => setAddAdminModalShow(true)}
+                      />
                     </div>
                     <div id="ff">
                       <DeleteIcon />

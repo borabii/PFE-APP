@@ -1,7 +1,7 @@
-import React from "react";
-// import "./Demande.css";
+import React, { useState } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import DetailReqAnnonceurPopUp from "./DetailReqAnnonceurPopUp";
 let Datas = [
   {
     firstName: "Home",
@@ -31,20 +31,7 @@ let Datas = [
     firstName: "Home",
     lastName: "ff",
   },
-  {
-    firstName: "Home",
-    lastName: "ff",
-  },
-  {
-    firstName: "Home",
-    lastName: "ff",
-  },
-  {
-    firstName: "Home",
-    lastName: "ff",
-    cc: "Home",
-    lastName: "ff",
-  },
+
   {
     firstName: "Home",
     lastName: "ff",
@@ -52,6 +39,8 @@ let Datas = [
 ];
 
 function Demande() {
+  const [detailReqModalShow, setDetailReqModalShowModalShow] = useState(false);
+
   return (
     <div className="demande">
       <div className="dataTable">
@@ -98,7 +87,13 @@ function Demande() {
                       <td>{data.firstName}</td>
                       <td>{data.lastName}</td>
                       <td>
-                        <VisibilityIcon />
+                        <DetailReqAnnonceurPopUp
+                          show={detailReqModalShow}
+                          onHide={() => setDetailReqModalShowModalShow(false)}
+                        />
+                        <VisibilityIcon
+                          onClick={() => setDetailReqModalShowModalShow(true)}
+                        />
                       </td>
                     </tr>
                   );

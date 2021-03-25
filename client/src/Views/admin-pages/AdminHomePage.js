@@ -72,13 +72,8 @@ function AdminHomePage() {
             {/* <UserAbonné /> */}
             {/* <UserAnnonceur /> */}
             {/* <Reclamation /> */}
-            <AdminManagment />
-            {/* <AdressManagment /> */}
-
-            {/* <AddAdminPopUp /> */}
-            {/* <EditAdminPopUp /> */}
-            {/* <AddAddressPopUp /> */}
-            {/* <AddCategoryPopUP /> */}
+            {/* <AdminManagment /> */}
+            <AdressManagment />
           </div>
         </div>
       </div>

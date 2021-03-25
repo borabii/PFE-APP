@@ -63,7 +63,7 @@ function Dashboard() {
           </div>
         </div>
         <div className="container-fluid px-0 w-100">
-          <div className="row bottom">
+          <div className="row bottom-dash">
             <div className="col col-lg-12  ">
               4444dddddddddddddddddddddddddddddddddddddddddddddddddd
               4444dddddddddddddddddddddddddddddddddddddddddddddddddd

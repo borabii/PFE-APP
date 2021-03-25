@@ -1,6 +1,11 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-
+import Select from "react-select";
+const options = [
+  { value: "chocolate", label: "Chocolate" },
+  { value: "strawberry", label: "Strawberry" },
+  { value: "vanilla", label: "Vanilla" },
+];
 function AddAdminPopUp(props) {
   return (
     <Modal
@@ -21,7 +26,13 @@ function AddAdminPopUp(props) {
             <input type="text" placeholder=" Nom" />
             <input type="email" placeholder=" Email" />
             <input type=" number" placeholder=" Tel" />
-            <input type="text" placeholder=" Permission" />
+            <Select
+              isMulti
+              name="colors"
+              options={options}
+              className="select"
+              classNamePrefix="select"
+            />
             <input type="password" placeholder=" Mots de passe" />
             <button className="btn" type="submit">
               Ajouter

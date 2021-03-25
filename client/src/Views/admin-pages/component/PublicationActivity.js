@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SearchIcon from "@material-ui/icons/Search";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import DetailActivityPopUp from "./DetailActivityPopUp";
+
 function PublicationActivity() {
+  const [addAdminModalShow, setAddAdminModalShow] = useState(false);
+
   return (
     <div className="publicationActivity">
       <div className="dataTable">
         <div className="dataTable__top">
           <div className=" data-card ">
             <div className="card-body px-4  ">
-              <h5 className="card-title data-cardTitle"> Nombre Demande</h5>
+              <h5 className="card-title data-cardTitle"> Nombre Activité</h5>
               <p className="card-text">1000</p>
             </div>
           </div>
@@ -49,7 +53,13 @@ function PublicationActivity() {
 
                   <td id="icone-action">
                     <div>
-                      <VisibilityIcon />
+                      <DetailActivityPopUp
+                        show={addAdminModalShow}
+                        onHide={() => setAddAdminModalShow(false)}
+                      />
+                      <VisibilityIcon
+                        onClick={() => setAddAdminModalShow(true)}
+                      />
                     </div>
                     <div id="ff">
                       <DeleteIcon />

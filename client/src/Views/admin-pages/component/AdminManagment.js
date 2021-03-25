@@ -9,7 +9,11 @@ import EditAdminPopUp from "./EditAdminPopUp";
 function AdminManagment() {
   const [editAdminModalShow, setEditAdminModalShow] = useState(false);
   const [addAdminModalShow, setAddAdminModalShow] = useState(false);
-
+  const options = [
+    { value: "chocolate", label: "Chocolate" },
+    { value: "strawberry", label: "Strawberry" },
+    { value: "vanilla", label: "Vanilla" },
+  ];
   return (
     <div className="adminManagment">
       <div className="dataTable">
@@ -59,11 +63,9 @@ function AdminManagment() {
                   <th scope="col">id</th>
                   <th scope="col">Nom</th>
                   <th scope="col">Prenom</th>
-
                   <th scope="col">Email</th>
                   <th scope="col">Date</th>
                   <th scope="col">Permission</th>
-
                   <th scope="col">Action</th>
                 </tr>
               </thead>
@@ -107,6 +109,8 @@ function AdminManagment() {
                     <div id="ff">
                       <EditAdminPopUp
                         show={editAdminModalShow}
+                        options={options}
+                        defaultValue={options[2]} //passing admi  exsisted permission
                         onHide={() => setEditAdminModalShow(false)}
                       />
                       <EditIcon onClick={() => setEditAdminModalShow(true)} />

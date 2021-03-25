@@ -1,5 +1,6 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
+import Select from "react-select";
 
 function EditAdminPopUp(props) {
   return (
@@ -18,17 +19,20 @@ function EditAdminPopUp(props) {
       <Modal.Body>
         <div className="editAdminPopUP">
           <form>
-            <input type="text" placeholder=" Permission" />
-            <input type="password" placeholder=" Mots de passe" />
+            <Select
+              isMulti
+              defaultValue={props.defaultValue}
+              name="colors"
+              options={props.options}
+              className="select"
+              classNamePrefix="select"
+            />
             <button className="btn" type="submit">
               Modifier
             </button>
           </form>
         </div>
       </Modal.Body>
-      {/* <Modal.Footer>
-     <button onClick={props.onHide}>Annuler</button>
-   </Modal.Footer> */}
     </Modal>
   );
 }

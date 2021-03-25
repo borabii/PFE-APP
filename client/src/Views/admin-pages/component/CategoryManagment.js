@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import DeleteIcon from "@material-ui/icons/Delete";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import AddCategoryPopUP from "./AddCategoryPopUP";
 function CategoryManagment() {
+  const [addAdminModalShow, setAddAdminModalShow] = useState(false);
+
   return (
     <div className="categoryManagment">
       <div className="dataTable">
@@ -21,7 +24,16 @@ function CategoryManagment() {
               </div>
 
               <div className="col-12 ">
-                <button className=" addButton">Ajouter catégorie</button>
+                <AddCategoryPopUP
+                  show={addAdminModalShow}
+                  onHide={() => setAddAdminModalShow(false)}
+                />
+                <button
+                  className=" addButton"
+                  onClick={() => setAddAdminModalShow(true)}
+                >
+                  Ajouter catégorie
+                </button>
               </div>
             </div>
           </div>
