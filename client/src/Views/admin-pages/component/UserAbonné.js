@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SearchIcon from "@material-ui/icons/Search";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import DetailAnnnceurPopUp from "./DetailAnnonceurPopUp";
+import DetailAbonnePopUp from "./DetailAbonnePopUp";
 function UserAbonné() {
+  const [detailAbonneModalShow, setdetailAbonneModalShow] = useState(false);
+
   return (
     <div className="userAbonné">
       <div className="dataTable">
@@ -49,7 +53,13 @@ function UserAbonné() {
 
                   <td id="icone-action">
                     <div>
-                      <VisibilityIcon />
+                      <DetailAbonnePopUp
+                        show={detailAbonneModalShow}
+                        onHide={() => setdetailAbonneModalShow(false)}
+                      />
+                      <VisibilityIcon
+                        onClick={() => setdetailAbonneModalShow(true)}
+                      />
                     </div>
                     <div id="ff">
                       <DeleteIcon />

@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SearchIcon from "@material-ui/icons/Search";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import DetailAnnonceurPopUp from "./DetailAnnonceurPopUp";
 function UserAnnonceur() {
+  const [detailAnnonceurModalShow, setDetailAnnonceurModalShow] = useState(
+    false
+  );
+
   return (
     <div className="userAnnonceur">
       <div className="dataTable">
@@ -50,7 +55,13 @@ function UserAnnonceur() {
                   <td>16/09/000</td>
                   <td id="icone-action">
                     <div>
-                      <VisibilityIcon />
+                      <DetailAnnonceurPopUp
+                        show={detailAnnonceurModalShow}
+                        onHide={() => setDetailAnnonceurModalShow(false)}
+                      />
+                      <VisibilityIcon
+                        onClick={() => setDetailAnnonceurModalShow(true)}
+                      />
                     </div>
                     <div id="ff">
                       <DeleteIcon />

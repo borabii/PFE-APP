@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 
-function DetailReclamationPopUp(props) {
+function DetailAnnonceurPopUp(props) {
   return (
     <Modal
       {...props}
@@ -12,13 +12,13 @@ function DetailReclamationPopUp(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Détail Réclamation
+          Détail Annonceur
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="detailReclamationPopUps">
           <div className="popupBody__top">
-            <h4>Information reclameur</h4>
+            <h4>Information propritaire</h4>
             <div className="top__container">
               <div className="user__img">
                 <img
@@ -37,7 +37,7 @@ function DetailReclamationPopUp(props) {
             </div>
           </div>
           <div className="popupBody__middel">
-            <h4>Information reclamer</h4>
+            <h4>Information compte</h4>
 
             <div className="middel__container ">
               <div className="user__img">
@@ -49,27 +49,35 @@ function DetailReclamationPopUp(props) {
               <div className="user__Info">
                 <ul>
                   <li>Nom: test test</li>
-                  <li>Prénom: foot</li>
-                  <li>Email: </li>
-                  <li>Date inscription:</li>
+                  <li>Adresse: foot</li>
+                  <li>Catégorie: </li>
+                  <li>Date création:</li>
+                  <li>Horaire:</li>
                 </ul>
               </div>
             </div>
           </div>
           <div className="popupBody__bottom">
-            <h4>information Reclamation</h4>
-            <div className="rec__container">
-              <p>
-                <h5>Date:</h5> 20/03/2021
-              </p>
-              <h5>Cause:</h5>
-              <textarea
-                rows="5"
-                cols="50"
-                name="description"
-                value="zefzefzefzef"
-                readOnly
-              />
+            <h4> Historique</h4>
+            <div className="detail__account">
+              <div className="info-item">
+                <h6>Nombre Abonnés</h6>
+                <h6>354</h6>
+              </div>
+              <div className="info-item">
+                <h6> Avis</h6>
+                <h6>354</h6>
+              </div>
+
+              <div className="info-item">
+                <h6> nombre d'annonce</h6>
+                <h6>354</h6>
+              </div>
+
+              <div className="info-item">
+                <h6> nombre d'event</h6>
+                <h6>354</h6>
+              </div>
             </div>
           </div>
         </div>
@@ -78,4 +86,4 @@ function DetailReclamationPopUp(props) {
   );
 }
 
-export default DetailReclamationPopUp;
+export default DetailAnnonceurPopUp;

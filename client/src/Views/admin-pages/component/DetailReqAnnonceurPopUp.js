@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-import avatar from "../../image/signIn-avatar.png";
+
 function DetailReqAnnonceurPopUp(props) {
   return (
     <div>

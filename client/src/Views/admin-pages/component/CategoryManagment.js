@@ -3,8 +3,14 @@ import SearchIcon from "@material-ui/icons/Search";
 import DeleteIcon from "@material-ui/icons/Delete";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import AddCategoryPopUP from "./AddCategoryPopUP";
+import DetailCatégoriePopUp from "./DetailCatégoriePopUp";
 function CategoryManagment() {
-  const [addAdminModalShow, setAddAdminModalShow] = useState(false);
+  const [addAddCatégorieModalShow, setAddAddCatégorieModalShow] = useState(
+    false
+  );
+  const [detailCatégorieModalShow, setDetailCatégorieModalShow] = useState(
+    false
+  );
 
   return (
     <div className="categoryManagment">
@@ -25,12 +31,12 @@ function CategoryManagment() {
 
               <div className="col-12 ">
                 <AddCategoryPopUP
-                  show={addAdminModalShow}
-                  onHide={() => setAddAdminModalShow(false)}
+                  show={addAddCatégorieModalShow}
+                  onHide={() => setAddAddCatégorieModalShow(false)}
                 />
                 <button
                   className=" addButton"
-                  onClick={() => setAddAdminModalShow(true)}
+                  onClick={() => setAddAddCatégorieModalShow(true)}
                 >
                   Ajouter catégorie
                 </button>
@@ -67,7 +73,13 @@ function CategoryManagment() {
 
                   <td id="icone-action">
                     <div>
-                      <VisibilityIcon />
+                      <DetailCatégoriePopUp
+                        show={detailCatégorieModalShow}
+                        onHide={() => setDetailCatégorieModalShow(false)}
+                      />
+                      <VisibilityIcon
+                        onClick={() => setDetailCatégorieModalShow(true)}
+                      />
                     </div>
                     <div id="ff">
                       <DeleteIcon />

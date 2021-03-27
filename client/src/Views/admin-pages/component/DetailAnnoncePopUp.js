@@ -13,7 +13,7 @@ function DetailAnnoncePopUs(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Consulter Annonce
+          Détail Annonce
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -61,14 +61,15 @@ function DetailAnnoncePopUs(props) {
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREzWk9kfZiZ3-enCoEgErPVWons-ZKHSt_Ow&usqp=CAU"
                 alt=""
               />
-              <div className="bottom__info">
+              <div className="event__info">
                 <dl>
-                  <dd> Galaxy Gym</dd>
+                  <dd> Coach : YYY </dd>
                   <dd>
+                    Adresse:
                     <LocationOnIcon id="icon-loc" />
                     Monplaisir
                   </dd>
-                  <dd> mail@gmail.com</dd>
+                  <dd>Email: mailyy@gmail.com</dd>
                 </dl>
               </div>
             </div>

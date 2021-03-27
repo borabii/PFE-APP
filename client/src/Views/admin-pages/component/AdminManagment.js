@@ -17,8 +17,8 @@ function AdminManagment() {
   return (
     <div className="adminManagment">
       <div className="dataTable">
-        <div className="dataTable__top">
-          <div className="container px-0">
+        <div className=" container  px-0 dataTable__top">
+          <div className="container px-0 ">
             <div className="row">
               <div className="col-12 ">
                 <div className="data-card ">
@@ -29,7 +29,7 @@ function AdminManagment() {
                 </div>
               </div>
 
-              <div className="col-12 ">
+              <div className="col-12 col-md-6 ">
                 <AddAdminPopUp
                   show={addAdminModalShow}
                   onHide={() => setAddAdminModalShow(false)}
@@ -46,7 +46,7 @@ function AdminManagment() {
           </div>
           <form id="form-1">
             <input
-              className="form-control mr-sm-2 "
+              className="form-control mr-sm-2"
               type="search"
               placeholder="Search"
             />
@@ -55,7 +55,7 @@ function AdminManagment() {
             </div>
           </form>
         </div>
-        <div className="dataTable__bottom">
+        <div className="container px-0 dataTable__bottom">
           <div className="table-wrapper-scroll-y my-custom-scrollbar">
             <table className="table  table-hover table-striped   text-center my-table">
               <thead>
@@ -79,38 +79,11 @@ function AdminManagment() {
                   <td>ddddddddddddddddddddddddd</td>
 
                   <td id="icone-action">
-                    <div>
-                      <VisibilityIcon />
-                    </div>
-                    <div id="ff">
-                      <EditAdminPopUp
-                        show={editAdminModalShow}
-                        onHide={() => setEditAdminModalShow(false)}
-                      />
-                      <EditIcon onClick={() => setEditAdminModalShow(true)} />
-                    </div>
-                    <div>
-                      <DeleteIcon />
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>114141414141414</td>
-                  <td>dddddddddddddd</td>
-                  <td>dddddddddddddd</td>
-                  <td>eeeeeee@gmail.com</td>
-                  <td>16/05/1999</td>
-                  <td>ddddddddddddddddddddddddd</td>
-
-                  <td id="icone-action">
-                    <div>
-                      <VisibilityIcon />
-                    </div>
                     <div id="ff">
                       <EditAdminPopUp
                         show={editAdminModalShow}
                         options={options}
-                        defaultValue={options[2]} //passing admi  exsisted permission
+                        defaultValue={options[2]} //passing admin  exsisted permission
                         onHide={() => setEditAdminModalShow(false)}
                       />
                       <EditIcon onClick={() => setEditAdminModalShow(true)} />

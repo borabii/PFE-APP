@@ -5,7 +5,7 @@ import Clock from "react-live-clock";
 
 import BoiteMessage from "./component/BoiteMessage";
 import Dashboard from "./component/Dashboard";
-import Demande from "./component/Demande";
+import DemandeManagment from "./component/DemandeManagment";
 import CategoryManagment from "./component/CategoryManagment";
 import PublicationActivity from "./component/PublicationActivity";
 import PublicationAnnonce from "./component/PublicationAnnonce";
@@ -22,9 +22,9 @@ import AddCategoryPopUP from "./component/AddCategoryPopUP";
 
 function AdminHomePage() {
   return (
-    <div className=" container-fluid  px-0 adminHomePage">
-      <div className="adminHomePage__navbar">
-        <div className="navbar nav__option">
+    <div className="adminHomePage">
+      <div className=" navbar adminHomePage__navbar">
+        <div className=" nav__option">
           <h2>Welcome Admin</h2>
         </div>
         <div className="nav__option clock">
@@ -38,7 +38,7 @@ function AdminHomePage() {
         </div>
       </div>
       <div className="adminHomePage__container">
-        <div className=" adminHomePage__sidbar">
+        <div className=" navbar adminHomePage__sidbar">
           <div className="sidbar__item">
             <h4>Dashboard</h4>
             <h3>Gestion admins</h3>
@@ -60,18 +60,18 @@ function AdminHomePage() {
           </div>
         </div>
 
-        <div className=" container-fluid">
-          <div className=" container-fluid w-100 px-4  body-container">
+        <div className=" container">
+          <div className=" container  px-4  body-container">
             {/* <Dashboard /> */}
-            {/* <BoiteMessage /> */}
-            {/* <Demande /> */}
+            <BoiteMessage />
+            {/* <DemandeManagment /> */}
             {/* <CategoryManagment /> */}
             {/* <PublicationActivity /> */}
             {/* <PublicationAnnonce /> */}
             {/* <PublicationEvent /> */}
             {/* <UserAbonné /> */}
             {/* <UserAnnonceur /> */}
-            <Reclamation />
+            {/* <Reclamation /> */}
             {/* <AdminManagment /> */}
             {/* <AdressManagment /> */}
           </div>

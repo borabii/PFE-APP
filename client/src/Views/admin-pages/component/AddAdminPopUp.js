@@ -10,7 +10,6 @@ function AddAdminPopUp(props) {
   return (
     <Modal
       {...props}
-      size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       animation={true}
@@ -40,9 +39,6 @@ function AddAdminPopUp(props) {
           </form>
         </div>
       </Modal.Body>
-      {/* <Modal.Footer>
-      <button onClick={props.onHide}>Annuler</button>
-    </Modal.Footer> */}
     </Modal>
   );
 }

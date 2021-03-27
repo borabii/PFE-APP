@@ -6,7 +6,7 @@ function EditAdminPopUp(props) {
   return (
     <Modal
       {...props}
-      size="lg"
+      size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       animation={true}
@@ -27,6 +27,8 @@ function EditAdminPopUp(props) {
               className="select"
               classNamePrefix="select"
             />
+            <input type="password" placeholder=" Mots de passe" />
+
             <button className="btn" type="submit">
               Modifier
             </button>

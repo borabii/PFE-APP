@@ -38,14 +38,14 @@ let Datas = [
   },
 ];
 
-function Demande() {
-  const [detailReqModalShow, setDetailReqModalShowModalShow] = useState(false);
+function DemandeManagment() {
+  const [detailReqModalShow, setDetailReqModalShow] = useState(false);
 
   return (
     <div className="demande">
       <div className="dataTable">
         <div className="dataTable__top">
-          <div className="card data-card ">
+          <div className="data-card ">
             <div className="card-body px-4  ">
               <h5 className="card-title data-cardTitle"> Nombre Demande</h5>
               <p className="card-text">1000</p>
@@ -89,10 +89,10 @@ function Demande() {
                       <td>
                         <DetailReqAnnonceurPopUp
                           show={detailReqModalShow}
-                          onHide={() => setDetailReqModalShowModalShow(false)}
+                          onHide={() => setDetailReqModalShow(false)}
                         />
                         <VisibilityIcon
-                          onClick={() => setDetailReqModalShowModalShow(true)}
+                          onClick={() => setDetailReqModalShow(true)}
                         />
                       </td>
                     </tr>
@@ -107,4 +107,4 @@ function Demande() {
   );
 }
 
-export default Demande;
+export default DemandeManagment;

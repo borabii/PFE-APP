@@ -5,7 +5,7 @@ function DetailBoiteMessage(props) {
   return (
     <Modal
       {...props}
-      size="lg"
+      size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       animation={true}
@@ -36,7 +36,6 @@ function DetailBoiteMessage(props) {
               />
             </div>
           </div>
-          <div className="demande__action"></div>
         </div>
       </Modal.Body>
     </Modal>

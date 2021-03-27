@@ -58,14 +58,15 @@ function DetailEventPopUp(props) {
                 src="https://e7.pngegg.com/pngimages/476/80/png-clipart-man-with-identification-card-illustration-personal-trainer-computer-icons-fitness-centre-physical-exercise-coach-sports-personal-physical-fitness-text.png"
                 alt=""
               />
-              <div className="bottom__info">
+              <div className="event__info">
                 <dl>
-                  <dt> Coach : YYY </dt>
+                  <dd> Coach : YYY </dd>
                   <dd>
+                    Adresse:
                     <LocationOnIcon id="icon-loc" />
                     Monplaisir
                   </dd>
-                  <dd> mailyy@gmail.com</dd>
+                  <dd>Email: mailyy@gmail.com</dd>
                 </dl>
               </div>
             </div>
