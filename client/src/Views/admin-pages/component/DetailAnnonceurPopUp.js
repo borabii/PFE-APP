@@ -1,93 +1,67 @@
 import React from 'react';
-import './DetailAnnonceurPopUp.css'
-
+import './DetailAnnonceurPopUp.css';
 function DetailAnnonceurPopUp() {
     return (
-        <div className="detailAnnonceurPopUp">
-            <div className="detailAnnonceurPopUp__top">
-                <img src="https://www.fitadium.com/conseils/wp-content/uploads/2020/05/halteres-ou-machines.jpg" alt=""/>
-            </div>
-            <div className="detailAnnonceurPopUp__midle">
-                {/* <div className="annonceur">
-                    about annonceur !
-                    nom !
-                </div> */}
-                <div className=" detail_avis">
-                    <h2>Avis</h2>
-                    <div className="avis">
-                        <h6>7.5</h6>
-                        <img src="" alt=" stars"/>
-                    </div>
-                </div>
-                <div className=" detail_nbr_abonne">
-                    <h6>Nombre abonné</h6>
-                     <h6>550</h6>
-                </div>
-            </div>
-            <div className="detailAnnonceurPopUp__bottom">
-                <h1> historique</h1>
-                <div className="percentage_circle" >
-                    <div className="flex-wrapper">
-  <div className="single-chart">
-    <svg viewBox="0 0 36 36" className="circular-chart orange">
-      <path className="circle-bg"
-        d="M18 2.0845
-          a 15.9155 15.9155 0 0 1 0 31.831
-          a 15.9155 15.9155 0 0 1 0 -31.831"
-      />
-      <path className="circle"
-        stroke-dasharray="30, 100"
-        d="M18 2.0845
-          a 15.9155 15.9155 0 0 1 0 31.831
-          a 15.9155 15.9155 0 0 1 0 -31.831"
-      />
-      <text x="18" y="20.35" className="percentage">30%</text>
-    </svg>
-  </div>
-  
-  <div className="single-chart">
-    <svg viewBox="0 0 36 36" className="circular-chart green">
-      <path className="circle-bg"
-        d="M18 2.0845
-          a 15.9155 15.9155 0 0 1 0 31.831
-          a 15.9155 15.9155 0 0 1 0 -31.831"
-      />
-      <path className="circle"
-        stroke-dasharray="60, 100"
-        d="M18 2.0845
-          a 15.9155 15.9155 0 0 1 0 31.831
-          a 15.9155 15.9155 0 0 1 0 -31.831"
-      />
-      <text x="18" y="20.35" className="percentage">60%</text>
-    </svg>
-  </div>
+  <div className="detailAnnonceur">
+    <div className="detailAnnonceur__top">
 
-  <div className="single-chart">
-    <svg viewBox="0 0 36 36" className="circular-chart blue">
-      <path className="circle-bg"
-        d="M18 2.0845
-          a 15.9155 15.9155 0 0 1 0 31.831
-          a 15.9155 15.9155 0 0 1 0 -31.831"
-      />
-      <path className="circle"
-        stroke-dasharray="90, 100"
-        d="M18 2.0845
-          a 15.9155 15.9155 0 0 1 0 31.831
-          a 15.9155 15.9155 0 0 1 0 -31.831"
-      />
-      <text x="18" y="20.35" className="percentage">90%</text>
-    </svg>
-  </div>
-</div>
+    <h4>Information compte </h4>
+        <div className="middel__container">  
+        <img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="img"/>
+          <div className="middel__infoPerso">
+             <ul>
+                <li>Nom</li>
+                <li>Adresse</li>
+                <li> mail</li> 
+                <li> Catégoris </li> 
+              </ul> 
+          </div> 
+          </div>
+    </div>
+     <div className="detailAnnonceur__middel">
+        <h4>Information compte </h4>
+        <div className="middel__container">  
+        <img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="img"/>
+          <div className="middel__infoPerso">
+             <ul>
+                <li>Nom</li>
+                <li>Adresse</li>
+                <li> mail</li> 
+                <li> Catégoris </li> 
+              </ul> 
+          </div> 
+          </div>
+         </div>
+   <div className="detailAnnonceur__bottom">
+         <h4> Historique</h4>
+       <div className="bottom__container">
+
         
-                </div>
-            </div>
+         <div className="info-item">  
+          <h6>Nombre Abonnés</h6>
+           <h6>354</h6>
+               </div>
+         <div className="info-item">    
+          <h6> Avis</h6>
+           <h6>354</h6>
+               </div>
 
+         <div className="info-item">
+            <h6> nombre d'annonce</h6>
+           <h6>354</h6>
+           </div>
+           
+           <div className="info-item">
+              <h6> nombre d'event</h6>
+               <h6>354</h6>
+                 </div>
+                 </div>
+               
+        
+   </div>
+   </div>   
 
-        </div>
-       
-    );
-  
+    )
 }
 
 export default DetailAnnonceurPopUp;

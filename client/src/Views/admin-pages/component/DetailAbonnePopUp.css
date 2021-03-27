@@ -1,0 +1,84 @@
+.detailAbonne {
+  display: flex;
+  flex-direction: column;
+}
+.detailAbonne__infoPerso {
+  display: flex;
+  flex-direction: column;
+  background-color: #e5e5e5;
+  margin: 20px;
+  border: 2px solid grey;
+  border-radius: 20px;
+}
+.detailAbonne__infoPerso > h4 {
+  text-align: center;
+}
+.infoPerso__container {
+  display: flex;
+  flex-direction: row;
+}
+.infoPerso__container > img {
+  border: 2px solid grey;
+  border-radius: 100px;
+  width: 125px;
+  height: 125px;
+  margin: 50px 0px 0px 30px;
+}
+.infoPerso {
+  padding: 20px;
+  margin: 20px 0px 0px 0px;
+  width: 300px;
+}
+.infoPerso > ul {
+  margin-top: 10px;
+  list-style: none;
+}
+.infoPerso > ul > li {
+  margin: 10px;
+}
+.detailAbonne__infoActiv {
+  border: 2px solid grey;
+  background-color: #e5e5e5;
+  border-radius: 20px;
+  margin: 20px;
+}
+.detailAbonne__infoActiv > h4 {
+  text-align: center;
+}
+.infoActiv__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.interet {
+  margin: 20px;
+}
+.interet > button {
+  border-radius: 8px;
+  margin: 2px;
+}
+
+.infoActiv__item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.scoreG {
+  border: 2px solid grey;
+  margin: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+.avis {
+  border: 2px solid grey;
+  margin: 20px;
+  border-radius: 10px;
+  width: 100px;
+  text-align: center;
+}
+.nbre_act {
+  border: 2px solid grey;
+  margin: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
