@@ -71,9 +71,9 @@ function AdminHomePage() {
             {/* <PublicationEvent /> */}
             {/* <UserAbonné /> */}
             {/* <UserAnnonceur /> */}
-            {/* <Reclamation /> */}
+            <Reclamation />
             {/* <AdminManagment /> */}
-            <AdressManagment />
+            {/* <AdressManagment /> */}
           </div>
         </div>
       </div>

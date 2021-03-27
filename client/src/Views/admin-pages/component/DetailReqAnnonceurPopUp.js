@@ -28,16 +28,16 @@ function DetailReqAnnonceurPopUp(props) {
                 <div className="top__Info">
                   <ul>
                     <li>Nom: test test</li>
-                    <li>Catégorie: foot</li>
+                    <li>Prénom: foot</li>
                     <li>Email: </li>
-                    <li>Document justificatif:</li>
+                    <li>Date inscription:</li>
                   </ul>
                 </div>
               </div>
             </div>
             <div className="info__bottom">
               <h4>Information demande</h4>
-              <div className="bottom__info">
+              <div className="info__container">
                 <ul>
                   <li>Nom:</li>
                   <li>Catégorie:</li>
@@ -45,6 +45,12 @@ function DetailReqAnnonceurPopUp(props) {
                   <li>Document justificatif:</li>
                 </ul>
               </div>
+            </div>
+            <div className="demande__action">
+              <form className="demande__form">
+                <button id="accept__btn">Ajouter</button>
+                <button id="refuse__btn">Refuser</button>
+              </form>
             </div>
           </div>
         </Modal.Body>

@@ -4,7 +4,9 @@ import SearchIcon from "@material-ui/icons/Search";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import DetailEventPopUp from "./DetailEventPopUp";
 function PublicationEvent() {
-  const [addAdminModalShow, setAddAdminModalShow] = useState(false);
+  const [publicationEventModalShow, setPublicationEventModalShow] = useState(
+    false
+  );
 
   return (
     <div className="publicationEvent">
@@ -53,11 +55,11 @@ function PublicationEvent() {
                   <td id="icone-action">
                     <div>
                       <DetailEventPopUp
-                        show={addAdminModalShow}
-                        onHide={() => setAddAdminModalShow(false)}
+                        show={publicationEventModalShow}
+                        onHide={() => setPublicationEventModalShow(false)}
                       />
                       <VisibilityIcon
-                        onClick={() => setAddAdminModalShow(true)}
+                        onClick={() => setPublicationEventModalShow(true)}
                       />
                     </div>
                     <div id="ff">

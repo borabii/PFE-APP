@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SearchIcon from "@material-ui/icons/Search";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import DetailReclamationPopUp from "./DetailReclamationPopUp";
 function Reclamation() {
+  const [reclamationModalShow, setReclamationModalShow] = useState(false);
+
   return (
     <div className="reclamation">
       <div className="dataTable">
@@ -51,7 +54,13 @@ function Reclamation() {
 
                   <td id="icone-action">
                     <div>
-                      <VisibilityIcon />
+                      <DetailReclamationPopUp
+                        show={reclamationModalShow}
+                        onHide={() => setReclamationModalShow(false)}
+                      />
+                      <VisibilityIcon
+                        onClick={() => setReclamationModalShow(true)}
+                      />
                     </div>
                     <div id="ff">
                       <DeleteIcon />

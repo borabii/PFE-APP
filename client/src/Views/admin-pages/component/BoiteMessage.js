@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import DetailBoiteMessagePopUp from "./DetailBoiteMessagePopUp";
 let Datas = [
   {
     firstName: "Home",
@@ -10,46 +11,10 @@ let Datas = [
     firstName: "Home",
     lastName: "ff",
   },
-  {
-    firstName: "Home",
-    lastName: "ff",
-  },
-  {
-    firstName: "Home",
-    lastName: "ff",
-  },
-  {
-    firstName: "Home",
-    lastName: "ff",
-  },
-  {
-    firstName: "Home",
-    lastName: "ff",
-  },
-  {
-    firstName: "Home",
-    lastName: "ff",
-  },
-  {
-    firstName: "Home",
-    lastName: "ff",
-  },
-  {
-    firstName: "Home",
-    lastName: "ff",
-  },
-  {
-    firstName: "Home",
-    lastName: "ff",
-    cc: "Home",
-    lastName: "ff",
-  },
-  {
-    firstName: "Home",
-    lastName: "ff",
-  },
 ];
 function BoiteMessage() {
+  const [detailReqModalShow, setDetailReqModalShowModalShow] = useState(false);
+
   return (
     <div className="boiteMessage">
       <div className="dataTable">
@@ -94,7 +59,13 @@ function BoiteMessage() {
                       <td>{data.firstName}</td>
 
                       <td>
-                        <VisibilityIcon />
+                        <DetailBoiteMessagePopUp
+                          show={detailReqModalShow}
+                          onHide={() => setDetailReqModalShowModalShow(false)}
+                        />
+                        <VisibilityIcon
+                          onClick={() => setDetailReqModalShowModalShow(true)}
+                        />
                       </td>
                     </tr>
                   );

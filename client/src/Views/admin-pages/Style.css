@@ -1,3 +1,4 @@
+/* admin page componenet style */
 .dataTable__top {
     display: flex;
     justify-content: space-between;
@@ -80,7 +81,7 @@
   margin-left: 20px;
 }
 
-/* style  for componenet with add button  */
+/* admin page componenet with add button style  */
 #form-1{
   margin-top: 150px;
   margin-bottom: 0px;
@@ -98,6 +99,10 @@
   border: none;
   
 }
+
+
+
+
 /* dashboard  style*/
 .my-card{
   width: 20rem;
@@ -122,6 +127,9 @@
 .bottom-dash{
   background-color: red;
 }
+
+
+
 
 /* Admin home page style */
 .adminHomePage__navbar{
@@ -210,6 +218,10 @@ color: #040941;
   margin-top: 10px;
   
 }
+
+
+
+
 /* modal popup style */
 .modal-header{
   background-color: #3ACEB9;
@@ -219,6 +231,9 @@ color: #040941;
    justify-content: center;
  }
  
+
+
+
 /*  add admin popUp style*/
 .addAdminPopUP{
   display: flex;
@@ -263,6 +278,8 @@ color: #040941;
 }
 
  
+
+
 /* edit admin popUp style */
 .editAdminPopUP {
   display: flex;
@@ -306,6 +323,8 @@ color: #040941;
 }
 
 
+
+
 /* add adress popUp style */
 .addAdressPopUP{
   display: flex;
@@ -339,6 +358,9 @@ color: #040941;
   font: "Roboto";
   margin: 20px;
 }
+
+
+
 
 /* add catégorie popUp style */
 .addCategoryPopUP{
@@ -378,6 +400,8 @@ color: #040941;
   border-radius: 10px;
   margin-top: 15px;
 }
+
+
 
 
 
@@ -456,6 +480,8 @@ dd {
 
 
 
+
+
 /* Detail demande popup style */
 .detailReqAnnonceurPopUp{
   display: flex;
@@ -517,17 +543,63 @@ dd {
  letter-spacing: 0.01rem;
  margin-top: 10px;
 }
-.bottom__info{
+.info__container{
   border-radius: 10px;
   margin-top: 10px;
 }
-.bottom__info > ul {
+.info__container > ul {
   margin:10px 5px 10px 0px;
 }
-.bottom__info>ul>li{
+.info__container>ul>li{
   margin-bottom: 10px;
   list-style: none;
 }
+.demande__action{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.demande__form{
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  justify-content: space-between;
+  background-color: white;
+  margin-top: 40px;
+}
+.demande__form > button{
+  width: 150px;
+  height: 45px;
+  border-radius: 20px;
+  transition: all 0.5s linear;
+  outline: none;
+  font-family: "Roboto";
+  font-size: 20px;
+  font-weight: 400;
+  color:#040941;
+
+  background-color: transparent;
+}
+#accept__btn{
+  border: 2px solid #3aceb9 ;
+
+}
+#accept__btn:hover{
+  background-color: #3aceb9;
+  color:white;
+}
+#refuse__btn{
+  border: 2px solid #dc3545 ;
+
+  
+}
+#refuse__btn:hover{
+  background-color: #dc3545;
+  color:white;
+}
+
+
 
 
 
@@ -593,6 +665,9 @@ dd {
 }
 
 
+
+
+
 /* Detail event popUp style */
 .detailEvent {
   display: flex;
@@ -652,4 +727,148 @@ dd {
 }
 dd {
   margin: 1px;
+}
+
+
+
+
+/* detail reclamation popUp style */
+
+.detailReclamationPopUps{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color:#040941;
+}
+.popupBody__top{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  background-color: #F6F5F5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  width: 100%;
+}
+.popupBody__top > h4{
+  text-align: center;
+  font-family: 'Roboto';
+  text-transform: uppercase;
+  letter-spacing: 0.01rem;
+  margin-top: 10px;
+
+}
+.popupBody__top > .top__container{
+  display: flex;
+  flex-direction: row;
+  margin-top:10px;
+  }
+.user__img > img{
+    width: 100px;
+    height: 100px;
+    margin-top:14px;
+    margin-left: 15px;
+    margin-bottom: 20px;
+    border: 3px solid #3aceb9;
+    border-radius: 50%;
+  }
+.user__Info> ul {
+  margin-left: 0px;
+  margin-top: 10px;
+  list-style: none;
+}
+.user__Info > ul> li{
+  margin-bottom: 5px;
+}
+.popupBody__middel{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  background-color: #F6F5F5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  width: 100%;
+}
+.popupBody__middel > h4{
+  text-align: center;
+  font-family: 'Roboto';
+  text-transform: uppercase;
+  letter-spacing: 0.01rem;
+  margin-top: 10px;
+
+}
+.popupBody__middel > .middel__container{
+  display: flex;
+  flex-direction: row;
+  margin-top:10px;
+}
+.popupBody__bottom{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  background-color: #F6F5F5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  width: 100%;
+}
+.popupBody__bottom> h4{
+  text-align: center;
+  font-family: 'Roboto';
+  text-transform: uppercase;
+  letter-spacing: 0.01rem;
+  margin-top: 10px;
+}
+.rec__container > p {
+  margin-left: 10px;
+  text-transform: uppercase;
+  font-size: 17px;
+}
+.rec__container > h5 {
+  margin-left: 10px;
+  text-transform: uppercase;
+}
+.rec__container > textarea {
+  margin-left: 4%;
+  margin-bottom: 10px;
+  width: 90%;
+  border-radius: 5px;
+  border: 3px solid #3aceb9;
+  outline:none;
+}
+
+
+
+
+
+/* detail boite message popUp style */
+.detailBoiteMessagePopUps{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color:#040941;
+}
+.boite__container> p {
+  margin:20px;
+  font-family: "Roboto";
+  text-transform: uppercase;
+  font-size: 17px;
+}
+.boite__container > h5 {
+  margin-left: 20px;
+  text-transform: uppercase;
+}
+.boite__container > textarea {
+  margin-left: 4%;
+  margin-bottom: 10px;
+  width: 90%;
+  border-radius: 5px;
+  border: 3px solid #3aceb9;
+  outline:none;
+}
+.boite__container > textarea{
+  cursor: pointer;
+  margin-bottom: 10px;
 }
