@@ -63,7 +63,7 @@ function AdminHomePage() {
         <div className=" container">
           <div className=" container  px-4  body-container">
             {/* <Dashboard /> */}
-            <BoiteMessage />
+            {/* <BoiteMessage /> */}
             {/* <DemandeManagment /> */}
             {/* <CategoryManagment /> */}
             {/* <PublicationActivity /> */}

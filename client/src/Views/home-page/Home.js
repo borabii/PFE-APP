@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./components/Header";
 import WelcomImage from "./components/WelcomImage";
-import TopThreeUser from "./components/TopThreeUser";
+import News from "./components/News";
 import AboutUS from "./components/AboutUs";
 import ContactUs from "./components/ContactUs";
 import Footer from "./components/Footer";
@@ -16,13 +16,13 @@ function Home() {
   return (
     <div className="home">
       <Header />
-      <div className="home__container">
-        <WelcomImage />
-        <TopThreeUser />
-        <AboutUS />
-        <ContactUs />
-        <Footer />
-      </div>
+      {/* <div className="home__container"> */}
+      <WelcomImage />
+      <News />
+      <AboutUS />
+      <ContactUs />
+      <Footer />
+      {/* </div> */}
     </div>
   );
 }

@@ -3,7 +3,7 @@
 	width: 100%;
 	padding: 0;
     margin: 0;
-    height: 1000px;
+    /* height: 1000px; */
     filter: brightness(75%);
     background: url(../../image/landing-page-image.jpg) center center no-repeat;
 	background-color: #e5e5e5;
@@ -19,9 +19,9 @@
 }
 .intro h1 {
 	font-family: 'Roboto', sans-serif;
-	color:#FFF;
-	font-size: 82px;
-	font-weight: 700;
+	color:white;
+	/* font-size: 110%; */
+	font-weight: 800;
 	text-transform: uppercase;
 	margin-top: 0;
 	margin-bottom: 10px;
@@ -35,7 +35,7 @@
 	margin: 0 auto;
 	margin-bottom: 60px;
 }
-header .intro-text {
+ .intro-text {
 	padding-top: 250px;
 	padding-bottom: 200px;
 	text-align: center;
@@ -55,7 +55,7 @@ header .intro-text {
 	transition: all 0.5s linear;
 	border: 0;
 }
-header .btn-custom:hover{
+ .btn-custom:hover{
 	background-image: linear-gradient(to right, #FEA041 0%, #F45728 100%);
     color:#040941;
     font-size: 17px;
