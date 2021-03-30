@@ -8,6 +8,8 @@ import Footer from "./components/Footer";
 import "./Home.css";
 
 import SmoothScroll from "smooth-scroll";
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
   speedAsDuration: true,
@@ -15,13 +17,15 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
 function Home() {
   return (
     <div className="home">
-      <Header />
+      {/* <Header /> */}
       <div className="home__container">
-        <WelcomImage />
+        {/* <WelcomImage />
         <TopThreeUser />
         <AboutUS />
         <ContactUs />
-        <Footer />
+        <Footer /> */}
+        {/* <SignIn /> */}
+        <SignUp />
       </div>
     </div>
   );

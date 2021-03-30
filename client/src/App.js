@@ -7,11 +7,13 @@ import DetailaEventPopUp from "./Views/admin-pages/component/DetailEventPopUp";
 import DetailAbonnePopUp from "./Views/admin-pages/component/DetailAbonnePopUp";
 import DetailAnnonceurPopUp from "./Views/admin-pages/component/DetailAnnonceurPopUp";
 import SignUp from "./Views/home-page/SignUp";
+import SignIn from "./Views/home-page/SignIn";
 function App() {
   return (
     <div className="app">
-      <SignUp />
-      {/* <Home /> */}
+      {/* <SignIn /> */}
+      {/* <SignUp /> */}
+      <Home />
       {/* <AdminHomePage /> */}
       {/* <DetailaEventPopUp/> */}
       {/* <DetailaAnoncePopUp /> */}

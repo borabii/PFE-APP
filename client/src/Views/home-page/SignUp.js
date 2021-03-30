@@ -11,12 +11,12 @@ function SignUp() {
     { name: 'Femme', value: '2' },
   ];
   return (
-    <div className="form-container">
-      <div className="form-content-left">
+    <div className="signUp">
+      <div className="signUp__left">
         <img className="form-img" src={avatar} />
       </div>
      
-      <div className="form-content-right">
+      <div className="signUp__right">
            <h1>INSCRIVIZ VOUS</h1>
           <form className="form">
              
@@ -66,7 +66,7 @@ function SignUp() {
                 name="password2" 
                 placeholder=" Confirmez votre mots de passe" />
                
-                <button className="form-input-btn" type="submit"> Inscription </button>
+                <button className="form-btn" type="submit"> Inscription </button>
               </div>
           </form>
       </div>
