@@ -29,7 +29,7 @@ function AdminHomePage() {
         </div>
         <div className="nav__option clock">
           {/* displaying system time for user ( set ticking to true for auto upadate each second) */}
-          <Clock format={"HH:mm:ss"} ticking={true} />{" "}
+          <Clock format={"HH:mm:ss"} ticking={true} />
         </div>
         <div className="nav__option">
           <button>

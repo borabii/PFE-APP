@@ -7,7 +7,7 @@ function AboutUs() {
         <div className="row justify-content-center">
           <div className="col-xs-12 col-md-7">
             <div className="aboutUs-text text-center ">
-              <h2>About Us</h2>
+              <h2>A Propos</h2>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Posuere
                 ut egestas augue adipiscing orci amet egestas. Ligula quisque

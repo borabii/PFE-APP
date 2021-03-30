@@ -16,7 +16,7 @@ function ContactUs() {
             </div>
           </div>
           <div className="row">
-            <div className="col  col-xs-2  col-sm-5 col-md-7 col-lg-9">
+            <div className="col  col-xs-2  col-sm-12 col-md-12 col-lg-9">
               <form>
                 <div className="form-group">
                   <input

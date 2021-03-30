@@ -22,7 +22,7 @@ function Header() {
               <h4>Nouvautés</h4>
             </Nav.Link>
             <Nav.Link href="#aboutUs" className="page-scroll">
-              <h4>About</h4>
+              <h4>A propos</h4>
             </Nav.Link>
             <Nav.Link href="#contact" className="page-scroll">
               <h4>Contact</h4>
