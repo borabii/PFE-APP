@@ -10,16 +10,6 @@
   grid-template-columns: 1fr 1fr;
 }
 
-.close-btn {
-  position: absolute;
-  top: 2%;
-  right: 3%;
-  font-size: 1.5rem;
-  z-index: 1;
-  color: #fff;
-  cursor: pointer;
-}
-
 .form-content-left {
   width: 100%;
   background: #f4ae44;
@@ -36,29 +26,38 @@
   transform: translate(-50%, -50%);
 }
 
-.form-img-2 {
+/* .form-img-2 {
   width: 60%;
   height: 60%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
+} */
 
-.form-success {
+/* .form-success {
   text-align: center;
   font-size: 24px;
   margin-top: 80px;
   color: #fff;
-}
+} */
 
 .form-content-right {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   border-radius: 0 10px 10px 0;
   position: relative;
   background-color: #fff;
 }
 
+.form-content-right > h1 {
+  font-size: 2rem;
+  font-style: "Roboto";
+  text-align: center;
+  color: black;
+  margin-top: 20px;
+}
 .form {
   position: absolute;
   top: 50%;
@@ -70,33 +69,29 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.form h1 {
-  font-size: 3rem;
-  text-align: start;
-  width: 80%;
-  margin-bottom: 1rem;
-  color: black;
+  margin-top: 30px;
 }
 
 .form-inputs {
   margin-bottom: 0.5rem;
   width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.form-inputs p {
+/* .form-inputs p {
   font-size: 0.8rem;
   margin-top: 0.5rem;
   color: #f00e0e;
-}
+} */
 
-.form-label {
+/* .form-label {
   display: inline-block;
   font-size: 0.8rem;
   margin-bottom: 6px;
   color: #fff;
-}
+} */
 
 .form-input {
   display: block;
@@ -112,15 +107,46 @@
   outline: none;
 }
 
-.form-input::placeholder {
+.form-input::placeholder,
+input[type="date"] {
   color: #595959;
   font-size: 12px;
 }
 
+.gender {
+  align-self: center;
+}
+
+.btn-primary {
+  background-color: #ffffff;
+  color: #595959;
+  border: none;
+  width: auto;
+  width: 50%;
+}
+.btn-primary:hover {
+  background-color: #3aceb84d;
+  color: #5959596e;
+}
+.btn-primary:not(:disabled):not(.disabled).active {
+  color: #595959;
+  background-color: #10b39a;
+  width: 50%;
+}
+.btn-radio {
+  display: block;
+  outline: none;
+  border-radius: 2px;
+  height: 40px;
+
+  margin-bottom: 20px;
+  border: 2px solid #3aceb9;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
 .form-input-btn {
-  width: 200px;
-  height: 35px;
-  margin-left: 40px;
+  width: 50%;
+  align-self: center;
   background: #3aceb9;
   border: none;
   border-radius: 10px;
@@ -137,7 +163,7 @@
   transition: all 0.4s ease-out;
 }
 
-.form-input-login {
+/* .form-input-login {
   font-size: 0.8rem;
   margin-top: 10px;
   color: #fff;
@@ -149,4 +175,4 @@
   text-decoration: none;
   color: #27cdff;
   font-weight: 600;
-}
+} */

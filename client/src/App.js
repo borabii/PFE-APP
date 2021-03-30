@@ -6,17 +6,19 @@ import DetailaAnoncePopUp from "./Views/admin-pages/component/DetailaAnoncePopUp
 import DetailaEventPopUp from "./Views/admin-pages/component/DetailEventPopUp";
 import DetailAbonnePopUp from "./Views/admin-pages/component/DetailAbonnePopUp";
 import DetailAnnonceurPopUp from "./Views/admin-pages/component/DetailAnnonceurPopUp";
+import SignUp from "./Views/home-page/SignUp";
 function App() {
   return (
     <div className="app">
+      <SignUp />
       {/* <Home /> */}
       {/* <AdminHomePage /> */}
       {/* <DetailaEventPopUp/> */}
       {/* <DetailaAnoncePopUp /> */}
-      {/* <DetailAbonnePopUp />
+      {/* <DetailAbonnePopUp /> */}
 
-     */}
-     <DetailAnnonceurPopUp />
+    
+     {/* <DetailAnnonceurPopUp /> */}
     </div>
   );
 }
