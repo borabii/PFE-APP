@@ -5,16 +5,16 @@ import "./Header.css";
 function Header() {
   return (
     <div>
-      <Navbar collapseOnSelect expand="md" className="my-navbar" fixed="top">
+      <Navbar collapseOnSelect expand="lg" className="my-navbar" fixed="top">
         <Navbar.Brand>
           <h2>Logo</h2>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Toggle aria-controls="navbar-collpase" />
         <Navbar.Collapse
           className="justify-content-center"
-          id="responsive-navbar-nav"
+          id="navbar-collpase"
         >
-          <Nav className=" justify-content-center ">
+          <Nav className=" justify-content-center align-middle ">
             <Nav.Link href="#home" className="page-scroll">
               <h4>Home</h4>
             </Nav.Link>
@@ -30,49 +30,18 @@ function Header() {
           </Nav>
           <Nav className="ml-auto">
             <Nav.Link>
-              <h4>Connexion</h4>
+              <button className="nav-signIn">Connexion</button>
+              <h4 id="btnSignIn-small-device">Connexion</h4>
             </Nav.Link>
             <Nav.Link>
-              <button className="nav-signIn">
+              <button className="nav-signUp">
                 <p>S'inscrire</p>
               </button>
-              <h4 id="tt">S'inscrire</h4>
+              <h4 id="btnSignUp-small-device">S'inscrire</h4>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      {/* <h4>logo</h4>
-      <div className="header__nav">
-        <ul className="nav navbar-nav navbar-right">
-          <li>
-            <a href="#home" className="page-scroll">
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#news" className="page-scroll">
-              Top User
-            </a>
-          </li>
-          <li>
-            <a href="#aboutUs" className="page-scroll">
-              About
-            </a>
-          </li>
-          <li>
-            <a href="#contact" className="page-scroll">
-              Contact
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div className="header__option">
-        <a>Connexion</a>
-
-        <button className=" btn btn-lg">
-          <p>S'inscrire</p>
-        </button>
-      </div> */}
     </div>
   );
 }

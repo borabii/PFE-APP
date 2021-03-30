@@ -2,9 +2,10 @@
   background-color: #f4ae44;
 
 }
+ 
 
 
-.nav-signIn {
+.nav-signUp {
   width: 130px;
   height: 40px;
   font-family: 'Roboto';
@@ -13,7 +14,6 @@
   background: #3ACEB9;
   padding:14px;
   letter-spacing: 0.01em;
-  
   font-size: 20px;
   font-weight: 400;
   line-height: 10px;
@@ -21,22 +21,48 @@
   transition: all 0.5s linear;
   border: 0
 }
-.nav-signIn:hover {
+.nav-signIn{
+  width: 130px;
+  height: 40px;
+  font-family: 'Roboto';
+  text-transform: uppercase;
+  color: #fff;
+  padding:6px;
+  letter-spacing: 0.01em;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 10px;
+  border-radius: 25px;
+  transition: all 0.5s linear;
+  background-color: transparent;
+  border: 1px solid #fff;
+
+}
+.nav-signIn:hover{
+
+  background: #fff;
+  color: #040941;
+
+
+}
+.nav-signUp:hover {
+  
+
   background-color: #55C3DE;
   border: white;
   color: white ;
 }
-#tt{
+#btnSignIn-small-device,#btnSignUp-small-device{
 display: none;
 }
 
-@media screen and (max-width:768px){
-  .nav-signIn{
-    background-color: transparent;
-    display: none;
-  }
-  #tt{
+@media screen and (max-width:990px){
+  
+  #btnSignIn-small-device,#btnSignUp-small-device{
     display: inline;
+  }
+  .nav-signUp,.nav-signIn {
+    display: none;
   }
 }
 
