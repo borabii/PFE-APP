@@ -18,7 +18,7 @@ function News() {
         </div>
         <div className="container-fluid my-carousel">
           <Switch>
-            <Route path="/NewsTopUser">
+            <Route exact path="/">
               <TopThreeUser />
             </Route>
             <Route path="/NewsAnnonce">

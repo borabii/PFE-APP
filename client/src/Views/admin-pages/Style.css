@@ -19,7 +19,7 @@
   font-size: 2rem;
 }
 
-.nav__option > button {
+.logoutBtn {
   height: 40px;
   font-family: "Roboto";
   text-transform: uppercase;
@@ -45,8 +45,6 @@
   background: #3aceb9;
 }
 .adminHomePage__sidbar > .sidbar__item {
-  /* justify-content: center; */
-  /* margin-left: 20px; */
   margin-top: 20%;
   width: 100%;
 }
@@ -55,25 +53,25 @@
   margin-bottom: 20px;
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  color: #040941;
   list-style: none;
   line-height: 30px;
   font-size: 20px;
   font-weight: 600;
 }
-.adminHomePage__sidbar > .sidbar__item > ul > li:hover {
-  color: white;
-  font-weight: 800;
+#link-style {
+  color: #040941;
+  text-decoration: none;
+  list-style: none;
 }
 
 .body-container {
   margin-top: 10px;
 }
+
 /* admin page componenet style */
 .dataTable__top {
   display: flex;
   justify-content: space-between;
-  /* width: 100%; */
   margin-bottom: 4px;
 }
 .top__left {

@@ -17,7 +17,7 @@ function NewsHeader() {
         >
           <Nav>
             <Nav.Link>
-              <Link to="/NewsTopUser" id="news-link">
+              <Link to="/" id="news-link">
                 <h4>Top Abonné</h4>
               </Link>
             </Nav.Link>

@@ -15,10 +15,6 @@ import UserAnnonceur from "./component/UserAnnonceur";
 import Reclamation from "./component/Reclamation";
 import AdminManagment from "./component/AdminManagment";
 import AdressManagment from "./component/AdressManagment";
-import AddAdminPopUp from "./component/AddAdminPopUp";
-import EditAdminPopUp from "./component/EditAdminPopUp";
-import AddAddressPopUp from "./component/AddAddressPopUp";
-import AddCategoryPopUP from "./component/AddCategoryPopUP";
 
 import { SideBarData } from "./component/SideBarData";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
@@ -36,8 +32,7 @@ function AdminHomePage() {
         </div>
         <div className="nav__option">
           <Link to="/">
-            {" "}
-            <button>
+            <button className="logoutBtn">
               <p>déconnexion</p>
             </button>
           </Link>
@@ -48,11 +43,11 @@ function AdminHomePage() {
           <div className=" navbar adminHomePage__sidbar">
             <div className="sidbar__item">
               <ul>
+                {/* get sid menu item from sideBarData */}
                 {SideBarData.map((item, index) => {
                   return (
                     <li className={item.cName} key={index}>
-                      <Link to={item.path}>
-                        {item.icon}
+                      <Link to={item.path} id="link-style">
                         <span>{item.title}</span>
                       </Link>
                     </li>
@@ -66,40 +61,40 @@ function AdminHomePage() {
             <div className=" container  px-4  body-container">
               <Switch>
                 <Route path="/boiteMessage">
-                  <BoiteMessage />{" "}
+                  <BoiteMessage />
                 </Route>
                 <Route path="/demandeManagment">
-                  <DemandeManagment />{" "}
+                  <DemandeManagment />
                 </Route>
                 <Route path="/categoryManagment">
-                  <CategoryManagment />{" "}
+                  <CategoryManagment />
                 </Route>
                 <Route path="/pubActivity">
-                  <PublicationActivity />{" "}
+                  <PublicationActivity />
                 </Route>
                 <Route path="/pubAnnonce">
-                  <PublicationAnnonce />{" "}
+                  <PublicationAnnonce />
                 </Route>
                 <Route path="/pubEvent">
-                  <PublicationEvent />{" "}
+                  <PublicationEvent />
                 </Route>
                 <Route path="/userAbonné">
-                  <UserAbonné />{" "}
+                  <UserAbonné />
                 </Route>
                 <Route path="/userAnnonceur">
-                  <UserAnnonceur />{" "}
+                  <UserAnnonceur />
                 </Route>
                 <Route path="/reclamation">
-                  <Reclamation />{" "}
+                  <Reclamation />
                 </Route>
                 <Route path="/adminManagment">
-                  <AdminManagment />{" "}
+                  <AdminManagment />
                 </Route>
                 <Route path="/adressManagment">
-                  <AdressManagment />{" "}
+                  <AdressManagment />
                 </Route>
                 <Route exact path="/">
-                  <Dashboard />{" "}
+                  <Dashboard />
                 </Route>
               </Switch>
             </div>

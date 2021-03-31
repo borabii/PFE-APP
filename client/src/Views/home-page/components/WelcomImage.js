@@ -1,6 +1,6 @@
 import React from "react";
 import "./WelcomImage.css";
-import { Link, Router } from "react-router-dom";
+import { Link } from "react-router-dom";
 function WelcomImage() {
   return (
     <header className="welcomImage" id="home">

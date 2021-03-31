@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SearchIcon from "@material-ui/icons/Search";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import DetailAnnnceurPopUp from "./DetailAnnonceurPopUp";
 import DetailAbonnePopUp from "./DetailAbonnePopUp";
 function UserAbonné() {
   const [detailAbonneModalShow, setdetailAbonneModalShow] = useState(false);

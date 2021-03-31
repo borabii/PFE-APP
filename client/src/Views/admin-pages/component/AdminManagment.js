@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import VisibilityIcon from "@material-ui/icons/Visibility";
 import AddAdminPopUp from "./AddAdminPopUp";
 import EditAdminPopUp from "./EditAdminPopUp";
 
@@ -35,7 +34,6 @@ function AdminManagment() {
                   onHide={() => setAddAdminModalShow(false)}
                 />
                 <button
-                  className="addButton"
                   className="addButton"
                   onClick={() => setAddAdminModalShow(true)}
                 >

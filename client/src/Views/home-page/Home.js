@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "./components/Header";
 import WelcomImage from "./components/WelcomImage";
 import News from "./components/News";
 import AboutUS from "./components/AboutUs";
