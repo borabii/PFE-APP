@@ -20,6 +20,9 @@ import EditAdminPopUp from "./component/EditAdminPopUp";
 import AddAddressPopUp from "./component/AddAddressPopUp";
 import AddCategoryPopUP from "./component/AddCategoryPopUP";
 
+import { SideBarData } from "./component/SideBarData";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+
 function AdminHomePage() {
   return (
     <div className="adminHomePage">
@@ -32,51 +35,77 @@ function AdminHomePage() {
           <Clock format={"HH:mm:ss"} ticking={true} />
         </div>
         <div className="nav__option">
-          <button>
-            <p>déconnexion</p>
-          </button>
+          <Link to="/">
+            {" "}
+            <button>
+              <p>déconnexion</p>
+            </button>
+          </Link>
         </div>
       </div>
-      <div className="adminHomePage__container">
-        <div className=" navbar adminHomePage__sidbar">
-          <div className="sidbar__item">
-            <h4>Dashboard</h4>
-            <h3>Gestion admins</h3>
-            <h3>Gestion Catégorie</h3>
-            <h3>Gestion localité</h3>
-            <h3>Publication</h3>
-            <dd>
-              <dl>Annonce</dl>
-              <dl>Activité</dl>
-              <dl>Evénement</dl>
-            </dd>
-            <h3>Users</h3>
-            <dd>
-              <dl>Annonceur</dl>
-              <dl>Abonné</dl>
-            </dd>
-            <h3>Réclamation</h3>
-            <h3>Demmande</h3>
+      <Router>
+        <div className="adminHomePage__container">
+          <div className=" navbar adminHomePage__sidbar">
+            <div className="sidbar__item">
+              <ul>
+                {SideBarData.map((item, index) => {
+                  return (
+                    <li className={item.cName} key={index}>
+                      <Link to={item.path}>
+                        {item.icon}
+                        <span>{item.title}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
-        </div>
 
-        <div className=" container">
-          <div className=" container  px-4  body-container">
-            {/* <Dashboard /> */}
-            {/* <BoiteMessage /> */}
-            {/* <DemandeManagment /> */}
-            {/* <CategoryManagment /> */}
-            {/* <PublicationActivity /> */}
-            {/* <PublicationAnnonce /> */}
-            {/* <PublicationEvent /> */}
-            {/* <UserAbonné /> */}
-            {/* <UserAnnonceur /> */}
-            {/* <Reclamation /> */}
-            {/* <AdminManagment /> */}
-            {/* <AdressManagment /> */}
+          <div className=" container">
+            <div className=" container  px-4  body-container">
+              <Switch>
+                <Route path="/boiteMessage">
+                  <BoiteMessage />{" "}
+                </Route>
+                <Route path="/demandeManagment">
+                  <DemandeManagment />{" "}
+                </Route>
+                <Route path="/categoryManagment">
+                  <CategoryManagment />{" "}
+                </Route>
+                <Route path="/pubActivity">
+                  <PublicationActivity />{" "}
+                </Route>
+                <Route path="/pubAnnonce">
+                  <PublicationAnnonce />{" "}
+                </Route>
+                <Route path="/pubEvent">
+                  <PublicationEvent />{" "}
+                </Route>
+                <Route path="/userAbonné">
+                  <UserAbonné />{" "}
+                </Route>
+                <Route path="/userAnnonceur">
+                  <UserAnnonceur />{" "}
+                </Route>
+                <Route path="/reclamation">
+                  <Reclamation />{" "}
+                </Route>
+                <Route path="/adminManagment">
+                  <AdminManagment />{" "}
+                </Route>
+                <Route path="/adressManagment">
+                  <AdressManagment />{" "}
+                </Route>
+                <Route exact path="/">
+                  <Dashboard />{" "}
+                </Route>
+              </Switch>
+            </div>
           </div>
         </div>
-      </div>
+      </Router>
     </div>
   );
 }
