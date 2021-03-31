@@ -1,13 +1,12 @@
 import React from "react";
-import Header from "./components/Header";
 import WelcomImage from "./components/WelcomImage";
-import TopThreeUser from "./components/TopThreeUser";
+import News from "./components/News";
 import AboutUS from "./components/AboutUs";
 import ContactUs from "./components/ContactUs";
 import Footer from "./components/Footer";
 import "./Home.css";
-
 import SmoothScroll from "smooth-scroll";
+
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
   speedAsDuration: true,
@@ -15,10 +14,9 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
 function Home() {
   return (
     <div className="home">
-      <Header />
       <div className="home__container">
         <WelcomImage />
-        <TopThreeUser />
+        <News />
         <AboutUS />
         <ContactUs />
         <Footer />

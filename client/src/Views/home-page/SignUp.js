@@ -1,59 +1,73 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SignUp.css";
 import avatar from "../image/signIn-avatar.png";
-
+import ToggleButton from "react-bootstrap/ToggleButton";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 function SignUp() {
+  const [radioValue, setRadioValue] = useState("1");
+  const radios = [
+    { name: "Homme", value: "1" },
+    { name: "Femme", value: "2" },
+  ];
   return (
-    <div className="form-container">
-      <div className="form-content-left">
-        <img className="form-img" src={avatar} />
-      </div>
-      <div className="form-content-right">
-        <form className="form">
-          <h1>INSCRIVIZ VOUS</h1>
-          <div className="form-inputs">
-            <input className="form-input" type="text" placeholder="Nom" />
-            <input className="form-input" type="text" placeholder="Prénom" />
+    <div className="signUp">
+      <div className="signIn__container">
+        <div className="signIn__left">
+          <div className="signIn-img" id="signUp-img">
+            <img src={avatar} alt="signIn-avatar" />
           </div>
-          <div className="form-inputs">
-            <label className="form-label">Email</label>
-            <input
-              className="form-input"
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-            />
-          </div>
-          <div className="form-inputs">
-            Homme
-            <input type="radio" name="male" />
-            Femme
-            <input
-              type="radio"
-              name="female"
-              placeholder="Enter your password"
-            />
-          </div>
-          <div className="form-inputs">
-            <input
-              className="form-input"
-              type="password"
-              name="password"
-              placeholder="Enter your password"
-            />
-          </div>
-          <div className="form-inputs">
-            <input
-              className="form-input"
-              type="password"
-              name="password2"
-              placeholder="Confirm your password"
-            />
-          </div>
-          <button className="form-input-btn" type="submit">
-            Sign up
-          </button>
-        </form>
+        </div>
+        <div className="signIn__rigth">
+          <h1 id="signUp-title">INSCRIVIZ VOUS</h1>
+          <form className="form">
+            <div className="form-inputs">
+              <input type="text" className="form-input" placeholder="  Nom" />
+              <input
+                type="text"
+                className="form-input"
+                placeholder="  Prénom"
+              />
+              <input type="Date" className="form-input " />
+              <input
+                type="email"
+                className="form-input"
+                name="email"
+                placeholder=" Tapez votre email"
+              />
+              <div className="gender">
+                <ButtonGroup className=" btn-radio " toggle>
+                  {radios.map((radio, idx) => (
+                    <ToggleButton
+                      key={idx}
+                      type="radio"
+                      name="radio"
+                      value={radio.value}
+                      checked={radioValue === radio.value}
+                      onChange={(e) => setRadioValue(e.currentTarget.value)}
+                    >
+                      {radio.name}
+                    </ToggleButton>
+                  ))}
+                </ButtonGroup>
+              </div>
+              <input
+                type="password"
+                className="form-input"
+                name="password"
+                placeholder=" Tapez votre mots de passe"
+              />
+              <input
+                type="password"
+                className="form-input"
+                name="password2"
+                placeholder=" Confirmez votre mots de passe"
+              />
+              <button className="form-btn" type="submit">
+                Inscription
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
