@@ -1,6 +1,5 @@
 import React from "react";
 import FlipCard from "./FlipCard";
-import "./TopThreeUser.css";
 
 function TopThreeUser() {
   return (

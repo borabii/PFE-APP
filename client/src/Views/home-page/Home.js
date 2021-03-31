@@ -17,14 +17,14 @@ function Home() {
   return (
     <div className="home">
       <Header />
-      {/* <div className="home__container">
+      <div className="home__container">
         <WelcomImage />
         <News />
         <AboutUS />
         <ContactUs />
         <Footer />
-      </div> */}
-      <SignIn />
+      </div>
+      {/* <SignIn /> */}
       {/* <SignUp /> */}
     </div>
   );

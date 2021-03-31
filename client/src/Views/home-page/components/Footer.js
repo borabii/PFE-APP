@@ -1,5 +1,4 @@
 import React from "react";
-import "./Footer.css";
 function Footer() {
   return (
     <footer class="bg-light text-center text-lg-start">
