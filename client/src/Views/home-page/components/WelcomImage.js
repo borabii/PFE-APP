@@ -1,5 +1,6 @@
 import React from "react";
 import "./WelcomImage.css";
+import { Link, Router } from "react-router-dom";
 function WelcomImage() {
   return (
     <header className="welcomImage" id="home">
@@ -12,7 +13,9 @@ function WelcomImage() {
               tristique neque, commodo, id senectus. Interdum mauris in faucibus
               ac pretium convallis.
             </p>
-            <button className="btn btn-custom btn-lg ">S'inscrire</button>
+            <Link to="/SignUp">
+              <button className="btn btn-custom btn-lg ">S'inscrire</button>
+            </Link>
           </div>
         </div>
       </div>

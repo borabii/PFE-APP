@@ -2,12 +2,15 @@ import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import "./Header.css";
+import { Link } from "react-router-dom";
 function Header() {
   return (
     <div>
       <Navbar collapseOnSelect expand="lg" className="my-navbar" fixed="top">
         <Navbar.Brand>
-          <h2>Logo</h2>
+          <Link to="/">
+            <h2>Logo</h2>
+          </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-collpase" />
         <Navbar.Collapse
@@ -30,14 +33,19 @@ function Header() {
           </Nav>
           <Nav className="ml-auto">
             <Nav.Link>
-              <button className="nav-signIn">Connexion</button>
-              <h4 id="btnSignIn-small-device">Connexion</h4>
+              <Link to="/SignIn">
+                <button className="nav-signIn">Connexion</button>
+
+                <h4 id="btnSignIn-small-device">Connexion</h4>
+              </Link>
             </Nav.Link>
             <Nav.Link>
-              <button className="nav-signUp">
-                <p>S'inscrire</p>
-              </button>
-              <h4 id="btnSignUp-small-device">S'inscrire</h4>
+              <Link to="/SignUp">
+                <button className="nav-signUp">
+                  <p>S'inscrire</p>
+                </button>
+                <h4 id="btnSignUp-small-device">S'inscrire</h4>
+              </Link>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

@@ -1,33 +1,30 @@
-.my-navbar{
+.my-navbar {
   background-color: #f4ae44;
-
 }
- 
-
 
 .nav-signUp {
   width: 130px;
   height: 40px;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   text-transform: uppercase;
   color: #fff;
-  background: #3ACEB9;
-  padding:14px;
+  background: #3aceb9;
+  padding: 14px;
   letter-spacing: 0.01em;
   font-size: 20px;
   font-weight: 400;
   line-height: 10px;
   border-radius: 25px;
   transition: all 0.5s linear;
-  border: 0
+  border: 0;
 }
-.nav-signIn{
+.nav-signIn {
   width: 130px;
   height: 40px;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   text-transform: uppercase;
   color: #fff;
-  padding:6px;
+  padding: 6px;
   letter-spacing: 0.01em;
   font-size: 20px;
   font-weight: 400;
@@ -36,42 +33,30 @@
   transition: all 0.5s linear;
   background-color: transparent;
   border: 1px solid #fff;
-
 }
-.nav-signIn:hover{
-
+.nav-signIn:hover {
   background: #fff;
   color: #040941;
-
-
 }
 .nav-signUp:hover {
-  
-
-  background-color: #55C3DE;
+  background-color: #55c3de;
   border: white;
-  color: white ;
+  color: white;
 }
-#btnSignIn-small-device,#btnSignUp-small-device{
-display: none;
+#btnSignIn-small-device,
+#btnSignUp-small-device {
+  display: none;
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
 }
 
-@media screen and (max-width:990px){
-  
-  #btnSignIn-small-device,#btnSignUp-small-device{
+@media screen and (max-width: 990px) {
+  #btnSignIn-small-device,
+  #btnSignUp-small-device {
     display: inline;
   }
-  .nav-signUp,.nav-signIn {
+  .nav-signUp,
+  .nav-signIn {
     display: none;
   }
 }
-
-
-
-
-
-
-
-
-
-
