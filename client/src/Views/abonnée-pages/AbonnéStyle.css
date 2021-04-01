@@ -1,0 +1,241 @@
+/* abonné home page style */
+.homePageBody {
+  padding: 20px;
+  margin-top: 150px;
+  /* margin-left: 70px; */
+}
+.homePageBody > .homePageBody-TodayPub,
+.homePageBody-Catégorie,
+.homePageBody-ComingPub > h2 {
+  margin-left: 10px;
+}
+.homePageBody-ComingPub,
+.homePageBody-Catégorie {
+  margin-top: 100px;
+}
+/* today pub style */
+.pubCard-carousel {
+  width: 100%;
+}
+.CatégorieCard-carousel {
+  margin-top: 30px;
+}
+/* coming pub style */
+
+/* header style */
+.abonné-Header {
+  background-color: #f6f5f5;
+  /* left: 70px; */
+  position: absolute;
+}
+
+.aboHeader-searsh {
+  display: flex;
+  border: 2px solid #44c9bb;
+
+  height: 45px;
+  border-radius: 10px;
+}
+.searshSelect {
+  border-radius: 10px 0px 0px 10px;
+  position: relative;
+  background-color: white;
+  border-right: 2px solid #aaa;
+}
+.searshSelect:after {
+  content: ">";
+  font: 25px "Consolas", monospace;
+  color: #44c9bb;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  right: 8px;
+  top: 5px;
+  padding: 0 0 2px;
+  border-bottom: 1px solid #ddd;
+  position: absolute;
+  pointer-events: none;
+}
+#dropdown-searshOption {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100px;
+  height: 100%;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 10px 0px 0px 10px;
+}
+.aboHeader-searsh > input {
+  align-self: center;
+  border: none;
+  outline: none;
+  width: 450px;
+  height: 100%;
+}
+.aboHeader-searshIcon {
+  background-color: white;
+  border-radius: 0px 10px 10px 0px;
+}
+#searshIcon {
+  width: 40px;
+  height: 40px;
+  margin-top: 2px;
+}
+
+.header-notifIcon {
+  margin-right: 20px;
+}
+.header-notifIcon > #notifIcon {
+  width: 40px;
+  height: 45px;
+  align-self: center;
+  margin-top: 2px;
+}
+
+.userPicture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+#btnNotif-small-device,
+#btnProfil-small-device {
+  display: none;
+}
+/* side Menu style */
+.aboSideMenu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70px;
+  height: 100vh;
+  bottom: 0;
+  background-color: #fea041;
+}
+.sideMenu-openIcon {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+.sideMenu-openIcon > #openIcon {
+  font-size: 40px;
+  cursor: pointer;
+}
+.aboSideMenu > .sideMenu-Items {
+  margin-top: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sideMenu-Items > .sideMenu-icon {
+  margin-top: 80px;
+}
+/* pub card Style */
+.pubCard {
+  width: 400px;
+  height: 250px;
+  margin: 40px; /* delete it after test*/
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+}
+.pubCard > .pubCard-image {
+  background-color: black;
+  border-radius: 30px 30px 0px 0px;
+  height: 70%;
+  position: relative;
+}
+.pubCard-image > .pubCard-nbrParticipant,
+.pubCard-horaire {
+  width: 80px;
+  height: 25px;
+  background-color: #f6f5f5;
+  border-radius: 20px;
+  padding: 5px;
+  color: #3aceb9;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  margin: 10px;
+}
+.pubCard-image > .pubCard-nbrParticipant {
+  float: left;
+  position: absolute;
+  left: 0px;
+}
+.pubCard-horaire {
+  float: right;
+  position: absolute;
+  right: 0px;
+}
+
+.pubCard-image > img {
+  border-radius: 30px 30px 0px 0px;
+  height: 100%;
+  width: 100%;
+}
+.pubCard > .pubCard-info {
+  display: flex;
+  background-color: #f6f5f5;
+  height: 30%;
+  border-radius: 0px 0px 30px 30px;
+}
+.pubCard-info > .pubInfo-date {
+  text-align: center;
+  margin-left: 20px;
+  margin-top: 8px;
+}
+.pubInfo-date > h4 {
+  color: #f45728;
+  font-size: large;
+  margin-bottom: 0px;
+}
+
+.pubCard-info > .pubInfo-add {
+  margin-left: 12px;
+  margin-top: 5px;
+}
+.pubCard-info > .pubInfo-add > h4 {
+  font-size: 20px;
+  margin-bottom: 0px;
+}
+.pubCard-info > .pubInfo-add,
+.pubInfo-date > p {
+  font-size: 15px;
+  color: #040941;
+}
+.pubInfo-add > span {
+  display: flex;
+}
+.pubInfo-add > span > #pubLoc-icon {
+  color: red;
+  width: 15px;
+}
+/* catégorie card style */
+.catégorieCard {
+  width: 90px;
+  height: 90px;
+  border-radius: 25px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-bottom: 5px;
+}
+.catégorieCard > img {
+  width: 90px;
+  height: 90px;
+  border-radius: 10px;
+  border-radius: 25px;
+}
+
+@media screen and (max-width: 990px) {
+  .header-notifIcon,
+  .userPicture {
+    display: none;
+  }
+  #btnNotif-small-device,
+  #btnProfil-small-device {
+    display: inline;
+  }
+}
