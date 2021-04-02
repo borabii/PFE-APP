@@ -4,7 +4,9 @@ import CatégorieCard from "./CatégorieCard";
 
 function Catégorie() {
   const breakPoints = [
-    { width: 1, itemsToShow: 4, showArrows: true },
+    { width: 1, itemsToShow: 2 },
+    { width: 300, itemsToShow: 3 },
+
     { width: 500, itemsToShow: 4 },
     { width: 768, itemsToShow: 7 },
     { width: 1200, itemsToShow: 10 },
@@ -13,7 +15,7 @@ function Catégorie() {
     <div>
       <Carousel
         pagination={false}
-        itemPadding={[0, 5]}
+        itemPadding={[0, 10]}
         breakPoints={breakPoints}
         className="CatégorieCard-carousel"
       >
@@ -23,7 +25,6 @@ function Catégorie() {
         <CatégorieCard />
         <CatégorieCard />
         <CatégorieCard />
-
         <CatégorieCard />
         <CatégorieCard />
         <CatégorieCard />
@@ -33,7 +34,6 @@ function Catégorie() {
         <CatégorieCard />
         <CatégorieCard />
         <CatégorieCard />
-
         <CatégorieCard />
         <CatégorieCard />
         <CatégorieCard />

@@ -20,6 +20,30 @@ function ComingPub() {
           <Col>
             <PubCard />
           </Col>
+          <Col>
+            <PubCard />
+          </Col>
+          <Col>
+            <PubCard />
+          </Col>
+          <Col>
+            <PubCard />
+          </Col>
+          <Col>
+            <PubCard />
+          </Col>
+          <Col>
+            <PubCard />
+          </Col>
+          <Col>
+            <PubCard />
+          </Col>
+          <Col>
+            <PubCard />
+          </Col>
+          <Col>
+            <PubCard />
+          </Col>
         </Row>
       </Container>
     </div>

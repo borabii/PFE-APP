@@ -1,8 +1,9 @@
 import React from "react";
+import Card from "react-bootstrap/Card";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 function PubCard() {
   return (
-    <div className=" card pubCard">
+    <Card className=" mb-5  pubCard pubCard-phone ">
       <div className="pubCard-image">
         <div className="pubCard-nbrParticipant">
           <p>2 PLACES</p>{" "}
@@ -29,7 +30,7 @@ function PubCard() {
           </span>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }
 

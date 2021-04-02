@@ -2,9 +2,8 @@
 .homePageBody {
   padding: 20px;
   margin-top: 150px;
-  /* margin-left: 70px; */
 }
-.homePageBody > .homePageBody-TodayPub,
+.homePageBody-TodayPub,
 .homePageBody-Catégorie,
 .homePageBody-ComingPub > h2 {
   margin-left: 10px;
@@ -20,19 +19,15 @@
 .CatégorieCard-carousel {
   margin-top: 30px;
 }
-/* coming pub style */
 
 /* header style */
 .abonné-Header {
   background-color: #f6f5f5;
-  /* left: 70px; */
-  position: absolute;
 }
 
 .aboHeader-searsh {
   display: flex;
   border: 2px solid #44c9bb;
-
   height: 45px;
   border-radius: 10px;
 }
@@ -74,7 +69,6 @@
   align-self: center;
   border: none;
   outline: none;
-  width: 450px;
   height: 100%;
 }
 .aboHeader-searshIcon {
@@ -90,6 +84,12 @@
 .header-notifIcon {
   margin-right: 20px;
 }
+.header-chatIcon > #chatIcon {
+  width: 40px;
+  height: 45px;
+  align-self: center;
+  margin-top: 2px;
+}
 .header-notifIcon > #notifIcon {
   width: 40px;
   height: 45px;
@@ -103,47 +103,20 @@
   border-radius: 50%;
 }
 #btnNotif-small-device,
-#btnProfil-small-device {
+#btnProfil-small-device,
+#navbar-collapse-small-device,
+#btnChat-small-device {
   display: none;
 }
-/* side Menu style */
-.aboSideMenu {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 70px;
-  height: 100vh;
-  bottom: 0;
-  background-color: #fea041;
-}
-.sideMenu-openIcon {
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-}
-.sideMenu-openIcon > #openIcon {
-  font-size: 40px;
-  cursor: pointer;
-}
-.aboSideMenu > .sideMenu-Items {
-  margin-top: 150px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.sideMenu-Items > .sideMenu-icon {
-  margin-top: 80px;
-}
+
 /* pub card Style */
 .pubCard {
-  width: 400px;
-  height: 250px;
-  margin: 40px; /* delete it after test*/
+  width: 25rem;
+  height: 15rem;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
 }
 .pubCard > .pubCard-image {
-  background-color: black;
   border-radius: 30px 30px 0px 0px;
   height: 70%;
   position: relative;
@@ -229,13 +202,91 @@
   border-radius: 25px;
 }
 
+/* user activity organized/passed */
+.userPubParticipated {
+  display: flex;
+  flex-direction: column;
+}
+.userPubOrganized__passedPub {
+  width: 100%;
+}
+.comingPub-title {
+  width: 218px;
+  height: 54px;
+  background: #f6f5f5;
+  border-radius: 20px;
+  background: #f6f5f5;
+  text-align: center;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
 @media screen and (max-width: 990px) {
+  /* header medium device style */
   .header-notifIcon,
-  .userPicture {
+  .userPicture,
+  .header-chatIcon {
     display: none;
   }
   #btnNotif-small-device,
-  #btnProfil-small-device {
+  #btnProfil-small-device,
+  #btnChat-small-device {
     display: inline;
+  }
+  .pubCard-phone {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 500px) {
+  /* homePage small device style */
+  .homePageBody {
+    padding: 5px;
+    margin-top: 150px;
+  }
+  .homePageBody-ComingPub,
+  .homePageBody-Catégorie {
+    margin-top: 50px;
+  }
+
+  /* header small device style */
+  #navbar-collapse-lg-device {
+    display: none;
+  }
+  #navbar-collapse-small-device {
+    display: inline;
+  }
+  /* pubCard small device style */
+  .pubCard-phone {
+    width: 100%;
+    height: 15rem;
+    border-radius: 20px;
+  }
+
+  .pubCard-phone > .pubCard-image {
+    border-radius: 20px 20px 0px 0px;
+    height: 70%;
+    position: relative;
+  }
+  .pubCard-image > img {
+    border-radius: 20px 20px 0px 0px;
+    height: 100%;
+    width: 100%;
+  }
+  .comingPub-title {
+    width: 150px;
+    height: 40px;
+    background: #f6f5f5;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 4px;
+    text-transform: uppercase;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  .comingPub-title > h1 {
+    font-size: 25px;
+  }
+  .pubCard-phone > .pubCard-info {
+    border-radius: 0px 0px 20px 20px;
   }
 }

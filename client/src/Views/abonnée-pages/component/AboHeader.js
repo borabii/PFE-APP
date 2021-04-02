@@ -11,6 +11,11 @@ function AboHeader() {
       <Navbar.Brand className="">
         <h2>Bienvenu, Jones</h2>
       </Navbar.Brand>
+      <Navbar.Toggle
+        aria-controls="navbar-collpase"
+        id="navbar-collapse-small-device"
+      />
+
       <Nav className=" justify-content-center align-middle  ml-auto">
         <div className="aboHeader-searsh">
           <div className="searshSelect">
@@ -28,13 +33,17 @@ function AboHeader() {
           </div>
         </div>
       </Nav>
-      <Navbar.Toggle aria-controls="navbar-collpase" />
+      <Navbar.Toggle
+        aria-controls="navbar-collpase"
+        id="navbar-collapse-lg-device"
+      />
       <Navbar.Collapse className="justify-content-center" id="navbar-collpase">
         <Nav className="ml-auto">
           <Nav.Link>
-            <div className="header-notifIcon">
-              <ChatBubbleOutlineIcon id="notifIcon" />
+            <div className="header-chatIcon">
+              <ChatBubbleOutlineIcon id="chatIcon" />
             </div>
+            <h4 id="btnChat-small-device">Boite Message</h4>
           </Nav.Link>
           <Nav.Link>
             <div className="header-notifIcon">
