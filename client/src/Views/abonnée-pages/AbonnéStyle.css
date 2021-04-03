@@ -1,4 +1,6 @@
-/* abonné home page style */
+/*****************************/
+/**abonné home page style ***/
+/***************************/
 .homePageBody {
   padding: 20px;
   margin-top: 150px;
@@ -12,17 +14,23 @@
 .homePageBody-Catégorie {
   margin-top: 100px;
 }
-/* today pub style */
+/*****************************/
+/*****today pub style********/
+/***************************/
 .pubCard-carousel {
   width: 100%;
 }
 .CatégorieCard-carousel {
   margin-top: 30px;
 }
-
-/* header style */
+/*************************/
+/******header style******/
+/***********************/
 .abonné-Header {
   background-color: #f6f5f5;
+  display: flex;
+  flex-grow: 2;
+  justify-content: space-between;
 }
 
 .aboHeader-searsh {
@@ -30,6 +38,8 @@
   border: 2px solid #44c9bb;
   height: 45px;
   border-radius: 10px;
+  width: 100%;
+  align-self: center;
 }
 .searshSelect {
   border-radius: 10px 0px 0px 10px;
@@ -70,6 +80,7 @@
   border: none;
   outline: none;
   height: 100%;
+  width: 100%;
 }
 .aboHeader-searshIcon {
   background-color: white;
@@ -80,7 +91,20 @@
   height: 40px;
   margin-top: 2px;
 }
-
+.searsh-resault {
+  position: absolute;
+  width: 477px;
+  height: 520px;
+  left: inherit;
+  top: 73px;
+  -webkit-transition: height 1s ease;
+  -moz-transition: height 1s ease;
+  -o-transition: height 1s ease;
+  -ms-transition: height 1s ease;
+  transition: height 1s ease;
+  background: #f6f5f5;
+  border-radius: 30px;
+}
 .header-notifIcon {
   margin-right: 20px;
 }
@@ -108,8 +132,9 @@
 #btnChat-small-device {
   display: none;
 }
-
-/* pub card Style */
+/**************************/
+/*****pub card Style******/
+/************************/
 .pubCard {
   width: 25rem;
   height: 15rem;
@@ -187,7 +212,9 @@
   color: red;
   width: 15px;
 }
-/* catégorie card style */
+/*************************/
+/**catégorie card style**/
+/***********************/
 .catégorieCard {
   width: 90px;
   height: 90px;
@@ -201,8 +228,9 @@
   border-radius: 10px;
   border-radius: 25px;
 }
-
-/* user activity organized/passed */
+/**********************************/
+/**user activity organized/passed**/
+/*********************************/
 .userPubParticipated {
   display: flex;
   flex-direction: column;
@@ -220,26 +248,9 @@
   margin-bottom: 30px;
   text-transform: uppercase;
 }
-
-@media screen and (max-width: 990px) {
-  /* header medium device style */
-  .header-notifIcon,
-  .userPicture,
-  .header-chatIcon {
-    display: none;
-  }
-  #btnNotif-small-device,
-  #btnProfil-small-device,
-  #btnChat-small-device {
-    display: inline;
-  }
-  .pubCard-phone {
-    width: 100%;
-  }
-}
-
-/* user visited profile style */
-
+/*******************************/
+/**user visited profile style**/
+/*****************************/
 .abonnéVisitedProfile > .abonnéVisitedProfile-top {
   display: flex;
 }
@@ -336,11 +347,10 @@
   display: none;
 }
 .abonnéVisitedProfile > .abonnéVisitedProfile-middel {
-  margin-top: 10px;
+  margin-top: 40px;
 }
 .abonnéVisitedProfile-middel > #user-interset {
   display: flex;
-
   background: #f6f5f5;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
@@ -362,12 +372,47 @@
 #interest-card > p {
   font-size: 20px;
 }
-.ab .abonnéVisitedProfile > .abonnéVisitedProfile-bottom {
-  margin-top: 10px;
+.abonnéVisitedProfile > .abonnéVisitedProfile-bottom {
+  margin-top: 40px;
   padding-top: 10px;
 }
+/*******************************************************/
+/*************** medium device style*********************/
+/******************************************************/
+@media screen and (max-width: 1000px) {
+  /* header medium/small device style */
+  .abonné-Header {
+    display: flex;
+    justify-content: space-between;
+  }
+  .header-notifIcon,
+  .userPicture,
+  .header-chatIcon {
+    display: none;
+  }
+  #btnNotif-small-device,
+  #btnProfil-small-device,
+  #btnChat-small-device {
+    display: inline;
+  }
+  .pubCard-phone {
+    width: 100%;
+  }
+  #navbar-collapse-lg-device {
+    display: none;
+  }
+  #navbar-collapse-small-device {
+    display: inline;
+  }
+}
+
+/*******************************************************/
+/*************** small device style********************/
+/*****************************************************/
 @media screen and (max-width: 500px) {
-  /* homePage small device style */
+  /*****************************/
+  /**home small device style***/
+  /***************************/
   .homePageBody {
     padding: 5px;
     margin-top: 150px;
@@ -376,15 +421,19 @@
   .homePageBody-Catégorie {
     margin-top: 50px;
   }
-
-  /* header small device style */
-  #navbar-collapse-lg-device {
-    display: none;
-  }
+  /********************************************/
+  /**********header small device style********/
+  /******************************************/
   #navbar-collapse-small-device {
-    display: inline;
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    margin: 5px;
   }
-  /* pubCard small device style */
+  /*******************************/
+  /**pubCard small device style**/
+  /*****************************/
   .pubCard-phone {
     width: 100%;
     height: 15rem;
@@ -418,7 +467,9 @@
   .pubCard-phone > .pubCard-info {
     border-radius: 0px 0px 20px 20px;
   }
-  /* user visited profile style */
+  /********************************************/
+  /**user visited profile small device style**/
+  /******************************************/
   .abonnéVisitedProfile > .abonnéVisitedProfile-top {
     display: none;
   }
@@ -437,11 +488,9 @@
     width: 150px;
     height: 150px;
     border: 3px solid #3aceb9;
-    /* box-sizing: border-box; */
     border-radius: 50%;
   }
-  .abonnéVisitedProfile > .abonnéVisitedProfile-topSmallDevice > .top-middle {
-  }
+
   .abonnéVisitedProfile
     > .abonnéVisitedProfile-topSmallDevice
     > .top-middle
