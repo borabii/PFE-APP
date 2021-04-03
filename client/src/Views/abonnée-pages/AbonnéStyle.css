@@ -237,6 +237,135 @@
     width: 100%;
   }
 }
+
+/* user visited profile style */
+
+.abonnéVisitedProfile > .abonnéVisitedProfile-top {
+  display: flex;
+}
+
+.abonnéVisitedProfile-top > .top-left {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.abonnéVisitedProfile-top > .top-left > img {
+  width: 250px;
+  height: 100%;
+  border: 3px solid #3aceb9;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+.abonnéVisitedProfile-top > .top-middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+.abonnéVisitedProfile-top > .top-middle > .userProfile-info {
+  display: flex;
+  background-color: #f6f5f5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+}
+.top-middle > .userProfile-info > #user-name {
+  margin-left: 10px;
+  letter-spacing: 0.02rem;
+}
+
+.top-middle > .userProfile-info > #user-adresse {
+  display: flex;
+  margin-top: 10px;
+  margin-left: 10%;
+}
+.userProfile-info > #user-adresse > #userLoc-icon {
+  color: red;
+}
+.abonnéVisitedProfile-top > .top-middle > .userProfile-rank {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+.top-middle > .userProfile-rank > #user-avis > h3 {
+  letter-spacing: 0.02rem;
+}
+.top-middle > .userProfile-rank > #user-score,
+#user-avis {
+  text-align: center;
+}
+.top-middle > .userProfile-rank > #user-score > h3 {
+  letter-spacing: 0.02rem;
+}
+.abonnéVisitedProfile-top > .top-middle > .userProfile-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.top-middle > .userProfile-action > #user-sendMessage > a {
+  cursor: pointer;
+}
+
+.userProfile-action > #btn-follow {
+  width: 100px;
+  height: 45px;
+  background: #3aceb9;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+}
+.top-middle > .userProfile-action > #user-report > a {
+  cursor: pointer;
+}
+.abonnéVisitedProfile-top > .top-right {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.abonnéVisitedProfile-top > .top-right > .userProfile-note > #user-rate {
+  width: 249px;
+  height: 150px;
+  background: #f6f5f5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  letter-spacing: 0.02rem;
+  padding: 5px;
+}
+.abonnéVisitedProfile > .abonnéVisitedProfile-topSmallDevice {
+  display: none;
+}
+.abonnéVisitedProfile > .abonnéVisitedProfile-middel {
+  margin-top: 10px;
+}
+.abonnéVisitedProfile-middel > #user-interset {
+  display: flex;
+
+  background: #f6f5f5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+#interest-card {
+  width: fit-content;
+  align-self: center;
+  padding: 5px 2px 0px 2px;
+  text-align: center;
+  border-radius: 20px;
+  margin: 10px;
+  background: #fea041;
+  color: #040941;
+}
+#interest-card > h4 {
+  font-size: 18px;
+  margin-bottom: 2px;
+}
+#interest-card > p {
+  font-size: 20px;
+}
+.ab .abonnéVisitedProfile > .abonnéVisitedProfile-bottom {
+  margin-top: 10px;
+  padding-top: 10px;
+}
 @media screen and (max-width: 500px) {
   /* homePage small device style */
   .homePageBody {
@@ -288,5 +417,117 @@
   }
   .pubCard-phone > .pubCard-info {
     border-radius: 0px 0px 20px 20px;
+  }
+  /* user visited profile style */
+  .abonnéVisitedProfile > .abonnéVisitedProfile-top {
+    display: none;
+  }
+  .abonnéVisitedProfile > .abonnéVisitedProfile-topSmallDevice {
+    display: inline;
+  }
+  .abonnéVisitedProfile > .abonnéVisitedProfile-topSmallDevice > .top-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .abonnéVisitedProfile
+    > .abonnéVisitedProfile-topSmallDevice
+    > .top-left
+    > img {
+    width: 150px;
+    height: 150px;
+    border: 3px solid #3aceb9;
+    /* box-sizing: border-box; */
+    border-radius: 50%;
+  }
+  .abonnéVisitedProfile > .abonnéVisitedProfile-topSmallDevice > .top-middle {
+  }
+  .abonnéVisitedProfile
+    > .abonnéVisitedProfile-topSmallDevice
+    > .top-middle
+    > .userProfile-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .abonnéVisitedProfile
+    > .abonnéVisitedProfile-topSmallDevice
+    > .top-middle
+    > .userProfile-info
+    > #user-adresse {
+    margin-left: -7px;
+    margin-top: -5px;
+  }
+  .abonnéVisitedProfile
+    > .abonnéVisitedProfile-topSmallDevice
+    > .top-middle
+    > .userProfile-rank {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  .abonnéVisitedProfile
+    > .abonnéVisitedProfile-topSmallDevice
+    > .top-middle
+    > .userProfile-rank
+    > #user-avis,
+  #user-score {
+    border-radius: 10px;
+    width: 90px;
+    border: 2px solid #3aceb9;
+    color: #040941;
+  }
+  .abonnéVisitedProfile
+    > .abonnéVisitedProfile-topSmallDevice
+    > .top-middle
+    > .userProfile-action {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .abonnéVisitedProfile
+    > .abonnéVisitedProfile-topSmallDevice
+    > .top-middle
+    > .userProfile-action
+    > #user-sendMessage
+    > a {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .abonnéVisitedProfile
+    > .abonnéVisitedProfile-topSmallDevice
+    > .top-middle
+    > .userProfile-action
+    > #btn-follow {
+    width: 90px;
+    height: 40px;
+  }
+  .abonnéVisitedProfile > .abonnéVisitedProfile-topSmallDevice > .top-right {
+    margin-top: 20px;
+  }
+  .abonnéVisitedProfile
+    > .abonnéVisitedProfile-topSmallDevice
+    > .top-right
+    > .userProfile-note
+    > #user-rate {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+  #interest-card {
+    width: 100%;
+    margin: 0px;
+  }
+  .abonnéVisitedProfile-middel > #user-interset {
+    padding-top: 10px;
+  }
+  .abonnéVisitedProfile-bottom {
+    margin-top: 20px;
+  }
+  .abonnéVisitedProfile-bottom > h2 {
+    margin-bottom: 40px;
   }
 }
