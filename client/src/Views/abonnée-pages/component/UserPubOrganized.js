@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 function UserPubOrganized() {
   const breakPoints = [
     { width: 1, itemsToShow: 1, showArrows: true },
-    { width: 500, itemsToShow: 1 },
+    { width: 500, itemsToShow: 2 },
     { width: 768, itemsToShow: 2 },
     { width: 1200, itemsToShow: 3 },
   ];
@@ -21,6 +21,7 @@ function UserPubOrganized() {
           <Carousel
             pagination={false}
             breakPoints={breakPoints}
+            itemPadding={[0, 10]}
             className="pubCard-carousel"
           >
             <PubCard />

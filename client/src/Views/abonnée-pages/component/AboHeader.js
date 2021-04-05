@@ -1,12 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import SearchIcon from "@material-ui/icons/Search";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import ReactSearchBox from "react-search-box";
+
+let useClickOutside = (handler) => {
+  let domNode = useRef();
+
+  useEffect(() => {
+    let maybeHandler = (event) => {
+      if (!domNode.current.contains(event.target)) {
+        handler();
+      }
+    };
+
+    document.addEventListener("mousedown", maybeHandler);
+
+    return () => {
+      document.removeEventListener("mousedown", maybeHandler);
+    };
+  });
+
+  return domNode;
+};
 function AboHeader() {
   const [showInfo, setshowInfo] = useState(false);
+  let domNode = useClickOutside(() => {
+    setshowInfo(false);
+  });
   const data = [
     {
       key: "john",
@@ -32,14 +55,16 @@ function AboHeader() {
   return (
     <Navbar collapseOnSelect expand="lg" className="abonné-Header" fixed="top">
       <div>
-        <Navbar.Brand className="">
-          <h2>Bienvenu, Jones</h2>
+        <Navbar.Brand>
+          <h2>Logo</h2>
         </Navbar.Brand>
       </div>
-
+      <div id="navbar-collapse-small-device">
+        <Navbar.Toggle aria-controls="navbar-collpase" />
+      </div>
       <div>
         <Nav>
-          <div className="aboHeader-searsh">
+          <div className="aboHeader-searsh" ref={domNode}>
             <div className="searshSelect">
               <select id="dropdown-searshOption">
                 <option>Annonce</option>
@@ -52,8 +77,7 @@ function AboHeader() {
             <input
               type="text"
               placeholder=" Recherche"
-              onClick={() => setshowInfo(true)}
-              onBlur={() => setshowInfo(false)}
+              onClick={() => setshowInfo((showInfo) => !showInfo)}
             />
             <div className="aboHeader-searshIcon">
               <SearchIcon id="searshIcon" />
@@ -62,14 +86,18 @@ function AboHeader() {
               className="searsh-resault"
               style={{ display: showInfo ? "block" : "none" }}
             >
-              ddddddddddddddddddddddddddddddddddd
+              <ul>
+                {data.map((item) => (
+                  <li key={item.key}>
+                    <a onClick={console.log("hhhh")}>{item.value}</a>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </Nav>
       </div>
-      <div id="navbar-collapse-small-device">
-        <Navbar.Toggle aria-controls="navbar-collpase" />
-      </div>
+
       <div>
         <Navbar.Toggle
           aria-controls="navbar-collpase"
