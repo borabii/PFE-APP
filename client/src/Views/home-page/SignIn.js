@@ -19,7 +19,7 @@ function SignIn() {
             <div className="form-inputs">
               <input type="text" className="form-input" placeholder="Email"/>
               <input type="text" className="form-input" placeholder="Mots de passe"/>
-              <button  className="btn form-btn "  type="submit">Connexion</button>
+              <button  className=" form-btn "  type="submit">Connexion</button>
             </div>
 
             

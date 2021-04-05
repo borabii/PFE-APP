@@ -24,8 +24,8 @@ function Home() {
         <AboutUS />
         <ContactUs />
         <Footer /> */}
-        {/* <SignIn /> */}
-        <SignUp />
+        <SignIn />
+        {/* <SignUp /> */}
       </div>
     </div>
   );
