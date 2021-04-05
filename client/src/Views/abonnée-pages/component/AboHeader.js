@@ -26,9 +26,15 @@ let useClickOutside = (handler) => {
   return domNode;
 };
 function AboHeader() {
-  const [showInfo, setshowInfo] = useState(false);
+  //this state for handeling selected search option
+  const [searchOption, setSearchOption] = useState("annonce");
+  console.log(searchOption);
+  //this state for hide/show search result Dropdown when clicking on the searsh input bar
+  const [showSearchResultDropdown, setShowSearchResultDropdown] = useState(
+    false
+  );
   let domNode = useClickOutside(() => {
-    setshowInfo(false);
+    setShowSearchResultDropdown(false);
   });
   const data = [
     {
@@ -66,30 +72,39 @@ function AboHeader() {
         <Nav>
           <div className="aboHeader-searsh" ref={domNode}>
             <div className="searshSelect">
-              <select id="dropdown-searshOption">
-                <option>Annonce</option>
-                <option>Activity</option>
-                <option>Evenement</option>
-                <option>Abonné</option>
+              <select
+                id="dropdown-searshOption"
+                onChange={(e) => setSearchOption(e.target.value)}
+              >
+                <option value="annonce" selected="selected">
+                  Annonce
+                </option>
+                <option value="activity">Activity</option>
+                <option value="evenement">Evenement</option>
+                <option value="abonné">Abonné</option>
               </select>
             </div>
 
             <input
               type="text"
               placeholder=" Recherche"
-              onClick={() => setshowInfo((showInfo) => !showInfo)}
+              onClick={() =>
+                setShowSearchResultDropdown(
+                  (showSearchResultDropdown) => !showSearchResultDropdown
+                )
+              }
             />
             <div className="aboHeader-searshIcon">
               <SearchIcon id="searshIcon" />
             </div>
             <div
               className="searsh-resault"
-              style={{ display: showInfo ? "block" : "none" }}
+              style={{ display: showSearchResultDropdown ? "block" : "none" }}
             >
               <ul>
                 {data.map((item) => (
                   <li key={item.key}>
-                    <a onClick={console.log("hhhh")}>{item.value}</a>
+                    <a>{item.value}</a>
                   </li>
                 ))}
               </ul>

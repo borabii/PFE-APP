@@ -3,6 +3,7 @@ import Catégorie from "./Catégorie";
 import TodayPub from "./TodayPub";
 import AddIcon from "@material-ui/icons/Add";
 import ComingPub from "./ComingPub";
+import AddActivityPopUp from "./AddActivityPopUp";
 
 // used for hide addActivity-btn-small when scrolling in small device screnn
 const useHideOnScrolled = () => {
@@ -10,7 +11,7 @@ const useHideOnScrolled = () => {
 
   const handleScroll = () => {
     const top = window.pageYOffset || document.documentElement.scrollTop;
-    setHidden(top !== 0);
+    setHidden(top > 40);
   };
 
   useEffect(() => {
@@ -24,18 +25,29 @@ const useHideOnScrolled = () => {
 };
 function Home() {
   const hidden = useHideOnScrolled();
-
+  const [showAddActivityPopUp, SetShowAddActivityPopUp] = useState(false);
   return (
     <div className="home">
-      <button className="addActivity-btn">
+      <button
+        className="addActivity-btn"
+        onClick={() => SetShowAddActivityPopUp(true)}
+      >
         <p id="addAct-text">Publier Activité</p>
       </button>
-      <button
-        className="addActivity-btn-small"
-        style={{ display: !hidden ? "block" : "none" }}
-      >
-        <AddIcon id="addAct-icon" />
-      </button>
+      <div id="addbtn-small">
+        <button
+          className="addActivity-btn-small"
+          style={{ display: !hidden ? "block" : "none" }}
+          onClick={() => SetShowAddActivityPopUp(true)}
+        >
+          <AddIcon id="addAct-icon" />
+        </button>
+        <AddActivityPopUp
+          show={showAddActivityPopUp}
+          onHide={() => SetShowAddActivityPopUp(false)}
+        />
+      </div>
+
       <div className="homePageBody-TodayPub">
         <h2>AUJOURD’HUI A PROXIMITÉ</h2>
         <TodayPub />
