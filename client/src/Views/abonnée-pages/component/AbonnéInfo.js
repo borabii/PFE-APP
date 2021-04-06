@@ -1,0 +1,41 @@
+import React from "react";
+
+function AbonnéInfo() {
+  return (
+    <div className="abonneInfo">
+      <div className="imgProfil">
+        <img
+          className="img"
+          src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwritestylesonline.com%2Fthree-statistics-that-will-make-you-rethink-your-professional-profile-picture%2F&psig=AOvVaw0ViuZZEnTxtPIns_txCJJT&ust=1617401845098000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKjJuMqJ3u8CFQAAAAAdAAAAABAO"
+          alt=""
+        />
+        <button className="btn_change">change l'image</button>
+      </div>
+      <div className="info">
+        <div className="info_General">
+          <h3> Information Générale</h3>
+          <ul>
+            <li>Nom: jones </li>
+            <li>Prenom: jack </li>
+          </ul>
+        </div>
+
+        <div className="description">
+          <h3> Description</h3>
+          <textarea readonly>zgbehbgpjhfgîu</textarea>
+        </div>
+        <div className="gend">
+          <h3>Gender</h3>
+          <h4>Female</h4>
+        </div>
+
+        <div className="mail">
+          <h3>Email</h3>
+          <h4>jones@gmail.com</h4>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default AbonnéInfo;

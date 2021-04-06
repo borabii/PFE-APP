@@ -8,16 +8,14 @@ import AddActivityPopUp from "./AddActivityPopUp";
 // used for hide addActivity-btn-small when scrolling in small device screnn
 const useHideOnScrolled = () => {
   const [hidden, setHidden] = useState(false);
-
   const handleScroll = () => {
-    const top = window.pageYOffset || document.documentElement.scrollTop;
-    setHidden(top > 40);
+    const top = window.pageYOffset || document.documentElement.scrollTop; //calculate the y offcet window scroll
+    setHidden(top > 40); //set the state hidden to true when top > 40
   };
-
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll); //add an scroll event when the component is mounted
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", handleScroll); //remove scroll event when component is unmounted
     };
   }, []);
 
@@ -25,6 +23,8 @@ const useHideOnScrolled = () => {
 };
 function Home() {
   const hidden = useHideOnScrolled();
+  //this state is used to show/hide add activity popUp and it is passed as
+  //a props to AddActivityPopUp
   const [showAddActivityPopUp, SetShowAddActivityPopUp] = useState(false);
   return (
     <div className="home">

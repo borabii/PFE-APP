@@ -253,7 +253,7 @@
   border-radius: 25px;
 }
 /**********************************/
-/**user activity organized/passed**/
+/**abonné activity organized/passed**/
 /*********************************/
 .userPubParticipated {
   display: flex;
@@ -273,7 +273,7 @@
   text-transform: uppercase;
 }
 /*******************************/
-/**user visited profile style**/
+/**abonné visited profile style**/
 /*****************************/
 .abonnéVisitedProfile > .abonnéVisitedProfile-top {
   display: flex;
@@ -400,9 +400,9 @@
   margin-top: 40px;
   padding-top: 10px;
 }
-/**************************/
+/************************************/
 /*****add activity popUp Style******/
-/************************/
+/**********************************/
 .addActivityPopUp {
   width: 100%;
 }
@@ -413,25 +413,105 @@
   width: 100%;
   height: 100%;
 }
+.addAct-form > h3 {
+  margin-top: 10px;
+  margin-bottom: 9px;
+}
 .addAct-form > .addAct-principalInfo {
   display: flex;
   flex-direction: column;
-  border: 2px solid black;
-  padding: 10px;
+  margin-bottom: 10px;
+}
+.addAct-principalInfo > h3 {
+  margin-top: 10px;
+  margin-bottom: 9px;
+}
+
+.addAct-principalInfo > textarea {
+  border-radius: 10px 10px 0px 0px;
+  border: 2px solid #3aceb9;
+  width: 100%;
+  padding-left: 5px;
+  outline: none;
+}
+.addAct-principalInfo > #ActStart-date {
+  display: flex;
+  border-top: none;
+  border-bottom: none;
+  border-left: 2px solid #3aceb9;
+  border-right: 2px solid #3aceb9;
+  height: 41px;
+}
+.addAct-principalInfo > #ActStart-date > span {
+  margin-top: 7px;
+  padding-left: 5px;
+  padding-right: 5px;
+  letter-spacing: 0.02rem;
+  font-size: 18px;
+}
+.addAct-principalInfo > #ActStart-date > input[type="date"] {
+  width: 50%;
+  border: none;
+  border-left: 2px solid #3aceb9;
+  padding-left: 5px;
+}
+.addAct-principalInfo > #ActStart-date > input[type="time"] {
+  border: none;
+  border-left: 2px solid #3aceb9;
+}
+.addAct-principalInfo > #ActEnd-date {
+  display: flex;
+  height: 41px;
+  border-radius: 0px 0px 10px 10px;
+  border: 2px solid #3aceb9;
+}
+.addAct-principalInfo > #ActEnd-date > span {
+  margin-top: 7px;
+  padding-left: 5px;
+  padding-right: 5px;
+  letter-spacing: 0.02rem;
+  font-size: 18px;
+}
+.addAct-principalInfo > #ActEnd-date > input[type="date"] {
+  width: 50%;
+  margin-left: 27px;
+  border: none;
+  border-left: 2px solid #3aceb9;
+  padding-left: 5px;
+}
+.addAct-principalInfo > #ActEnd-date > input[type="time"] {
+  border: none;
+  border-left: 2px solid #3aceb9;
+  border-radius: 0px 0px 10px 0px;
 }
 .addAct-form > .addAct-NbrParticipant {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  border: 2px solid black;
+  height: 46px;
+  border-radius: 10px;
+  border: 2px solid #3aceb9;
 }
 .addAct-NbrParticipant > .nbrParticipant-left {
   display: flex;
-  margin-top: 10px;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+.addAct-NbrParticipant > .nbrParticipant-left > p {
+  font-size: 20px;
+  letter-spacing: 0.02rem;
 }
 .addAct-NbrParticipant > .nbrParticipant-left > #counter-result {
-  border: 2px solid black;
+  width: 40px;
+  height: 30px;
+  text-align: center;
+  margin-left: 6px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.25);
+
+  background-color: #f6f5f5;
 }
+
 .addAct-NbrParticipant > #nbrParticipant-counter {
   display: flex;
   justify-content: space-between;
@@ -440,7 +520,7 @@
   height: fit-content;
   width: fit-content;
   margin-right: 20px;
-  margin-top: 10px;
+  margin-top: 5px;
   border-radius: 10px;
 }
 #incrementBtn,
@@ -452,20 +532,67 @@
   background-color: #f6f5f5;
   cursor: pointer;
 }
+#incrementBtn:hover {
+  background-color: #fea041;
+}
+#decrementBtn:hover {
+  background-color: #fea041;
+}
 #decrementBtn {
   border-left: 1px solid #3aceb9;
-  border-radius: 0px 10px 10px 0px;
+  border-radius: 0px 8px 8px 0px;
 }
 #incrementBtn {
-  border-radius: 10px 0px 0px 10px;
+  border-radius: 8px 0px 0px 8px;
 }
-.addAct-form > .addAct-category > input {
-  width: 100%;
+.addAct-form > .addAct-category > .select {
+  height: 41px;
+  border: 2px solid #3aceb9;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  outline: none;
+}
+
+.addAct-form > .addAct-adress {
+  display: flex;
+  justify-content: space-between;
 }
 .addAct-form > .addAct-adress > input {
   width: 100%;
+  height: 41px;
+  border: 2px solid #3aceb9;
+  border-right: none;
+  border-radius: 5px 0px 0px 5px;
+  margin-bottom: 15px;
+  outline: none;
+  padding-left: 5px;
 }
-
+.addAct-form > .addAct-adress > .addAct-adressMap {
+  width: 70px;
+  height: 41px;
+  border-radius: 0px 5px 5px 0px;
+  border: 2px solid #3aceb9;
+  background-color: #f6f5f5;
+}
+.addAct-adressMap > #map-Icon {
+  color: #f45728;
+  width: 40px;
+  height: 30px;
+}
+.addAct-form > .addAct-btn {
+  width: 190px;
+  height: 40px;
+  background: #53d4c2;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  transition: all 0.5s linear;
+  letter-spacing: 0.03rem;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 5px;
+  align-self: center;
+}
 /*******************************************************/
 /*************** medium device style*********************/
 /******************************************************/
@@ -504,7 +631,7 @@
     width: 95vw;
   }
   /********************************************/
-  /**user visited profile medium device style**/
+  /**abonée visited profile medium device style**/
   /******************************************/
   .abonnéVisitedProfile > .abonnéVisitedProfile-top {
     display: none;
@@ -717,7 +844,7 @@
     border-radius: 0px 0px 20px 20px;
   }
   /********************************************/
-  /**user visited profile small device style**/
+  /**abonné visited profile small device style**/
   /******************************************/
   .abonnéVisitedProfile > .abonnéVisitedProfile-top {
     display: none;
@@ -827,5 +954,35 @@
   }
   .abonnéVisitedProfile-bottom > h2 {
     margin-bottom: 40px;
+  }
+  /************************************/
+  /*****add activity popUp Style******/
+  /**********************************/
+  .addAct-form > h3 {
+    font-size: 20px;
+  }
+  .addAct-principalInfo > h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .addAct-principalInfo > #ActStart-date > span {
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .addAct-principalInfo > #ActEnd-date > span {
+    font-size: 15px;
+    font-weight: 500;
+    padding-right: 1px;
+  }
+  .addAct-NbrParticipant > .nbrParticipant-left > p {
+    font-size: 15px;
+    margin-top: 5px;
+    font-weight: 500;
+    letter-spacing: 0.02rem;
+  }
+  .addAct-NbrParticipant > .nbrParticipant-left > #counter-result {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
   }
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import "./AbonnéStyle.css";
 import AboHeader from "./component/AboHeader";
+import AbonnéProfil from "./component/AbonnéProfil";
 import AbonnéVisitedProfile from "./component/AbonnéVisitedProfile";
 
 import Home from "./component/Home";
@@ -14,10 +15,11 @@ function AbonnéHomePage() {
 
       {/* home body */}
       <div className="homePageBody">
-        <Home />
+        {/* <Home /> */}
         {/* <AbonnéVisitedProfile /> */}
         {/* <UserPubOrganized /> */}
         {/* <UserPubParticipated /> */}
+        <AbonnéProfil />
       </div>
     </div>
   );

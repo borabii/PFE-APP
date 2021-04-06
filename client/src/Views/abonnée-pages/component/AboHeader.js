@@ -4,7 +4,6 @@ import Nav from "react-bootstrap/Nav";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import SearchIcon from "@material-ui/icons/Search";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import ReactSearchBox from "react-search-box";
 
 let useClickOutside = (handler) => {
   let domNode = useRef();

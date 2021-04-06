@@ -3,6 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Select from "react-select";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
+import MapIcon from "@material-ui/icons/Map";
 const options = [
   { value: "chocolate", label: "Chocolate" },
   { value: "strawberry", label: "Strawberry" },
@@ -10,10 +11,13 @@ const options = [
 ];
 
 function AddActivityPopUp(props) {
+  // this state is use for handle participant counter value
   const [nbrParticipantCounter, setNbrParticipantCounter] = useState(0);
+  //this methode is used for increment the state value(nbrParticipantCounter) by 1
   const increment = () => {
     setNbrParticipantCounter(nbrParticipantCounter + 1);
   };
+  //this methode is used for decrement the state value(nbrParticipantCounter) by 1
   const decrement = () => {
     if (nbrParticipantCounter < 1) {
       setNbrParticipantCounter(0);
@@ -31,22 +35,33 @@ function AddActivityPopUp(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Ajouter une Activité
+          Ajouter une activité
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="addActivityPopUp">
           <form className="addAct-form">
             <div className="addAct-principalInfo">
-              <h2>information Principale</h2>
-              <textarea placeholder="hhh" />
-              <input type="date" placeholder=" Ville" />
-              <input type="date" placeholder=" Ville" />
+              <h3>information Principale</h3>
+              <textarea rows="4" cols="50" placeholder="Description" />
+              <div id="ActStart-date">
+                <span>Date début</span>
+                <input type="date" />
+                <input type="time" />
+              </div>
+              <div id="ActEnd-date">
+                <span>Date fin</span>
+
+                <input type="date" />
+                <input type="time" />
+              </div>
             </div>
             <div className="addAct-NbrParticipant">
               <div className="nbrParticipant-left">
-                <p>Nombre Participant:</p>
-                <p id="counter-result">{nbrParticipantCounter}</p>
+                <p>Nombre Participant</p>
+                <div id="counter-result">
+                  <h4>{nbrParticipantCounter}</h4>
+                </div>
               </div>
 
               <div id="nbrParticipant-counter">
@@ -62,8 +77,9 @@ function AddActivityPopUp(props) {
                 </div>
               </div>
             </div>
+            <h3>Catégorie</h3>
+
             <div className="addAct-category">
-              <h2>Catégorie</h2>
               <Select
                 isMulti
                 name="colors"
@@ -72,12 +88,15 @@ function AddActivityPopUp(props) {
                 classNamePrefix="select"
               />
             </div>
-            <h2>Lieu d'activité</h2>
+            <h3>Lieu d'activité</h3>
             <div className="addAct-adress">
-              <input type="text" placeholder="cat" />
+              <input type="text" placeholder="Lieu" />
+              <button className="addAct-adressMap" type="submit">
+                <MapIcon id="map-Icon" />
+              </button>
             </div>
 
-            <button className="" type="submit">
+            <button className="addAct-btn" type="submit">
               Publier
             </button>
           </form>

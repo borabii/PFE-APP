@@ -7,6 +7,7 @@ import PubCard from "./PubCard";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Chip from "@material-ui/core/Chip";
 function AbonnéVisitedProfile() {
   const breakPoints = [
     { width: 1, itemsToShow: 1, showArrows: true },
