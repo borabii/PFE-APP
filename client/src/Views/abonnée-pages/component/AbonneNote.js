@@ -5,14 +5,14 @@ import Col from "react-bootstrap/Col";
 function AbonneNote() {
   return (
     <div className="abonneNote">
-      <div className=" notes ">
+      <div className="abonée-notes">
         <div className="abonne_avis ">
           <h4>Avis</h4>
-          500 stars
+          <p>stars</p>
         </div>
         <div className=" score_globale ">
-          <h4>Score globale</h4>
-          550
+          <h4>Score</h4>
+          <p>550</p>
         </div>
       </div>
       <div className="score_detail">
@@ -64,7 +64,7 @@ function AbonneNote() {
           </Row>
         </Container>
       </div>
-      <div className=" avis_detail">
+      <div className="avis_detail">
         <h2>Avis reçus</h2>
         <div className="recived-note">
           <img

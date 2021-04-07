@@ -26,7 +26,7 @@
 }
 .homePageBody {
   padding: 20px;
-  margin-top: 150px;
+  margin-top: 90px;
 }
 .homePageBody-TodayPub,
 .homePageBody-Catégorie,
@@ -593,6 +593,292 @@
   padding: 5px;
   align-self: center;
 }
+
+/*******************************************************/
+/****************Abonné profile style******************/
+/*****************************************************/
+.profileAbonne {
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  justify-content: space-around;
+}
+.AboneéSide-menuSmallDevice {
+  display: none;
+}
+.AboneéSide-menu {
+  width: 25%;
+  height: 500px;
+  background-color: #e5e5e5;
+  border-radius: 10px;
+  border: 2px solid #a09d9d;
+  margin: 20px;
+}
+.AboneéSide-menu > ul {
+  list-style: none;
+  margin-top: 50px;
+}
+.AboneéSide-menu > ul > li {
+  font-weight: 400;
+  line-height: 40px;
+  font-size: 20px;
+}
+.AboneéSide-menu > ul > li:hover {
+  color: white;
+}
+.profileAbonné-body {
+  width: 70%;
+  border-radius: 10px;
+  border: 2px solid #a09d9d;
+  margin: 20px;
+}
+/*******************************************************/
+/***************Abonné info style**********************/
+/*****************************************************/
+.abonneInfo {
+  display: flex;
+  flex-direction: column;
+  justify-items: start;
+  justify-content: space-around;
+  margin-left: 20px;
+}
+.imgProfil {
+  display: flex;
+  flex-direction: row;
+  justify-items: start;
+  justify-content: start;
+}
+.imgProfil > .img {
+  width: 200px;
+  height: 200px;
+  border: 2px solid rgb(95, 209, 212);
+  border-radius: 10px;
+  margin: 20px 20px 20px 0px;
+  box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
+}
+
+.imgProfil > .btn_change {
+  border: 2px solid #44c9bb;
+  border-radius: 10px;
+  background-color: white;
+  color: #44c9bb;
+  height: 30px;
+  margin-top: 180px;
+  text-transform: uppercase;
+}
+.imgProfil > .btn_change:hover {
+  border: 2px #44c9bb;
+  background-color: #44c9bb;
+  height: 30px;
+  margin-top: 180px;
+  color: white;
+  box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-items: start;
+}
+.info_General > ul {
+  border: 2px solid #44c9bb;
+  list-style: none;
+  padding: 5px;
+  background-color: #f6f5f5;
+  border-radius: 5px;
+  margin: 5px;
+  width: 300px;
+}
+.info_General > ul > li {
+  padding: px;
+  font-weight: 600;
+  background-color: #f6f5f5;
+  border-radius: 5px;
+  margin: 5px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 23px;
+}
+
+.description > textarea {
+  border: 2px solid #44c9bb;
+  background-color: #f6f5f5;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+  width: 300px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 23px;
+}
+.info > .gend > h4 {
+  border: 2px solid #44c9bb;
+  background-color: #f6f5f5;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+  width: 300px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 23px;
+}
+.mail > h4 {
+  border: 2px solid #44c9bb;
+  background-color: #f6f5f5;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+  width: 50%;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 23px;
+}
+/*******************************************************/
+/***************Abonné Note style**********************/
+/*****************************************************/
+.abonneNote {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.abonneNote > .abonée-notes {
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.abonne_avis > h4 {
+  letter-spacing: 0.02rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+.score_globale > h4 {
+  letter-spacing: 0.02rem;
+  text-transform: uppercase;
+}
+.score_globale > p {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+}
+.score_detail {
+  margin: 0px 20px 0px 20px;
+}
+.score_detail > h2 {
+  margin-bottom: 20px;
+}
+.score_detail > .container {
+  padding-top: 10px;
+  height: 30%;
+  border-radius: 10px;
+  background-color: #f6f5f5;
+}
+#category {
+  border: 2px solid gray;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #e5e5e5;
+  text-align: center;
+}
+#category:hover {
+  color: white;
+  border: white;
+  background-color: #44c9bb;
+  box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
+}
+.avis_detail {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+.recived-note > #temp {
+  margin: 40px 0px 20px 30px;
+}
+.recived-note {
+  display: flex;
+  flex-direction: row;
+  justify-items: start;
+  justify-content: start;
+  border-radius: 10px;
+  width: 80%;
+  margin: 10px;
+}
+.recived-note:hover {
+  box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
+}
+.recived-note > img {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  margin: 10px;
+  border: 2px solid #44c9bb;
+}
+.recived-note-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  justify-self: start;
+  margin: 15px;
+}
+
+/*********************************************************/
+/***********Abonné search parametre style****************/
+/*******************************************************/
+.searchParametre {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.searchParametre > h2 {
+  text-align: center;
+  text-transform: uppercase;
+  margin: 40px 20px 20px 20px;
+}
+.slider {
+  width: 70%;
+  margin: 20px 20px 50px 20px;
+}
+.slider > .value {
+  text-align: center;
+  margin-top: 40px;
+  font-weight: 600;
+}
+
+.rangeslider__fill {
+  background-color: #ef8b25;
+}
+.rangeslider-horizontal .rangeslider__handle::after {
+  background-color: #44c9bb;
+}
+
+.searchParametre > .btn-Distance {
+  border: 2px solid #44c9bb;
+  border-radius: 10px;
+  background-color: #44c9bb;
+  color: white;
+  height: 30px;
+  text-transform: uppercase;
+}
+.searchParametre > .btn-Distance:hover {
+  border: 2px solid #44c9bb;
+  background-color: white;
+  height: 30px;
+  color: #44c9bb;
+  box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
+}
+/*********************************************************/
+/***********Abonné centre of interest style**************/
+/********************************************************/
+.abonneIntert {
+  margin: 20px;
+}
+.abonneIntert__top {
+  border: solid;
+}
+.abonneIntert__bottom {
+  border: solid;
+}
 /*******************************************************/
 /*************** medium device style*********************/
 /******************************************************/
@@ -630,9 +916,9 @@
   .aboHeader-searsh {
     width: 95vw;
   }
-  /********************************************/
+  /***********************************************/
   /**abonée visited profile medium device style**/
-  /******************************************/
+  /*********************************************/
   .abonnéVisitedProfile > .abonnéVisitedProfile-top {
     display: none;
   }
@@ -742,6 +1028,19 @@
   .abonnéVisitedProfile-bottom > h2 {
     margin-bottom: 40px;
   }
+
+  /*******************************************************/
+  /***************Abonné profile medium device style*******/
+  /*****************************************************/
+  .AboneéSide-menu {
+    width: 40%;
+  }
+  .AboneéSide-menu > ul {
+    margin-left: -5px;
+  }
+  .AboneéSide-menu > ul > li {
+    margin-left: -25px;
+  }
 }
 
 /*******************************************************/
@@ -787,7 +1086,7 @@
     display: block;
   }
   .homePageBody {
-    padding: 5px;
+    padding: 0px;
     margin-top: 150px;
   }
   .homePageBody-ComingPub,
@@ -955,9 +1254,9 @@
   .abonnéVisitedProfile-bottom > h2 {
     margin-bottom: 40px;
   }
-  /************************************/
-  /*****add activity popUp Style******/
-  /**********************************/
+  /*************************************************/
+  /*****add activity popUp small device Style******/
+  /***********************************************/
   .addAct-form > h3 {
     font-size: 20px;
   }
@@ -984,5 +1283,182 @@
     width: 30px;
     height: 30px;
     border-radius: 5px;
+  }
+  /*******************************************************/
+  /**********Abonné profile small device style***********/
+  /*****************************************************/
+  .profileAbonne {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+  }
+  .AboneéSide-menu {
+    display: none;
+  }
+
+  .AboneéSide-menuSmallDevice {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    background-color: #f6f5f5;
+    margin-bottom: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  .AboneéSide-menuSmallDevice > span {
+    font-weight: 500;
+    line-height: 40px;
+    font-size: 15px;
+    letter-spacing: 0.02rem;
+    cursor: pointer;
+  }
+  .AboneéSide-menuSmallDevice > span:hover {
+    background-color: #53d4c2;
+    color: white;
+  }
+  .AboneéSide-menuSmallDevice > span:active {
+    background-color: red;
+    color: white;
+  }
+  .profileAbonné-body {
+    width: 100%;
+    border: none;
+    margin: 0px;
+  }
+  /*******************************************************/
+  /***************Abonné info small device style*********/
+  /*****************************************************/
+  .abonneInfo {
+    display: flex;
+    flex-direction: column;
+    justify-items: start;
+    justify-content: space-around;
+    margin-left: 20px;
+  }
+  .imgProfil {
+    display: flex;
+    flex-direction: row;
+    justify-items: start;
+    justify-content: start;
+  }
+  .imgProfil > .img {
+    width: 200px;
+    height: 200px;
+    border: 2px solid rgb(95, 209, 212);
+    border-radius: 10px;
+    margin: 20px 20px 20px 0px;
+    box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  .imgProfil > .btn_change {
+    border: 2px solid #44c9bb;
+    border-radius: 10px;
+    background-color: white;
+    color: #44c9bb;
+    height: 30px;
+    margin-top: 180px;
+    text-transform: uppercase;
+  }
+  .imgProfil > .btn_change:hover {
+    border: 2px #44c9bb;
+    background-color: #44c9bb;
+    height: 30px;
+    margin-top: 180px;
+    color: white;
+    box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
+  }
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-items: start;
+  }
+  .info_General > ul {
+    border: 2px solid #44c9bb;
+    list-style: none;
+    padding: 5px;
+    background-color: #f6f5f5;
+    border-radius: 5px;
+    margin: 5px;
+    width: 300px;
+  }
+  .info_General > ul > li {
+    font-weight: 600;
+    background-color: #f6f5f5;
+    border-radius: 5px;
+    margin: 5px;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 23px;
+  }
+
+  .description > textarea {
+    border: 2px solid #44c9bb;
+    background-color: #f6f5f5;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+    width: 300px;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 23px;
+  }
+  .info > .gend > h4 {
+    border: 2px solid #44c9bb;
+    background-color: #f6f5f5;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+    width: 300px;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 23px;
+  }
+  .mail > h4 {
+    border: 2px solid #44c9bb;
+    background-color: #f6f5f5;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+    width: 50%;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 23px;
+  }
+  /*******************************************************/
+  /***************Abonné Note small device style*********/
+  /*****************************************************/
+
+  .abonne_avis > h4 {
+    font-size: 20px;
+  }
+  .score_globale > h4 {
+    font-size: 20px;
+  }
+  .score_detail {
+    margin-left: 10px;
+  }
+  .score_detail > h2 {
+    font-size: 25px;
+    margin-bottom: 20px;
+  }
+  .score_detail > .container {
+    padding: 15px;
+  }
+
+  .avis_detail > h2 {
+    font-size: 25px;
+    margin-bottom: 20px;
+  }
+  .recived-note > #temp {
+    margin: 30px 0px 20px 30px;
+  }
+  .recived-note > img {
+    width: 60px;
+    height: 60px;
+  }
+  .recived-note-container > h4 {
+    font-size: 20px;
   }
 }
