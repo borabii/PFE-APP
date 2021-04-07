@@ -24,9 +24,9 @@ function AbonnéProfil() {
       </div>
       <div className="profileAbonné-body">
         {/* <AbonnéInfo /> */}
-        <AbonneNote />
-        {/* <AbonnéSearchParametre/> */}
-        {/* <AbonnéCenterOfInterest /> */}
+        {/* <AbonneNote /> */}
+        {/* <AbonnéSearchParametre /> */}
+        <AbonnéCenterOfInterest />
       </div>
     </div>
   );

@@ -17,9 +17,9 @@ function AbonnéHomePage() {
       <div className="homePageBody">
         {/* <Home /> */}
         {/* <AbonnéVisitedProfile /> */}
-        {/* <UserPubOrganized /> */}
+        <UserPubOrganized />
         {/* <UserPubParticipated /> */}
-        <AbonnéProfil />
+        {/* <AbonnéProfil /> */}
       </div>
     </div>
   );

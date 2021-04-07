@@ -5,11 +5,10 @@ function AbonnéInfo() {
     <div className="abonneInfo">
       <div className="imgProfil">
         <img
-          className="img"
           src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwritestylesonline.com%2Fthree-statistics-that-will-make-you-rethink-your-professional-profile-picture%2F&psig=AOvVaw0ViuZZEnTxtPIns_txCJJT&ust=1617401845098000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKjJuMqJ3u8CFQAAAAAdAAAAABAO"
           alt=""
         />
-        <button className="btn_change">change l'image</button>
+        <input type="file" className="btn_change" />
       </div>
       <div className="info">
         <div className="info_General">
@@ -22,7 +21,7 @@ function AbonnéInfo() {
 
         <div className="description">
           <h3> Description</h3>
-          <textarea readonly>zgbehbgpjhfgîu</textarea>
+          <textarea rows="4">zgbehbgpjhfgîu</textarea>
         </div>
         <div className="gend">
           <h3>Gender</h3>

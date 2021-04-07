@@ -5,6 +5,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import SearchIcon from "@material-ui/icons/Search";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 
+//this methode is used for detecting user mouse click out side searsh result
 let useClickOutside = (handler) => {
   let domNode = useRef();
 
@@ -14,11 +15,10 @@ let useClickOutside = (handler) => {
         handler();
       }
     };
-
-    document.addEventListener("mousedown", maybeHandler);
+    document.addEventListener("mousedown", maybeHandler); //add event listener
 
     return () => {
-      document.removeEventListener("mousedown", maybeHandler);
+      document.removeEventListener("mousedown", maybeHandler); //remove event listener
     };
   });
 

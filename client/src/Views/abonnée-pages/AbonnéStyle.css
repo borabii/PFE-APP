@@ -56,10 +56,12 @@
   flex-grow: 2;
   justify-content: space-between;
 }
-
+.navbar-light .navbar-toggler {
+  border: 2px solid #fea041;
+}
 .aboHeader-searsh {
   display: flex;
-  border: 2px solid #44c9bb;
+  border: 2px solid #fea041;
   height: 45px;
   border-radius: 10px;
   width: 50vw;
@@ -75,7 +77,7 @@
 .searshSelect:after {
   content: ">";
   font: 25px "Consolas", monospace;
-  color: #44c9bb;
+  color: #fea041;
   -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
@@ -375,27 +377,12 @@
 }
 .abonnéVisitedProfile-middel > #user-interset {
   display: flex;
+  padding-top: 20px;
   background: #f6f5f5;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
 }
-#interest-card {
-  width: fit-content;
-  align-self: center;
-  padding: 5px 2px 0px 2px;
-  text-align: center;
-  border-radius: 20px;
-  margin: 10px;
-  background: #fea041;
-  color: #040941;
-}
-#interest-card > h4 {
-  font-size: 18px;
-  margin-bottom: 2px;
-}
-#interest-card > p {
-  font-size: 20px;
-}
+
 .abonnéVisitedProfile > .abonnéVisitedProfile-bottom {
   margin-top: 40px;
   padding-top: 10px;
@@ -609,9 +596,9 @@
 .AboneéSide-menu {
   width: 25%;
   height: 500px;
-  background-color: #e5e5e5;
+  background-color: #fea041;
   border-radius: 10px;
-  border: 2px solid #a09d9d;
+
   margin: 20px;
 }
 .AboneéSide-menu > ul {
@@ -648,7 +635,7 @@
   justify-items: start;
   justify-content: start;
 }
-.imgProfil > .img {
+.imgProfil > img {
   width: 200px;
   height: 200px;
   border: 2px solid rgb(95, 209, 212);
@@ -769,22 +756,23 @@
   margin-bottom: 20px;
 }
 .score_detail > .container {
-  padding-top: 10px;
+  padding-top: 20px;
   height: 30%;
   border-radius: 10px;
   background-color: #f6f5f5;
 }
 #category {
-  border: 2px solid gray;
   border-radius: 5px;
   margin-bottom: 10px;
-  background-color: #e5e5e5;
+  background-image: linear-gradient(to right, #fea041 0%, #f45728 100%);
   text-align: center;
+  transition: all 0.5s linear;
 }
 #category:hover {
   color: white;
   border: white;
-  background-color: #44c9bb;
+  background-image: linear-gradient(to right, #f45728 0%, #fea041 100%);
+
   box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
 }
 .avis_detail {
@@ -857,15 +845,14 @@
   border-radius: 10px;
   background-color: #44c9bb;
   color: white;
-  height: 30px;
+  width: 150px;
+  height: 40px;
   text-transform: uppercase;
 }
 .searchParametre > .btn-Distance:hover {
   border: 2px solid #44c9bb;
   background-color: white;
-  height: 30px;
   color: #44c9bb;
-  box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
 }
 /*********************************************************/
 /***********Abonné centre of interest style**************/
@@ -873,11 +860,13 @@
 .abonneIntert {
   margin: 20px;
 }
-.abonneIntert__top {
-  border: solid;
+
+.abonneIntert > h2 {
+  margin-top: 20px;
 }
 .abonneIntert__bottom {
-  border: solid;
+  margin-top: 40px;
+  padding-left: 40px;
 }
 /*******************************************************/
 /*************** medium device style*********************/
@@ -1040,6 +1029,12 @@
   }
   .AboneéSide-menu > ul > li {
     margin-left: -25px;
+  }
+  /*********************************************************/
+  /***********Abonné centre of interest medium device style**/
+  /********************************************************/
+  .abonneIntert__bottom {
+    padding-left: 10px;
   }
 }
 
@@ -1315,13 +1310,10 @@
     cursor: pointer;
   }
   .AboneéSide-menuSmallDevice > span:hover {
-    background-color: #53d4c2;
+    background-color: #fea041;
     color: white;
   }
-  .AboneéSide-menuSmallDevice > span:active {
-    background-color: red;
-    color: white;
-  }
+
   .profileAbonné-body {
     width: 100%;
     border: none;
@@ -1331,100 +1323,54 @@
   /***************Abonné info small device style*********/
   /*****************************************************/
   .abonneInfo {
-    display: flex;
-    flex-direction: column;
-    justify-items: start;
-    justify-content: space-around;
-    margin-left: 20px;
+    margin-left: 0px;
   }
   .imgProfil {
-    display: flex;
-    flex-direction: row;
-    justify-items: start;
-    justify-content: start;
+    flex-direction: column;
+    justify-items: center;
   }
-  .imgProfil > .img {
-    width: 200px;
-    height: 200px;
-    border: 2px solid rgb(95, 209, 212);
-    border-radius: 10px;
-    margin: 20px 20px 20px 0px;
-    box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
+  .imgProfil > img {
+    align-self: center;
+    border-radius: 50%;
+    margin: 20px 0px 20px 0px;
   }
-
   .imgProfil > .btn_change {
-    border: 2px solid #44c9bb;
-    border-radius: 10px;
-    background-color: white;
-    color: #44c9bb;
-    height: 30px;
-    margin-top: 180px;
-    text-transform: uppercase;
-  }
-  .imgProfil > .btn_change:hover {
-    border: 2px #44c9bb;
-    background-color: #44c9bb;
-    height: 30px;
-    margin-top: 180px;
-    color: white;
-    box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
+    align-self: center;
+    margin-top: 0px;
   }
   .info {
-    display: flex;
-    flex-direction: column;
-    justify-items: start;
+    margin-top: 20px;
+  }
+  .info_General > h3 {
+    margin-left: 5px;
+    font-size: 25px;
   }
   .info_General > ul {
-    border: 2px solid #44c9bb;
-    list-style: none;
-    padding: 5px;
-    background-color: #f6f5f5;
-    border-radius: 5px;
-    margin: 5px;
-    width: 300px;
+    width: 90%;
   }
-  .info_General > ul > li {
-    font-weight: 600;
-    background-color: #f6f5f5;
-    border-radius: 5px;
-    margin: 5px;
-    font-weight: 400;
-    font-style: normal;
-    line-height: 23px;
+  .description > h3 {
+    margin-left: 5px;
+    font-size: 25px;
+    margin-top: 10px;
   }
-
   .description > textarea {
-    border: 2px solid #44c9bb;
-    background-color: #f6f5f5;
-    border-radius: 5px;
-    margin: 5px;
-    padding: 5px;
-    width: 300px;
-    font-weight: 400;
-    font-style: normal;
-    line-height: 23px;
+    width: 90%;
+  }
+  .gend > h3 {
+    margin-left: 5px;
+    margin-top: 10px;
+    font-size: 25px;
   }
   .info > .gend > h4 {
-    border: 2px solid #44c9bb;
-    background-color: #f6f5f5;
-    border-radius: 5px;
-    margin: 5px;
-    padding: 5px;
-    width: 300px;
-    font-weight: 400;
-    font-style: normal;
-    line-height: 23px;
+    width: 90%;
+  }
+  .mail > h3 {
+    margin-top: 10px;
+    margin-left: 5px;
+    font-size: 25px;
   }
   .mail > h4 {
-    border: 2px solid #44c9bb;
-    background-color: #f6f5f5;
-    border-radius: 5px;
-    margin: 5px;
-    padding: 5px;
-    width: 50%;
-    font-weight: 400;
-    font-style: normal;
-    line-height: 23px;
+    width: 90%;
   }
   /*******************************************************/
   /***************Abonné Note small device style*********/
@@ -1446,7 +1392,6 @@
   .score_detail > .container {
     padding: 15px;
   }
-
   .avis_detail > h2 {
     font-size: 25px;
     margin-bottom: 20px;
@@ -1460,5 +1405,31 @@
   }
   .recived-note-container > h4 {
     font-size: 20px;
+  }
+  /*********************************************************/
+  /***********Abonné centre of interest style**************/
+  /********************************************************/
+  .abonneIntert {
+    margin: 0px;
+    margin-top: 20px;
+  }
+
+  .abonneIntert > h2 {
+    margin-top: 20px;
+    margin-left: 5px;
+    font-size: 25px;
+  }
+
+  .abonneIntert__bottom > .container {
+    padding-left: -5px;
+  }
+  /*********************************************************/
+  /***********Abonné search parametre small device style****/
+  /*********************************************************/
+  .searchParametre > h2 {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.03rem;
+    margin-top: 40px;
   }
 }

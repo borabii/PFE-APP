@@ -121,46 +121,46 @@ function AbonnéVisitedProfile() {
         <h2>Centre d’interet</h2>
         <div id="user-interset">
           <Container>
-            <Row xs={1} md={3} lg={4}>
+            <Row xs={2} md={3} lg={4}>
               <Col>
-                <div id="interest-card">
-                  <h4>Hondehhhhhhhhhhhhh</h4>
+                <div id="category">
+                  <h4>fifa</h4>
                   <p>230</p>
                 </div>
               </Col>
               <Col>
-                <div id="interest-card">
-                  <h4>Hondehhhhhhhhhhhhh</h4>
+                <div id="category">
+                  <h4>fifa</h4>
                   <p>230</p>
                 </div>
               </Col>
               <Col>
-                <div id="interest-card">
-                  <h4>Hondehhhhhhhhhhhhh</h4>
+                <div id="category">
+                  <h4>fifa</h4>
                   <p>230</p>
                 </div>
               </Col>
               <Col>
-                <div id="interest-card">
-                  <h4>Hondehhhhhhhhhhhhh</h4>
+                <div id="category">
+                  <h4>fifa</h4>
                   <p>230</p>
                 </div>
               </Col>
               <Col>
-                <div id="interest-card">
-                  <h4>Hondehhhhhhhhhhhhh</h4>
+                <div id="category">
+                  <h4>fifa</h4>
                   <p>230</p>
                 </div>
               </Col>
               <Col>
-                <div id="interest-card">
-                  <h4>Hondehhhhhhhhhhhhh</h4>
+                <div id="category">
+                  <h4>fifa</h4>
                   <p>230</p>
                 </div>
               </Col>
               <Col>
-                <div id="interest-card">
-                  <h4>Hondehhhhhhhhhhhhh</h4>
+                <div id="category">
+                  <h4>fifa</h4>
                   <p>230</p>
                 </div>
               </Col>
