@@ -8,17 +8,13 @@ import AbonnéHomePage from "./Views/abonnée-pages/AbonnéHomePage";
 function App() {
   return (
     <div className="app">
-      {/* <Router>
+      <Router>
         <Switch>
-          <Route path="/admin">
-            <AdminHomePage />
-          </Route>
           <Route exact path="/">
             <LandingPage />
           </Route>
         </Switch>
-      </Router> */}
-      <AbonnéHomePage />
+      </Router>
     </div>
   );
 }

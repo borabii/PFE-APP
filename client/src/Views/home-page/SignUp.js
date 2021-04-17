@@ -4,6 +4,7 @@ import avatar from "../image/signIn-avatar.png";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 function SignUp() {
+  //this state is used for handling radio value
   const [radioValue, setRadioValue] = useState("1");
   const radios = [
     { name: "Homme", value: "1" },
@@ -21,18 +22,25 @@ function SignUp() {
           <h1 id="signUp-title">INSCRIVIZ VOUS</h1>
           <form className="form">
             <div className="form-inputs">
-              <input type="text" className="form-input" placeholder="  Nom" />
+              <input
+                type="text"
+                className="form-input"
+                placeholder="  Nom"
+                required
+              />
               <input
                 type="text"
                 className="form-input"
                 placeholder="  Prénom"
+                required
               />
-              <input type="Date" className="form-input " />
+              <input type="Date" className="form-input " required />
               <input
                 type="email"
                 className="form-input"
                 name="email"
                 placeholder=" Tapez votre email"
+                required
               />
               <div className="gender">
                 <ButtonGroup className=" btn-radio " toggle>
@@ -55,12 +63,14 @@ function SignUp() {
                 className="form-input"
                 name="password"
                 placeholder=" Tapez votre mots de passe"
+                required
               />
               <input
                 type="password"
                 className="form-input"
                 name="password2"
                 placeholder=" Confirmez votre mots de passe"
+                required
               />
               <button className="form-btn" type="submit">
                 Inscription

@@ -99,6 +99,11 @@
   color: #595959;
   font-size: 12px;
 }
+.emailError {
+  color: red;
+  margin-top: -7px;
+  margin-bottom: 4px;
+}
 
 .form-btn {
   width: 200px;
