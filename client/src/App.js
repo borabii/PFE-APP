@@ -2,20 +2,29 @@ import "./App.css";
 import AdminHomePage from "./Views/admin-pages/AdminHomePage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LandingPage from "./Views/home-page/LandingPage";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import AbonnéHomePage from "./Views/abonnée-pages/AbonnéHomePage";
-
+import AuthState from "./Context/auth/AuthState";
+import history from "../src/utilis/history";
 function App() {
   return (
-    <div className="app">
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <LandingPage />
-          </Route>
-        </Switch>
-      </Router>
-    </div>
+    <AuthState>
+      <div className="app">
+        <Router history={history}>
+          <Switch>
+            <Route exact path="/">
+              <LandingPage />
+            </Route>
+            <Route path="/AdminHomePage">
+              <AdminHomePage />
+            </Route>
+            <Route path="/AbonnéHomePage">
+              <AbonnéHomePage />
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+    </AuthState>
   );
 }
 

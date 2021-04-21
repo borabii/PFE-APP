@@ -1,7 +1,5 @@
 import React from "react";
 import "./Style.css";
-// React Clock for real time display
-import Clock from "react-live-clock";
 
 import BoiteMessage from "./component/BoiteMessage";
 import Dashboard from "./component/Dashboard";
@@ -18,26 +16,12 @@ import AdressManagment from "./component/AdressManagment";
 
 import { SideBarData } from "./component/SideBarData";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import AdminNavbar from "./component/AdminNavbar";
 
 function AdminHomePage() {
   return (
     <div className="adminHomePage">
-      <div className=" navbar adminHomePage__navbar">
-        <div className=" nav__option">
-          <h2>Welcome Admin</h2>
-        </div>
-        <div className="nav__option clock">
-          {/* displaying system time for user ( set ticking to true for auto upadate each second) */}
-          <Clock format={"HH:mm:ss"} ticking={true} />
-        </div>
-        <div className="nav__option">
-          <Link to="/">
-            <button className="logoutBtn">
-              <p>déconnexion</p>
-            </button>
-          </Link>
-        </div>
-      </div>
+      <AdminNavbar />
       <Router>
         <div className="adminHomePage__container">
           <div className=" navbar adminHomePage__sidbar">

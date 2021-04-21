@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -11,8 +11,6 @@ import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 
 function LandingPage() {
-  // const [role, setRole] = useState("admffin");
-
   return (
     <div>
       <Router>
@@ -25,12 +23,6 @@ function LandingPage() {
           <Route path="/SignIn">
             <SignIn />{" "}
           </Route>
-          {/* <Route
-            path="/SignIn"
-            render={() =>
-              role === "admin" ? <SignIn /> : <Redirect to="/Signup" />
-            }
-          /> */}
           <Route path="/SignUp">
             <SignUp />
           </Route>

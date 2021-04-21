@@ -1,24 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./SignIn.css";
+import AuthContext from "../../Context/auth/authContext";
 import avatar from "../image/signIn-avatar.png";
 import signInFormValidation from "./signInFormValidation";
+import history from "../../utilis/history";
 function SignIn() {
-  const [values, setValues] = useState({
+  const authContext = useContext(AuthContext);
+  //app level state
+  const { isAuthenticated, login, userRole } = authContext;
+
+  //component level state for handling user inputed values
+  const [userForm, setUserForm] = useState({
     email: "",
     password: "",
   });
+  const { email, password } = userForm;
 
+  //state for handling error message for tayping error in from
   const [errorsMsg, setErrorsMsg] = useState({});
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (userRole === "Admin") {
+        history.push("/AdminHomePage");
+      } else {
+        history.push("/AbonnéHomePage");
+      }
+    }
+  }, [isAuthenticated, userRole]);
+
+  // setUser state based on user's input
   const handelChange = (event) => {
-    setValues({
-      ...values,
+    setUserForm({
+      ...userForm,
       [event.target.name]: event.target.value,
     });
   };
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setErrorsMsg(signInFormValidation(values));
+    setErrorsMsg(signInFormValidation(userForm));
+    login({
+      email,
+      password,
+    });
   };
   return (
     <div className="signIn">
@@ -39,7 +64,7 @@ function SignIn() {
                 className="form-input"
                 placeholder="Email"
                 name="email"
-                value={values.email}
+                value={userForm.email}
                 onChange={handelChange}
               />
               {errorsMsg.email && (
@@ -51,7 +76,7 @@ function SignIn() {
                 className="form-input"
                 placeholder="Mots de passe"
                 name="password"
-                value={values.password}
+                value={userForm.password}
                 onChange={handelChange}
               />
               {errorsMsg.password && (

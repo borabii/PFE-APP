@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
+const config = require("config");
+
+const mongoUri = config.get("mongoURI");
 
 const connectDB = async () => {
-  let mongoUri = "mongodb://localhost:27017/pfe_DB";
   try {
     await mongoose.connect(mongoUri, {
       useNewUrlParser: true,
