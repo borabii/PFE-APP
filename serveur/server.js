@@ -14,6 +14,7 @@ connectDB();
 // Define Routes (connected with Routes folder)
 app.use("/api/users", require("./routes/user"));
 app.use("/api/auth", require("./routes/auth"));
+app.use("/api/Publication", require("./routes/publication"));
 
 //define servert port
 const PORT = process.env.PORT || 8000;

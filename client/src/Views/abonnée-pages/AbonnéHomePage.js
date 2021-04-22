@@ -8,6 +8,7 @@ import Home from "./component/Home";
 import UserPubOrganized from "./component/UserPubOrganized";
 import UserPubParticipated from "./component/UserPubParticipated";
 import AuthContext from "../../Context/auth/authContext";
+import { Router, Route, Switch } from "react-router-dom";
 
 function AbonnéHomePage() {
   const authContext = useContext(AuthContext);
@@ -23,9 +24,10 @@ function AbonnéHomePage() {
 
       {/* home body */}
       <div className="homePageBody">
-        {/* <Home /> */}
+        <Home />
+
         {/* <AbonnéVisitedProfile /> */}
-        <UserPubOrganized />
+        {/* <UserPubOrganized /> */}
         {/* <UserPubParticipated /> */}
         {/* <AbonnéProfil /> */}
       </div>

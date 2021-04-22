@@ -27,7 +27,7 @@ let useClickOutside = (handler) => {
 function AboHeader() {
   //this state for handeling selected search option
   const [searchOption, setSearchOption] = useState("annonce");
-  console.log(searchOption);
+
   //this state for hide/show search result Dropdown when clicking on the searsh input bar
   const [showSearchResultDropdown, setShowSearchResultDropdown] = useState(
     false

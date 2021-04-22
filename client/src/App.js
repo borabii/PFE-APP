@@ -14,8 +14,7 @@ function App() {
         <Router history={history}>
           <Switch>
             <PrivateRoute exact path="/" component={LandingPage} />
-            {/* <LandingPage />
-            </PrivateRoute> */}
+
             <Route path="/AdminHomePage">
               <AdminHomePage />
             </Route>

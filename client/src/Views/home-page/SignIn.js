@@ -24,7 +24,7 @@ function SignIn() {
       if (userRole === "Admin") {
         history.push("/AdminHomePage");
       } else {
-        history.push("/AbonnéHomePage");
+        history.push("AbonnéHomePage");
       }
     }
   }, [isAuthenticated, userRole]);
