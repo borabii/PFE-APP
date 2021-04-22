@@ -2,9 +2,11 @@ const express = require("express");
 const Publication = require("../models/Publication");
 const auth = require("../middleware/auth"); //middleware next()
 const router = express.Router();
-
+const jwt = require("jsonwebtoken");
+const config = require("config");
+const jwt_decode = require("jwt-decode");
 //add pub(type=="Activity")
-router.post("/addActivity/:id", auth, async (req, res) => {
+router.post("/addActivity", auth, async (req, res) => {
   const {
     image_url,
     discription,
@@ -15,7 +17,13 @@ router.post("/addActivity/:id", auth, async (req, res) => {
   } = req.body;
   try {
     //get user id from request parametre
-    const id = req.params.id;
+    // const id = req.params.id;
+    const token = JSON.stringify(req.headers);
+    // var decode1 = jwt.decode(token);
+    // const decoded = jwt.verify(token, config.get("jwtSecret"));
+    var decoded = jwt_decode(token);
+    console.log(decoded.user.id);
+    // req.user = decoded.user;
     publication = new Publication({
       image_url,
       discription,
@@ -23,10 +31,10 @@ router.post("/addActivity/:id", auth, async (req, res) => {
       nbr_place,
       date_DebutPUb,
       date_FinPUb,
-      user: id,
+      user: decoded.user.id,
     });
-    await publication.save();
-    res.send("Activité ajouter avec succes");
+    const act = await publication.save();
+    res.send(act);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

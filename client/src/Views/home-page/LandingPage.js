@@ -1,10 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./Home";
 import SignIn from "./SignIn";
@@ -15,7 +10,6 @@ function LandingPage() {
     <div>
       <Router>
         <Header />
-
         <Switch>
           <Route exact path="/">
             <Home />

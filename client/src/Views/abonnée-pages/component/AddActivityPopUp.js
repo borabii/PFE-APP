@@ -9,7 +9,7 @@ const options = [
   { value: "strawberry", label: "Strawberry" },
   { value: "vanilla", label: "Vanilla" },
 ];
-
+console.log(options);
 function AddActivityPopUp(props) {
   // this state is use for handle participant counter value
   const [nbrParticipantCounter, setNbrParticipantCounter] = useState(0);
