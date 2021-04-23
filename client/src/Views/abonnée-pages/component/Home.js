@@ -26,14 +26,11 @@ const useHideOnScrolled = () => {
 
 function Home() {
   const authContext = useContext(AuthContext);
-  const { isAuthenticated, user } = authContext;
   const pubContext = useContext(PubContext);
   const { loadAct, pubs } = pubContext;
-  // useEffect(() => {
-  //   const userToken = localStorage.getItem("token");
-  //   const userId = jwt.decode(userToken);
-  //   console.log(userId);
-  // });
+  useEffect(() => {
+    loadAct();
+  }, []);
   const hidden = useHideOnScrolled();
   //this state is used to show/hide add activity popUp and it is passed as
   //a props to AddActivityPopUp

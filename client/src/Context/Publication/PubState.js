@@ -11,7 +11,7 @@ const PubState = (props) => {
   const [state, dispatch] = useReducer(pubReducer, initialState);
 
   //get act
-  const loadAct = async (userId) => {
+  const loadAct = async () => {
     // to load token into global headers
     // if localStorage.token exists
     if (localStorage.token) {
@@ -19,7 +19,7 @@ const PubState = (props) => {
     }
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/Publication/${userId}`
+        `http://localhost:8000/api/Publication/getAct`
       );
       dispatch({
         type: GET_ACTIVITY,
@@ -28,7 +28,7 @@ const PubState = (props) => {
     } catch (err) {}
   };
   // add Activity
-  const addAct = async (userId, formData) => {
+  const addAct = async (formData) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ const PubState = (props) => {
     };
     try {
       const res = await axios.post(
-        `http://localhost:8000/api/Publication//addActivity/${userId}`,
+        `http://localhost:8000/api/Publication/addActivity`,
         formData,
         config
       );

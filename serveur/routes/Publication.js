@@ -19,10 +19,9 @@ router.post("/addActivity", auth, async (req, res) => {
     //get user id from request parametre
     // const id = req.params.id;
     const token = JSON.stringify(req.headers);
-    // var decode1 = jwt.decode(token);
-    // const decoded = jwt.verify(token, config.get("jwtSecret"));
+    token.replace(" ", "");
     var decoded = jwt_decode(token);
-    console.log(decoded.user.id);
+
     // req.user = decoded.user;
     publication = new Publication({
       image_url,
@@ -41,11 +40,18 @@ router.post("/addActivity", auth, async (req, res) => {
   }
 });
 //get all user(activity) posted activity
-router.get("/:id", auth, async (req, res) => {
+router.get("/getAct", auth, async (req, res) => {
   try {
-    //get user id from request parametre
-    const id = req.params.id;
-    const activity = await Publication.find({ user: id }).sort({ date: -1 }); //sort by date -1 -> most recent activity first
+    //get token from req headers
+    let token = JSON.stringify(req.headers.token);
+    //remove first space caractere from token value
+    token.replace(" ", "");
+    //decode token value
+    var decoded = jwt_decode(token);
+
+    const activity = await Publication.find({ user: decoded.user.id }).sort({
+      date: -1,
+    }); //sort by date -1 -> most recent activity first
     res.json(activity);
   } catch (err) {
     console.error(err.message);

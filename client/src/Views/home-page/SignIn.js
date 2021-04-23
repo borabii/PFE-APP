@@ -18,7 +18,7 @@ function SignIn() {
 
   //state for handling error message for tayping error in from
   const [errorsMsg, setErrorsMsg] = useState({});
-
+  //redirect user after signIn
   useEffect(() => {
     if (isAuthenticated) {
       if (userRole === "Admin") {
