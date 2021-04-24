@@ -15,13 +15,19 @@ import SearchParametre from "./Views/abonne-page/component/SearchParametre";
 import AbonneIntert from "./Views/abonne-page/component/AbonneIntert";
 import PubDetailPopUp from "./Views/abonne-page/component/PubDetailPopUp";
 import NotifDropDown from "./Views/abonne-page/component/NotifDropDown";
+import AnnonceurVisitedProfile from "./Views/Annonceur-page/component/AnnonceurVisitedProfile";
+import AnnonceurHomePage from "./Views/Annonceur-page/AnnonceurHomePage";
+import SignialerPopUp from "./Views/abonne-page/component/SignialerPopUp";
 function App() {
   return (
     <div className="app">
-      <NotifDropDown />
+      {/* <SignialerPopUp /> */}
+      {/* <AnnonceurHomePage /> */}
+      {/* <AnnonceurVisitedProfile /> */}
+      {/* <NotifDropDown /> */}
       {/* <PubDetailPopUp /> */}
       {/* <AbonneIntert /> */}
-      {/* <SearchParametre />    */}
+      <SearchParametre />
       {/* <AbonneNote /> */}
       {/* <AbonneInfo /> */}
       {/* <ProfileAbonne/> */}
@@ -32,9 +38,8 @@ function App() {
       {/* <DetailaEventPopUp/> */}
       {/* <DetailaAnoncePopUp /> */}
       {/* <DetailAbonnePopUp /> */}
-    
-    
-     {/* <DetailAnnonceurPopUp /> */}
+
+      {/* <DetailAnnonceurPopUp /> */}
     </div>
   );
 }
