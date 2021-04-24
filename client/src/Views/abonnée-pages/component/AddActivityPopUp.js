@@ -110,6 +110,7 @@ function AddActivityPopUp(props) {
                 name="description"
                 value={activity.description}
                 onChange={handelChange}
+                required
               />
               <div id="ActStart-date">
                 <span>Date début</span>
@@ -118,6 +119,7 @@ function AddActivityPopUp(props) {
                   name="date_DebutPub"
                   value={activity.date_DebutPub}
                   onChange={handelChange}
+                  required
                 />
                 <input
                   type="time"
@@ -134,6 +136,7 @@ function AddActivityPopUp(props) {
                   name="date_FinPub"
                   value={activity.date_FinPub}
                   onChange={handelChange}
+                  required
                 />
                 <input
                   type="time"
@@ -184,6 +187,7 @@ function AddActivityPopUp(props) {
                 name="adresse"
                 value={activity.adresse}
                 onChange={handelChange}
+                required
               />
               <button className="addAct-adressMap" type="submit">
                 <MapIcon id="map-Icon" />

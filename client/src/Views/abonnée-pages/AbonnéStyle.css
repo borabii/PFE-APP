@@ -439,6 +439,7 @@
 .addAct-principalInfo > #ActStart-date > input[type="date"] {
   width: 50%;
   border: none;
+  outline: none;
   border-left: 2px solid #3aceb9;
   padding-left: 5px;
 }

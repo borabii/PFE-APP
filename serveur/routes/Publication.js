@@ -59,7 +59,7 @@ router.get("/getAct", auth, async (req, res) => {
     res.json(activity);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error get contacts");
+    res.status(500).send("Server Error ");
   }
 });
 //delete publication(activity,event,annonce)
@@ -67,5 +67,58 @@ router.delete("/deletepub/:pubId", auth, async (req, res) => {
   const pubId = req.params.pubId;
   await Publication.findByIdAndRemove(pubId);
   res.json({ msg: "Publication removed !" });
+});
+router.put("/updateActivity/:actid", auth, async (req, res) => {
+  //auth = access users and token
+  // res.send('Update activity !');
+  const {
+    description,
+    categorie,
+    adresse,
+    nbr_place,
+    date_DebutPub,
+    heure_debutPub,
+    date_FinPub,
+    heure_finPub,
+  } = req.body;
+  try {
+    // Build activity object to store which value are requested from user
+    const activityFields = {};
+    if (description) activityFields.description = description; // if there's description -> add to activityFields.description
+    if (categorie) activityFields.categorie = categorie;
+    if (adresse) activityFields.adresse = adresse;
+    if (date_DebutPub) activityFields.date_DebutPub = date_DebutPub;
+    if (heure_debutPub) activityFields.heure_debutPub = heure_debutPub;
+    if (date_FinPub) activityFields.date_FinPub = date_FinPub;
+    if (nbr_place) activityFields.nbr_place = nbr_place;
+    if (heure_finPub) activityFields.heure_finPub = heure_finPub;
+    //find activity where id='/:actid'
+    let activity = await Publication.findById(req.params.actid); //req.params.actid = '/:actid'
+
+    // if not activity = (not found)
+    if (!activity) return res.status(404).json({ msg: "Activity not found" });
+
+    activity = await Publication.findByIdAndUpdate(
+      req.params.actid,
+      { $set: activityFields },
+      { new: true } // if this activity doesn't exist, then CREATE NEW ONE
+    );
+    //send updated activity to user
+    res.json(activity);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error ");
+  }
+});
+
+/**************************************************************** */
+router.get("/Admin/getActivity", auth, async (req, res) => {
+  try {
+    const activity = await Publication.find({ typePub: "Activity" });
+    res.json(activity);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error get contacts");
+  }
 });
 module.exports = router;
