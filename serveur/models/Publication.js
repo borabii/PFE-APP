@@ -9,26 +9,33 @@ const PublicationSchema = mongoose.Schema({
   image_url: {
     type: String,
   },
-  discription: {
+  description: {
+    type: String,
+  },
+  categorie: {
     type: String,
   },
   adresse: {
     type: String,
-    required: true,
   },
   nbr_place: {
     type: Number,
-    required: true,
   },
   date_Pub: {
     type: Date,
     default: Date.now,
   },
-  date_DebutPUb: {
+  date_DebutPub: {
     type: Date,
   },
-  date_FinPUb: {
+  heure_debutPub: {
+    type: String,
+  },
+  date_FinPub: {
     type: Date,
+  },
+  heure_finPub: {
+    type: String,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Modal from "react-bootstrap/Modal";
 import Select from "react-select";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import MapIcon from "@material-ui/icons/Map";
+import PubContext from "../../../Context/Publication/pubContext";
 const options = [
   { value: "chocolate", label: "Chocolate" },
   { value: "strawberry", label: "Strawberry" },
@@ -11,36 +12,78 @@ const options = [
 ];
 
 function AddActivityPopUp(props) {
+  const pubContext = useContext(PubContext);
+  const { addAct } = pubContext;
   // this state is use for handle participant counter value
-  const [nbrParticipantCounter, setNbrParticipantCounter] = useState(0);
+  const [nbr_place, setNbr_place] = useState(0);
 
   //this methode is used for increment the state value(nbrParticipantCounter) by 1
   const increment = () => {
-    setNbrParticipantCounter(nbrParticipantCounter + 1);
+    setNbr_place(nbr_place + 1);
   };
   //this methode is used for decrement the state value(nbrParticipantCounter) by 1
   const decrement = () => {
-    if (nbrParticipantCounter < 1) {
-      setNbrParticipantCounter(0);
+    if (nbr_place < 1) {
+      setNbr_place(0);
     } else {
-      setNbrParticipantCounter(nbrParticipantCounter - 1);
+      setNbr_place(nbr_place - 1);
     }
   };
   const [activity, setActivity] = useState({
     description: "",
-    date_debut: "",
-    time_debut: "",
-    date_fin: "",
-    time_fin: "",
-    actCategory: "",
-    actAdresse: "",
+    adresse: "",
+    nbr_place: "",
+    date_DebutPub: "",
+    heure_debutPub: "",
+    date_FinPub: "",
+    heure_finPub: "",
   });
+  const {
+    description,
+    adresse,
+    date_DebutPub,
+    heure_debutPub,
+    date_FinPub,
+    heure_finPub,
+  } = activity;
+
+  const [categorie, setCategorie] = useState("");
+
   const handelChange = (event) => {
     setActivity({
       ...activity,
       [event.target.name]: event.target.value,
     });
     console.log(activity);
+  };
+
+  const handleInputChange = (inputValue) => {
+    setCategorie(inputValue.value);
+    console.log(categorie);
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    addAct({
+      description,
+      categorie,
+      adresse,
+      nbr_place,
+      date_DebutPub,
+      heure_debutPub,
+      date_FinPub,
+      heure_finPub,
+    });
+    setActivity({
+      description: "",
+      adresse: "",
+      nbr_place: "",
+      date_DebutPub: "",
+      heure_debutPub: "",
+      date_FinPub: "",
+      heure_finPub: "",
+    });
+    setCategorie("");
+    setNbr_place(0);
   };
   return (
     <Modal
@@ -57,7 +100,7 @@ function AddActivityPopUp(props) {
       </Modal.Header>
       <Modal.Body>
         <div className="addActivityPopUp">
-          <form className="addAct-form">
+          <form className="addAct-form" onSubmit={handleSubmit}>
             <div className="addAct-principalInfo">
               <h3>information Principale</h3>
               <textarea
@@ -72,14 +115,14 @@ function AddActivityPopUp(props) {
                 <span>Date début</span>
                 <input
                   type="date"
-                  name="date_debut"
-                  value={activity.date_debut}
+                  name="date_DebutPub"
+                  value={activity.date_DebutPub}
                   onChange={handelChange}
                 />
                 <input
                   type="time"
-                  name="time_debut"
-                  value={activity.time_debut}
+                  name="heure_debutPub"
+                  value={activity.heure_debutPub}
                   onChange={handelChange}
                 />
               </div>
@@ -88,14 +131,14 @@ function AddActivityPopUp(props) {
 
                 <input
                   type="date"
-                  name="date_fin"
-                  value={activity.date_fin}
+                  name="date_FinPub"
+                  value={activity.date_FinPub}
                   onChange={handelChange}
                 />
                 <input
                   type="time"
-                  name="time_fin"
-                  value={activity.time_fin}
+                  name="heure_finPub"
+                  value={activity.heure_finPub}
                   onChange={handelChange}
                 />
               </div>
@@ -104,7 +147,7 @@ function AddActivityPopUp(props) {
               <div className="nbrParticipant-left">
                 <p>Nombre Participant</p>
                 <div id="counter-result">
-                  <h4>{nbrParticipantCounter}</h4>
+                  <h4>{nbr_place}</h4>
                 </div>
               </div>
 
@@ -125,13 +168,12 @@ function AddActivityPopUp(props) {
 
             <div className="addAct-category">
               <Select
-                isMulti
+                className="basic-single"
+                classNamePrefix="select"
                 name="actCategory"
                 options={options}
-                className="select"
-                classNamePrefix="select"
-                value={activity.actCategory}
-                onChange={handelChange}
+                // value={activity.categorie}
+                onChange={handleInputChange}
               />
             </div>
             <h3>Lieu d'activité</h3>
@@ -139,8 +181,8 @@ function AddActivityPopUp(props) {
               <input
                 type="text"
                 placeholder="Lieu"
-                name="actAdresse"
-                value={activity.actAdresse}
+                name="adresse"
+                value={activity.adresse}
                 onChange={handelChange}
               />
               <button className="addAct-adressMap" type="submit">

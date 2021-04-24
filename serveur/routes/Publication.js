@@ -8,28 +8,32 @@ const jwt_decode = require("jwt-decode");
 //add pub(type=="Activity")
 router.post("/addActivity", auth, async (req, res) => {
   const {
-    image_url,
-    discription,
+    description,
+    categorie,
     adresse,
     nbr_place,
-    date_DebutPUb,
-    date_FinPUb,
+    date_DebutPub,
+    heure_debutPub,
+    date_FinPub,
+    heure_finPub,
   } = req.body;
   try {
     //get user id from request parametre
     // const id = req.params.id;
-    const token = JSON.stringify(req.headers);
+    const token = JSON.stringify(req.headers.token);
     token.replace(" ", "");
     var decoded = jwt_decode(token);
 
     // req.user = decoded.user;
     publication = new Publication({
-      image_url,
-      discription,
+      description,
+      categorie,
       adresse,
       nbr_place,
-      date_DebutPUb,
-      date_FinPUb,
+      date_DebutPub,
+      heure_debutPub,
+      date_FinPub,
+      heure_finPub,
       user: decoded.user.id,
     });
     const act = await publication.save();
