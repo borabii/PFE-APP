@@ -8,9 +8,17 @@ import Home from "./component/Home";
 import UserPubOrganized from "./component/UserPubOrganized";
 import UserPubParticipated from "./component/UserPubParticipated";
 import AuthContext from "../../Context/auth/authContext";
-import { Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Router,
+  Switch,
+  useRouteMatch,
+} from "react-router-dom";
 
 function AbonnéHomePage() {
+  const { url, path } = useRouteMatch();
+
   const authContext = useContext(AuthContext);
   //app level state
   const { loadUser } = authContext;
@@ -19,17 +27,16 @@ function AbonnéHomePage() {
   }, []);
   return (
     <div>
-      {/* header */}
       <AboHeader />
-
-      {/* home body */}
       <div className="homePageBody">
-        <Home />
-
-        {/* <AbonnéVisitedProfile /> */}
-        {/* <UserPubOrganized /> */}
-        {/* <UserPubParticipated /> */}
-        {/* <AbonnéProfil /> */}
+        <Switch>
+          <Route path={path} exact component={Home} />
+          <Route
+            path={`${path}/MesActivités`}
+            component={UserPubParticipated}
+          />
+          <Route path={`${path}/Compte`} component={AbonnéProfil} />
+        </Switch>
       </div>
     </div>
   );

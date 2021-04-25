@@ -6,7 +6,6 @@ import { Router, Route, Switch } from "react-router-dom";
 import AbonnéHomePage from "./Views/abonnée-pages/AbonnéHomePage";
 import AuthState from "./Context/auth/AuthState";
 import PubState from "./Context/Publication/PubState";
-
 import history from "../src/utilis/history";
 import PrivateRoute from "../src/routing/PrivateRoute";
 function App() {
@@ -17,7 +16,6 @@ function App() {
           <Router history={history}>
             <Switch>
               <PrivateRoute exact path="/" component={LandingPage} />
-
               <Route path="/AdminHomePage">
                 <AdminHomePage />
               </Route>

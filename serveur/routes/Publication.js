@@ -65,9 +65,10 @@ router.get("/getAct", auth, async (req, res) => {
 //delete publication(activity,event,annonce)
 router.delete("/deletepub/:pubId", auth, async (req, res) => {
   const pubId = req.params.pubId;
-  await Publication.findByIdAndRemove(pubId);
+  await Publication.findByIdAndRemove({ typePub: "Activity", _id: pubId });
   res.json({ msg: "Publication removed !" });
 });
+//update publication (activity)
 router.put("/updateActivity/:actid", auth, async (req, res) => {
   //auth = access users and token
   // res.send('Update activity !');

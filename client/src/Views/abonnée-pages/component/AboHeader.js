@@ -1,10 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import SearchIcon from "@material-ui/icons/Search";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import StarBorderIcon from "@material-ui/icons/StarBorder";
+import AuthContext from "../../../Context/auth/authContext";
+import history from "../../../utilis/history";
+import { Link, NavLink, useRouteMatch } from "react-router-dom";
 //this methode is used for detecting user mouse click out side searsh result
 let useClickOutside = (handler) => {
   let domNode = useRef();
@@ -25,16 +30,32 @@ let useClickOutside = (handler) => {
   return domNode;
 };
 function AboHeader() {
+  let domNode = useClickOutside(() => {
+    setShowSearchResultDropdown(false);
+  });
+  let domNode1 = useClickOutside(() => {
+    setShowProfilDopDown(false);
+  });
+  //(Componenet level State)
   //this state for handeling selected search option
   const [searchOption, setSearchOption] = useState("annonce");
 
+  //(Componenet level State)
   //this state for hide/show search result Dropdown when clicking on the searsh input bar
   const [showSearchResultDropdown, setShowSearchResultDropdown] = useState(
     false
   );
-  let domNode = useClickOutside(() => {
-    setShowSearchResultDropdown(false);
-  });
+
+  //(Componenet level State)
+  //this state for hide/show search result Dropdown when clicking on the searsh input bar
+  const [showProfilDopDown, setShowProfilDopDown] = useState(false);
+
+  const authContext = useContext(AuthContext);
+  const { logout } = authContext;
+  const onLogout = () => {
+    logout();
+    history.push("/");
+  };
   const data = [
     {
       key: "john",
@@ -57,11 +78,15 @@ function AboHeader() {
       value: "Karius",
     },
   ];
+  const { url, path } = useRouteMatch();
+
   return (
     <Navbar collapseOnSelect expand="lg" className="abonné-Header" fixed="top">
       <div>
         <Navbar.Brand>
-          <h2>Logo</h2>
+          <NavLink to={url}>
+            <h2>Logo</h2>
+          </NavLink>
         </Navbar.Brand>
       </div>
       <div id="navbar-collapse-small-device">
@@ -139,8 +164,58 @@ function AboHeader() {
                 src="https://learnenglishteens.britishcouncil.org/sites/teens/files/styles/article/public/istock_000016994756small.jpg?itok=yczzK-18"
                 alt=""
                 className="userPicture"
+                onClick={() =>
+                  setShowProfilDopDown(
+                    (showProfilDopDown) => !showProfilDopDown
+                  )
+                }
               />
               <h4 id="btnProfil-small-device">Profile</h4>
+
+              <div
+                ref={domNode1}
+                className="profile-dropDown"
+                style={{ display: showProfilDopDown ? "block" : "none" }}
+              >
+                <div className="DropDown-body">
+                  <div className="dropDown-Option">
+                    <NavLink
+                      to={`${url}/Compte`}
+                      exact
+                      activeStyle={{
+                        color: "#fea041",
+                      }}
+                    >
+                      <AccountCircleIcon className="dropDown-icon" />
+                      Mon Compte
+                    </NavLink>
+                  </div>
+
+                  <div className="dropDown-Option">
+                    <NavLink
+                      to={`${url}/MesActivités`}
+                      exact
+                      activeStyle={{
+                        color: "#fea041",
+                      }}
+                    >
+                      <StarBorderIcon className="dropDown-icon" />
+                      Mes Activités
+                    </NavLink>
+                  </div>
+                  <div className="dropDown-Option">
+                    <a onClick={onLogout}>
+                      <ExitToAppIcon className="dropDown-icon" />
+                      Déconnexion
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </Nav.Link>
+            <Nav.Link>
+              <h4 id="btnProfil-small-device" onClick={onLogout}>
+                Déconnexion
+              </h4>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

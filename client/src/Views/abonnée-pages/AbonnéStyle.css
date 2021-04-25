@@ -134,13 +134,13 @@
 .header-notifIcon {
   margin-right: 20px;
 }
-.header-chatIcon > #chatIcon {
+.header-notifIcon > #notifIcon {
   width: 40px;
   height: 45px;
   align-self: center;
   margin-top: 2px;
 }
-.header-notifIcon > #notifIcon {
+.header-chatIcon > #chatIcon {
   width: 40px;
   height: 45px;
   align-self: center;
@@ -151,6 +151,36 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
+}
+.profile-dropDown {
+  position: absolute;
+  width: 200px;
+  top: 75px;
+  right: 20px;
+  -webkit-transition: height 1s ease;
+  -moz-transition: height 1s ease;
+  -o-transition: height 1s ease;
+  -ms-transition: height 1s ease;
+  transition: height 1s ease;
+  background: #44c9bb;
+  border-radius: 10px;
+  padding: 10px 25px 10px 25px;
+}
+.profile-dropDown > .DropDown-body > .dropDown-Option {
+  margin-bottom: 5px;
+}
+.profile-dropDown > .DropDown-body > .dropDown-Option > a {
+  color: black;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.02rem;
+}
+.profile-dropDown > .DropDown-body > .dropDown-Option > a:hover {
+  color: #040941;
+}
+.profile-dropDown > .DropDown-body > .dropDown-Option > a > .dropDown-icon {
+  margin-top: -6px;
+  margin-right: 2px;
 }
 #btnNotif-small-device,
 #btnProfil-small-device,
@@ -891,7 +921,8 @@
   }
   #btnNotif-small-device,
   #btnProfil-small-device,
-  #btnChat-small-device {
+  #btnChat-small-device,
+  .profile-dropDown {
     display: inline;
   }
   .pubCard-phone {

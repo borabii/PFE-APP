@@ -8,7 +8,7 @@ const Abonné = require("../models/Abonné");
 const Admin = require("../models/Admin");
 
 const router = express.Router();
-//signUp endpoint
+//signUp(user/abonné) endpoint
 router.post("/signup", async (req, res) => {
   const {
     firstName,
@@ -130,6 +130,16 @@ router.post("/addAdmin", async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
+  }
+});
+//
+router.get("/Admin/abonne", async (req, res) => {
+  try {
+    const abonne = await Abonné.find({ isAnnonceur: "true" });
+    res.json(abonne);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error get contacts");
   }
 });
 module.exports = router;

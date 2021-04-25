@@ -10,6 +10,10 @@ const AbonnéSchema = User.discriminator(
     adress: {
       type: String,
     },
+    isAnnonceur: {
+      type: Boolean,
+      default: false,
+    },
   })
 );
 module.exports = mongoose.model("Abonné");

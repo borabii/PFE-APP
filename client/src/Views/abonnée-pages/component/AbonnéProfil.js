@@ -3,16 +3,43 @@ import AbonnéInfo from "./AbonnéInfo";
 import AbonneNote from "./AbonneNote.js";
 import AbonnéCenterOfInterest from "./AbonnéCenterOfInterest";
 import AbonnéSearchParametre from "./AbonnéSearchParametre";
+import {
+  BrowserRouter,
+  NavLink,
+  Route,
+  Router,
+  Switch,
+  useRouteMatch,
+} from "react-router-dom";
 function AbonnéProfil() {
+  const { url, path } = useRouteMatch();
+
   return (
     <div className="profileAbonne">
       <div className="AboneéSide-menu">
         <ul>
-          <li>Mes information </li>
-          <li> Mes centre d'interet</li>
-          <li> Mes notes et avis</li>
-          <li> Parametre de recherche</li>
-          <li> Modifier ma localisation</li>
+          <li>
+            <NavLink to={`${url}`}>Mes information </NavLink>
+          </li>
+          <li>
+            {" "}
+            <NavLink to={`${url}/MesInteret`}>Mes centre d'interet</NavLink>
+          </li>
+          <li>
+            {" "}
+            <NavLink to={`${url}/MesNote`}>
+              Mes centre Mes notes et avis'interet
+            </NavLink>
+          </li>
+          <li>
+            {" "}
+            <NavLink to={`${url}/MesParametreDeRecherche`}>
+              Parametre de recherche
+            </NavLink>
+          </li>
+          {/* <li>
+            <NavLink to={`${url}/MesNote`}>Modifier ma localisation</NavLink>{" "}
+          </li> */}
         </ul>
       </div>
       <div className="AboneéSide-menuSmallDevice">
@@ -23,10 +50,18 @@ function AbonnéProfil() {
         <span>Localisation</span>
       </div>
       <div className="profileAbonné-body">
-        {/* <AbonnéInfo /> */}
-        {/* <AbonneNote /> */}
-        {/* <AbonnéSearchParametre /> */}
-        <AbonnéCenterOfInterest />
+        <Switch>
+          <Route path={`${path}/MesNote`} component={AbonneNote} />
+          <Route
+            path={`${path}/MesParametreDeRecherche`}
+            component={AbonnéSearchParametre}
+          />
+          <Route
+            path={`${path}/MesInteret`}
+            component={AbonnéCenterOfInterest}
+          />
+          <Route exact path={`${path}`} component={AbonnéInfo} />
+        </Switch>
       </div>
     </div>
   );
