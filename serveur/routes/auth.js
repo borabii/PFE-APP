@@ -8,7 +8,7 @@ const User = require("../models/User");
 const auth = require("../middleware/auth"); //middleware next()
 
 //get all user  without password  data after login
-router.get("/getAll", auth, async (req, res) => {
+router.get("/getUser", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password"); //select without password
     res.json(user);
@@ -40,8 +40,8 @@ router.post("/signin", async (req, res) => {
     const token = jwt.sign(payload, config.get("jwtSecret"));
     res.json({
       token,
-
       role: user.role,
+      user,
     });
   } catch (err) {
     console.error(err.message);

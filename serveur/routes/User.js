@@ -8,6 +8,7 @@ const Abonné = require("../models/Abonné");
 const Admin = require("../models/Admin");
 
 const router = express.Router();
+
 //signUp(user/abonné) endpoint
 router.post("/signup", async (req, res) => {
   const {
@@ -42,7 +43,8 @@ router.post("/signup", async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     //add crypted password to user object before store it to db
     abonné.password = await bcrypt.hash(password, salt);
-
+    abonné.imageProfile = null;
+    abonné.adress = null;
     await abonné.save();
 
     const payload = {
@@ -60,8 +62,12 @@ router.post("/signup", async (req, res) => {
       },
       (err, token) => {
         if (err) throw err;
-
-        res.json({ token });
+        const user = abonné;
+        res.json({
+          token,
+          role: abonné.role,
+          user,
+        });
       }
     );
   } catch (err) {

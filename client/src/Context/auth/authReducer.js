@@ -1,12 +1,6 @@
-import { LOGIN_SUCCESS, USER_LOADED, LOGOUT } from "../types";
+import { LOGIN_SUCCESS, REGISTER_SUCCESS, LOGOUT } from "../types";
 export default (state, action) => {
   switch (action.type) {
-    case USER_LOADED:
-      return {
-        ...state,
-        isAuthenticated: true,
-        user: action.payload,
-      };
     case LOGOUT:
       // remove the token from storage
       localStorage.clear();
@@ -15,7 +9,10 @@ export default (state, action) => {
         token: null,
         isAuthenticated: false,
         user: null,
+        abonné: null,
       };
+    case REGISTER_SUCCESS:
+
     case LOGIN_SUCCESS:
       localStorage.setItem("token", action.payload.token);
       localStorage.setItem("role", action.payload.role);
@@ -23,8 +20,9 @@ export default (state, action) => {
         ...state,
         ...action.payload,
         isAuthenticated: true,
-        userRole: action.payload.role,
+        user: action.payload.user,
       };
+
     default:
       return state;
   }

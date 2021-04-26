@@ -1,7 +1,6 @@
 import React from "react";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import Card from "react-bootstrap/Card";
 import Carousel from "react-elastic-carousel";
 import PubCard from "./PubCard";
 import Container from "react-bootstrap/Container";

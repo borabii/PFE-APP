@@ -51,7 +51,8 @@ function AboHeader() {
   const [showProfilDopDown, setShowProfilDopDown] = useState(false);
 
   const authContext = useContext(AuthContext);
-  const { logout } = authContext;
+  const { logout, user } = authContext;
+  const { firstName } = user;
   const onLogout = () => {
     logout();
     history.push("/");
@@ -85,7 +86,7 @@ function AboHeader() {
       <div>
         <Navbar.Brand>
           <NavLink to={url}>
-            <h2>Logo</h2>
+            <h2>Logo{firstName}</h2>
           </NavLink>
         </Navbar.Brand>
       </div>

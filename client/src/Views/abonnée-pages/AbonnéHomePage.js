@@ -8,23 +8,17 @@ import Home from "./component/Home";
 import UserPubOrganized from "./component/UserPubOrganized";
 import UserPubParticipated from "./component/UserPubParticipated";
 import AuthContext from "../../Context/auth/authContext";
-import {
-  BrowserRouter,
-  Route,
-  Router,
-  Switch,
-  useRouteMatch,
-} from "react-router-dom";
+import { Route, Switch, useRouteMatch } from "react-router-dom";
 
 function AbonnéHomePage() {
   const { url, path } = useRouteMatch();
 
   const authContext = useContext(AuthContext);
   //app level state
-  const { loadUser } = authContext;
-  useEffect(() => {
-    loadUser();
-  }, []);
+  const { loadUser, user, isAuthenticated } = authContext;
+  // useEffect(() => {
+  //   loadUser();
+  // }, [user]);
   return (
     <div>
       <AboHeader />

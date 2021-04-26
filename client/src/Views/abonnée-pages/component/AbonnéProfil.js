@@ -1,19 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import AbonnéInfo from "./AbonnéInfo";
 import AbonneNote from "./AbonneNote.js";
 import AbonnéCenterOfInterest from "./AbonnéCenterOfInterest";
 import AbonnéSearchParametre from "./AbonnéSearchParametre";
-import {
-  BrowserRouter,
-  NavLink,
-  Route,
-  Router,
-  Switch,
-  useRouteMatch,
-} from "react-router-dom";
+import AuthContext from "../../../Context/auth/authContext";
+
+import { NavLink, Route, Switch, useRouteMatch } from "react-router-dom";
 function AbonnéProfil() {
   const { url, path } = useRouteMatch();
-
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
   return (
     <div className="profileAbonne">
       <div className="AboneéSide-menu">
@@ -34,7 +30,7 @@ function AbonnéProfil() {
           <li>
             {" "}
             <NavLink to={`${url}/MesParametreDeRecherche`}>
-              Parametre de recherche
+              Parametre de recherche{user.email}
             </NavLink>
           </li>
           {/* <li>

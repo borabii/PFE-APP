@@ -4,40 +4,14 @@ import AuthContext from "./authContext";
 import authReducer from "./authReducer";
 import setAuthToken from "../../utilis/setAuthToken";
 
-import { LOGIN_SUCCESS, USER_LOADED, LOGOUT } from "../types";
+import { LOGIN_SUCCESS, REGISTER_SUCCESS, USER_LOADED, LOGOUT } from "../types";
 const AuthState = (props) => {
   const initialState = {
     token: localStorage.getItem("token"),
     isAuthenticated: null,
     user: null,
-    userRole: null,
   };
   const [state, dispatch] = useReducer(authReducer, initialState);
-
-  // Load User data after signin
-  const loadUser = async () => {
-    // to load token into global headers
-    // if localStorage.token exists
-    if (localStorage.token) {
-      setAuthToken(localStorage.token); //  axios.defaults.headers.common['x-auth-token'] = token;
-    }
-
-    try {
-      const response = await axios.get("http://localhost:8000/api/auth/getAll");
-      console.log(
-        "%c res.data ( loadUser() in AuthState.js )",
-        "color:orange; font-weight:bold;"
-      );
-      console.log(response.data);
-
-      dispatch({
-        type: USER_LOADED,
-        payload: response.data,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   //login User
   const login = async (formData) => {
@@ -59,11 +33,33 @@ const AuthState = (props) => {
         payload: response.data,
       });
 
-      loadUser(); //set token and request to backend /api/auth
+      // loadUser(); //set token and request to backend /api/auth
     } catch (err) {
       console.log(err);
     }
   };
+  //signUp for user(abonné)
+  const signUp = async (formData) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/users/signup",
+        formData,
+        config
+      );
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: response.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   // Logout
   const logout = () => dispatch({ type: LOGOUT });
   return (
@@ -72,9 +68,8 @@ const AuthState = (props) => {
         token: state.token,
         isAuthenticated: state.isAuthenticated,
         user: state.user,
-        userRole: state.userRole,
         login,
-        loadUser,
+        signUp,
         logout,
       }}
     >
