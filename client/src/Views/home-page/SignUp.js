@@ -5,17 +5,20 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import AuthContext from "../../Context/auth/authContext";
 import history from "../../utilis/history";
-
+import signUpFormValidation from "../home-page/SignUpFormValidation";
 function SignUp() {
   const authContext = useContext(AuthContext);
   //app level state
-  const { isAuthenticated, signUp, userRole } = authContext;
+  const { isAuthenticated, signUp } = authContext;
   //this state is used for handling radio value
   const [gendre, setGendre] = useState("Homme");
   const radios = [
     { name: "Homme", value: "Homme" },
     { name: "Femme", value: "Femme" },
   ];
+  //component level state for handling form message error
+  const [errorsMsg, setErrorsMsg] = useState({});
+
   //component level state for handling user inputed values
   const [userForm, setUserForm] = useState({
     firstName: "",
@@ -39,25 +42,28 @@ function SignUp() {
       ...userForm,
       [event.target.name]: event.target.value,
     });
-    console.log(userForm);
+  };
+  console.log(userForm);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setErrorsMsg(signUpFormValidation(userForm));
+
+    if (Object.keys(errorsMsg).length == 0) {
+      signUp({
+        firstName,
+        lastName,
+        dateOfBirth,
+        gendre,
+        email,
+        password,
+      });
+    }
   };
   useEffect(() => {
     if (isAuthenticated) {
-      history.push("AbonnéHomePage");
+      history.push("/AbonnéHomePage");
     }
-  }, [isAuthenticated, userRole]);
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    // setErrorsMsg(signInFormValidation(userForm));
-    signUp({
-      firstName,
-      lastName,
-      dateOfBirth,
-      gendre,
-      email,
-      password,
-    });
-  };
+  }, [isAuthenticated]);
   return (
     <div className="signUp">
       <div className="signIn__container">
@@ -97,14 +103,16 @@ function SignUp() {
                 required
               />
               <input
-                type="email"
+                type="text"
                 className="form-input"
                 name="email"
                 placeholder=" Tapez votre email"
-                required
                 value={userForm.email}
                 onChange={handelChange}
               />
+              {errorsMsg.email && (
+                <span className="emailError">{errorsMsg.email}</span>
+              )}
               <div className="gender">
                 <ButtonGroup className=" btn-radio " toggle>
                   {radios.map((radio, idx) => (
@@ -126,20 +134,24 @@ function SignUp() {
                 className="form-input"
                 name="password"
                 placeholder=" Tapez votre mots de passe"
-                required
                 name="password"
                 value={userForm.password}
                 onChange={handelChange}
               />
+              {errorsMsg.password && (
+                <span className="emailError">{errorsMsg.password}</span>
+              )}
               <input
                 type="password"
                 className="form-input"
                 placeholder=" Confirmez votre mots de passe"
-                required
                 name="ConfirmPassword"
                 value={userForm.ConfirmPassword}
                 onChange={handelChange}
               />
+              {errorsMsg.ConfirmPassword && (
+                <span className="emailError">{errorsMsg.ConfirmPassword}</span>
+              )}
               <button className="form-btn" type="submit">
                 Inscription
               </button>

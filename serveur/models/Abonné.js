@@ -10,6 +10,9 @@ const AbonnéSchema = User.discriminator(
     adress: {
       type: String,
     },
+    description: {
+      type: String,
+    },
     isAnnonceur: {
       type: Boolean,
       default: false,

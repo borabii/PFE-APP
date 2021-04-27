@@ -1,53 +1,114 @@
-import React, { useContext } from "react";
+import React from "react";
 import AbonnéInfo from "./AbonnéInfo";
 import AbonneNote from "./AbonneNote.js";
 import AbonnéCenterOfInterest from "./AbonnéCenterOfInterest";
 import AbonnéSearchParametre from "./AbonnéSearchParametre";
-import AuthContext from "../../../Context/auth/authContext";
-
+import InfoIcon from "@material-ui/icons/Info";
+import MyLocationIcon from "@material-ui/icons/MyLocation";
+import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
+import LocalActivityIcon from "@material-ui/icons/LocalActivity";
 import { NavLink, Route, Switch, useRouteMatch } from "react-router-dom";
 function AbonnéProfil() {
   const { url, path } = useRouteMatch();
-  const authContext = useContext(AuthContext);
-  const { user } = authContext;
+
   return (
     <div className="profileAbonne">
       <div className="AboneéSide-menu">
-        <ul>
-          <li>
-            <NavLink to={`${url}`}>Mes information </NavLink>
-          </li>
-          <li>
+        <div className="menu-item">
+          <NavLink
+            exact
+            to={`${url}`}
+            className="item"
+            activeClassName="selected"
+          >
+            <span>
+              <InfoIcon id="profileSidMenu-icon" />
+              Information
+            </span>
+          </NavLink>{" "}
+          <NavLink
+            to={`${url}/MesInteret`}
+            className="item"
+            activeClassName="selected"
+          >
             {" "}
-            <NavLink to={`${url}/MesInteret`}>Mes centre d'interet</NavLink>
-          </li>
-          <li>
-            {" "}
-            <NavLink to={`${url}/MesNote`}>
-              Mes centre Mes notes et avis'interet
-            </NavLink>
-          </li>
-          <li>
-            {" "}
-            <NavLink to={`${url}/MesParametreDeRecherche`}>
-              Parametre de recherche{user.email}
-            </NavLink>
-          </li>
-          {/* <li>
+            <span>
+              <LocalActivityIcon id="profileSidMenu-icon" /> Centre d'intérêt
+            </span>
+          </NavLink>{" "}
+          <NavLink
+            to={`${url}/MesNotes`}
+            className="item"
+            activeClassName="selected"
+          >
+            <span>
+              <ThumbUpAltIcon id="profileSidMenu-icon" /> Notes et Avis
+            </span>
+          </NavLink>{" "}
+          <NavLink
+            to={`${url}/MesParametreDeRecherche`}
+            activeClassName="selected"
+            className="item"
+          >
+            <span>
+              <MyLocationIcon id="profileSidMenu-icon" />
+              Paramètre de recherche
+            </span>
+          </NavLink>
+        </div>
+        {/* <li>
             <NavLink to={`${url}/MesNote`}>Modifier ma localisation</NavLink>{" "}
           </li> */}
-        </ul>
       </div>
       <div className="AboneéSide-menuSmallDevice">
-        <span>Information </span>
-        <span>Intérêt</span>
-        <span>Avis</span>
-        <span>Recherche</span>
-        <span>Localisation</span>
+        <div className="menu-itemSmall-Dev">
+          <NavLink
+            className="item-smallDevice"
+            exact
+            to={`${url}`}
+            activeStyle={{
+              fontWeight: "bold",
+              color: "#44C9BB",
+            }}
+          >
+            Information
+          </NavLink>{" "}
+          <NavLink
+            to={`${url}/MesInteret`}
+            className="item-smallDevice"
+            activeStyle={{
+              fontWeight: "bold",
+              color: "#44C9BB",
+            }}
+          >
+            Intérêt
+          </NavLink>
+          <NavLink
+            to={`${url}/MesNotes`}
+            className="item-smallDevice"
+            activeStyle={{
+              fontWeight: "bold",
+              color: "#44C9BB",
+            }}
+          >
+            Avis
+          </NavLink>
+          <NavLink
+            to={`${url}/MesParametreDeRecherche`}
+            className="item-smallDevice"
+            activeStyle={{
+              fontWeight: "bold",
+              color: "#44C9BB",
+            }}
+          >
+            Recherche
+          </NavLink>
+          <span>Localisation</span>
+        </div>
       </div>
       <div className="profileAbonné-body">
         <Switch>
-          <Route path={`${path}/MesNote`} component={AbonneNote} />
+          <Route path={`${path}/MesNotes`} component={AbonneNote} />
           <Route
             path={`${path}/MesParametreDeRecherche`}
             component={AbonnéSearchParametre}

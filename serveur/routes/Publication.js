@@ -116,10 +116,11 @@ router.put("/updateActivity/:actid", auth, async (req, res) => {
 router.get("/Admin/getActivity", auth, async (req, res) => {
   try {
     const activity = await Publication.find({ typePub: "Activity" });
-    res.json(activity);
+
+    res.json({ activity, nn });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error get contacts");
+    res.status(500).send("Server Error ");
   }
 });
 module.exports = router;

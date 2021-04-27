@@ -1,6 +1,8 @@
-import React from "react";
-
+import React, { useContext } from "react";
+import AuthContext from "../../../Context/auth/authContext";
 function AbonnéInfo() {
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
   return (
     <div className="abonneInfo">
       <div className="imgProfil">
@@ -14,23 +16,23 @@ function AbonnéInfo() {
         <div className="info_General">
           <h3> Information Générale</h3>
           <ul>
-            <li>Nom: jones </li>
-            <li>Prenom: jack </li>
+            <li>Nom: {user.firstName}</li>
+            <li>Prenom:{user.lastName}</li>
           </ul>
         </div>
 
         <div className="description">
           <h3> Description</h3>
-          <textarea rows="4">zgbehbgpjhfgîu</textarea>
+          <textarea rows="4">{user.description}</textarea>
         </div>
         <div className="gend">
           <h3>Gender</h3>
-          <h4>Female</h4>
+          <h4>{user.gendre}</h4>
         </div>
 
         <div className="mail">
           <h3>Email</h3>
-          <h4>jones@gmail.com</h4>
+          <h4>{user.email}</h4>
         </div>
       </div>
     </div>

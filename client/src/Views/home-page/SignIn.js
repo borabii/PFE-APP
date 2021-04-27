@@ -7,8 +7,8 @@ import history from "../../utilis/history";
 function SignIn() {
   const authContext = useContext(AuthContext);
   //app level state
-  const { isAuthenticated, login, userRole } = authContext;
-
+  const { isAuthenticated, login } = authContext;
+  const userRole = localStorage.getItem("role");
   //component level state for handling user inputed values
   const [userForm, setUserForm] = useState({
     email: "",
@@ -24,7 +24,7 @@ function SignIn() {
       if (userRole === "Admin") {
         history.push("/AdminHomePage");
       } else {
-        history.push("AbonnéHomePage");
+        history.push("/AbonnéHomePage");
       }
     }
   }, [isAuthenticated, userRole]);
@@ -40,10 +40,12 @@ function SignIn() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrorsMsg(signInFormValidation(userForm));
-    login({
-      email,
-      password,
-    });
+    if (Object.keys(errorsMsg).length == 0) {
+      login({
+        email,
+        password,
+      });
+    }
   };
   return (
     <div className="signIn">

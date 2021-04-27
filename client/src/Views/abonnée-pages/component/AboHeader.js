@@ -9,7 +9,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import AuthContext from "../../../Context/auth/authContext";
 import history from "../../../utilis/history";
-import { Link, NavLink, useRouteMatch } from "react-router-dom";
+import { NavLink, useRouteMatch } from "react-router-dom";
 //this methode is used for detecting user mouse click out side searsh result
 let useClickOutside = (handler) => {
   let domNode = useRef();
@@ -51,8 +51,8 @@ function AboHeader() {
   const [showProfilDopDown, setShowProfilDopDown] = useState(false);
 
   const authContext = useContext(AuthContext);
-  const { logout, user } = authContext;
-  const { firstName } = user;
+  const { logout } = authContext;
+
   const onLogout = () => {
     logout();
     history.push("/");
@@ -79,14 +79,14 @@ function AboHeader() {
       value: "Karius",
     },
   ];
-  const { url, path } = useRouteMatch();
+  const { url } = useRouteMatch();
 
   return (
     <Navbar collapseOnSelect expand="lg" className="abonné-Header" fixed="top">
       <div>
         <Navbar.Brand>
           <NavLink to={url}>
-            <h2>Logo{firstName}</h2>
+            <h2>Logo</h2>
           </NavLink>
         </Navbar.Brand>
       </div>
@@ -171,7 +171,18 @@ function AboHeader() {
                   )
                 }
               />
-              <h4 id="btnProfil-small-device">Profile</h4>
+              <h4 id="btnProfil-small-device">
+                <NavLink
+                  to={`${url}/Compte`}
+                  exact
+                  activeStyle={{
+                    color: "rgba(0,0,0,.5)  ",
+                  }}
+                  className="navCollaps-item"
+                >
+                  Mon Compte
+                </NavLink>
+              </h4>
 
               <div
                 ref={domNode1}

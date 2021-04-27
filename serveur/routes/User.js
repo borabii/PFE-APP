@@ -45,6 +45,7 @@ router.post("/signup", async (req, res) => {
     abonné.password = await bcrypt.hash(password, salt);
     abonné.imageProfile = null;
     abonné.adress = null;
+    abonné.description = null;
     await abonné.save();
 
     const payload = {
