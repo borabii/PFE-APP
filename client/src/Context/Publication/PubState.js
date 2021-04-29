@@ -19,7 +19,7 @@ const PubState = (props) => {
     }
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/Publication/getAct`
+        `http://localhost:8000/api/Publication/Admin/getActivity`
       );
       dispatch({
         type: GET_ACTIVITY,

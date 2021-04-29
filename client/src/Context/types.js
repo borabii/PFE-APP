@@ -4,3 +4,4 @@ export const LOGOUT = "LOGOUT";
 export const GET_ACTIVITY = "GET_ACTIVITY";
 export const ADD_ACTIVITY = "ADD_ACTIVITY";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const UPDATE_IMAGE = "UPDATE_IMAGE";

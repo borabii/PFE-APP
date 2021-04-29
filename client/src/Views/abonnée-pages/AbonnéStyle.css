@@ -695,42 +695,51 @@
   justify-content: space-around;
   margin-left: 20px;
 }
+
 .imgProfil {
-  display: flex;
-  flex-direction: row;
-  justify-items: start;
-  justify-content: start;
-}
-.imgProfil > img {
-  width: 200px;
-  height: 200px;
+  position: relative;
+  width: 301px;
+  height: 202px;
   border: 2px solid rgb(95, 209, 212);
   border-radius: 10px;
   margin: 20px 20px 20px 0px;
   box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
 }
-
-.imgProfil > .btn_change {
-  border: 2px solid #44c9bb;
-  border-radius: 10px;
-  background-color: white;
-  color: #44c9bb;
-  height: 30px;
-  margin-top: 180px;
-  text-transform: uppercase;
+.imgProfil > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
 }
-.imgProfil > .btn_change:hover {
-  border: 2px #44c9bb;
+input[type="file"] {
+  display: none;
+}
+.imgProfil > .file-upload-btn {
+  position: absolute;
+  top: 95%;
+  left: 100%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #040941;
+  cursor: pointer;
+  transition-duration: 1s;
   background-color: #44c9bb;
-  height: 30px;
-  margin-top: 180px;
+}
+
+#editImage-icon {
   color: white;
-  box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
+  width: 40px;
+  height: 40px;
+  margin-top: 7px;
+  margin-left: 10px;
 }
 .info {
   display: flex;
   flex-direction: column;
   justify-items: start;
+  width: fit-content;
 }
 .info_General > ul {
   border: 2px solid #44c9bb;
@@ -740,18 +749,25 @@
   border-radius: 5px;
   margin: 5px;
   width: 300px;
+  box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
 }
 .info_General > ul > li {
-  padding: px;
+  padding-left: 2px;
   font-weight: 600;
   background-color: #f6f5f5;
-  border-radius: 5px;
-  margin: 5px;
+  /* margin: 5px; */
   font-weight: 400;
-  font-style: normal;
-  line-height: 23px;
 }
-
+.info_General > ul > li > span {
+  margin-left: 5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.02rem;
+}
+#info-item {
+  border-bottom: 2px solid #44c9bb;
+  padding-bottom: 2px;
+}
 .description > textarea {
   border: 2px solid #44c9bb;
   background-color: #f6f5f5;
@@ -762,6 +778,7 @@
   font-weight: 400;
   font-style: normal;
   line-height: 23px;
+  box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
 }
 .info > .gend > h4 {
   border: 2px solid #44c9bb;
@@ -773,6 +790,7 @@
   font-weight: 400;
   font-style: normal;
   line-height: 23px;
+  box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
 }
 .mail > h4 {
   border: 2px solid #44c9bb;
@@ -780,10 +798,11 @@
   border-radius: 5px;
   margin: 5px;
   padding: 5px;
-  width: 50%;
+  width: 97%;
   font-weight: 400;
   font-style: normal;
   line-height: 23px;
+  box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
 }
 /*******************************************************/
 /***************Abonné Note style**********************/
@@ -798,7 +817,7 @@
   flex-direction: row;
   justify-items: center;
   justify-content: space-around;
-  margin-top: 20px;
+  margin-top: 50px;
 }
 
 .abonne_avis > h4 {
@@ -819,6 +838,8 @@
   margin: 0px 20px 0px 20px;
 }
 .score_detail > h2 {
+  margin-top: 50px;
+
   margin-bottom: 20px;
 }
 .score_detail > .container {
@@ -826,6 +847,7 @@
   height: 30%;
   border-radius: 10px;
   background-color: #f6f5f5;
+  box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
 }
 #category {
   border-radius: 5px;
@@ -838,21 +860,23 @@
   color: white;
   border: white;
   background-image: linear-gradient(to right, #f45728 0%, #fea041 100%);
-
   box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
 }
 .avis_detail {
   margin-top: 20px;
   margin-left: 20px;
 }
+.avis_detail > h2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .recived-note > #temp {
-  margin: 40px 0px 20px 30px;
+  margin: 40px 40px 20px 30px;
 }
 .recived-note {
   display: flex;
   flex-direction: row;
-  justify-items: start;
-  justify-content: start;
+  justify-content: space-between;
   border-radius: 10px;
   width: 80%;
   margin: 10px;
@@ -860,7 +884,10 @@
 .recived-note:hover {
   box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
 }
-.recived-note > img {
+.recived-noteLeft {
+  display: flex;
+}
+.recived-note > .recived-noteLeft > img {
   width: 75px;
   height: 75px;
   border-radius: 50%;
@@ -1411,22 +1438,29 @@
   /*****************************************************/
   .abonneInfo {
     margin-left: 0px;
+    overflow: hidden;
   }
   .imgProfil {
-    flex-direction: column;
-    justify-items: center;
+    width: 201px;
+    height: 202px;
+    align-self: center;
+    border-radius: 50%;
+    top: 70;
+    border: 4px solid rgb(95, 209, 212);
   }
   .imgProfil > img {
     align-self: center;
     border-radius: 50%;
-    margin: 20px 0px 20px 0px;
   }
-  .imgProfil > .btn_change {
-    align-self: center;
-    margin-top: 0px;
+  .imgProfil > .file-upload-btn {
+    top: 90%;
+    left: 90%;
+    border: 3px solid #040941;
   }
   .info {
+    width: 100%;
     margin-top: 20px;
+    margin-left: 10px;
   }
   .info_General > h3 {
     margin-left: 5px;
@@ -1438,7 +1472,7 @@
   .description > h3 {
     margin-left: 5px;
     font-size: 25px;
-    margin-top: 10px;
+    margin-top: 20px;
   }
   .description > textarea {
     width: 90%;
@@ -1450,6 +1484,8 @@
   }
   .info > .gend > h4 {
     width: 90%;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
   .mail > h3 {
     margin-top: 10px;
@@ -1458,6 +1494,9 @@
   }
   .mail > h4 {
     width: 90%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
   }
   /*******************************************************/
   /***************Abonné Note small device style*********/
@@ -1474,6 +1513,7 @@
   }
   .score_detail > h2 {
     font-size: 25px;
+    margin-top: 30px;
     margin-bottom: 20px;
   }
   .score_detail > .container {
@@ -1481,10 +1521,18 @@
   }
   .avis_detail > h2 {
     font-size: 25px;
-    margin-bottom: 20px;
+  }
+  .recived-note {
+    margin: 0px;
+    margin-bottom: 15px;
+    border: 2px solid red;
+    width: 95%;
+  }
+  .recived-note:hover {
+    box-shadow: none;
   }
   .recived-note > #temp {
-    margin: 30px 0px 20px 30px;
+    margin: 30px 20px 20px 30px;
   }
   .recived-note > img {
     width: 60px;

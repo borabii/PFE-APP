@@ -113,14 +113,24 @@ router.put("/updateActivity/:actid", auth, async (req, res) => {
 });
 
 /**************************************************************** */
-router.get("/Admin/getActivity", auth, async (req, res) => {
+router.get("/Admin/getActivity", async (req, res) => {
   try {
     const activity = await Publication.find({ typePub: "Activity" });
 
-    res.json({ activity, nn });
+    res.json({ activity });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error ");
+  }
+});
+//get all publication(annonces) for admin
+router.get("/Admin/getAnnonces", async (req, res) => {
+  try {
+    const annonces = await Publication.find({ typePub: "Annonce" });
+    res.json(annonces);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error get contacts");
   }
 });
 module.exports = router;

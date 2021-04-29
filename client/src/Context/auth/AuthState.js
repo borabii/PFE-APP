@@ -4,7 +4,12 @@ import AuthContext from "./authContext";
 import authReducer from "./authReducer";
 import setAuthToken from "../../utilis/setAuthToken";
 
-import { LOGIN_SUCCESS, REGISTER_SUCCESS, USER_LOADED, LOGOUT } from "../types";
+import {
+  LOGIN_SUCCESS,
+  REGISTER_SUCCESS,
+  UPDATE_IMAGE,
+  LOGOUT,
+} from "../types";
 const AuthState = (props) => {
   const initialState = {
     token: localStorage.getItem("token"),
@@ -38,6 +43,7 @@ const AuthState = (props) => {
       console.log(err);
     }
   };
+
   //signUp for user(abonné)
   const signUp = async (formData) => {
     const config = {

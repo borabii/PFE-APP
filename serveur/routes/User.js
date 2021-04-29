@@ -1,8 +1,10 @@
 const express = require("express");
+const auth = require("../middleware/auth"); //middleware next()
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("config");
+const gravatar = require("gravatar");
 
 const Abonné = require("../models/Abonné");
 const Admin = require("../models/Admin");
@@ -39,11 +41,17 @@ router.post("/signup", async (req, res) => {
       imageProfile,
       adress,
     });
+    //generate avatar
+    const avatar = gravatar.url(req.body.email, {
+      s: "200", // Size
+      r: "pg", // Rating
+      d: "mm", // Default
+    });
     // encrypt password before store do database
     const salt = await bcrypt.genSalt(10);
     //add crypted password to user object before store it to db
     abonné.password = await bcrypt.hash(password, salt);
-    abonné.imageProfile = null;
+    abonné.imageProfile = avatar;
     abonné.adress = null;
     abonné.description = null;
     await abonné.save();
@@ -139,14 +147,30 @@ router.post("/addAdmin", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+//update user profile picture
+router.put("/UpadateImageProfile/:userId", async (req, res) => {
+  const { file } = req.body;
+  try {
+    const abonné = await Abonné.findByIdAndUpdate(req.params.userId, {
+      $set: {
+        imageProfile: file,
+      },
+    });
+    res.json({ file });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error ");
+  }
+});
+
 //
 router.get("/Admin/abonne", async (req, res) => {
   try {
-    const abonne = await Abonné.find({ isAnnonceur: "true" });
+    const abonne = await Abonné.findById(req.params.userId);
     res.json(abonne);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error get contacts");
+    res.status(500).send("Server Error ");
   }
 });
 module.exports = router;

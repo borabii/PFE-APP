@@ -42,6 +42,7 @@ function SignUp() {
       ...userForm,
       [event.target.name]: event.target.value,
     });
+    setErrorsMsg(signUpFormValidation(userForm));
   };
   console.log(userForm);
   const handleSubmit = (event) => {
@@ -61,7 +62,7 @@ function SignUp() {
   };
   useEffect(() => {
     if (isAuthenticated) {
-      history.push("/AbonnéHomePage");
+      history.push("/AbonnéHomePage/Compte");
     }
   }, [isAuthenticated]);
   return (

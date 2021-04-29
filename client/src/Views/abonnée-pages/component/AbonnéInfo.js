@@ -1,29 +1,51 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import EditIcon from "@material-ui/icons/Edit";
 import AuthContext from "../../../Context/auth/authContext";
+import UserContext from "../../../Context/user/userContext";
+
 function AbonnéInfo() {
+  //auth context
   const authContext = useContext(AuthContext);
   const { user } = authContext;
+  //user context
+  const userContext = useContext(UserContext);
+  const { updateProfileImage } = userContext;
+  const [UserImage, setUserImage] = useState({ file: null });
+  //handel user image input
+  const imageSelectHandler = (event) => {
+    setUserImage({
+      file: URL.createObjectURL(event.target.files[0]),
+    });
+  };
+  //run when user upload nex profile image
+  useEffect(() => {
+    updateProfileImage(UserImage, user._id);
+  }, [UserImage]);
   return (
     <div className="abonneInfo">
       <div className="imgProfil">
-        <img
-          src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwritestylesonline.com%2Fthree-statistics-that-will-make-you-rethink-your-professional-profile-picture%2F&psig=AOvVaw0ViuZZEnTxtPIns_txCJJT&ust=1617401845098000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKjJuMqJ3u8CFQAAAAAdAAAAABAO"
-          alt=""
-        />
-        <input type="file" className="btn_change" />
+        <img src={user.imageProfile} alt="" />
+        <label for="file-upload" class="file-upload-btn">
+          <EditIcon id="editImage-icon" />
+        </label>
+        <input type="file" id="file-upload" onChange={imageSelectHandler} />
       </div>
       <div className="info">
         <div className="info_General">
           <h3> Information Générale</h3>
           <ul>
-            <li>Nom: {user.firstName}</li>
-            <li>Prenom:{user.lastName}</li>
+            <li id="info-item">
+              Nom:<span>{user.firstName}</span>{" "}
+            </li>
+            <li>
+              Prenom:<span>{user.lastName}</span>
+            </li>
           </ul>
         </div>
 
         <div className="description">
           <h3> Description</h3>
-          <textarea rows="4">{user.description}</textarea>
+          <textarea rows="4" value={user.description} />
         </div>
         <div className="gend">
           <h3>Gender</h3>
