@@ -202,7 +202,18 @@ function AboHeader() {
                       Mon Compte
                     </NavLink>
                   </div>
-
+                  <div className="dropDown-Option">
+                    <NavLink
+                      to={`${url}/EscpacePub`}
+                      exact
+                      activeStyle={{
+                        color: "#fea041",
+                      }}
+                    >
+                      <AccountCircleIcon className="dropDown-icon" />
+                      Espace Pubs
+                    </NavLink>
+                  </div>
                   <div className="dropDown-Option">
                     <NavLink
                       to={`${url}/MesActivités`}

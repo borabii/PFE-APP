@@ -3,7 +3,7 @@ import "./AbonnéStyle.css";
 import AboHeader from "./component/AboHeader";
 import AbonnéProfil from "./component/AbonnéProfil";
 import AbonnéVisitedProfile from "./component/AbonnéVisitedProfile";
-
+import AnnonceurHomePage from "../annonceur-page/AnnonceurHomePage";
 import Home from "./component/Home";
 import UserPubOrganized from "./component/UserPubOrganized";
 import UserPubParticipated from "./component/UserPubParticipated";
@@ -23,6 +23,7 @@ function AbonnéHomePage() {
             component={UserPubParticipated}
           />
           <Route path={`${path}/Compte`} component={AbonnéProfil} />
+          <Route path={`${path}/EscpacePub`} component={AnnonceurHomePage} />
         </Switch>
       </div>
     </div>
