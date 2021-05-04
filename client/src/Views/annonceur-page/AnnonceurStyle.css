@@ -54,10 +54,24 @@
 .annonceur-EditTime {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
   background-color: #f6f5f5;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
   padding: 10px;
+}
+#HoraireTime {
+  display: flex;
+}
+#edit-profile {
+  display: flex;
+}
+#editInfoIcon {
+  color: #3aceb9;
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+  margin-top: 2px;
 }
 
 #editWorkIcon {
@@ -94,6 +108,39 @@
 .annonceur-avis > .annonceurProfile-rank {
   display: flex;
   width: 100%;
+}
+#eventCardInfo {
+  justify-content: space-between;
+  flex-direction: row;
+  padding-left: 5px;
+}
+#eventCard-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+}
+#event-adresse {
+  margin-top: 5px;
+  margin-left: 10px;
+}
+#event-adresse > h4 {
+  font-size: 20px;
+}
+#date-event {
+  margin-left: 7px;
+}
+#event-action {
+  margin: 10px 10px 0px 0px;
+}
+#editEvent-icon {
+  color: #3aceb9;
+  width: 30px;
+  height: 40px;
+  cursor: pointer;
+}
+#event-card {
+  cursor: pointer;
 }
 /************************************/
 /**Annonceur visited profile style**/
@@ -271,12 +318,12 @@
   border: 2px solid #3aceb9;
   font-size: 20px;
 }
-.EditWorktimePopUp > .edit__action {
+.edit__action {
   display: flex;
   justify-content: center;
-  margin-top: 0px;
+  margin-top: 20px;
 }
-.EditWorktimePopUp > .edit__action > #edit__btn {
+.edit__action > #edit__btn {
   width: 150px;
   height: 45px;
   border-radius: 20px;
@@ -289,11 +336,81 @@
   background-color: transparent;
   border: 2px solid #3aceb9;
 }
-.EditWorktimePopUp > .edit__action > #edit__btn:hover {
+.edit__action > #edit__btn:hover {
   background-color: #3aceb9;
   color: white;
 }
+/***************************************/
+/************EditInfoPopUp*************/
+/*************************************/
+#edit-InfoForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+#info-Nom,
+#info-tel,
+#info-adresse,
+#info-desription {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
+#annonceur-infoInput {
+  border-radius: 5px;
+  align-self: center;
+  border: 2px solid #3aceb9;
+  width: 100%;
+  height: 40px;
+  padding-left: 5px;
+  outline: none;
+}
+#info-desription > textarea {
+  border: 2px solid #3aceb9;
+  border-radius: 5px;
+
+  width: 100%;
+  padding-left: 5px;
+  outline: none;
+}
+/***************************************/
+/************AddEventPopUp*************/
+/*************************************/
+#tarifEvent {
+  border-right: 2px solid #3aceb9;
+  border-radius: 5px;
+}
+#eventEquipe {
+  margin-bottom: 20px;
+}
+/***************************************/
+/************DetailEventPopUp*********/
+/*************************************/
+#editEventAction {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+#delete-btn {
+  width: 150px;
+  height: 45px;
+  border-radius: 20px;
+  transition: all 0.5s linear;
+  outline: none;
+  font-family: "Roboto";
+  font-size: 20px;
+  font-weight: 400;
+  color: #040941;
+  background-color: transparent;
+  border: 2px solid red;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+#delete-btn:hover {
+  background-color: red;
+  color: white;
+}
 @media screen and (max-width: 600px) {
   /*******************************/
   /******Home profile style******/
@@ -301,15 +418,27 @@
   .annonceurVisitedProfile-middel {
     width: 100%;
   }
+
   #middel-top > h2 {
     font-size: 20px;
     margin-top: 5px;
     margin-left: 10px;
   }
+  .annonceurProfile-rank {
+    margin-bottom: 10px;
+  }
+  #user-avis > h3 {
+    font-size: 20px;
+  }
+  #annonceur-score > h3 {
+    font-size: 20px;
+  }
+
   .addEvent-btn {
     font-size: 15px;
     width: 150px;
     font-weight: 500;
+    margin-right: 5px;
   }
   /*********************************************/
   /********************************************/

@@ -17,7 +17,6 @@ function PublicationActivity() {
               <p className="card-text">1000</p>
             </div>
           </div>
-
           <form>
             <input
               className="form-control mr-sm-2 "
@@ -31,7 +30,7 @@ function PublicationActivity() {
         </div>
         {/* data table */}
         <div className="dataTable__bottom">
-          <div class="table-wrapper-scroll-y my-custom-scrollbar">
+          <div className="table-wrapper-scroll-y my-custom-scrollbar">
             <table className="table  table-hover table-striped   text-center my-table">
               <thead>
                 <tr>
