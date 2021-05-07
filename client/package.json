@@ -12,6 +12,7 @@
     "bootstrap": "^4.6.0",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
+    "notistack": "^1.0.6",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.1",

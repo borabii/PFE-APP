@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Carousel from "react-elastic-carousel";
 import PubCard from "../../abonnée-pages/component/PubCard";
@@ -13,13 +13,22 @@ import AddEventPopUp from "./AddEventPopUp";
 import AddAnnoncePopUp from "./AddAnnoncePopUp";
 import Card from "react-bootstrap/Card";
 import EditEventPopUp from "./EditEventPopUp";
+import UserContext from "../../../Context/user/userContext";
+import AuthContext from "../../../Context/auth/authContext";
 function AnnonceurVisitedProfile() {
+  const userContext = useContext(UserContext);
+  const { annonceur, updateAnnonceurProfileImage } = userContext;
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
   const breakPoints = [
     { width: 1, itemsToShow: 1, showArrows: true },
     { width: 500, itemsToShow: 2 },
     { width: 768, itemsToShow: 3 },
     { width: 1200, itemsToShow: 4 },
   ];
+  //componenet level state
+  const [UserImage, setUserImage] = useState(null);
+
   const [editWorkTimeModalShow, setEditWorkTimeModalShow] = useState(false);
   const [editInfoModalShow, setEditInfoModalShow] = useState(false);
   const [addEventModalShow, setAddEventModalShow] = useState(false);
@@ -128,30 +137,49 @@ function AnnonceurVisitedProfile() {
     setEventClicked(items[id]);
     setDetailEventModalShow(true);
   };
+  //handel user image input
+  const imageSelectHandler = (event) => {
+    setUserImage(event.target.files[0]);
+  };
+
+  //run when user upload new profile image
+  useEffect(() => {
+    const formData = new FormData();
+    formData.append("imageProfile", UserImage);
+    updateAnnonceurProfileImage(formData, annonceur._id);
+  }, [UserImage]);
   return (
     <div className="annonceurVisitedProfile">
       <div className="annonceur-profile">
         <div className="profile-imageProfile">
           <div className="imgProfil" id="annonceurImage">
-            <img src="" alt="" />
+            <img
+              src={`http://localhost:8000/${annonceur.imageCouverture}`}
+              alt=""
+            />
             <label for="file-upload" class="file-upload-btn">
               <EditIcon id="editImage-icon" />
             </label>
-            <input type="file" id="file-upload" />
+            <input
+              type="file"
+              id="file-upload"
+              name="imageProfile"
+              onChange={imageSelectHandler}
+            />
           </div>
         </div>
         <div className="profile-info">
           <div className="annonceur-info">
             <div id="user-name">
-              <h2>Jones jack</h2>
+              <h2>{annonceur.nomAnnonceur}</h2>
               <span id="annoceur-contact">
                 <h2 id="annonceur-tel">Numero tel:</h2>
-                <p id="num-tel">50505050</p>
+                <p id="num-tel">{annonceur.numTelAnnonceur}</p>
               </span>
             </div>
             <div id="annonceur-adresse">
               <LocationOnIcon id="annonceurLoc-icon" />
-              <p>Ariana,Tunis</p>
+              <p id="add">{annonceur.adresseAnnonceur}</p>
             </div>
           </div>
           <div className="annonceur-EditTime">
@@ -171,6 +199,7 @@ function AnnonceurVisitedProfile() {
             <div id="edit-profile">
               <EditInfoPopUp
                 show={editInfoModalShow}
+                data={annonceur}
                 onHide={() => setEditInfoModalShow(false)}
               />
               <h4> Mes Info</h4>
@@ -205,12 +234,12 @@ function AnnonceurVisitedProfile() {
         <div className="top-middle">
           <div className="userProfile-info">
             <div id="user-name">
-              <h2>Jones jack</h2>
-              <p id="num-tel">50505050</p>
+              <h2>{annonceur.nomAnnonceur}</h2>
+              <p id="num-tel">{annonceur.numTelAnnonceur}</p>
             </div>
             <div id="user-adresse">
               <LocationOnIcon id="userLoc-icon" />
-              <p>Ariana,Tunis</p>
+              <p id="add">{annonceur.adresseAnnonceur}</p>
             </div>
             <div className="annonceurProfile-rank">
               <div id="user-avis">

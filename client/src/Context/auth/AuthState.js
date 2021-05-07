@@ -1,15 +1,10 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import axios from "axios";
 import AuthContext from "./authContext";
 import authReducer from "./authReducer";
 import setAuthToken from "../../utilis/setAuthToken";
 
-import {
-  LOGIN_SUCCESS,
-  REGISTER_SUCCESS,
-  UPDATE_IMAGE,
-  LOGOUT,
-} from "../types";
+import { LOGIN_SUCCESS, REGISTER_SUCCESS, LOGOUT } from "../types";
 const AuthState = (props) => {
   const initialState = {
     token: localStorage.getItem("token"),
@@ -20,7 +15,6 @@ const AuthState = (props) => {
 
   //login User
   const login = async (formData) => {
-    //formData = data to register the user
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -37,8 +31,6 @@ const AuthState = (props) => {
         type: LOGIN_SUCCESS,
         payload: response.data,
       });
-
-      // loadUser(); //set token and request to backend /api/auth
     } catch (err) {
       console.log(err);
     }

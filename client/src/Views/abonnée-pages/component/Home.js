@@ -6,6 +6,7 @@ import ComingPub from "./ComingPub";
 import AddActivityPopUp from "./AddActivityPopUp";
 import PubContext from "../../../Context/Publication/pubContext";
 import AuthContext from "../../../Context/auth/authContext";
+import UserContext from "../../../Context/user/userContext";
 
 // used for hide addActivity-btn-small when scrolling in small device screnn
 const useHideOnScrolled = () => {
@@ -26,10 +27,14 @@ const useHideOnScrolled = () => {
 
 function Home() {
   const authContext = useContext(AuthContext);
+  const { user } = authContext;
+  const userContext = useContext(UserContext);
+  const { loadAnnonceur } = userContext;
   const pubContext = useContext(PubContext);
   const { loadAct, pubs } = pubContext;
   useEffect(() => {
     loadAct();
+    loadAnnonceur(user._id);
   }, []);
   const hidden = useHideOnScrolled();
   //this state is used to show/hide add activity popUp and it is passed as

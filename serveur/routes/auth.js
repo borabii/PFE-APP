@@ -7,10 +7,10 @@ const router = express.Router();
 const User = require("../models/User");
 const auth = require("../middleware/auth"); //middleware next()
 
-//get all user  without password  data after login
-router.get("/getUser", auth, async (req, res) => {
+//load without password  data after login
+router.get("/loadUser/:userId", auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password"); //select without password
+    const user = await User.findById(req.params.userId).select("-password"); //select without password
     res.json(user);
   } catch (err) {
     console.error(err.message);

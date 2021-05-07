@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
@@ -6,20 +6,20 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import MapIcon from "@material-ui/icons/Map";
 
-function AddEventPopUp(props) {
+function DetailEventPopUp(props) {
+  const { data } = props;
   // this state is use for handle participant counter value
   const [nbr_place, setNbr_place] = useState(0);
-
   //this methode is used for increment the state value(nbrParticipantCounter) by 1
   const increment = () => {
-    setNbr_place(nbr_place + 1);
+    setNbr_place((prevnbr_place) => prevnbr_place + 1);
   };
   //this methode is used for decrement the state value(nbrParticipantCounter) by 1
   const decrement = () => {
     if (nbr_place < 1) {
       setNbr_place(0);
     } else {
-      setNbr_place(nbr_place - 1);
+      setNbr_place((prevnbr_place) => prevnbr_place - 1);
     }
   };
   const options = [
@@ -56,7 +56,6 @@ function AddEventPopUp(props) {
       ...evenement,
       [event.target.name]: event.target.value,
     });
-    console.log(evenement);
   };
 
   const handleSubmit = async (event) => {
@@ -70,20 +69,31 @@ function AddEventPopUp(props) {
       heure_debutPub: "",
       date_FinPub: "",
       heure_finPub: "",
+      tarifEvent: "",
     });
     setCategorie("");
     setNbr_place(0);
   };
+  useEffect(() => {
+    setEvenement(props.data);
+    // setEvenement((prevState) => ({
+    //   ...prevState,
+    //   data,
+    // }));
+    setNbr_place(props.data.nbr_place);
+  }, [props.data]);
+
   return (
     <Modal
       {...props}
       aria-labelledby="contained-modal-title-vcenter"
       centered
       animation={true}
+      scrollable={true}
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Ajouter Événement{" "}
+          Modifer Événement{" "}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -163,7 +173,7 @@ function AddEventPopUp(props) {
                 classNamePrefix="select"
                 name="actCategory"
                 options={options}
-                value={categorie}
+                value={evenement.categorie}
                 onChange={handleInputChange}
               />
             </div>
@@ -202,10 +212,12 @@ function AddEventPopUp(props) {
                 options={options}
               />
             </div>
-
-            <button className="addAct-btn" type="submit">
-              Publier
-            </button>
+            <div id="editEventAction">
+              <div className="edit__action">
+                <button id="edit__btn">Modifier</button>
+              </div>
+              <button id="delete-btn">Supprimer</button>
+            </div>
           </form>
         </div>
       </Modal.Body>
@@ -213,4 +225,4 @@ function AddEventPopUp(props) {
   );
 }
 
-export default AddEventPopUp;
+export default DetailEventPopUp;

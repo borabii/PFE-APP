@@ -8,11 +8,13 @@ import Home from "./component/Home";
 import UserPubOrganized from "./component/UserPubOrganized";
 import UserPubParticipated from "./component/UserPubParticipated";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
+import FormDemandeEscpacePubs from "./component/FormDemandeEscpacePubs";
 
 function AbonnéHomePage() {
   const { path } = useRouteMatch();
 
   return (
+    // <FormDemandeEscpacePubs/>
     <div>
       <AboHeader />
       <div className="homePageBody">
@@ -24,6 +26,10 @@ function AbonnéHomePage() {
           />
           <Route path={`${path}/Compte`} component={AbonnéProfil} />
           <Route path={`${path}/EscpacePub`} component={AnnonceurHomePage} />
+          <Route
+            path={`${path}/FormDemandeEscpacePubs`}
+            component={FormDemandeEscpacePubs}
+          />
         </Switch>
       </div>
     </div>

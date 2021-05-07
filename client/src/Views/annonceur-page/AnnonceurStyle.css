@@ -263,7 +263,9 @@
 .annonceurVisitedProfile-bottom > h2 {
   margin: 20px;
 }
-
+#add {
+  text-transform: uppercase;
+}
 /***************************************/
 /*******AnnonceurWorktimePopUp*********/
 /*************************************/

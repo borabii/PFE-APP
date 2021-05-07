@@ -779,7 +779,9 @@ input[type="file"] {
   font-style: normal;
   line-height: 23px;
   box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
+  outline: none;
 }
+
 .info > .gend > h4 {
   border: 2px solid #44c9bb;
   background-color: #f6f5f5;
@@ -960,6 +962,83 @@ input[type="file"] {
 .abonneIntert__bottom {
   margin-top: 40px;
   padding-left: 40px;
+}
+/*****************************************/
+/***Form Demande Escpace Pubs************/
+/***************************************/
+.FormDemandeEscpacePubs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.FormDemandeEscpacePubs > h1 {
+  letter-spacing: 0.02rem;
+  color: #040941;
+}
+.FormDemandeEscpacePubs-form {
+  width: 70%;
+  margin-top: 40px;
+  padding: 20px;
+  /* border: 2px solid #ef8b25; */
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.demmande-formInput {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.demmande-formInput > label {
+  font-size: 20px;
+}
+.demmande-formInput > label > span {
+  color: red;
+  margin-left: 2px;
+}
+.demmande-formInput > input {
+  width: 60%;
+  border-radius: 5px;
+  border: 2px solid #3aceb9;
+  outline: none;
+}
+.demmande-formInput > input:focus {
+  border-color: #ef8b25;
+}
+.demmande-formSelect {
+  margin-bottom: 10px;
+}
+.demmande-formSelect > label {
+  font-size: 20px;
+  color: #040941;
+}
+.demmande-formSelect > label > span {
+  color: red;
+  margin-left: 2px;
+}
+#justificatif-input {
+  display: block;
+}
+.demmande-formBtn {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+.demmande-formBtn > button {
+  width: 150px;
+  height: 45px;
+  border-radius: 20px;
+  transition: all 0.5s linear;
+  outline: none;
+  font-family: "Roboto";
+  font-size: 20px;
+  font-weight: 400;
+  color: #040941;
+  background-color: transparent;
+  border: 2px solid #3aceb9;
+}
+.demmande-formBtn > button:hover {
+  background-color: #3aceb9;
+  color: white;
 }
 /*******************************************************/
 /*************** medium device style*********************/

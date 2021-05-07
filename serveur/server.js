@@ -9,7 +9,7 @@ app.use(express.json({ extended: false }));
 
 //connect to database
 connectDB();
-
+app.use(express.static("uploads"));
 // for parsing application/json
 // Define Routes (connected with Routes folder)
 app.use("/api/users", require("./routes/user"));

@@ -11,6 +11,7 @@ export default (state, action) => {
         user: null,
         abonné: null,
       };
+
     case REGISTER_SUCCESS:
 
     case LOGIN_SUCCESS:

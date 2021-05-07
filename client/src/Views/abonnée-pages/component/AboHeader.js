@@ -8,6 +8,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import AuthContext from "../../../Context/auth/authContext";
+
 import history from "../../../utilis/history";
 import { NavLink, useRouteMatch } from "react-router-dom";
 //this methode is used for detecting user mouse click out side searsh result
@@ -51,7 +52,7 @@ function AboHeader() {
   const [showProfilDopDown, setShowProfilDopDown] = useState(false);
 
   const authContext = useContext(AuthContext);
-  const { logout } = authContext;
+  const { logout, user } = authContext;
 
   const onLogout = () => {
     logout();
@@ -202,18 +203,33 @@ function AboHeader() {
                       Mon Compte
                     </NavLink>
                   </div>
-                  <div className="dropDown-Option">
-                    <NavLink
-                      to={`${url}/EscpacePub`}
-                      exact
-                      activeStyle={{
-                        color: "#fea041",
-                      }}
-                    >
-                      <AccountCircleIcon className="dropDown-icon" />
-                      Espace Pubs
-                    </NavLink>
-                  </div>
+                  {user.isAnnonceur ? (
+                    <div className="dropDown-Option">
+                      <NavLink
+                        to={`${url}/EscpacePub`}
+                        exact
+                        activeStyle={{
+                          color: "#fea041",
+                        }}
+                      >
+                        <AccountCircleIcon className="dropDown-icon" />
+                        Espace Pubs
+                      </NavLink>
+                    </div>
+                  ) : (
+                    <div className="dropDown-Option">
+                      <NavLink
+                        to={`${url}/FormDemandeEscpacePubs`}
+                        exact
+                        activeStyle={{
+                          color: "#fea041",
+                        }}
+                      >
+                        <AccountCircleIcon className="dropDown-icon" />
+                        Demande Escpace{" "}
+                      </NavLink>
+                    </div>
+                  )}{" "}
                   <div className="dropDown-Option">
                     <NavLink
                       to={`${url}/MesActivités`}

@@ -2,34 +2,78 @@ import React, { useContext, useState, useEffect } from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import AuthContext from "../../../Context/auth/authContext";
 import UserContext from "../../../Context/user/userContext";
+import { useSnackbar } from "notistack";
 
 function AbonnéInfo() {
+  //component level state
+  const [UserImage, setUserImage] = useState(null);
+  const [updayteddescription, setUpdaytedDescription] = useState({
+    updayteddescription: "",
+  });
+
+  const [open, setOpen] = useState(false);
+
   //auth context
   const authContext = useContext(AuthContext);
   const { user } = authContext;
+
   //user context
   const userContext = useContext(UserContext);
-  const { updateProfileImage } = userContext;
-  const [UserImage, setUserImage] = useState({ file: null });
+  const {
+    updateProfileImage,
+    responseMessage,
+    ClearResponseMessage,
+    updateDescription,
+  } = userContext;
   //handel user image input
   const imageSelectHandler = (event) => {
-    setUserImage({
-      file: URL.createObjectURL(event.target.files[0]),
-    });
+    setUserImage(event.target.files[0]);
   };
-  //run when user upload nex profile image
+
+  //run when user upload new profile image
   useEffect(() => {
-    updateProfileImage(UserImage, user._id);
+    const formData = new FormData();
+    formData.append("imageProfile", UserImage);
+    updateProfileImage(formData, user._id);
   }, [UserImage]);
+
+  // handel user nex description value
+  const handelChange = (event) => {
+    setUpdaytedDescription({ updayteddescription: event.target.value });
+  };
+  //run when user change his discription and exist the textarea
+  const changeDescription = () => {
+    updateDescription(updayteddescription, user._id);
+  };
+  const { enqueueSnackbar } = useSnackbar();
+  useEffect(() => {
+    if (responseMessage !== "aucune message") {
+      enqueueSnackbar(
+        responseMessage,
+
+        { variant: "success" }
+      );
+    }
+    return () => {
+      ClearResponseMessage();
+    };
+  }, [responseMessage]);
+
   return (
     <div className="abonneInfo">
       <div className="imgProfil">
-        <img src={user.imageProfile} alt="" />
+        <img src={`http://localhost:8000/${user.imageProfile}`} alt="" />
         <label for="file-upload" class="file-upload-btn">
           <EditIcon id="editImage-icon" />
         </label>
-        <input type="file" id="file-upload" onChange={imageSelectHandler} />
+        <input
+          type="file"
+          id="file-upload"
+          name="imageProfile"
+          onChange={imageSelectHandler}
+        />
       </div>
+
       <div className="info">
         <div className="info_General">
           <h3> Information Générale</h3>
@@ -45,7 +89,13 @@ function AbonnéInfo() {
 
         <div className="description">
           <h3> Description</h3>
-          <textarea rows="4" value={user.description} />
+          <textarea
+            rows="4"
+            defaultValue={user.description}
+            name="description"
+            onChange={handelChange}
+            onBlur={changeDescription}
+          />
         </div>
         <div className="gend">
           <h3>Gender</h3>
@@ -57,6 +107,16 @@ function AbonnéInfo() {
           <h4>{user.email}</h4>
         </div>
       </div>
+      {/* <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        open={open}
+        onClose={handleClose}
+        message={responseMessage}
+        autoHideDuration={6000}
+      /> */}
     </div>
   );
 }
