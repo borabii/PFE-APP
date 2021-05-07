@@ -4,12 +4,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import DeleteIcon from "@material-ui/icons/Delete";
 import DetailReqAnnonceurPopUp from "./DetailReqAnnonceurPopUp";
-// let Datas = [
-//   {
-//     firstName: "Home",
-//     lastName: "ff",
-//   },
-// ];
 
 class DemandeManagment extends React.Component {
   constructor(props) {
@@ -57,14 +51,6 @@ class DemandeManagment extends React.Component {
         this.setState({ items: response.data });
       });
   }
-
-  // componentDidUpdate() {
-  //   axios
-  //     .get("http://localhost:8000/api/users/Admin/getDemandeAnnonceur")
-  //     .then((response) => {
-  //       this.setState({ items: response.data });
-  //     });
-  // }
 
   render() {
     return (
@@ -133,11 +119,11 @@ class DemandeManagment extends React.Component {
                               }
                             />
                           </div>
-                          <div id="ff">
+                          {/* <div id="ff">
                             <DeleteIcon
                               onClick={() => this.refusedemande(data)}
                             />
-                          </div>
+                          </div> */}
                         </td>
                       </tr>
                     );
