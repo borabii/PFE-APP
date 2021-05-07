@@ -266,8 +266,8 @@ router.put("/Annonceur/updatePersonelInfo/:annonceurID", async (req, res) => {
     res.status(500).send("Server Error ");
   }
 });
-//add Horaire annonceur Horaire
-router.post("/Annonceur/updateHoraire/:annonceurID", async (req, res) => {
+//add new Horaire annonceur Horaire
+router.post("/Annonceur/AddHoraire/:annonceurID", async (req, res) => {
   try {
     Annonceur.findById(req.params.annonceurID).then((annonceur) => {
       const newHoraire = {
@@ -276,13 +276,37 @@ router.post("/Annonceur/updateHoraire/:annonceurID", async (req, res) => {
         heureFin: req.body.heureFin,
       };
 
-      // Add to comments array
+      // Add to horaire to  horaireAnnonceur array
       annonceur.horaireAnnonceur.unshift(newHoraire);
 
       // Save
-      annonceur
-        .save()
-        .then((annonceur) => res.json(annonceur.horaireAnnonceur));
+      annonceur.save().then((annonceur) =>
+        res.json({
+          msg: "horaire ajouter avec succes",
+          annonceur: annonceur.horaireAnnonceur,
+        })
+      );
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error ");
+  }
+});
+//Update horaire
+router.post("/Annonceur/updateHoraire/:annonceurID", async (req, res) => {
+  try {
+    Annonceur.findById(req.params.annonceurID).then((annonceur) => {
+      const newHoraire = req.body;
+      // Add to comments array
+      annonceur.horaireAnnonceur = newHoraire;
+
+      // Save
+      annonceur.save().then((annonceur) =>
+        res.json({
+          msg: "horaire mise a jour avec succes",
+          annonceur: annonceur.horaireAnnonceur,
+        })
+      );
     });
   } catch (err) {
     console.error(err.message);
@@ -303,9 +327,7 @@ router.post("/Admin/AddAnnonceur/:demandeId", async (req, res) => {
       abonnéId: demandeData.demandeur,
     });
     if (isAbonnéExsit) {
-      return res
-        .status(400)
-        .json({ msg: "Abonné déja avoir une compte publicitaire" });
+      return res.json({ msg: "Abonné déja avoir une compte publicitaire" });
     }
     await Abonné.findByIdAndUpdate(demandeData.demandeur, {
       $set: {
@@ -335,7 +357,29 @@ router.post("/Admin/AddAnnonceur/:demandeId", async (req, res) => {
   }
 });
 //add annonceur route(demmande refuser)
-router.post("/Admin/RejectDemande/:demandeId", async (req, res) => {});
+router.post("/Admin/RejectDemande/:demandeId", async (req, res) => {
+  try {
+    await DemandeAnnonceur.findByIdAndUpdate(req.params.demandeId, {
+      $set: {
+        etatDemande: "Refuser",
+      },
+    });
+    res.send({ msg: "demande refuser avec succés" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error ");
+  }
+});
+//get propritare demande
+router.get("/Admin/getDemandeur/:demandeurId", async (req, res) => {
+  try {
+    const demandeurInfo = await Abonné.findById(req.params.demandeurId);
+    res.json(demandeurInfo);
+  } catch (err) {
+    console.error(err.message);
+    // res.status(500).send("Server Error ");
+  }
+});
 //add Admin endpoint
 router.post("/addAdmin", async (req, res) => {
   const {
@@ -402,7 +446,6 @@ router.post("/addAdmin", async (req, res) => {
 });
 //get demandeannonceur for admin
 router.get("/Admin/getDemandeAnnonceur", async (req, res) => {
-  res;
   try {
     const demandeAnnonceur = await DemandeAnnonceur.find();
     res.json(demandeAnnonceur);

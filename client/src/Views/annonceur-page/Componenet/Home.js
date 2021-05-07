@@ -185,6 +185,7 @@ function AnnonceurVisitedProfile() {
           <div className="annonceur-EditTime">
             <EditWorktimePopUp
               show={editWorkTimeModalShow}
+              data={annonceur.horaireAnnonceur}
               onHide={() => setEditWorkTimeModalShow(false)}
             />
             <div id="HoraireTime">
@@ -199,7 +200,6 @@ function AnnonceurVisitedProfile() {
             <div id="edit-profile">
               <EditInfoPopUp
                 show={editInfoModalShow}
-                data={annonceur}
                 onHide={() => setEditInfoModalShow(false)}
               />
               <h4> Mes Info</h4>

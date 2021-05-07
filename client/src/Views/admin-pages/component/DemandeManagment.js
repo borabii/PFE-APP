@@ -17,41 +17,24 @@ class DemandeManagment extends React.Component {
     this.state = {
       id: null,
       detailReqModalShow: false,
+      DemandeurData: {
+        firstName: "",
+        lastName: "",
+        email: "",
+        imageProfile: "",
+        inscriDate: "",
+      },
       items: [
         {
-          demandeur: "6087599c71255902ec5bb06d",
-          etatDemande: "Vérification en cours",
-          nomAnnonceur: "azeee",
-          adresseAnnonceur: "azeee",
-          numTelAnnonceur: "azeeee",
-          emailProAnnonceur: "azeeeeee",
-          catégorieAnnonceur: "zaeeeeeee",
-          justificatifAnnonceur: "azeeeeeee",
-          demandeDate: "2021-05-05",
-          __v: 0,
-        },
-        {
-          demandeur: "6087599c71255902ec5bb06d",
-          etatDemande: "Vérification en cours",
-          nomAnnonceur: "azeee",
-          adresseAnnonceur: "azeee",
-          numTelAnnonceur: "azeeee",
-          emailProAnnonceur: "azeeeeee",
-          catégorieAnnonceur: "zaeeeeeee",
-          justificatifAnnonceur: "azeeeeeee",
-          demandeDate: "2021-05-05",
-          __v: 0,
-        },
-        {
-          demandeur: "6087599c71255902ec5bb06d",
-          etatDemande: "Vérification en cours",
-          nomAnnonceur: "azeee",
-          adresseAnnonceur: "azeee",
-          numTelAnnonceur: "azeeee",
-          emailProAnnonceur: "azeeeeee",
-          catégorieAnnonceur: "zaeeeeeee",
-          justificatifAnnonceur: "azeeeeeee",
-          demandeDate: "2021-05-05",
+          demandeur: "",
+          etatDemande: "",
+          nomAnnonceur: "",
+          adresseAnnonceur: "",
+          numTelAnnonceur: "",
+          emailProAnnonceur: "",
+          catégorieAnnonceur: "",
+          justificatifAnnonceur: "",
+          demandeDate: "",
           __v: 0,
         },
       ],
@@ -61,6 +44,11 @@ class DemandeManagment extends React.Component {
   updateItem = (index) => {
     const user = this.state.items[index];
     this.setState({ id: user });
+    axios
+      .get(
+        `http://localhost:8000/api/users/Admin/getDemandeur/${user.demandeur}`
+      )
+      .then((response) => this.setState({ DemandeurData: response.data }));
   };
   componentDidMount() {
     axios
@@ -72,7 +60,7 @@ class DemandeManagment extends React.Component {
 
   // componentDidUpdate() {
   //   axios
-  //     .get("http://localhost:8000/api/users/getDemandeAnnonceur")
+  //     .get("http://localhost:8000/api/users/Admin/getDemandeAnnonceur")
   //     .then((response) => {
   //       this.setState({ items: response.data });
   //     });
@@ -107,11 +95,11 @@ class DemandeManagment extends React.Component {
               <table className="table  table-hover table-striped   text-center my-table">
                 <thead>
                   <tr>
-                    <th scope="col">id abonne </th>
+                    <th scope="col">id </th>
                     <th scope="col">nom Annonceur</th>
-                    <th scope="col">Email</th>
                     <th scope="col">Date</th>
                     <th scope="col">Catégorie</th>
+                    <th scope="col">Etat demande</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -121,15 +109,19 @@ class DemandeManagment extends React.Component {
                       <tr key={index}>
                         <th scope="row">{data._id}</th>
                         <td>{data.nomAnnonceur}</td>
-                        <td>{data.emailProAnnonceur}</td>
                         <td>{data.demandeDate}</td>
                         <td>{data.catégorieAnnonceur}</td>
-                        <td onClick={() => this.updateItem(index)}>
+                        <td>{data.etatDemande}</td>
+                        <td
+                          onClick={() => this.updateItem(index)}
+                          id="icone-action"
+                        >
                           <div>
                             <DetailReqAnnonceurPopUp
                               user={
                                 this.state.id ? this.state.id : this.state.items
                               }
+                              demandeur={this.state.DemandeurData}
                               show={this.state.detailReqModalShow}
                               onHide={() =>
                                 this.setState({ detailReqModalShow: false })

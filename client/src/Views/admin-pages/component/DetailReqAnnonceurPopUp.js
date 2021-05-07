@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 
@@ -12,12 +12,16 @@ function DetailReqAnnonceurPopUp(props) {
     catégorieAnnonceur,
     justificatifAnnonceur,
   } = props.user;
+
   //run when admin click on Accepter button to accepter a demande
   const acceptDemande = () => {
     axios.post(`http://localhost:8000/api/users/Admin/AddAnnonceur/${_id}`);
   };
-  const refuserDemande = (_id) => {};
-  // useEffect(() => {}, [input]);
+  //run when admin click on Refuser button to refuse a demande
+  const refuserDemande = () => {
+    axios.post(`http://localhost:8000/api/users/Admin/RejectDemande/${_id}`);
+  };
+
   return (
     <div>
       <Modal
@@ -26,6 +30,7 @@ function DetailReqAnnonceurPopUp(props) {
         aria-labelledby="contained-modal-title-vcenter"
         centered
         animation={true}
+        scrollable={true}
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">Demande</Modal.Title>
@@ -37,16 +42,16 @@ function DetailReqAnnonceurPopUp(props) {
               <div className="top__container">
                 <div className="top__img">
                   <img
-                    src={`http://localhost:8000/${justificatifAnnonceur}`}
+                    src={`http://localhost:8000/${props.demandeur.imageProfile}`}
                     alt=""
                   />
                 </div>
                 <div className="top__Info">
                   <ul>
-                    <li>Nom: {_id}</li>
-                    <li>Prénom: </li>
-                    <li>Email: </li>
-                    <li>Date inscription:</li>
+                    <li>Nom: {props.demandeur.firstName}</li>
+                    <li>Prénom: {props.demandeur.lastName}</li>
+                    <li>Email:{props.demandeur.email} </li>
+                    <li>Date inscription:{props.demandeur.inscriDate}</li>
                   </ul>
                 </div>
               </div>
@@ -59,27 +64,25 @@ function DetailReqAnnonceurPopUp(props) {
                   <li>Catégorie:{catégorieAnnonceur}</li>
                   <li>Email:{emailProAnnonceur}</li>
                   <li>Date demande:{demandeDate}</li>
-                  <li>Document justificatif:</li>
                 </ul>
               </div>
             </div>
-            <div className="info__image">
-              <h4>Document justificatif:</h4>
-              <div className="info__container">
-                <div className="top__img">
-                  <img
-                    src={`http://localhost:8000/${justificatifAnnonceur}`}
-                    alt=""
-                  />
-                </div>
-              </div>
+
+            <div className="docJustif">
+              <h4>Justificatif</h4>
+              <img
+                src={`http://localhost:8000/${justificatifAnnonceur}`}
+                alt=""
+              />
             </div>
             <div className="demande__action">
               <div className="demande__form">
                 <button id="accept__btn" onClick={acceptDemande}>
                   Ajouter
                 </button>
-                <button id="refuse__btn">Refuser</button>
+                <button id="refuse__btn" onClick={refuserDemande}>
+                  Refuser
+                </button>
               </div>
             </div>
           </div>
