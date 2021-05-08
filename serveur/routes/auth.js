@@ -8,9 +8,10 @@ const User = require("../models/User");
 const auth = require("../middleware/auth"); //middleware next()
 
 //load without password  data after login
-router.get("/loadUser/:userId", auth, async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
-    const user = await User.findById(req.params.userId).select("-password"); //select without password
+    // req.user = decoded.user;     next();
+    const user = await User.findById(req.user.id).select("-password"); //select without password
     res.json(user);
   } catch (err) {
     console.error(err.message);
@@ -37,7 +38,9 @@ router.post("/signin", async (req, res) => {
         id: user.id,
       },
     };
-    const token = jwt.sign(payload, config.get("jwtSecret"));
+    const token = jwt.sign(payload, config.get("jwtSecret"), {
+      expiresIn: 360000, //3600 sec = 1 hour
+    });
     res.json({
       token,
       role: user.role,

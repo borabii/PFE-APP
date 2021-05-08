@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "./AbonnéStyle.css";
 import AboHeader from "./component/AboHeader";
 import AbonnéProfil from "./component/AbonnéProfil";
@@ -9,10 +9,15 @@ import UserPubOrganized from "./component/UserPubOrganized";
 import UserPubParticipated from "./component/UserPubParticipated";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import FormDemandeEscpacePubs from "./component/FormDemandeEscpacePubs";
-
+import AuthContext from "../../Context/auth/authContext";
 function AbonnéHomePage() {
   const { path } = useRouteMatch();
+  const authContext = useContext(AuthContext);
+  const { loadUser } = authContext;
 
+  useEffect(() => {
+    loadUser();
+  }, []);
   return (
     // <FormDemandeEscpacePubs/>
     <div>

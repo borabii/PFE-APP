@@ -4,15 +4,33 @@ import AuthContext from "./authContext";
 import authReducer from "./authReducer";
 import setAuthToken from "../../utilis/setAuthToken";
 
-import { LOGIN_SUCCESS, REGISTER_SUCCESS, LOGOUT } from "../types";
+import { LOGIN_SUCCESS, USER_LOADED, REGISTER_SUCCESS, LOGOUT } from "../types";
 const AuthState = (props) => {
   const initialState = {
     token: localStorage.getItem("token"),
     isAuthenticated: null,
-    user: null,
+    user: { isAnnonceur: " " },
   };
   const [state, dispatch] = useReducer(authReducer, initialState);
+  const loadUser = async () => {
+    // to load token into global headers
+    // if localStorage.token exists
+    if (localStorage.getItem("token")) {
+      setAuthToken(localStorage.getItem("token")); //  axios.defaults.headers.common['x-auth-token'] = token;
+    }
 
+    // to get user object { id, name, email, type, phone }
+    try {
+      const res = await axios.get("http://localhost:8000/api/auth");
+
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   //login User
   const login = async (formData) => {
     const config = {
@@ -66,6 +84,7 @@ const AuthState = (props) => {
         token: state.token,
         isAuthenticated: state.isAuthenticated,
         user: state.user,
+        loadUser,
         login,
         signUp,
         logout,
