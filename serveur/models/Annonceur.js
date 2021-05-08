@@ -22,11 +22,11 @@ const AnnonceurSchema = new mongoose.Schema({
   imageCouverture: {
     type: String,
   },
-
   horaireAnnonceur: [
     {
       jour: {
         type: String,
+        enum: ["mo", "tu", "we", "th", "fr", "sa", "su"],
       },
       heureDebut: {
         type: String,
@@ -39,6 +39,10 @@ const AnnonceurSchema = new mongoose.Schema({
   abonnéId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Abonné",
+  },
+  aceptationDate: {
+    type: Date,
+    default: Date.now,
   },
 });
 

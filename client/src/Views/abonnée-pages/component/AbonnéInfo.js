@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import AuthContext from "../../../Context/auth/authContext";
 import UserContext from "../../../Context/user/userContext";
@@ -7,11 +7,10 @@ import { useSnackbar } from "notistack";
 function AbonnéInfo() {
   //component level state
   const [UserImage, setUserImage] = useState(null);
+  const prevUserImage = useRef();
   const [updayteddescription, setUpdaytedDescription] = useState({
     updayteddescription: "",
   });
-
-  const [open, setOpen] = useState(false);
 
   //auth context
   const authContext = useContext(AuthContext);
@@ -30,11 +29,14 @@ function AbonnéInfo() {
     setUserImage(event.target.files[0]);
   };
 
-  //run when user upload new profile image
+  //  run when user upload new profile image
   useEffect(() => {
     const formData = new FormData();
     formData.append("imageProfile", UserImage);
-    updateProfileImage(formData, user._id);
+    updateProfileImage(formData);
+    return () => {
+      window.location.reload();
+    };
   }, [UserImage]);
 
   // handel user nex description value
@@ -43,7 +45,8 @@ function AbonnéInfo() {
   };
   //run when user change his discription and exist the textarea
   const changeDescription = () => {
-    updateDescription(updayteddescription, user._id);
+    updateDescription(updayteddescription);
+    // window.location.reload();
   };
   const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {

@@ -1,12 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import Select from "react-select";
 import UserContext from "../../../Context/user/userContext";
-import AuthContext from "../../../Context/auth/authContext";
 import { useSnackbar } from "notistack";
 function FormDemandeEscpacePubs() {
-  const authContext = useContext(AuthContext);
   //app level state
-  const { user } = authContext;
+
   const userContext = useContext(UserContext);
   //app level state
   const {
@@ -45,7 +43,7 @@ function FormDemandeEscpacePubs() {
       "justificatifAnnonceur",
       demandeAnnonceur.justificatifAnnonceur
     );
-    sendDemandeAnnonceur(formData, user._id);
+    sendDemandeAnnonceur(formData);
     //clear form after submit
     setDemandeAnnonceur({
       nomAnnonceur: "",

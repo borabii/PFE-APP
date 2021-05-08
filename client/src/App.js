@@ -10,6 +10,10 @@ import UserState from "./Context/user/UserState";
 import { SnackbarProvider } from "notistack";
 import history from "../src/utilis/history";
 import PrivateRoute from "../src/routing/PrivateRoute";
+import setAuthToken from "./utilis/setAuthToken";
+if (localStorage.getItem("token")) {
+  setAuthToken(localStorage.getItem("token")); //  axios.defaults.headers.common['x-auth-token'] = token;
+}
 function App() {
   return (
     <SnackbarProvider maxSnack={3} preventDuplicate>

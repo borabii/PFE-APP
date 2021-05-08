@@ -31,7 +31,6 @@ export default (state, action) => {
     case UPDATE_IMAGE:
       return {
         ...state,
-
         responseMessage: action.payload.data.msg,
       };
     case UPDATE_DESCRIPTION:

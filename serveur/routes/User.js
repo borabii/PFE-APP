@@ -116,7 +116,8 @@ router.post("/signup", async (req, res) => {
 });
 //send demande Annonceur
 router.post(
-  "/demandeAnnonceur/:userId",
+  "/demandeAnnonceur",
+  auth,
   upload.single("justificatifAnnonceur"),
   async (req, res) => {
     const {
@@ -132,7 +133,7 @@ router.post(
     console.log(photo);
     try {
       let demande = await DemandeAnnonceur.findOne({
-        demandeur: req.params.userId,
+        demandeur: req.user.id,
       });
 
       // if id abonné  is already have a demande
@@ -147,7 +148,7 @@ router.post(
         emailProAnnonceur,
         catégorieAnnonceur,
         justificatifAnnonceur: file.filename,
-        demandeur: req.params.userId,
+        demandeur: req.user.id,
       });
 
       await demandeAnnonceur.save();
@@ -160,19 +161,18 @@ router.post(
 );
 //update user profile picture
 router.put(
-  "/UpadateImageProfile/:userId",
+  "/UpadateImageProfile",
+  auth,
   upload.single("imageProfile"),
   async (req, res) => {
     const { file } = req;
     try {
-      await Abonné.findByIdAndUpdate(req.params.userId, {
+      await Abonné.findByIdAndUpdate(req.user.id, {
         $set: {
           imageProfile: file.filename,
         },
       });
-      const newimage = await Abonné.findById(req.params.userId);
       res.json({
-        image: newimage.imageProfile,
         msg: "photo de profile mise a jour avec succés",
       });
     } catch (err) {
@@ -182,9 +182,9 @@ router.put(
   }
 );
 //update user description
-router.put("/upadateDescription/:userId", async (req, res) => {
+router.put("/upadateDescription", auth, async (req, res) => {
   try {
-    await Abonné.findByIdAndUpdate(req.params.userId, {
+    await Abonné.findByIdAndUpdate(req.user.id, {
       $set: {
         description: req.body.updayteddescription,
       },
@@ -202,9 +202,9 @@ router.put("/upadateDescription/:userId", async (req, res) => {
 /************************************************************************ */
 
 //load annonceur data
-router.get("/getAnnonceurData/:userId", async (req, res) => {
+router.get("/getAnnonceurData", auth, async (req, res) => {
   try {
-    const annonceur = await Annonceur.findOne({ abonnéId: req.params.userId });
+    const annonceur = await Annonceur.findOne({ abonnéId: req.user.id });
     res.send(annonceur);
   } catch (err) {
     console.error(err.message);
@@ -235,39 +235,44 @@ router.put(
   }
 );
 //update annonceur personel info
-router.put("/Annonceur/updatePersonelInfo/:annonceurID", async (req, res) => {
-  const {
-    nomAnnonceur,
-    numTelAnnonceur,
-    descriptionAnnonceur,
-    emailProAnnonceur,
-    adresseAnnonceur,
-  } = req.body;
-  const annonceurInfoFields = {};
-  if (nomAnnonceur) annonceurInfoFields.nomAnnonceur = nomAnnonceur; // if there's name -> add to contactFields.name
-  if (numTelAnnonceur) annonceurInfoFields.numTelAnnonceur = numTelAnnonceur;
-  if (descriptionAnnonceur)
-    annonceurInfoFields.descriptionAnnonceur = descriptionAnnonceur;
-  if (emailProAnnonceur)
-    annonceurInfoFields.emailProAnnonceur = emailProAnnonceur;
-  if (adresseAnnonceur) annonceurInfoFields.adresseAnnonceur = adresseAnnonceur;
-  try {
-    const annonceur = await Annonceur.findByIdAndUpdate(
-      req.params.annonceurID,
-      { $set: annonceurInfoFields },
-      { new: true }
-    );
-    res.json({
-      annonceur: annonceur,
-      msg: "Information  mise a jour avec succés",
-    });
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error ");
+router.put(
+  "/Annonceur/updatePersonelInfo/:annonceurID",
+  auth,
+  async (req, res) => {
+    const {
+      nomAnnonceur,
+      numTelAnnonceur,
+      descriptionAnnonceur,
+      emailProAnnonceur,
+      adresseAnnonceur,
+    } = req.body;
+    const annonceurInfoFields = {};
+    if (nomAnnonceur) annonceurInfoFields.nomAnnonceur = nomAnnonceur; // if there's name -> add to contactFields.name
+    if (numTelAnnonceur) annonceurInfoFields.numTelAnnonceur = numTelAnnonceur;
+    if (descriptionAnnonceur)
+      annonceurInfoFields.descriptionAnnonceur = descriptionAnnonceur;
+    if (emailProAnnonceur)
+      annonceurInfoFields.emailProAnnonceur = emailProAnnonceur;
+    if (adresseAnnonceur)
+      annonceurInfoFields.adresseAnnonceur = adresseAnnonceur;
+    try {
+      const annonceur = await Annonceur.findByIdAndUpdate(
+        req.params.annonceurID,
+        { $set: annonceurInfoFields },
+        { new: true }
+      );
+      res.json({
+        annonceur: annonceur,
+        msg: "Information  mise a jour avec succés",
+      });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error ");
+    }
   }
-});
+);
 //add new Horaire annonceur Horaire
-router.post("/Annonceur/AddHoraire/:annonceurID", async (req, res) => {
+router.post("/Annonceur/AddHoraire/:annonceurID", auth, async (req, res) => {
   try {
     Annonceur.findById(req.params.annonceurID).then((annonceur) => {
       const newHoraire = {
@@ -293,7 +298,7 @@ router.post("/Annonceur/AddHoraire/:annonceurID", async (req, res) => {
   }
 });
 //Update horaire
-router.post("/Annonceur/updateHoraire/:annonceurID", async (req, res) => {
+router.post("/Annonceur/updateHoraire/:annonceurID", auth, async (req, res) => {
   try {
     Annonceur.findById(req.params.annonceurID).then((annonceur) => {
       const newHoraire = req.body;
@@ -318,7 +323,7 @@ router.post("/Annonceur/updateHoraire/:annonceurID", async (req, res) => {
 /*****************************Admin route****************************** */
 /********************************************************************* */
 //add annonceur route(demmande accepter)
-router.post("/Admin/AddAnnonceur/:demandeId", async (req, res) => {
+router.post("/Admin/AddAnnonceur/:demandeId", auth, async (req, res) => {
   try {
     const demandeData = await DemandeAnnonceur.findById({
       _id: req.params.demandeId,
@@ -357,7 +362,7 @@ router.post("/Admin/AddAnnonceur/:demandeId", async (req, res) => {
   }
 });
 //add annonceur route(demmande refuser)
-router.post("/Admin/RejectDemande/:demandeId", async (req, res) => {
+router.post("/Admin/RejectDemande/:demandeId", auth, async (req, res) => {
   try {
     await DemandeAnnonceur.findByIdAndUpdate(req.params.demandeId, {
       $set: {
@@ -371,7 +376,7 @@ router.post("/Admin/RejectDemande/:demandeId", async (req, res) => {
   }
 });
 //get propritare demande
-router.get("/Admin/getDemandeur/:demandeurId", async (req, res) => {
+router.get("/Admin/getDemandeur/:demandeurId", auth, async (req, res) => {
   try {
     const demandeurInfo = await Abonné.findById(req.params.demandeurId);
     res.json(demandeurInfo);
@@ -381,7 +386,7 @@ router.get("/Admin/getDemandeur/:demandeurId", async (req, res) => {
   }
 });
 //add Admin endpoint
-router.post("/addAdmin", async (req, res) => {
+router.post("/addAdmin", auth, async (req, res) => {
   const {
     firstName,
     lastName,
@@ -445,7 +450,7 @@ router.post("/addAdmin", async (req, res) => {
   }
 });
 //get demandeannonceur for admin
-router.get("/Admin/getDemandeAnnonceur", async (req, res) => {
+router.get("/Admin/getDemandeAnnonceur", auth, async (req, res) => {
   try {
     const demandeAnnonceur = await DemandeAnnonceur.find();
     res.json(demandeAnnonceur);
@@ -454,7 +459,7 @@ router.get("/Admin/getDemandeAnnonceur", async (req, res) => {
     res.status(500).send("Server Error get contacts");
   }
 });
-//get demande  for admin
+//get demande propritaire(abonné)  for admin
 router.get("/Admin/getDemandeur/:demandeurId", auth, async (req, res) => {
   try {
     const demandeur = await Abonné.findById(req.params.demandeurId);
@@ -464,14 +469,51 @@ router.get("/Admin/getDemandeur/:demandeurId", auth, async (req, res) => {
     res.status(500).send("Server Error get contacts");
   }
 });
-router.get("/Admin/abonne", async (req, res) => {
+//get list abonnes for admin
+router.get("/Admin/getAbonnes", auth, async (req, res) => {
   try {
-    const abonne = await Abonné.findById(req.params.userId);
-    res.json(abonne);
+    const abonnes = await Abonné.find();
+    res.json(abonnes);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error ");
   }
 });
+//delete abonne for admin
+router.delete("/Admin/deleteAbonne/:abonneId", auth, async (req, res) => {
+  const abonneId = req.params.abonneId;
+  await Abonné.findByIdAndRemove(abonneId);
+  const abonnes = await Abonné.find();
+  res.json({ abonnes, msg: "Abonné supprimer avec succés " });
+});
+//get list annonceurs for admin
+router.get("/Admin/getAnnonceur", auth, async (req, res) => {
+  try {
+    const annonceur = await Annonceur.find();
+    res.json(annonceur);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error ");
+  }
+});
+//delete annonceur for admin
+router.delete(
+  "/Admin/deleteAnnonceure/:annonceurId",
+  auth,
+  async (req, res) => {
+    const id = await Annonceur.findById(req.params.annonceurId).select(
+      " abonnéId"
+    );
+    await Abonné.findByIdAndUpdate(id.abonnéId, {
+      $set: {
+        isAnnonceur: false,
+      },
+    });
+    await Annonceur.findByIdAndRemove(req.params.annonceurId);
+    const annonceurs = await Annonceur.find();
+
+    res.json({ annonceurs, msg: "Annonceur removed !" });
+  }
+);
 
 module.exports = router;

@@ -11,7 +11,6 @@ import {
   UPDATE_ANNONCEURPICTURE,
   UPDATE_ANNONCEURINFO,
 } from "../types";
-import { withSnackbar } from "notistack";
 const UserState = (props) => {
   const initialState = {
     responseMessage: "aucune message",
@@ -19,7 +18,7 @@ const UserState = (props) => {
   };
   const [state, dispatch] = useReducer(userReducer, initialState);
   //update user(abonné) profile image
-  const updateProfileImage = async (formData, userId) => {
+  const updateProfileImage = async (formData) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +26,7 @@ const UserState = (props) => {
     };
     try {
       const response = await axios.put(
-        `http://localhost:8000/api/users/UpadateImageProfile/${userId}`,
+        "http://localhost:8000/api/users/UpadateImageProfile/",
         formData,
         config
       );
@@ -84,7 +83,7 @@ const UserState = (props) => {
     }
   };
   //update user(abonné) description
-  const updateDescription = async (updayteddescription, userId) => {
+  const updateDescription = async (updayteddescription) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -92,7 +91,7 @@ const UserState = (props) => {
     };
     try {
       const response = await axios.put(
-        `http://localhost:8000/api/users/upadateDescription/${userId}`,
+        "http://localhost:8000/api/users/upadateDescription",
         updayteddescription,
         config
       );
@@ -106,7 +105,7 @@ const UserState = (props) => {
   };
 
   //envoyer demande annonceur par user(abonné) a l'admin
-  const sendDemandeAnnonceur = async (formData, userId) => {
+  const sendDemandeAnnonceur = async (formData) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -114,7 +113,7 @@ const UserState = (props) => {
     };
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/users/demandeAnnonceur/${userId}`,
+        "http://localhost:8000/api/users/demandeAnnonceur",
         formData,
         config
       );
@@ -129,7 +128,7 @@ const UserState = (props) => {
   //clear global state that handel response message
   const ClearResponseMessage = () => dispatch({ type: REMOVE_RSPONSEMESSAGE });
   //load annonceur data
-  const loadAnnonceur = async (userId) => {
+  const loadAnnonceur = async () => {
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -137,7 +136,7 @@ const UserState = (props) => {
     };
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/users/getAnnonceurData/${userId}`,
+        "http://localhost:8000/api/users/getAnnonceurData",
         config
       );
 
@@ -168,4 +167,4 @@ const UserState = (props) => {
     </UserContext.Provider>
   );
 };
-export default withSnackbar(UserState);
+export default UserState;

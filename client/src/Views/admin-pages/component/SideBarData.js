@@ -1,7 +1,7 @@
 export const SideBarData = [
   {
     title: "Dashbord",
-    path: "/",
+    path: "",
     cName: "nav-text",
   },
   {

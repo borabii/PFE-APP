@@ -31,6 +31,8 @@ let useClickOutside = (handler) => {
   return domNode;
 };
 function AboHeader() {
+  const { url } = useRouteMatch();
+
   let domNode = useClickOutside(() => {
     setShowSearchResultDropdown(false);
   });
@@ -80,7 +82,6 @@ function AboHeader() {
       value: "Karius",
     },
   ];
-  const { url } = useRouteMatch();
 
   return (
     <Navbar collapseOnSelect expand="lg" className="abonné-Header" fixed="top">

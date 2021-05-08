@@ -38,7 +38,7 @@ function AnnonceurWorktimePopUp(props) {
               <td>21:00</td>
             </tr>
             <tr>
-              <th>Samdi</th>
+              <th>Samedi</th>
               <td> 08:00</td>
               <td>16:00</td>
             </tr>

@@ -830,6 +830,9 @@ dd {
   justify-content: space-around;
   flex-wrap: wrap;
 }
+#dd {
+  margin-top: 200px;
+}
 
 .info-item {
   background-color: #3aceb9;
