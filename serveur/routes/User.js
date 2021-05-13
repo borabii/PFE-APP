@@ -1,16 +1,18 @@
 const express = require("express");
 const auth = require("../middleware/auth"); //middleware next()
+const router = express.Router();
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("config");
 const gravatar = require("gravatar");
 const multer = require("multer");
+//models
 const Abonné = require("../models/Abonné");
 const Admin = require("../models/Admin");
 const Annonceur = require("../models/Annonceur");
 const DemandeAnnonceur = require("../models/DemandeAnnonceur");
-const router = express.Router();
+const User = require("../models/User");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -58,7 +60,7 @@ router.post("/signup", async (req, res) => {
 
     // if abonné (email) is already existed
     if (abonné) {
-      return res.status(400).json({ msg: "User already exists" });
+      return res.status(400).json({ msg: "Email déja existant" });
     }
 
     abonné = new Abonné({
@@ -97,7 +99,7 @@ router.post("/signup", async (req, res) => {
       payload,
       config.get("jwtSecret"),
       {
-        expiresIn: 360000, //3600 sec = 1 hour
+        expiresIn: 3600,
       },
       (err, token) => {
         if (err) throw err;
@@ -375,6 +377,7 @@ router.post("/Admin/RejectDemande/:demandeId", auth, async (req, res) => {
     res.status(500).send("Server Error ");
   }
 });
+
 //get propritare demande
 router.get("/Admin/getDemandeur/:demandeurId", auth, async (req, res) => {
   try {
@@ -385,70 +388,7 @@ router.get("/Admin/getDemandeur/:demandeurId", auth, async (req, res) => {
     // res.status(500).send("Server Error ");
   }
 });
-//add Admin endpoint
-router.post("/addAdmin", auth, async (req, res) => {
-  const {
-    firstName,
-    lastName,
-    dateOfBirth,
-    gendre,
-    email,
-    password,
-    imageProfile,
-    nom,
-    adressAnnonceur,
-  } = req.body;
-  try {
-    let admin = await Annonceur.findOne({ email: email });
 
-    // if abonné (email) is already existed
-    if (admin) {
-      return res.status(400).json({ msg: "User already exists" });
-    }
-
-    abonné = new Admin({
-      firstName,
-      lastName,
-      dateOfBirth,
-      gendre,
-      email,
-      password,
-      imageProfile,
-      adress,
-      nom,
-      adressAnnonceur,
-    });
-    // encrypt password before store do database
-    const salt = await bcrypt.genSalt(10);
-    //add crypted password to user object before store it to db
-    abonné.password = await bcrypt.hash(password, salt);
-
-    await admin.save();
-
-    const payload = {
-      user: {
-        id: abonné.id,
-      },
-    };
-
-    // jwtSecret is declared on default.json ("secret")
-    jwt.sign(
-      payload,
-      config.get("jwtSecret"),
-      {
-        expiresIn: 360000, //3600 sec = 1 hour
-      },
-      (err, token) => {
-        if (err) throw err;
-
-        res.json({ token });
-      }
-    );
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-});
 //get demandeannonceur for admin
 router.get("/Admin/getDemandeAnnonceur", auth, async (req, res) => {
   try {
@@ -512,8 +452,117 @@ router.delete(
     await Annonceur.findByIdAndRemove(req.params.annonceurId);
     const annonceurs = await Annonceur.find();
 
-    res.json({ annonceurs, msg: "Annonceur removed !" });
+    res.json({ annonceurs, msg: "Annonceur supprimer !" });
   }
 );
+//get data for dashboard
+router.get("/Admin/dashboard", async (req, res) => {
+  try {
+    let count = { nbrAbonné: null, nbrAdmin: null, nbrAnnonceur: null };
+    await Abonné.countDocuments().then((docCount) => {
+      count.nbrAbonné = docCount;
+    });
+    await Annonceur.countDocuments().then((docCount) => {
+      count.nbrAnnonceur = docCount;
+    });
+    await Admin.countDocuments().then((docCount) => {
+      count.nbrAdmin = docCount;
+    });
+    res.json(count);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error ");
+  }
+});
+//
+/***********Gestion admin*********/
+//add admin route
+router.post("/Admin/addAdmin", auth, async (req, res) => {
+  const {
+    firstName,
+    lastName,
+    dateOfBirth,
+    gendre,
+    email,
+    password,
+    permission,
+  } = req.body;
+  try {
+    let admin = await Admin.findOne({ email: email });
+
+    // if abonné (email) is already existed
+    if (admin) {
+      return res.status(400).json({ msg: "Admin already exists" });
+    }
+    user = new Admin({
+      firstName,
+      lastName,
+      dateOfBirth,
+      gendre,
+      email,
+      password,
+      permission,
+    });
+    // encrypt password before store do database
+    const salt = await bcrypt.genSalt(10);
+    //add crypted password to user object before store it to db
+    user.password = await bcrypt.hash(password, salt);
+    user.role = "Admin";
+    await user.save();
+
+    res.json({ user });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+//delete  admin
+router.delete("/deleteAdmin/:adminId", auth, async (req, res) => {
+  try {
+    await Admin.findByIdAndRemove(req.params.adminId);
+    const admins = await Admin.find();
+
+    res.json({ admins, msg: "Admin suprrimer !" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error ");
+  }
+});
+//edit admin permission/password
+router.put("/Admin/editAdmin/:adminId", auth, async (req, res) => {
+  let { permission, password } = req.body;
+
+  const adminFields = {};
+  if (permission) adminFields.permission = permission;
+  if (password) adminFields.password = password;
+  try {
+    // encrypt password before store do database
+
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      //add crypted password to user object before store it to db
+      adminFields.password = await bcrypt.hash(adminFields.password, salt);
+    }
+    await Admin.findByIdAndUpdate(
+      req.params.adminId,
+      { $set: adminFields },
+      { new: true }
+    );
+    res.send({ msg: "mise a jour avec succés" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error ");
+  }
+});
+//get list admin
+router.get("/Admin/getadmin", auth, async (req, res) => {
+  try {
+    const admin = await Admin.find();
+    res.json(admin);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error get contacts");
+  }
+});
 
 module.exports = router;

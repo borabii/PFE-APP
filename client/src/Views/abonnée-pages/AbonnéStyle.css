@@ -633,6 +633,7 @@
   background-color: #fea041;
   border-radius: 10px;
   margin: 20px;
+  box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
 }
 .menu-item {
   display: flex;
@@ -662,9 +663,13 @@
 
 .selected {
   width: 100%;
-  background-color: #44c9bb;
+  background-color: white;
+
   text-align: left;
   transition: 350ms;
+}
+.selected span {
+  color: #040941;
 }
 .selected #profileSidMenu-icon {
   color: #040941;
@@ -955,6 +960,20 @@ input[type="file"] {
 .abonneIntert {
   margin: 20px;
 }
+.abonneIntert__top {
+  display: flex;
+  justify-content: space-around;
+}
+.intert-select {
+  width: 100%;
+}
+.abonneIntert__top > #addIntert-btn {
+  outline: none;
+  background-color: #3aceb9;
+  border: none;
+  margin-left: 5px;
+  border-radius: 5px;
+}
 
 .abonneIntert > h2 {
   margin-top: 20px;
@@ -962,6 +981,28 @@ input[type="file"] {
 .abonneIntert__bottom {
   margin-top: 40px;
   padding-left: 40px;
+}
+.userCatégorie {
+  position: relative;
+}
+.userCatégorie-action {
+  position: absolute;
+  top: -10%;
+  left: 24%;
+  width: 30px;
+  height: 30px;
+  background-color: #3aceb9;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+#userCatégorie-icon {
+  width: 20px;
+  height: 20px;
+  color: #040941;
 }
 /*****************************************/
 /***Form Demande Escpace Pubs************/
@@ -1636,6 +1677,19 @@ input[type="file"] {
 
   .abonneIntert__bottom > .container {
     padding-left: -5px;
+  }
+  .userCatégorie-action {
+    position: absolute;
+    top: -9%;
+    left: 70%;
+    width: 30px;
+    height: 30px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  #userCatégorie-icon {
+    width: 20px;
+    height: 20px;
+    color: #040941;
   }
   /*********************************************************/
   /***********Abonné search parametre small device style****/

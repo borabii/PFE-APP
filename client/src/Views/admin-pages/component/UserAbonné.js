@@ -1,115 +1,26 @@
-// import React, { useState } from "react";
-// import DeleteIcon from "@material-ui/icons/Delete";
-// import SearchIcon from "@material-ui/icons/Search";
-// import VisibilityIcon from "@material-ui/icons/Visibility";
-// import DetailAbonnePopUp from "./DetailAbonnePopUp";
-// function UserAbonné() {
-//   const [detailAbonneModalShow, setdetailAbonneModalShow] = useState(false);
-
-//   return (
-//     <div className="userAbonné">
-//       <div className="dataTable">
-//         <div className="dataTable__top">
-//           <div className="data-card">
-//             <div className="card-body px-4">
-//               <h5 className="card-title data-cardTitle"> Nombre abonné</h5>
-//               <p className="card-text">1000</p>
-//             </div>
-//           </div>
-
-//           <form>
-//             <input
-//               className="form-control mr-sm-2 "
-//               type="search"
-//               placeholder="Search"
-//             />
-//             <div className="icon">
-//               <SearchIcon />
-//             </div>
-//           </form>
-//         </div>
-//         {/* data table */}
-//         <div className="dataTable__bottom">
-//           <div class="table-wrapper-scroll-y my-custom-scrollbar">
-//             <table className="table  table-hover table-striped   text-center my-table">
-//               <thead>
-//                 <tr>
-//                   <th scope="col">id</th>
-//                   <th scope="col">Nom </th>
-//                   <th scope="col">Prénom </th>
-//                   <th scope="col">Email</th>
-//                   <th scope="col">Date</th>
-//                   <th scope="col">Action</th>
-//                 </tr>
-//               </thead>
-//               <tbody>
-//                 <tr>
-//                   <th scope="row">1</th>
-//                   <td>ID</td>
-//                   <td>ID annonceur</td>
-//                   <td> Nom annonceur</td>
-//                   <td>Catégorie</td>
-
-//                   <td id="icone-action">
-//                     <div>
-//                       <DetailAbonnePopUp
-//                         show={detailAbonneModalShow}
-//                         onHide={() => setdetailAbonneModalShow(false)}
-//                       />
-//                       <VisibilityIcon
-//                         onClick={() => setdetailAbonneModalShow(true)}
-//                       />
-//                     </div>
-//                     <div id="ff">
-//                       <DeleteIcon />
-//                     </div>
-//                   </td>
-//                 </tr>
-//               </tbody>
-//             </table>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default UserAbonné;
-
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SearchIcon from "@material-ui/icons/Search";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import DetailAbonnePopUp from "./DetailAbonnePopUp";
+import { getDate } from "../../../utilis/date";
 
 class UserAbonné extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: null,
+      abonné: null,
       detailReqModalShow: false,
-      abonnés: [
-        {
-          typePub: "Activity",
-          _id: "6089f86bfcf1b64cd0974cfd",
-          firstName: "tezedzed",
-          lastName: "tezedzed",
-          email: "wdfgh@dsg",
-          adresse: "aaaaa",
-          nbr_place: 2,
-          user: "607e141dc0fb704f84df1b46",
-          inscriDate: "2021-04-29T00:06:03.199Z",
-          __v: 0,
-        },
-      ],
+      abonnés: [],
     };
   }
-  //
-  selectAbonné = (index) => {
-    const abonné = this.state.abonnés[index];
-    this.setState({ id: abonné });
+  //this method is used to store in abonné State which object is
+  //selected in table to passe it like a props to the modal
+  selectedItem = (index) => {
+    this.setState({ abonné: this.state.abonnés[index] });
   };
+  //this method run when user click in action icon that delete abonné
   deletabonné = (data) => {
     if (
       window.confirm(
@@ -128,6 +39,8 @@ class UserAbonné extends React.Component {
         });
     }
   };
+  //run when compoenet is mounted to get all abonnés stored in db and set the state(abonnés)
+  //with response data
   componentDidMount() {
     axios
       .get("http://localhost:8000/api/users/Admin/getAbonnes")
@@ -136,15 +49,6 @@ class UserAbonné extends React.Component {
       });
   }
 
-  getDate = (date) => {
-    var dateObj = new Date(date);
-    var month = dateObj.getUTCMonth() + 1; //months from 1-12
-    var day = dateObj.getUTCDate();
-    var year = dateObj.getUTCFullYear();
-
-    const newdate = year + "/" + month + "/" + day;
-    return newdate;
-  };
   render() {
     return (
       <div className="userAbonné">
@@ -190,14 +94,14 @@ class UserAbonné extends React.Component {
                         <td>{data.firstName}</td>
                         <td>{data.lastName}</td>
                         <td>{data.email}</td>
-                        <td>{this.getDate(data.inscriDate)}</td>
+                        <td>{getDate(data.inscriDate)}</td>
 
                         <td id="icone-action">
-                          <div onClick={() => this.selectAbonné(index)}>
+                          <div onClick={() => this.selectedItem(index)}>
                             <DetailAbonnePopUp
                               user={
-                                this.state.id
-                                  ? this.state.id
+                                this.state.abonné
+                                  ? this.state.abonné
                                   : this.state.abonnés
                               }
                               show={this.state.detailReqModalShow}

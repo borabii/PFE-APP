@@ -25,10 +25,11 @@ const useHideOnScrolled = () => {
 };
 
 function Home() {
+  //component level state
   const userContext = useContext(UserContext);
   const { loadAnnonceur } = userContext;
   const pubContext = useContext(PubContext);
-  const { loadAct, pubs } = pubContext;
+  const { loadAct } = pubContext;
   useEffect(() => {
     loadAct();
     loadAnnonceur();

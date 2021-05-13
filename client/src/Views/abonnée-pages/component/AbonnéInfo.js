@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import EditIcon from "@material-ui/icons/Edit";
 import AuthContext from "../../../Context/auth/authContext";
 import UserContext from "../../../Context/user/userContext";
@@ -7,15 +7,15 @@ import { useSnackbar } from "notistack";
 function AbonnéInfo() {
   //component level state
   const [UserImage, setUserImage] = useState(null);
-  const prevUserImage = useRef();
   const [updayteddescription, setUpdaytedDescription] = useState({
     updayteddescription: "",
   });
 
+  //app level state
   //auth context
   const authContext = useContext(AuthContext);
   const { user } = authContext;
-
+  //app level state
   //user context
   const userContext = useContext(UserContext);
   const {
@@ -34,9 +34,9 @@ function AbonnéInfo() {
     const formData = new FormData();
     formData.append("imageProfile", UserImage);
     updateProfileImage(formData);
-    return () => {
-      window.location.reload();
-    };
+    // return () => {
+    //   window.location.reload(false);
+    // };
   }, [UserImage]);
 
   // handel user nex description value
@@ -46,8 +46,8 @@ function AbonnéInfo() {
   //run when user change his discription and exist the textarea
   const changeDescription = () => {
     updateDescription(updayteddescription);
-    // window.location.reload();
   };
+  //used for displaying response msg
   const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     if (responseMessage !== "aucune message") {
@@ -66,7 +66,7 @@ function AbonnéInfo() {
     <div className="abonneInfo">
       <div className="imgProfil">
         <img src={`http://localhost:8000/${user.imageProfile}`} alt="" />
-        <label for="file-upload" class="file-upload-btn">
+        <label for="file-upload" className="file-upload-btn">
           <EditIcon id="editImage-icon" />
         </label>
         <input
@@ -110,16 +110,6 @@ function AbonnéInfo() {
           <h4>{user.email}</h4>
         </div>
       </div>
-      {/* <Snackbar
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
-        }}
-        open={open}
-        onClose={handleClose}
-        message={responseMessage}
-        autoHideDuration={6000}
-      /> */}
     </div>
   );
 }

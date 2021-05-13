@@ -223,14 +223,26 @@ function AnnonceurVisitedProfile() {
           </div>
         </div>
       </div>
-
+      {/*  */}
       <div className="annonceurVisitedProfile-topSmallDevice">
-        <div className="top-left">
-          <img
-            src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
-            alt=""
-          />
+        <div id="annonceurSmallDev-img">
+          <div className="imgProfil ">
+            <img
+              src={`http://localhost:8000/${annonceur.imageCouverture}`}
+              alt=""
+            />
+            <label for="file-upload" className="file-upload-btn">
+              <EditIcon id="editImage-icon" />
+            </label>
+            <input
+              type="file"
+              id="file-upload"
+              name="imageProfile"
+              onChange={imageSelectHandler}
+            />
+          </div>
         </div>
+
         <div className="top-middle">
           <div className="userProfile-info">
             <div id="user-name">

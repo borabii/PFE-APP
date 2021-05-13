@@ -17,6 +17,11 @@ const AbonnéSchema = User.discriminator(
       type: Boolean,
       default: false,
     },
+    centreInteret: [
+      {
+        type: String,
+      },
+    ],
   })
 );
 module.exports = mongoose.model("Abonné");

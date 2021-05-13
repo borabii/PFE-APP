@@ -17,7 +17,6 @@ const UserSchema = mongoose.Schema(
     },
     gendre: {
       type: String,
-      required: true,
     },
     email: {
       type: String,
@@ -34,7 +33,7 @@ const UserSchema = mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["admin", "user"],
+      enum: ["Super Admin", "Admin", "user"],
       default: "user",
     },
   },

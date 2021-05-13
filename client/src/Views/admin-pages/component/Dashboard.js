@@ -1,5 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 function Dashboard() {
+  const [data, setData] = useState({});
+  //run when compoenet is mounted to get dashbord data from db and set the state(data)
+  //with response data
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/users/Admin/dashboard")
+      .then((response) => setData(response.data));
+  }, []);
   return (
     <div className="dashboard">
       <div className="container-fluid   px-0 ">
@@ -8,7 +17,7 @@ function Dashboard() {
             <div className=" my-card">
               <div className="card-body">
                 <h5 className="card-title mycard-title">Nombre total Abonné</h5>
-                <p className="card-text">1000</p>
+                <p className="card-text">{data.nbrAbonné}</p>
               </div>
             </div>
           </div>
@@ -18,18 +27,25 @@ function Dashboard() {
                 <h5 className="card-title mycard-title">
                   Nombre total Annonceur
                 </h5>
-                <p className="card-text">1000</p>
+                <p className="card-text">{data.nbrAnnonceur}</p>
               </div>
             </div>
           </div>
-          <div className="col col-lg-4 ">
-            <div className=" my-card">
-              <div className="card-body">
-                <h5 className="card-title mycard-title">Nombre total admin</h5>
-                <p className="card-text">1000</p>
+          {localStorage.getItem("role") === "Super Admin" && (
+            <div className="col col-lg-4 ">
+              <div className=" my-card">
+                <div className="card-body">
+                  <h5 className="card-title mycard-title">
+                    Nombre total admin
+                  </h5>
+                  <p className="card-text" style={{ marginTop: 45 }}>
+                    {data.nbrAdmin}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          )}
+
           <div className="col col-lg-4 ">
             <div className=" my-card">
               <div className="card-body">
@@ -61,7 +77,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="container-fluid px-0 w-100">
+        {/* <div className="container-fluid px-0 w-100">
           <div className="row bottom-dash">
             <div className="col col-lg-12  ">
               4444dddddddddddddddddddddddddddddddddddddddddddddddddd
@@ -78,7 +94,7 @@ function Dashboard() {
               4444dddddddddddddddddddddddddddddddddddddddddddddddddd
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

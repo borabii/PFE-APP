@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 
 function DetailReqAnnonceurPopUp(props) {
   const {
     _id,
-    demandeur,
     nomAnnonceur,
     emailProAnnonceur,
     demandeDate,
     catégorieAnnonceur,
     justificatifAnnonceur,
   } = props.user;
-
   //run when admin click on Accepter button to accepter a demande
   const acceptDemande = () => {
     axios.post(`http://localhost:8000/api/users/Admin/AddAnnonceur/${_id}`);

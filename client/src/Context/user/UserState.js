@@ -10,78 +10,25 @@ import {
   LOAD_ANNONCEUR,
   UPDATE_ANNONCEURPICTURE,
   UPDATE_ANNONCEURINFO,
+  LOAD_CATEGORIE,
+  DELETE_CENTREOFINTERET,
+  ADD_CENTREOFINTERET,
 } from "../types";
 const UserState = (props) => {
+  //global state
   const initialState = {
     responseMessage: "aucune message",
     annonceur: null,
+    catégorieOption: null,
+    fullCatégorieData: null,
   };
   const [state, dispatch] = useReducer(userReducer, initialState);
-  //update user(abonné) profile image
-  const updateProfileImage = async (formData) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    try {
-      const response = await axios.put(
-        "http://localhost:8000/api/users/UpadateImageProfile/",
-        formData,
-        config
-      );
-      dispatch({
-        type: UPDATE_IMAGE,
-        payload: response,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  //update user(Anonceur) photo de couverture
-  const updateAnnonceurProfileImage = async (formData, annonceurId) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    try {
-      const response = await axios.put(
-        `http://localhost:8000/api/users/Annonceur/updateProfileImage/${annonceurId}`,
-        formData,
-        config
-      );
-      dispatch({
-        type: UPDATE_ANNONCEURPICTURE,
-        payload: response,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  //update user(Anonceur) Info
 
-  const updateAnnonceurInfo = async (formData, annonceurId) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    try {
-      const response = await axios.put(
-        `http://localhost:8000/api/users/Annonceur/updatePersonelInfo/${annonceurId}`,
-        formData,
-        config
-      );
+  /***************************************************************** */
+  /*************************Global method************************** */
+  /*************************************************************** */
 
-      dispatch({
-        type: UPDATE_ANNONCEURINFO,
-        payload: response,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  /**********************Abonné method******************* */
   //update user(abonné) description
   const updateDescription = async (updayteddescription) => {
     const config = {
@@ -103,9 +50,29 @@ const UserState = (props) => {
       console.log(err);
     }
   };
-
+  //update user(abonné) profile image
+  const updateProfileImage = async (formData) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const response = await axios.put(
+        "http://localhost:8000/api/users/UpadateImageProfile/",
+        formData,
+        config
+      );
+      dispatch({
+        type: UPDATE_IMAGE,
+        payload: response,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   //envoyer demande annonceur par user(abonné) a l'admin
-  const sendDemandeAnnonceur = async (formData) => {
+  const sendDemandeAbonné = async (formData) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -125,8 +92,58 @@ const UserState = (props) => {
       console.log(err);
     }
   };
-  //clear global state that handel response message
-  const ClearResponseMessage = () => dispatch({ type: REMOVE_RSPONSEMESSAGE });
+  //delete user(abonné) centre of interet
+  const deleteCentreOfInteret = async (categorieType) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8000/api/Categorie/deleteCategorie/${categorieType}`
+      );
+      dispatch({
+        type: DELETE_CENTREOFINTERET,
+        payload: response,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  //add user(abonné) centre of interet
+
+  const addCentreOfInteret = async (categorieType) => {
+    try {
+      const response = await axios.put(
+        "http://localhost:8000/api/Categorie/addCategorie",
+        categorieType
+      );
+      dispatch({
+        type: ADD_CENTREOFINTERET,
+        payload: response,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  /**********************Annonceur method******************* */
+  //update user(Anonceur) photo de couverture
+  const updateAnnonceurProfileImage = async (formData, annonceurId) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const response = await axios.put(
+        `http://localhost:8000/api/users/Annonceur/updateProfileImage/${annonceurId}`,
+        formData,
+        config
+      );
+      dispatch({
+        type: UPDATE_ANNONCEURPICTURE,
+        payload: response,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   //load annonceur data
   const loadAnnonceur = async () => {
     const config = {
@@ -148,19 +165,67 @@ const UserState = (props) => {
       console.log(err);
     }
   };
+  //update user(Anonceur) Info
+  const updateAnnonceurInfo = async (formData, annonceurId) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const response = await axios.put(
+        `http://localhost:8000/api/users/Annonceur/updatePersonelInfo/${annonceurId}`,
+        formData,
+        config
+      );
+
+      dispatch({
+        type: UPDATE_ANNONCEURINFO,
+        payload: response,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  //clear global state that handel response message
+  const ClearResponseMessage = () => dispatch({ type: REMOVE_RSPONSEMESSAGE });
+
+  /************************************************************* */
+  /*************************Catégorie************************** */
+  /*********************************************************** */
+  //load catégorie all data
+  const getCatégorie = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8000/api/Categorie/getListcategories"
+      );
+      dispatch({
+        type: LOAD_CATEGORIE,
+        payload: response,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
-        userProfileImage: state.userProfileImage,
         responseMessage: state.responseMessage,
         annonceur: state.annonceur,
+        catégorieOption: state.catégorieOption,
+        fullCatégorieData: state.fullCatégorieData,
         updateProfileImage,
-        sendDemandeAnnonceur,
+        sendDemandeAbonné,
         ClearResponseMessage,
         updateDescription,
         loadAnnonceur,
         updateAnnonceurProfileImage,
         updateAnnonceurInfo,
+        getCatégorie,
+        addCentreOfInteret,
+        deleteCentreOfInteret,
       }}
     >
       {props.children}

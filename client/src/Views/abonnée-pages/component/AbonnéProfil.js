@@ -23,7 +23,7 @@ function AbonnéProfil() {
           >
             <span>
               <InfoIcon id="profileSidMenu-icon" />
-              Information
+              <p id="tt">Information</p>
             </span>
           </NavLink>{" "}
           <NavLink

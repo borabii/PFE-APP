@@ -1,54 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import axios from "axios";
 import SearchIcon from "@material-ui/icons/Search";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import DeleteIcon from "@material-ui/icons/Delete";
 import DetailReqAnnonceurPopUp from "./DetailReqAnnonceurPopUp";
 
 class DemandeManagment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: null,
+      demande: null,
       detailReqModalShow: false,
-      DemandeurData: {
-        firstName: "",
-        lastName: "",
-        email: "",
-        imageProfile: "",
-        inscriDate: "",
-      },
-      items: [
-        {
-          demandeur: "",
-          etatDemande: "",
-          nomAnnonceur: "",
-          adresseAnnonceur: "",
-          numTelAnnonceur: "",
-          emailProAnnonceur: "",
-          catégorieAnnonceur: "",
-          justificatifAnnonceur: "",
-          demandeDate: "",
-          __v: 0,
-        },
-      ],
+      demandeurData: {},
+      demandes: [],
     };
   }
-
-  updateItem = (index) => {
-    const user = this.state.items[index];
-    this.setState({ id: user });
+  //this method is used to store in demande State which object is
+  //selected in table to passe it like a props to the modal
+  selectdItem = (index) => {
+    const item = this.state.demandes[index];
+    this.setState({ demande: item });
     axios
       .get(
-        `http://localhost:8000/api/users/Admin/getDemandeur/${user.demandeur}`
+        `http://localhost:8000/api/users/Admin/getDemandeur/${item.demandeur}`
       )
       .then((response) => this.setState({ DemandeurData: response.data }));
   };
+  //run when compoenet is mounted to get all demande stored in db and set the state(demandes)
+  //with response data
   componentDidMount() {
     axios
       .get("http://localhost:8000/api/users/Admin/getDemandeAnnonceur")
       .then((response) => {
-        this.setState({ items: response.data });
+        this.setState({ demandes: response.data });
       });
   }
 
@@ -60,7 +43,7 @@ class DemandeManagment extends React.Component {
             <div className="data-card ">
               <div className="card-body px-4  ">
                 <h5 className="card-title data-cardTitle"> Nombre Demande</h5>
-                <p className="card-text">{this.state.items.length}</p>
+                <p className="card-text">{this.state.demandes.length}</p>
               </div>
             </div>
 
@@ -90,7 +73,7 @@ class DemandeManagment extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.items.map((data, index) => {
+                  {this.state.demandes.map((data, index) => {
                     return (
                       <tr key={index}>
                         <th scope="row">{data._id}</th>
@@ -99,15 +82,17 @@ class DemandeManagment extends React.Component {
                         <td>{data.catégorieAnnonceur}</td>
                         <td>{data.etatDemande}</td>
                         <td
-                          onClick={() => this.updateItem(index)}
+                          onClick={() => this.selectdItem(index)}
                           id="icone-action"
                         >
                           <div>
                             <DetailReqAnnonceurPopUp
                               user={
-                                this.state.id ? this.state.id : this.state.items
+                                this.state.demande
+                                  ? this.state.demande
+                                  : this.state.demandes
                               }
-                              demandeur={this.state.DemandeurData}
+                              demandeur={this.state.demandeurData}
                               show={this.state.detailReqModalShow}
                               onHide={() =>
                                 this.setState({ detailReqModalShow: false })
@@ -119,11 +104,6 @@ class DemandeManagment extends React.Component {
                               }
                             />
                           </div>
-                          {/* <div id="ff">
-                            <DeleteIcon
-                              onClick={() => this.refusedemande(data)}
-                            />
-                          </div> */}
                         </td>
                       </tr>
                     );

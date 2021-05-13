@@ -1,7 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
+import axios from "axios";
 
 function AddCategoryPopUP(props) {
+  const [categorie, setCategorie] = useState({
+    imageCatégorie: "",
+    typeCatégorie: "",
+  });
+  const handelChange = (event) => {
+    setCategorie({
+      ...categorie,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const imageSelectHandler = (event) => {
+    setCategorie({
+      ...categorie,
+      imageCatégorie: event.target.files[0],
+    });
+  };
+  const handelSubmit = (event) => {
+    event.preventDefault();
+    //creat object (formData) from state(categorie) value
+    const formData = new FormData();
+    formData.append("imageCatégorie", categorie.imageCatégorie);
+    formData.append("typeCatégorie", categorie.typeCatégorie);
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    axios.post(
+      "http://localhost:8000/api/Categorie/Admin/addCategorie",
+      formData,
+      config
+    );
+    //clear form after submit
+    setCategorie({ imageCatégorie: "", typeCatégorie: "" });
+  };
   return (
     <Modal
       {...props}
@@ -17,10 +54,29 @@ function AddCategoryPopUP(props) {
       </Modal.Header>
       <Modal.Body>
         <div className="addCategoryPopUP">
-          <div className="img__holder">image holder</div>
-          <form>
-            <input type="file" accept="image/*" />
-            <input type="text" placeholder=" Nom Catégorie" />
+          {categorie.imageCatégorie && (
+            <div className="img__holder">
+              <img
+                src={URL.createObjectURL(categorie.imageCatégorie)}
+                alt=""
+              ></img>
+            </div>
+          )}
+
+          <form onSubmit={handelSubmit}>
+            <input
+              type="file"
+              id="justificatif-input"
+              name="imageCatégorie"
+              onChange={imageSelectHandler}
+            />
+            <input
+              type="text"
+              placeholder=" Nom Catégorie"
+              name="typeCatégorie"
+              value={categorie.typeCatégorie}
+              onChange={handelChange}
+            />
             <button className="btn" type="submit">
               Ajouter
             </button>

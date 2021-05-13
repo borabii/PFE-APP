@@ -6,6 +6,9 @@ import {
   LOAD_ANNONCEUR,
   UPDATE_ANNONCEURPICTURE,
   UPDATE_ANNONCEURINFO,
+  LOAD_CATEGORIE,
+  ADD_CENTREOFINTERET,
+  DELETE_CENTREOFINTERET,
 } from "../types";
 export default (state, action) => {
   switch (action.type) {
@@ -51,6 +54,18 @@ export default (state, action) => {
       return {
         ...state,
         annonceur: action.payload,
+      };
+    case LOAD_CATEGORIE:
+      return {
+        ...state,
+        catégorieOption: action.payload.data.catégorieOption,
+        fullCatégorieData: action.payload.data.fullCatégorieData,
+      };
+    case DELETE_CENTREOFINTERET:
+    case ADD_CENTREOFINTERET:
+      return {
+        ...state,
+        responseMessage: action.payload.data.msg,
       };
     default:
       return state;

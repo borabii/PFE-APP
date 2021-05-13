@@ -26,11 +26,11 @@ router.post("/signin", async (req, res) => {
   try {
     let user = await User.findOne({ email: email });
     if (!user) {
-      res.status(400).json({ msg: "email ou mots de passe invalide" });
+      res.status(400).json({ msg: "Email ou mots de passe invalide" });
     }
     const isMatchPassword = await bcrybt.compare(password, user.password);
     if (!isMatchPassword) {
-      return res.status(400).json({ msg: "email ou mots de passe invalide" });
+      return res.status(400).json({ msg: "Email ou mots de passe invalide" });
     }
 
     const payload = {

@@ -10,16 +10,21 @@ import UserPubParticipated from "./component/UserPubParticipated";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import FormDemandeEscpacePubs from "./component/FormDemandeEscpacePubs";
 import AuthContext from "../../Context/auth/authContext";
+import UserContext from "../../Context/user/userContext";
+
 function AbonnéHomePage() {
   const { path } = useRouteMatch();
   const authContext = useContext(AuthContext);
   const { loadUser } = authContext;
+  const userContext = useContext(UserContext);
+  //app level state
+  const { getCatégorie } = userContext;
 
   useEffect(() => {
+    getCatégorie();
     loadUser();
   }, []);
   return (
-    // <FormDemandeEscpacePubs/>
     <div>
       <AboHeader />
       <div className="homePageBody">

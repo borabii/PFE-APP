@@ -9,7 +9,7 @@ import signUpFormValidation from "../home-page/SignUpFormValidation";
 function SignUp() {
   const authContext = useContext(AuthContext);
   //app level state
-  const { isAuthenticated, signUp } = authContext;
+  const { isAuthenticated, signUp, invalidUserInformationMsg } = authContext;
   //this state is used for handling radio value
   const [gendre, setGendre] = useState("Homme");
   const radios = [
@@ -49,7 +49,7 @@ function SignUp() {
     event.preventDefault();
     setErrorsMsg(signUpFormValidation(userForm));
 
-    if (Object.keys(errorsMsg).length == 0) {
+    if (Object.keys(errorsMsg).length <= 0) {
       signUp({
         firstName,
         lastName,
@@ -157,6 +157,9 @@ function SignUp() {
                 Inscription
               </button>
             </div>
+            {invalidUserInformationMsg && (
+              <div style={{ color: "red" }}>{invalidUserInformationMsg}</div>
+            )}
           </form>
         </div>
       </div>

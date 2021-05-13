@@ -4,37 +4,45 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import SearchIcon from "@material-ui/icons/Search";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import DetailAnnonceurPopUp from "./DetailAnnonceurPopUp";
+import { getDate } from "../../../utilis/date";
 
 class UserAnnonceur extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: null,
+      annonceur: null,
       detailReqModalShow: false,
-      DemandeurData: {
-        firstName: "",
-        lastName: "",
-        email: "",
-        imageProfile: "",
-        inscriDate: "",
-      },
-      annonceurs: [
-        {
-          _id: "6089f86bfcf1b64cd0974cfd",
-          firstName: "tezedzed",
-          lastName: "tezedzed",
-          email: "wdfgh@dsg",
-          description: "tezedzed",
-          adresse: "aaaaa",
-          user: "607e141dc0fb704f84df1b46",
-          categorie: "foot",
-          inscriDate: "2021-04-29T00:06:03.199Z",
-          __v: 0,
-        },
-      ],
+      DemandeurData: {},
+      annonceurs: [],
     };
   }
 
+  //this method is used to store in annonceur State which object is
+  //selected in table to passe it like a props to the modal
+  selectdAnnonceur = (index) => {
+    const user = this.state.annonceurs[index];
+    this.setState({ annonceur: user });
+    axios
+      .get(
+        `http://localhost:8000/api/users/Admin/getDemandeur/${user.abonnéId}`
+      )
+      .then((response) => this.setState({ DemandeurData: response.data }));
+  };
+  //this method run when user click in action icon that delete annonceur
+
+  deletannonceur = (data) => {
+    if (window.confirm(`Vous êtes sûre de supprimer :${data.nomAnnonceur} ?`)) {
+      axios
+        .delete(
+          `http://localhost:8000/api/users/Admin/deleteAnnonceure/${data._id}`
+        )
+        .then((response) => {
+          this.setState({ annonceurs: response.data.annonceurs });
+        });
+    }
+  };
+  //run when compoenet is mounted to get all annonceur stored in db and set the state(annonceurs)
+  //with response data
   componentDidMount() {
     axios
       .get("http://localhost:8000/api/users/Admin/getAnnonceur")
@@ -42,30 +50,6 @@ class UserAnnonceur extends React.Component {
         this.setState({ annonceurs: response.data });
       });
   }
-  selectAnnonceur = (index) => {
-    const user = this.state.annonceurs[index];
-    this.setState({ id: user });
-    axios
-      .get(
-        `http://localhost:8000/api/users/Admin/getDemandeur/${user.abonnéId}`
-      )
-      .then((response) => this.setState({ DemandeurData: response.data }));
-  };
-  deletannonceur = (data) => {
-    if (window.confirm(`Vous êtes sûre de supprimer :${data.nomAnnonceur} ?`)) {
-      axios
-        .delete(
-          `http://localhost:8000/api/users/Admin/deleteAnnonceure/${data._id}`
-        )
-
-        .then((response) => {
-          this.setState({ annonceurs: response.data.annonceurs });
-
-          console.log(response.data);
-        });
-    }
-  };
-
   render() {
     return (
       <div className="userAnnonceur">
@@ -111,13 +95,13 @@ class UserAnnonceur extends React.Component {
                         <td>{data.nomAnnonceur}</td>
                         <td> {data.emailProAnnonceur}</td>
                         <td>{data.catégorieAnnonceur}</td>
-                        <td>{data.aceptationDate}</td>
+                        <td>{getDate(data.aceptationDate)}</td>
                         <td id="icone-action">
-                          <div onClick={() => this.selectAnnonceur(index)}>
+                          <div onClick={() => this.selectdAnnonceur(index)}>
                             <DetailAnnonceurPopUp
                               user={
-                                this.state.id
-                                  ? this.state.id
+                                this.state.annonceur
+                                  ? this.state.annonceur
                                   : this.state.annonceurs
                               }
                               demandeur={this.state.DemandeurData}

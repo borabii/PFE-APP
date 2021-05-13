@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+//icon
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import SearchIcon from "@material-ui/icons/Search";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
+import AssistantPhotoIcon from "@material-ui/icons/AssistantPhoto";
 import AuthContext from "../../../Context/auth/authContext";
-
+//routing
 import history from "../../../utilis/history";
 import { NavLink, useRouteMatch } from "react-router-dom";
 //this methode is used for detecting user mouse click out side searsh result
@@ -32,10 +34,11 @@ let useClickOutside = (handler) => {
 };
 function AboHeader() {
   const { url } = useRouteMatch();
-
+  //create a ref
   let domNode = useClickOutside(() => {
     setShowSearchResultDropdown(false);
   });
+  //create a ref
   let domNode1 = useClickOutside(() => {
     setShowProfilDopDown(false);
   });
@@ -45,9 +48,8 @@ function AboHeader() {
 
   //(Componenet level State)
   //this state for hide/show search result Dropdown when clicking on the searsh input bar
-  const [showSearchResultDropdown, setShowSearchResultDropdown] = useState(
-    false
-  );
+  const [showSearchResultDropdown, setShowSearchResultDropdown] =
+    useState(false);
 
   //(Componenet level State)
   //this state for hide/show search result Dropdown when clicking on the searsh input bar
@@ -213,7 +215,7 @@ function AboHeader() {
                           color: "#fea041",
                         }}
                       >
-                        <AccountCircleIcon className="dropDown-icon" />
+                        <AssistantPhotoIcon className="dropDown-icon" />
                         Espace Pubs
                       </NavLink>
                     </div>
@@ -226,8 +228,8 @@ function AboHeader() {
                           color: "#fea041",
                         }}
                       >
-                        <AccountCircleIcon className="dropDown-icon" />
-                        Demande Escpace{" "}
+                        <AssistantPhotoIcon className="dropDown-icon" />
+                        Espace Pubs{" "}
                       </NavLink>
                     </div>
                   )}{" "}
@@ -252,6 +254,46 @@ function AboHeader() {
                 </div>
               </div>
             </Nav.Link>
+            {user.isAnnonceur ? (
+              <h4
+                id="btnProfil-small-device"
+                style={{ marginTop: 8, marginBottom: 15 }}
+              >
+                <NavLink
+                  to={`${url}/EscpacePub`}
+                  exact
+                  activeStyle={{
+                    color: "rgba(0,0,0,.5)  ",
+                  }}
+                  className="navCollaps-item"
+                >
+                  Espace Pubs{" "}
+                </NavLink>
+              </h4>
+            ) : (
+              <h4
+                id="btnProfil-small-device"
+                style={{ marginTop: 8, marginBottom: 15 }}
+              >
+                <NavLink
+                  to={`${url}/FormDemandeEscpacePubs`}
+                  exact
+                  activeStyle={{
+                    color: "rgba(0,0,0,.5)  ",
+                  }}
+                  className="navCollaps-item"
+                >
+                  Espace Pubs{" "}
+                </NavLink>
+              </h4>
+            )}{" "}
+            <NavLink
+              to={`${url}/MesActivités`}
+              exact
+              className="navCollaps-item"
+            >
+              <h4 id="btnProfil-small-device">Mes Activités </h4>
+            </NavLink>
             <Nav.Link>
               <h4 id="btnProfil-small-device" onClick={onLogout}>
                 Déconnexion

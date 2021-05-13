@@ -4,46 +4,39 @@ import UserContext from "../../../Context/user/userContext";
 import { useSnackbar } from "notistack";
 function FormDemandeEscpacePubs() {
   //app level state
-
   const userContext = useContext(UserContext);
   //app level state
   const {
-    sendDemandeAnnonceur,
+    sendDemandeAbonné,
     responseMessage,
     ClearResponseMessage,
+    catégorieOption,
   } = userContext;
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-  ];
-  //component level state
-  const [categorie, setCategorie] = useState("");
-  const [open, setOpen] = useState(false);
-  const handleInputChange = (inputValue) => {
-    setCategorie(inputValue.value);
-  };
+  //state for handling user input
   const [demandeAnnonceur, setDemandeAnnonceur] = useState({
     nomAnnonceur: "",
     adresseAnnonceur: "",
     numTelAnnonceur: "",
     emailProAnnonceur: "",
-    // catégorieAnnonceur: "",
+    catégorieAnnonceur: "",
     justificatifAnnonceur: "",
   });
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    //creat a new object formData from state(demandeAnnonceur) value
     const formData = new FormData();
     formData.append("nomAnnonceur", demandeAnnonceur.nomAnnonceur);
     formData.append("adresseAnnonceur", demandeAnnonceur.adresseAnnonceur);
     formData.append("numTelAnnonceur", demandeAnnonceur.numTelAnnonceur);
     formData.append("emailProAnnonceur", demandeAnnonceur.emailProAnnonceur);
+    formData.append("catégorieAnnonceur", demandeAnnonceur.catégorieAnnonceur);
+
     formData.append(
       "justificatifAnnonceur",
       demandeAnnonceur.justificatifAnnonceur
     );
-    sendDemandeAnnonceur(formData);
+    //global method created in userState to send formDate to server
+    sendDemandeAbonné(formData);
     //clear form after submit
     setDemandeAnnonceur({
       nomAnnonceur: "",
@@ -54,29 +47,32 @@ function FormDemandeEscpacePubs() {
       justificatifAnnonceur: "",
     });
   };
-
+  // method used to handel inputs change in form
   const handelChange = (event) => {
     setDemandeAnnonceur({
       ...demandeAnnonceur,
       [event.target.name]: event.target.value,
     });
   };
-
+  // method used to handel select change in form
+  const handelCatégorieChange = (selectedOption) => {
+    setDemandeAnnonceur({
+      ...demandeAnnonceur,
+      catégorieAnnonceur: selectedOption.label,
+    });
+  };
+  // method used to handel inputs[type=file] change in form
   const imageSelectHandler = (event) => {
     setDemandeAnnonceur({
       ...demandeAnnonceur,
       justificatifAnnonceur: event.target.files[0],
     });
   };
+  //used to display response message if exisit
   const { enqueueSnackbar } = useSnackbar();
-
   useEffect(() => {
     if (responseMessage !== "aucune message") {
-      enqueueSnackbar(
-        responseMessage,
-
-        { variant: "success" }
-      );
+      enqueueSnackbar(responseMessage, { variant: "success" });
     }
     return () => {
       ClearResponseMessage();
@@ -143,10 +139,9 @@ function FormDemandeEscpacePubs() {
           <Select
             className="basic-single"
             classNamePrefix="select"
-            name="actCategory"
-            options={options}
-            value={categorie}
-            onChange={handleInputChange}
+            name="catégorieAnnonceur"
+            options={catégorieOption}
+            onChange={handelCatégorieChange}
           />
         </div>
         <div className="demmande-formInput">

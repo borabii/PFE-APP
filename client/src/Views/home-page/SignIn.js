@@ -7,7 +7,7 @@ import history from "../../utilis/history";
 function SignIn() {
   const authContext = useContext(AuthContext);
   //app level state
-  const { isAuthenticated, login } = authContext;
+  const { isAuthenticated, login, invalidUserInformationMsg } = authContext;
   const userRole = localStorage.getItem("role");
   //component level state for handling user inputed values
   const [userForm, setUserForm] = useState({
@@ -21,7 +21,7 @@ function SignIn() {
   //redirect user after signIn
   useEffect(() => {
     if (isAuthenticated) {
-      if (userRole === "Admin") {
+      if (userRole === "Admin" || userRole === "Super Admin") {
         history.push("/AdminHomePage");
       } else {
         history.push("/AbonnéHomePage");
@@ -35,12 +35,13 @@ function SignIn() {
       ...userForm,
       [event.target.name]: event.target.value,
     });
+    setErrorsMsg(signInFormValidation(userForm));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrorsMsg(signInFormValidation(userForm));
-    if (Object.keys(errorsMsg).length == 0) {
+    if (Object.keys(errorsMsg).length <= 0) {
       login({
         email,
         password,
@@ -88,6 +89,9 @@ function SignIn() {
                 Connexion
               </button>
             </div>
+            {invalidUserInformationMsg && (
+              <div style={{ color: "red" }}>{invalidUserInformationMsg}</div>
+            )}
           </form>
         </div>
       </div>

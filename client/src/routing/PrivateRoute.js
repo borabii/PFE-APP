@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-// Synthax for creating private route in react
+//private route in react
 const PrivateRoute = ({ component: Component, ...rest }) => {
   // props
   const role = localStorage.getItem("role");

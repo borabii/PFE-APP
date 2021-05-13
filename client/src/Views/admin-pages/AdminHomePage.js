@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, useContext, useEffect, useState } from "react";
 import "./Style.css";
 
 import BoiteMessage from "./component/BoiteMessage";
@@ -15,38 +15,57 @@ import AdminManagment from "./component/AdminManagment";
 import AdressManagment from "./component/AdressManagment";
 
 import { SideBarData } from "./component/SideBarData";
-import { Route, Switch, Link, useRouteMatch } from "react-router-dom";
+import { Route, Switch, useRouteMatch, NavLink } from "react-router-dom";
 import AdminNavbar from "./component/AdminNavbar";
-
+import AuthContext from "../../Context/auth/authContext";
 function AdminHomePage() {
   const { url, path } = useRouteMatch();
+  const authContext = useContext(AuthContext);
+  const { user, loadUser } = authContext;
+  const [result, setResult] = useState([]);
 
+  useEffect(() => {
+    if (user.role === "Super Admin") {
+      return setResult(SideBarData);
+    } else {
+      return setResult(
+        SideBarData.filter((item) => item.permission === user.permission)
+      );
+    }
+  }, [user]);
+  useEffect(() => {
+    loadUser();
+  }, []);
   return (
     <div className="adminHomePage">
       <AdminNavbar />
-
       <div className="adminHomePage__container">
-        <div className=" navbar adminHomePage__sidbar">
+        <div className=" navbar px-0  adminHomePage__sidbar">
           <div className="sidbar__item">
-            <ul>
-              {/* get sid menu item from sideBarData */}
-              {SideBarData.map((item, index) => {
-                return (
-                  <li className={item.cName} key={index}>
-                    <Link to={`${url}${item.path}`} id="link-style">
-                      <span>{item.title}</span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+            {/* get sid menu item from sideBarData */}
+            <NavLink to={path} exact activeClassName="selected" id="link-style">
+              <span id="sidebar-itemTitle">Dashbored</span>
+            </NavLink>
+            {result.map((item, index) => {
+              return (
+                <NavLink
+                  key={index}
+                  to={`${url}${item.path}`}
+                  exact
+                  activeClassName="selected"
+                  id="link-style"
+                >
+                  <span id="sidebar-itemTitle">{item.title}</span>
+                </NavLink>
+              );
+            })}
           </div>
         </div>
 
         <div className=" container">
           <div className=" container  px-4  body-container">
             <Switch>
-              <Route path={path} exact component={Dashboard} />
+              <Route path={`${path}`} exact component={Dashboard} />
 
               <Route path={`${path}/boiteMessage`} component={BoiteMessage} />
               <Route

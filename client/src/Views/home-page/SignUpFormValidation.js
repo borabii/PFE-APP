@@ -8,10 +8,10 @@ const SignUpFormValidation = (values) => {
   }
   if (!values.password) {
     errorsMsg.password = "Obligatoire";
-  } else if (values.password.length < 5) {
+  } else if (values.password.length < 7) {
     errorsMsg.password = "minimun 8 caractere";
   }
-  if (values.password.localeCompare(values.ConfirmPassword) != 0) {
+  if (values.password.localeCompare(values.ConfirmPassword) !== 0) {
     errorsMsg.ConfirmPassword = "Les mots de passe ne correspondent pas";
   }
   return errorsMsg;

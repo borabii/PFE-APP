@@ -1,28 +1,36 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer } from "react";
 import axios from "axios";
 import AuthContext from "./authContext";
 import authReducer from "./authReducer";
 import setAuthToken from "../../utilis/setAuthToken";
 
-import { LOGIN_SUCCESS, USER_LOADED, REGISTER_SUCCESS, LOGOUT } from "../types";
+import {
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  USER_LOADED,
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  LOGOUT,
+} from "../types";
 const AuthState = (props) => {
+  //global state
   const initialState = {
     token: localStorage.getItem("token"),
     isAuthenticated: null,
+    invalidUserInformationMsg: "",
     user: { isAnnonceur: " " },
   };
   const [state, dispatch] = useReducer(authReducer, initialState);
   const loadUser = async () => {
     // to load token into global headers
-    // if localStorage.token exists
+    // if token in localStorage exists
     if (localStorage.getItem("token")) {
-      setAuthToken(localStorage.getItem("token")); //  axios.defaults.headers.common['x-auth-token'] = token;
+      setAuthToken(localStorage.getItem("token")); //  axios.defaults.headers.common['token'] = token;
     }
 
     // to get user object { id, name, email, type, phone }
     try {
       const res = await axios.get("http://localhost:8000/api/auth");
-
       dispatch({
         type: USER_LOADED,
         payload: res.data,
@@ -50,7 +58,10 @@ const AuthState = (props) => {
         payload: response.data,
       });
     } catch (err) {
-      console.log(err);
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: err.response.data.msg,
+      });
     }
   };
 
@@ -72,7 +83,10 @@ const AuthState = (props) => {
         payload: response.data,
       });
     } catch (err) {
-      console.log(err);
+      dispatch({
+        type: REGISTER_FAIL,
+        payload: err.response.data.msg,
+      });
     }
   };
 
@@ -84,6 +98,7 @@ const AuthState = (props) => {
         token: state.token,
         isAuthenticated: state.isAuthenticated,
         user: state.user,
+        invalidUserInformationMsg: state.invalidUserInformationMsg,
         loadUser,
         login,
         signUp,

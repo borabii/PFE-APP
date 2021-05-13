@@ -442,6 +442,11 @@
     font-weight: 500;
     margin-right: 5px;
   }
+  .annonceurVisitedProfile-topSmallDevice > #annonceurSmallDev-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   /*********************************************/
   /********************************************/
   /**user visited profile small device style**/
