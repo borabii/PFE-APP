@@ -52,7 +52,7 @@ function Dashboard() {
                 <h5 className="card-title mycard-title">
                   Nombre total évenement
                 </h5>
-                <p className="card-text">1000</p>
+                <p className="card-text">{data.nbrEvent}</p>
               </div>
             </div>
           </div>
@@ -62,7 +62,7 @@ function Dashboard() {
                 <h5 className="card-title mycard-title">
                   Nombre total annonce
                 </h5>
-                <p className="card-text">1000</p>
+                <p className="card-text">{data.nbrAnnonce}</p>
               </div>
             </div>
           </div>
@@ -72,7 +72,7 @@ function Dashboard() {
                 <h5 className="card-title mycard-title">
                   Nombre total activité
                 </h5>
-                <p className="card-text">1000</p>
+                <p className="card-text">{data.nbrActivity}</p>
               </div>
             </div>
           </div>

@@ -21,6 +21,59 @@ export const getDate = (date) => {
   var month = dateObj.getUTCMonth() + 1; //months from 1-12
   var day = dateObj.getUTCDate();
   var year = dateObj.getUTCFullYear();
-  const newdate = year + "/" + month + "/" + day;
+  const newdate = year + "-" + month + "-" + day;
   return newdate;
+};
+
+//get cureent date
+export const getNowDate = () => {
+  var curr = new Date();
+  curr.setDate(curr.getDate());
+  var date = curr.toISOString().substr(0, 10);
+  return date;
+};
+
+//this methode is used for display monthName from date Sting
+export const getMonthName = (date) => {
+  let d = new Date(date);
+  let month = d.getUTCMonth() + 1;
+  let monthNames = [
+    "Janv",
+    "Févr",
+    "Mar",
+    "Avr",
+    "Mai",
+    "Juin",
+    "Juill",
+    "Août",
+    "Sept",
+    "Oct",
+    "Nov",
+    "Déc",
+  ];
+  let dateStr = monthNames[month - 1];
+  return dateStr;
+};
+//this methode is used for display day from date Sting
+export const getDay = (date) => {
+  let d = new Date(date);
+  var day = d.getUTCDate();
+  return day;
+};
+
+//this methode is used for display monthName from date Sting
+export const getDayName = (date) => {
+  let d = new Date(date);
+  let day = d.getUTCDay();
+  let dayNames = [
+    "Dimanche",
+    "Lundi",
+    "Mardi",
+    "Mercredi",
+    "Jeudi",
+    "Vendredi",
+    "Samedi",
+  ];
+  let dayStr = dayNames[day];
+  return dayStr;
 };

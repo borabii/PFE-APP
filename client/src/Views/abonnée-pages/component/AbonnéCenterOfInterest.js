@@ -92,7 +92,7 @@ function AbonnéCenterOfInterest() {
             {items &&
               items.map((item, index) => {
                 return (
-                  <Col>
+                  <Col xs={4} md={3} lg={2}>
                     <div className="userCatégorie">
                       <div className="userCatégorie-action">
                         <ClearIcon

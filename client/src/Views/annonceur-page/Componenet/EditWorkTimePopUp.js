@@ -9,7 +9,6 @@ function EditWorktimePopUp(props) {
   const handelTimeChange = (event) => {
     settime({ ...time, [event.target.name]: event.target.value });
   };
-  console.log(time);
   return (
     <Modal
       {...props}
@@ -32,7 +31,7 @@ function EditWorktimePopUp(props) {
                 <input type="time" />
               </div>
             </div>
-            {annonceur.horaireAnnonceur.map((item, index) => {
+            {/* {annonceur.horaireAnnonceur.map((item, index) => {
               return (
                 <div className="workTimeOption" key={index}>
                   <h2>{item.jour}</h2>
@@ -52,7 +51,7 @@ function EditWorktimePopUp(props) {
                   </div>
                 </div>
               );
-            })}
+            })} */}
             {/* <div className="workTimeOption">
               <h2>Lundi</h2>
               <div className="TimeValue">

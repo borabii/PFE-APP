@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Modal from "react-bootstrap/Modal";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import MapIcon from "@material-ui/icons/Map";
-
+import UserContext from "../../../Context/user/userContext";
+import PubContext from "../../../Context/Publication/pubContext";
+import { getNowDate } from "../../../utilis/date";
 function AddEventPopUp(props) {
+  //app level state
+  const userContext = useContext(UserContext);
+  const { catégorieOption, annonceur } = userContext;
+  const pubContext = useContext(PubContext);
+  const { addEvent } = pubContext;
   // this state is use for handle participant counter value
   const [nbr_place, setNbr_place] = useState(0);
 
@@ -22,25 +29,19 @@ function AddEventPopUp(props) {
       setNbr_place(nbr_place - 1);
     }
   };
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-  ];
+
   const animatedComponents = makeAnimated();
-  const [categorie, setCategorie] = useState("");
-  const handleInputChange = (inputValue) => {
-    setCategorie(inputValue.value);
-  };
+
   const [evenement, setEvenement] = useState({
     description: "",
     adresse: "",
     nbr_place: "",
-    date_DebutPub: "",
+    date_DebutPub: getNowDate(),
     heure_debutPub: "",
-    date_FinPub: "",
+    date_FinPub: getNowDate(),
     heure_finPub: "",
-    tarifEvent: "",
+    tarif: "",
+    categorie: "",
   });
   const {
     description,
@@ -49,19 +50,14 @@ function AddEventPopUp(props) {
     heure_debutPub,
     date_FinPub,
     heure_finPub,
-    tarifEvent,
+    tarif,
+    categorie,
   } = evenement;
-  const handelChange = (event) => {
-    setEvenement({
-      ...evenement,
-      [event.target.name]: event.target.value,
-    });
-    console.log(evenement);
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    setEvenement({ ...evenement, nbr_place: nbr_place });
+    addEvent(evenement, annonceur._id);
     setEvenement({
       description: "",
       adresse: "",
@@ -70,9 +66,23 @@ function AddEventPopUp(props) {
       heure_debutPub: "",
       date_FinPub: "",
       heure_finPub: "",
+      tarif: "",
     });
-    setCategorie("");
     setNbr_place(0);
+  };
+  const handelChange = (event) => {
+    setEvenement({
+      ...evenement,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  // method used to handel select change in form
+  const handelCatégorieChange = (selectedOption) => {
+    setEvenement({
+      ...evenement,
+      categorie: selectedOption.label,
+    });
   };
   return (
     <Modal
@@ -161,10 +171,9 @@ function AddEventPopUp(props) {
               <Select
                 className="basic-single"
                 classNamePrefix="select"
-                name="actCategory"
-                options={options}
-                value={categorie}
-                onChange={handleInputChange}
+                name="categorie"
+                options={catégorieOption}
+                onChange={handelCatégorieChange}
               />
             </div>
             <h3>Lieu d'événement</h3>
@@ -186,22 +195,22 @@ function AddEventPopUp(props) {
               <input
                 type="text"
                 placeholder="Tarif"
-                name="tarifEvent"
-                value={evenement.tarifEvent}
+                name="tarif"
+                value={evenement.tarif}
                 onChange={handelChange}
                 id="tarifEvent"
                 required
               />
             </div>
             <h3>Équipe</h3>
-            <div className="addAct-category" id="eventEquipe">
+            {/* <div className="addAct-category" id="eventEquipe">
               <Select
                 closeMenuOnSelect={false}
                 components={animatedComponents}
                 isMulti
                 options={options}
               />
-            </div>
+            </div> */}
 
             <button className="addAct-btn" type="submit">
               Publier

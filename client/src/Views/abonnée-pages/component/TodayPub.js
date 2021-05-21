@@ -17,14 +17,14 @@ function TodayPub() {
         breakPoints={breakPoints}
         className="pubCard-carousel"
       >
-        <PubCard />
-        <PubCard />
-
+        {/* <PubCard />
         <PubCard />
 
         <PubCard />
 
         <PubCard />
+
+        <PubCard /> */}
       </Carousel>
     </div>
   );

@@ -1,10 +1,36 @@
 const express = require("express");
 const Publication = require("../models/Publication");
+const Abonné = require("../models/Abonné");
 const auth = require("../middleware/auth"); //middleware next()
 const router = express.Router();
-const jwt = require("jsonwebtoken");
-const config = require("config");
-const jwt_decode = require("jwt-decode");
+const multer = require("multer");
+const Annonceur = require("../models/Annonceur");
+//for image upload
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + file.originalname);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  const allowedFileTypes = ["image/jpeg", "image/jpg", "image/png"];
+  if (allowedFileTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+let upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5,
+  },
+  fileFilter: fileFilter,
+});
 //add pub(type=="Activity")
 router.post("/addActivity", auth, async (req, res) => {
   const {
@@ -18,13 +44,6 @@ router.post("/addActivity", auth, async (req, res) => {
     heure_finPub,
   } = req.body;
   try {
-    //get user id from request parametre
-    // const id = req.params.id;
-    const token = JSON.stringify(req.headers.token);
-    token.replace(" ", "");
-    var decoded = jwt_decode(token);
-
-    // req.user = decoded.user;
     publication = new Publication({
       description,
       categorie,
@@ -34,27 +53,20 @@ router.post("/addActivity", auth, async (req, res) => {
       heure_debutPub,
       date_FinPub,
       heure_finPub,
-      user: decoded.user.id,
+      user: req.user.id,
     });
     const act = await publication.save();
-    res.send(act);
+    res.send({ msg: "Activité ajouter avec succes" });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
   }
 });
 //get all user(activity) posted activity
-router.get("/getAct", auth, async (req, res) => {
+router.get("/getActOrganized", auth, async (req, res) => {
   try {
-    //get token from req headers
-    let token = JSON.stringify(req.headers.token);
-    //remove first space caractere from token value
-    token.replace(" ", "");
-    //decode token value
-    var decoded = jwt_decode(token);
-
-    const activity = await Publication.find({ user: decoded.user.id }).sort({
-      date: -1,
+    const activity = await Publication.find({ user: req.user.id }).sort({
+      date_Pub: -1,
     }); //sort by date -1 -> most recent activity first
     res.json(activity);
   } catch (err) {
@@ -62,62 +74,214 @@ router.get("/getAct", auth, async (req, res) => {
     res.status(500).send("Server Error ");
   }
 });
-//delete publication(activity,event,annonce)
-router.delete("/deletepub/:pubId", auth, async (req, res) => {
-  const pubId = req.params.pubId;
-  await Publication.findByIdAndRemove({ typePub: "Activity", _id: pubId });
-  res.json({ msg: "Publication removed !" });
+//get all user(activity) participated activity
+router.get("/getActParticipated", auth, async (req, res) => {
+  try {
+    const activity = await Publication.find({ participants: req.user.id }).sort(
+      {
+        date_Pub: -1,
+      }
+    ); //sort by date -1 -> most recent activity first
+    res.json(activity);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error ");
+  }
 });
-//update publication (activity)
-router.put("/updateActivity/:actid", auth, async (req, res) => {
-  //auth = access users and token
-  // res.send('Update activity !');
+//get all posted pub(type=="Event") for user(annonceur)
+router.get("/getAnnonceurEvent/:annonceurId", async (req, res) => {
+  try {
+    const event = await Publication.find({
+      user: req.params.annonceurId,
+      typePub: "Event",
+    }).sort({
+      date_Pub: -1,
+    }); //sort by date -1 -> most recent activity first
+    res.json(event);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error ");
+  }
+});
+//get all posted pub(type=="Annonce")user(annonceur)
+router.get("/getAnnonceurAnnonce/:annonceurId", async (req, res) => {
+  try {
+    const event = await Publication.find({
+      user: req.params.annonceurId,
+      typePub: "Annonce",
+    }).sort({
+      date_Pub: -1,
+    }); //sort by date -1 -> most recent activity first
+    res.json(event);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error ");
+  }
+});
+//update publication (activity,annonce,event)
+router.put("/updatePublication/:pubId", auth, async (req, res) => {
+  const {
+    description,
+    adresse,
+    date_DebutPub,
+    heure_debutPub,
+    date_FinPub,
+    heure_finPub,
+    nbr_place,
+    tarif,
+    categorie,
+  } = req.body;
+  try {
+    // Build activity object to store which value are requested from user
+    const activityFields = {};
+    if (description) activityFields.description = description; // if there's description -> add to activityFields.description
+    if (adresse) activityFields.adresse = adresse;
+    if (date_DebutPub) activityFields.date_DebutPub = date_DebutPub;
+    if (heure_debutPub) activityFields.heure_debutPub = heure_debutPub;
+    if (date_FinPub) activityFields.date_FinPub = date_FinPub;
+    if (heure_finPub) activityFields.heure_finPub = heure_finPub;
+    if (tarif) activityFields.tarif = tarif;
+    if (categorie) activityFields.categorie = categorie;
+    if (nbr_place) activityFields.nbr_place = nbr_place;
+
+    //find activity where id='/:actid'
+    let pub = await Publication.findById(req.params.pubId); //req.params.actid = '/:actid'
+
+    // if not activity = (not found)
+    if (!pub) return res.status(404).json({ msg: "Activity not found" });
+
+    pub = await Publication.findByIdAndUpdate(
+      req.params.pubId,
+      { $set: activityFields },
+      { new: true } // if this activity doesn't exist, then CREATE NEW ONE
+    );
+    //send updated activity to user
+    res.json({ pub, msg: "Publication mise a jour avec succés" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error ");
+  }
+});
+//get participant data in pub
+router.get("/getParticipantData/:pubId", auth, async (req, res) => {
+  try {
+    const participants = await Publication.findById(req.params.pubId).select(
+      "participants"
+    );
+    const participant = await Abonné.find({
+      _id: { $in: participants.participants },
+    }).select(
+      "firstName lastName dateOfBirth dateOfBirth imageProfile adress "
+    );
+    res.send(participant);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+//participate to  Publication
+router.put("/partcipatePub/:pubId", auth, async (req, res) => {
+  try {
+    Publication.findById(req.params.pubId).then((post) => {
+      if (
+        post.participants.filter((item) => item.toString() === req.user.id)
+          .length > 0
+      ) {
+        return res
+          .status(400)
+          .json({ msg: "user déja participer a cette publication" });
+      }
+
+      // Add user id to participants array
+      post.participants.unshift(req.user.id);
+
+      post.save().then((post) => res.json(post));
+    });
+  } catch (err) {}
+});
+// add  event
+router.post("/addEvent/:annonceurId", auth, async (req, res) => {
   const {
     description,
     categorie,
     adresse,
     nbr_place,
+    tarif,
     date_DebutPub,
     heure_debutPub,
     date_FinPub,
     heure_finPub,
   } = req.body;
   try {
-    // Build activity object to store which value are requested from user
-    const activityFields = {};
-    if (description) activityFields.description = description; // if there's description -> add to activityFields.description
-    if (categorie) activityFields.categorie = categorie;
-    if (adresse) activityFields.adresse = adresse;
-    if (date_DebutPub) activityFields.date_DebutPub = date_DebutPub;
-    if (heure_debutPub) activityFields.heure_debutPub = heure_debutPub;
-    if (date_FinPub) activityFields.date_FinPub = date_FinPub;
-    if (nbr_place) activityFields.nbr_place = nbr_place;
-    if (heure_finPub) activityFields.heure_finPub = heure_finPub;
-    //find activity where id='/:actid'
-    let activity = await Publication.findById(req.params.actid); //req.params.actid = '/:actid'
-
-    // if not activity = (not found)
-    if (!activity) return res.status(404).json({ msg: "Activity not found" });
-
-    activity = await Publication.findByIdAndUpdate(
-      req.params.actid,
-      { $set: activityFields },
-      { new: true } // if this activity doesn't exist, then CREATE NEW ONE
-    );
-    //send updated activity to user
-    res.json(activity);
+    publication = new Publication({
+      description,
+      categorie,
+      adresse,
+      tarif,
+      nbr_place,
+      date_DebutPub,
+      heure_debutPub,
+      date_FinPub,
+      heure_finPub,
+      user: req.params.annonceurId,
+      typePub: "Event",
+    });
+    const event = await publication.save();
+    res.send({ event, msg: "Evenement  ajouter avec succes" });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server error ");
+    res.status(500).send("Server Error");
   }
 });
+// add  annonce
+router.post(
+  "/addAnnonce/:annonceurId",
+  auth,
+  upload.single("imageAnnonce"),
+  async (req, res) => {
+    const { description, categorie, date_DebutPub, date_FinPub } = req.body;
 
+    try {
+      const annonceurAdr = await Annonceur.findById(
+        req.params.annonceurId
+      ).select("adresseAnnonceur -_id");
+      publication = new Publication({
+        description,
+        categorie,
+        adresse: annonceurAdr.adresseAnnonceur,
+        image_url: req.file.filename,
+        date_DebutPub,
+        date_FinPub,
+        user: req.params.annonceurId,
+        typePub: "Annonce",
+      });
+      const annonce = await publication.save();
+      res.send({ annonce, msg: "Annonce  ajouter avec succes" });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
 /**************************************************************** */
-router.get("/Admin/getActivity", async (req, res) => {
+//delete publication(activity,event,annonce)
+router.delete("/deletepub/:pubId", async (req, res) => {
+  try {
+    const pubId = req.params.pubId;
+    const typePub = await Publication.findByIdAndRemove(pubId).select(
+      "typePub "
+    );
+    res.json({ typePub, msg: "Publication supprimer avec succés !" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+router.get("/Admin/getActivities", async (req, res) => {
   try {
     const activity = await Publication.find({ typePub: "Activity" });
 
-    res.json({ activity });
+    res.json(activity);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error ");
@@ -128,6 +292,16 @@ router.get("/Admin/getAnnonces", async (req, res) => {
   try {
     const annonces = await Publication.find({ typePub: "Annonce" });
     res.json(annonces);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error get contacts");
+  }
+});
+//get all publication(event) for admin
+router.get("/Admin/getEvents", async (req, res) => {
+  try {
+    const events = await Publication.find({ typePub: "Event" });
+    res.json(events);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error get contacts");

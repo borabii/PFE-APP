@@ -192,7 +192,7 @@
 /*****pub card Style******/
 /************************/
 .pubCard {
-  width: 25rem;
+  width: 100%;
   height: 15rem;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
@@ -233,11 +233,15 @@
 }
 .pubCard > .pubCard-info {
   display: flex;
+  justify-content: space-between;
   background-color: #f6f5f5;
   height: 30%;
   border-radius: 0px 0px 30px 30px;
 }
-.pubCard-info > .pubInfo-date {
+.pubCard-info > .pubCardInfo-left {
+  display: flex;
+}
+.pubCard-info > .pubCardInfo-left > .pubInfo-date {
   text-align: center;
   margin-left: 20px;
   margin-top: 8px;
@@ -248,15 +252,15 @@
   margin-bottom: 0px;
 }
 
-.pubCard-info > .pubInfo-add {
+.pubCard-info > .pubCardInfo-left > .pubInfo-add {
   margin-left: 12px;
   margin-top: 5px;
 }
-.pubCard-info > .pubInfo-add > h4 {
+.pubCard-info > .pubCardInfo-left > .pubInfo-add > h4 {
   font-size: 20px;
   margin-bottom: 0px;
 }
-.pubCard-info > .pubInfo-add,
+.pubCard-info > .pubCardInfo-left > .pubInfo-add,
 .pubInfo-date > p {
   font-size: 15px;
   color: #040941;
@@ -267,6 +271,36 @@
 .pubInfo-add > span > #pubLoc-icon {
   color: red;
   width: 15px;
+}
+.pubCard-info > .pubCardInfo-rigth {
+  display: flex;
+
+  margin-right: 10px;
+  margin-top: 8px;
+}
+#editEvent-icon {
+  color: #3aceb9;
+  width: 30px;
+  height: 40px;
+  cursor: pointer;
+}
+#detailEvent-icon {
+  color: #040941;
+  margin-top: 4px;
+  width: 50px;
+  height: 40px;
+  cursor: pointer;
+}
+#deletEvent-icon {
+  margin-top: 4px;
+  color: red;
+  width: 30px;
+  height: 40px;
+  cursor: pointer;
+}
+.noPaddingPubCard {
+  padding-left: 50;
+  padding-right: 0;
 }
 /*************************/
 /**catégorie card style**/
@@ -293,6 +327,7 @@
 }
 .userPubOrganized__passedPub {
   width: 100%;
+  margin-top: 20px;
 }
 .comingPub-title {
   width: 218px;
@@ -988,7 +1023,7 @@ input[type="file"] {
 .userCatégorie-action {
   position: absolute;
   top: -10%;
-  left: 24%;
+  left: 50%;
   width: 30px;
   height: 30px;
   background-color: #3aceb9;
@@ -1080,6 +1115,229 @@ input[type="file"] {
 .demmande-formBtn > button:hover {
   background-color: #3aceb9;
   color: white;
+}
+/*************************************/
+/***abonné Activités page style******/
+/***********************************/
+.abonnéActivités > .abonnéActivités-btnContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.act-switchComponent {
+  width: fit-content;
+  border-radius: 10px;
+  border: 2px solid #a09d9d;
+}
+.act-switchComponent > #switch-btnleft {
+  border-radius: 8px 0px 0px 8px;
+  outline: none;
+  border: none;
+  border-right: 1px solid black;
+  width: 200px;
+  height: 40px;
+  transition: all 1s ease;
+}
+#disableLinkStyle {
+  font-size: 20px;
+  letter-spacing: 0.02rem;
+  font-weight: 500;
+  color: #040941;
+  text-decoration: none;
+}
+.act-switchComponent > #switch-btnrigth {
+  border-radius: 0px 8px 8px 0px;
+  width: 200px;
+  height: 40px;
+  outline: none;
+  border: none;
+  transition: all 1s ease;
+}
+/*******************************************************/
+/**************Pub Detail PopUp************************/
+/*****************************************************/
+.pubDetailPopUp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.pubDetailPopUp__info {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+}
+
+.pubDetailPopUp__info > .pub__info {
+  font-size: 15px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  background-color: #f6f5f5;
+}
+#description {
+  margin-left: 30%;
+  margin-right: 30%;
+}
+.pubDetailPopUp__organizateur {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  align-items: center;
+  width: 100%;
+}
+.organizateur__container {
+  display: flex;
+  margin: 20px;
+  background-color: #f6f5f5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  width: 100%;
+}
+.organizateur__container > img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  border: 2px solid #3aceb9;
+  margin: 20px;
+}
+.organizateur__info {
+  display: flex;
+  margin-left: 30px;
+  margin-top: 20px;
+}
+.pubDetailPopUp__participation {
+  padding-bottom: 40px;
+}
+.btn-participation {
+  border-radius: 10px;
+  background-color: #44c9bb;
+  color: white;
+  width: 250px;
+  height: 40px;
+  text-transform: uppercase;
+  border: none;
+  outline: none;
+  transition: all 0.5s linear;
+}
+.btn-participation:hover {
+  background-color: #ef8b25;
+  color: white;
+  text-transform: uppercase;
+}
+
+.pubDetailPopUp__prticipant {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#hide {
+  visibility: hidden;
+}
+.pubDetailPopUp__prticipant > .pub-partcipantList {
+  font-size: 15px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  background-color: #f6f5f5;
+}
+.pub-partcipantList > .pub-particiant {
+  display: flex;
+  justify-content: space-between;
+}
+.pub-partcipantList > .pub-particiant > .pub-particiantLeft {
+  display: flex;
+  margin-left: 5px;
+}
+.pub-partcipantList > .pub-particiant > .pub-particiantLeft > img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #3aceb9;
+  align-self: center;
+}
+.pub-partcipantList
+  > .pub-particiant
+  > .pub-particiantLeft
+  > .pub-particiantInfo {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  padding-top: 15px;
+}
+.pub-partcipantList
+  > .pub-particiant
+  > .pub-particiantLeft
+  > .pub-particiantInfo
+  > #participant-name {
+  font-weight: 600;
+  letter-spacing: 0.02rem;
+}
+.pub-partcipantList
+  > .pub-particiant
+  > .pub-particiantLeft
+  > .pub-particiantInfo
+  > #participant-age {
+  margin-top: -18px;
+  margin-left: -76px;
+}
+.pub-partcipantList
+  > .pub-particiant
+  > .pub-particiantLeft
+  > .pub-particiantInfo
+  > #participant-adresse {
+  margin-top: -18px;
+  margin-left: -65px;
+}
+.pub-partcipantList
+  > .pub-particiant
+  > .pub-particiantLeft
+  > .pub-particiantInfo
+  > #participant-adresse
+  > #paricipantAdresse-icon {
+  color: red;
+  width: 20px;
+  height: 20px;
+}
+.pub-partcipantList > .pub-particiant > .pub-particiantAction {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  letter-spacing: 0.02rem;
+}
+.pub-participant-action {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 10px;
+}
+.pub-participant-action > .pub-participant-actioIcon > #accpetParticipant-icon {
+  color: #44c9bb;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.pub-participant-action > .pub-participant-actioIcon > #removeParticipant-icon {
+  color: #44c9bb;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+.pub-participant-action
+  > .pub-participant-actioIcon
+  > #visitParticipantAccount-icon {
+  color: #44c9bb;
+  width: 40px;
+  height: 35px;
+  margin-left: 10px;
+  cursor: pointer;
 }
 /*******************************************************/
 /*************** medium device style*********************/
@@ -1311,6 +1569,27 @@ input[type="file"] {
   .homePageBody-Catégorie {
     margin-top: 50px;
   }
+  .homePageBody-TodayPub > h2 {
+    font-size: 25px;
+    font-weight: 400;
+    letter-spacing: 0.02rem;
+    font-family: "Roboto";
+  }
+  .homePageBody-Catégorie > h2 {
+    font-size: 25px;
+    font-weight: 400;
+    letter-spacing: 0.02rem;
+    font-family: "Roboto";
+  }
+  .homePageBody-ComingPub > h2 {
+    font-size: 25px;
+    font-weight: 400;
+    letter-spacing: 0.02rem;
+    font-family: "Roboto";
+  }
+  #emptyPubMSg {
+    font-size: 20px;
+  }
   /********************************************/
   /**********header small device style********/
   /******************************************/
@@ -1332,7 +1611,13 @@ input[type="file"] {
     height: 15rem;
     border-radius: 20px;
   }
-
+  .pubCard {
+    /* width: 95%; */
+  }
+  .noPaddingPubCard {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
   .pubCard-phone > .pubCard-image {
     border-radius: 20px 20px 0px 0px;
     height: 70%;
@@ -1350,6 +1635,7 @@ input[type="file"] {
     border-radius: 20px;
     text-align: center;
     margin-bottom: 30px;
+    margin-left: 10px;
     padding: 4px;
     text-transform: uppercase;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -1699,5 +1985,46 @@ input[type="file"] {
     font-weight: 500;
     letter-spacing: 0.03rem;
     margin-top: 40px;
+  }
+  /*************************************************************************/
+  /**************Pub Detail PopUp  small device style************************/
+  /*************************************************************************/
+  #noParticipant-msg {
+    font-size: 15px;
+    margin-top: 40px;
+    font-weight: 600;
+  }
+  /*************************************/
+  /***abonné Activités page style******/
+  /***********************************/
+  .abonnéActivités > .abonnéActivités-btnContainer {
+    margin-bottom: 30px;
+  }
+  .act-switchComponent {
+    width: fit-content;
+    border-radius: 15px;
+    border: 2px solid #a09d9d;
+  }
+  .act-switchComponent > #switch-btnleft {
+    border-radius: 13px 0px 0px 13px;
+
+    border-right: 1px solid black;
+    width: 150px;
+    height: 35px;
+  }
+  #disableLinkStyle {
+    font-size: 20px;
+    letter-spacing: 0.02rem;
+    font-weight: 500;
+    color: #040941;
+    text-decoration: none;
+  }
+  .act-switchComponent > #switch-btnrigth {
+    border-radius: 0px 13px 13px 0px;
+    width: 150px;
+    height: 35px;
+    outline: none;
+    border: none;
+    transition: all 1s ease;
   }
 }

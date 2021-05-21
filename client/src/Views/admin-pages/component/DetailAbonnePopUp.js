@@ -75,15 +75,16 @@ function DetailAbonnePopUp(props) {
               <h4>centre d'Interet</h4>
               <Container className="interet__categorie">
                 <Row xs={2} md={2} lg={4}>
-                  {centreInteret.map((item, index) => {
-                    return (
-                      <Col xs={6} md={6} lg={3}>
-                        <div id="cat" key={index}>
-                          {item}
-                        </div>
-                      </Col>
-                    );
-                  })}
+                  {centreInteret &&
+                    centreInteret.map((item, index) => {
+                      return (
+                        <Col xs={6} md={6} lg={3}>
+                          <div id="cat" key={index}>
+                            {item}
+                          </div>
+                        </Col>
+                      );
+                    })}
                 </Row>
               </Container>
             </div>

@@ -4,8 +4,11 @@ import TodayPub from "./TodayPub";
 import AddIcon from "@material-ui/icons/Add";
 import ComingPub from "./ComingPub";
 import AddActivityPopUp from "./AddActivityPopUp";
+
 import PubContext from "../../../Context/Publication/pubContext";
 import UserContext from "../../../Context/user/userContext";
+import { useSnackbar } from "notistack";
+import PubDetailPopUp from "./PubDetailPopup";
 
 // used for hide addActivity-btn-small when scrolling in small device screnn
 const useHideOnScrolled = () => {
@@ -26,20 +29,25 @@ const useHideOnScrolled = () => {
 
 function Home() {
   //component level state
-  const userContext = useContext(UserContext);
-  const { loadAnnonceur } = userContext;
   const pubContext = useContext(PubContext);
-  const { loadAct } = pubContext;
+  const { pubResponseMsg, ClearPubResponseMsg } = pubContext;
+
+  const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
-    loadAct();
-    loadAnnonceur();
-  }, []);
+    if (pubResponseMsg !== "aucune message") {
+      enqueueSnackbar(pubResponseMsg, { variant: "success" });
+    }
+    return () => {
+      ClearPubResponseMsg();
+    };
+  }, [pubResponseMsg]);
   const hidden = useHideOnScrolled();
   //this state is used to show/hide add activity popUp and it is passed as
   //a props to AddActivityPopUp
   const [showAddActivityPopUp, SetShowAddActivityPopUp] = useState(false);
   return (
     <div className="home">
+      <button>Map</button>
       <button
         className="addActivity-btn"
         onClick={() => SetShowAddActivityPopUp(true)}

@@ -109,38 +109,9 @@
   display: flex;
   width: 100%;
 }
-#eventCardInfo {
-  justify-content: space-between;
-  flex-direction: row;
-  padding-left: 5px;
-}
-#eventCard-left {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 10px;
-}
-#event-adresse {
-  margin-top: 5px;
-  margin-left: 10px;
-}
-#event-adresse > h4 {
-  font-size: 20px;
-}
-#date-event {
-  margin-left: 7px;
-}
-#event-action {
-  margin: 10px 10px 0px 0px;
-}
-#editEvent-icon {
-  color: #3aceb9;
-  width: 30px;
-  height: 40px;
-  cursor: pointer;
-}
-#event-card {
-  cursor: pointer;
+.noPadding {
+  padding-left: 10;
+  padding-right: 20;
 }
 /************************************/
 /**Annonceur visited profile style**/
@@ -248,14 +219,6 @@
   justify-content: center;
 }
 
-#annonce-img {
-  width: 250px;
-  height: 200px;
-  margin: 10px;
-  border-radius: 10px;
-  border: 2px solid gray;
-}
-
 .annonceurVisitedProfile > .annonceurVisitedProfile-topSmallDevice {
   display: none;
 }
@@ -265,6 +228,52 @@
 }
 #add {
   text-transform: uppercase;
+}
+/***************************************/
+/*******Annonce card style*************/
+/*************************************/
+.annonceCard {
+  position: relative;
+}
+#annonce-img {
+  display: block;
+  width: 100%;
+  height: 250px;
+  margin: 10px;
+  border-radius: 5px;
+  border: 2px solid gray;
+  cursor: pointer;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+#annonce-img:hover {
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+}
+.annonceCard-action {
+  position: absolute;
+  border-radius: 20px;
+  padding-left: 10px;
+  padding-right: 5px;
+  margin-bottom: 20px;
+  bottom: 0;
+  right: 0;
+  background-color: #f6f5f5;
+}
+.annonceCard-action > #annonceCardAction-edit {
+  color: #3aceb9;
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.annonceCard-action > #annonceCardAction-detail {
+  color: #040941;
+  width: 40px;
+  height: 30px;
+  cursor: pointer;
 }
 /***************************************/
 /*******AnnonceurWorktimePopUp*********/
@@ -413,6 +422,19 @@
   background-color: red;
   color: white;
 }
+/************************************/
+/******add annonce popup style******/
+/**********************************/
+
+.addActivityPopUp > .img__holder > img {
+  border: solid;
+  height: 300px;
+  width: 400px;
+  margin: 20px;
+}
+.addAct-form {
+  margin-bottom: 10px;
+}
 @media screen and (max-width: 600px) {
   /*******************************/
   /******Home profile style******/
@@ -446,6 +468,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .noPadding {
+    padding-left: 0;
+    padding-right: 20;
   }
   /*********************************************/
   /********************************************/
@@ -599,42 +625,5 @@
 
   .addActivity-btn {
     display: none;
-  }
-
-  /*******************************/
-  /**pubCard small device style**/
-  /*****************************/
-  .pubCard-phone {
-    width: 100%;
-    height: 15rem;
-    border-radius: 20px;
-  }
-
-  .pubCard-phone > .pubCard-image {
-    border-radius: 20px 20px 0px 0px;
-    height: 70%;
-    position: relative;
-  }
-  .pubCard-image > img {
-    border-radius: 20px 20px 0px 0px;
-    height: 100%;
-    width: 100%;
-  }
-  .comingPub-title {
-    width: 150px;
-    height: 40px;
-    background: #f6f5f5;
-    border-radius: 20px;
-    text-align: center;
-    margin-bottom: 30px;
-    padding: 4px;
-    text-transform: uppercase;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  }
-  .comingPub-title > h1 {
-    font-size: 25px;
-  }
-  .pubCard-phone > .pubCard-info {
-    border-radius: 0px 0px 20px 20px;
   }
 }

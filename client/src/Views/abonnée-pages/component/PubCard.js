@@ -1,33 +1,75 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-function PubCard() {
+import { getMonthName, getDay } from "../../../utilis/date";
+import UserContext from "../../../Context/user/userContext";
+import EditIcon from "@material-ui/icons/Edit";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import DeleteIcon from "@material-ui/icons/Delete";
+function PubCard(props) {
+  //app level state(user context)
+  const userContext = useContext(UserContext);
+  const { fullCatégorieData, getCatégorie } = userContext;
+  const [catImage, setCatImage] = useState("");
+  useEffect(() => {
+    getCatégorie();
+  }, []);
+  useEffect(() => {
+    if (fullCatégorieData !== null && props.act.categorie) {
+      setCatImage(
+        fullCatégorieData.filter((item) =>
+          props.act.categorie.includes(item.typeCatégorie)
+        )[0]
+      );
+    }
+
+    return () => {
+      setCatImage("");
+    };
+  }, [fullCatégorieData]);
   return (
-    <Card className=" mb-5  pubCard pubCard-phone ">
+    <Card className=" mb-3  pubCard pubCard-phone ">
       <div className="pubCard-image">
         <div className="pubCard-nbrParticipant">
-          <p>2 PLACES</p>{" "}
+          <p>{props.act.nbr_place} PLACES</p>{" "}
         </div>
         <div className="pubCard-horaire">
-          <p>15:00 - 17:00</p>
+          <p>
+            {props.act.heure_debutPub} - {props.act.heure_finPub}
+          </p>
         </div>
 
-        <img
-          src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
-          alt=""
-        />
+        <img src={`http://localhost:8000/${catImage.imageCatégorie}`} alt="" />
       </div>
       <div className="pubCard-info">
-        <div className="pubInfo-date">
-          <h4>Avril</h4>
-          <p>13</p>
+        <div className="pubCardInfo-left">
+          <div className="pubInfo-date" id="event-date">
+            <h4>{getMonthName(props.act.date_DebutPub)}</h4>
+            <p>{getDay(props.act.date_DebutPub)}</p>
+          </div>
+          <div className="pubInfo-add">
+            <h4>{props.act.categorie}</h4>
+            <span id="pub-add">
+              <LocationOnIcon id="pubLoc-icon" />
+              <p>{props.act.adresse}</p>
+            </span>
+          </div>
         </div>
-        <div className="pubInfo-add">
-          <h4>Tennis</h4>
-          <span id="pub-add">
-            <LocationOnIcon id="pubLoc-icon" />
-            <p>Ariana</p>
-          </span>
+        <div className="pubCardInfo-rigth">
+          <EditIcon
+            id="editEvent-icon"
+            style={{ display: props.editPubOption ? "block" : "none" }}
+            onClick={props.editOnClick}
+          />
+          <DeleteIcon
+            id="deletEvent-icon"
+            style={{ display: !props.editPubOption ? "block" : "none" }}
+            onClick={props.deleteOnClick}
+          />
+          <MoreHorizIcon
+            id="detailEvent-icon"
+            onClick={props.detailOnClickIcon}
+          />
         </div>
       </div>
     </Card>

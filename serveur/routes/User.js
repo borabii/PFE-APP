@@ -12,7 +12,7 @@ const Abonné = require("../models/Abonné");
 const Admin = require("../models/Admin");
 const Annonceur = require("../models/Annonceur");
 const DemandeAnnonceur = require("../models/DemandeAnnonceur");
-const User = require("../models/User");
+const Publication = require("../models/Publication");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -132,7 +132,6 @@ router.post(
     const { file } = req;
 
     const photo = file;
-    console.log(photo);
     try {
       let demande = await DemandeAnnonceur.findOne({
         demandeur: req.user.id,
@@ -468,6 +467,19 @@ router.get("/Admin/dashboard", async (req, res) => {
     await Admin.countDocuments().then((docCount) => {
       count.nbrAdmin = docCount;
     });
+    await Publication.countDocuments({ typePub: "Event" }).then((docCount) => {
+      count.nbrEvent = docCount;
+    });
+    await Publication.countDocuments({ typePub: "Annonce" }).then(
+      (docCount) => {
+        count.nbrAnnonce = docCount;
+      }
+    );
+    await Publication.countDocuments({ typePub: "Activity" }).then(
+      (docCount) => {
+        count.nbrActivity = docCount;
+      }
+    );
     res.json(count);
   } catch (err) {
     console.error(err.message);

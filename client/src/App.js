@@ -18,8 +18,8 @@ function App() {
   return (
     <SnackbarProvider maxSnack={3} preventDuplicate>
       <AuthState>
-        <PubState>
-          <UserState>
+        <UserState>
+          <PubState>
             <div className="app">
               <Router history={history}>
                 <Switch>
@@ -33,8 +33,8 @@ function App() {
                 </Switch>
               </Router>
             </div>
-          </UserState>
-        </PubState>
+          </PubState>
+        </UserState>
       </AuthState>
     </SnackbarProvider>
   );

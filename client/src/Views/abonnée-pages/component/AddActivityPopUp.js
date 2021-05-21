@@ -5,13 +5,12 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import MapIcon from "@material-ui/icons/Map";
 import PubContext from "../../../Context/Publication/pubContext";
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
-];
-
+import UserContext from "../../../Context/user/userContext";
+import { getNowDate } from "../../../utilis/date";
 function AddActivityPopUp(props) {
+  const userContext = useContext(UserContext);
+  //app level state
+  const { catégorieOption } = userContext;
   const pubContext = useContext(PubContext);
   const { addAct } = pubContext;
   // this state is use for handle participant counter value
@@ -29,13 +28,16 @@ function AddActivityPopUp(props) {
       setNbr_place(nbr_place - 1);
     }
   };
+  // this state is used to store user inputed data
   const [activity, setActivity] = useState({
     description: "",
     adresse: "",
-    date_DebutPub: "",
+    date_DebutPub: getNowDate(),
     heure_debutPub: "",
-    date_FinPub: "",
+    date_FinPub: getNowDate(),
     heure_finPub: "",
+    categorie: "",
+    nbr_place: "",
   });
   const {
     description,
@@ -44,11 +46,15 @@ function AddActivityPopUp(props) {
     heure_debutPub,
     date_FinPub,
     heure_finPub,
+    categorie,
   } = activity;
 
-  const [categorie, setCategorie] = useState("");
-  const handleInputChange = (inputValue) => {
-    setCategorie(inputValue.value);
+  // method used to handel select change in form
+  const handelCatégorieChange = (selectedOption) => {
+    setActivity({
+      ...activity,
+      categorie: selectedOption.label,
+    });
   };
 
   const handelChange = (event) => {
@@ -56,9 +62,7 @@ function AddActivityPopUp(props) {
       ...activity,
       [event.target.name]: event.target.value,
     });
-    console.log(activity);
   };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     addAct({
@@ -79,7 +83,6 @@ function AddActivityPopUp(props) {
       date_FinPub: "",
       heure_finPub: "",
     });
-    setCategorie("");
     setNbr_place(0);
   };
   return (
@@ -170,10 +173,9 @@ function AddActivityPopUp(props) {
               <Select
                 className="basic-single"
                 classNamePrefix="select"
-                name="actCategory"
-                options={options}
-                // value={activity.categorie}
-                onChange={handleInputChange}
+                name="categorie"
+                options={catégorieOption}
+                onChange={handelCatégorieChange}
               />
             </div>
             <h3>Lieu d'activité</h3>

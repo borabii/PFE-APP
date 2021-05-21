@@ -19,6 +19,7 @@ const AuthState = (props) => {
     isAuthenticated: null,
     invalidUserInformationMsg: "",
     user: { isAnnonceur: " " },
+    loading: true,
   };
   const [state, dispatch] = useReducer(authReducer, initialState);
   const loadUser = async () => {
@@ -98,6 +99,8 @@ const AuthState = (props) => {
         token: state.token,
         isAuthenticated: state.isAuthenticated,
         user: state.user,
+        loading: state.loading,
+
         invalidUserInformationMsg: state.invalidUserInformationMsg,
         loadUser,
         login,

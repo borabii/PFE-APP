@@ -1,61 +1,60 @@
 .intro {
-	display: table;
-	width: 100%;
-	padding: 0;
-    margin: 0;
-    filter: brightness(75%);
-    background: url(../../image/landing-page-image.jpg) center center no-repeat;
-	background-color: #e5e5e5;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	background-size: cover;
-	-o-background-size: cover;
+  display: table;
+  width: 100%;
+
+  padding: 0;
+  margin: 0;
+  filter: brightness(75%);
+  background: url(../../image/landing-page-image.jpg) center center no-repeat;
+  background-color: #e5e5e5;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: 100% 720px;
+  -o-background-size: cover;
 }
 .intro .overlay {
-	background: rgba(0,0,0,0.2);
-    height: 1000px;
-
+  background: rgba(0, 0, 0, 0.2);
+  height: 720px;
 }
 .intro h1 {
-	font-family: 'Roboto', sans-serif;
-	color:white;
-	font-weight: 800;
-	text-transform: uppercase;
-	margin-top: 0;
-	margin-bottom: 10px;
+  font-family: "Roboto", sans-serif;
+  color: white;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 10px;
 }
 
 .intro p {
-	color: #fff;
-	font-size: 22px;
-	font-weight: 300;
-	line-height: 30px;
-	margin: 0 auto;
-	margin-bottom: 60px;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 30px;
+  margin: 0 auto;
+  margin-bottom: 60px;
 }
- .intro-text {
-	padding-top: 250px;
-	padding-bottom: 200px;
-	text-align: center;
+.intro-text {
+  padding-top: 250px;
+  padding-bottom: 200px;
+  text-align: center;
 }
 
 .btn-custom {
-	font-family: 'Roboto';
-	text-transform: uppercase;
-	color: #fff;
-	background: #3ACEB9;
-	padding: 14px 34px;
-	letter-spacing: 1px;
-	margin: 0;
-	font-size: 17px;
-	font-weight: 500;
-	border-radius: 25px;
-	transition: all 0.5s linear;
-	border: 0;
+  font-family: "Roboto";
+  text-transform: uppercase;
+  color: #fff;
+  background: #3aceb9;
+  padding: 14px 34px;
+  letter-spacing: 1px;
+  margin: 0;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 25px;
+  transition: all 0.5s linear;
+  border: 0;
 }
- .btn-custom:hover{
-	background-image: linear-gradient(to right, #FEA041 0%, #F45728 100%);
-    color:#040941;
-    font-size: 17px;
-
+.btn-custom:hover {
+  background-image: linear-gradient(to right, #fea041 0%, #f45728 100%);
+  color: #040941;
+  font-size: 17px;
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Select from "react-select";
 import AddIcon from "@material-ui/icons/Add";
@@ -6,8 +6,7 @@ import RemoveIcon from "@material-ui/icons/Remove";
 import MapIcon from "@material-ui/icons/Map";
 import UserContext from "../../../Context/user/userContext";
 import PubContext from "../../../Context/Publication/pubContext";
-
-function EditEventPopUp(props) {
+function EditAnnoncePopUp(props) {
   //app level state
   //User context
   const userContext = useContext(UserContext);
@@ -16,38 +15,21 @@ function EditEventPopUp(props) {
   const pubContext = useContext(PubContext);
   const { editPub, deletePub } = pubContext;
 
-  //this methode is used for increment the state value(nbrParticipantCounter) by 1
-  const increment = () => {
-    setNbr_place((prevnbr_place) => prevnbr_place + 1);
-  };
-  //this methode is used for decrement the state value(nbrParticipantCounter) by 1
-  const decrement = () => {
-    if (nbr_place < 1) {
-      setNbr_place(0);
-    } else {
-      setNbr_place((prevnbr_place) => prevnbr_place - 1);
-    }
-  };
   //component level state
   // this state is used to store user inputed value in form
   const [evenement, setEvenement] = useState({
     description: "",
-    adresse: "",
     date_DebutPub: "",
-    heure_debutPub: "",
     date_FinPub: "",
-    heure_finPub: "",
-    tarif: "",
     categorie: "",
   });
   const {
     description,
-    adresse,
+
     date_DebutPub,
-    heure_debutPub,
+
     date_FinPub,
-    heure_finPub,
-    tarif,
+
     categorie,
   } = evenement;
   // this state is use for handle participant counter value
@@ -57,29 +39,23 @@ function EditEventPopUp(props) {
     editPub(
       {
         description,
-        adresse,
-        nbr_place,
+
         date_DebutPub,
-        heure_debutPub,
+
         date_FinPub,
-        heure_finPub,
-        tarif,
+
         categorie,
       },
       evenement._id
     );
     setEvenement({
       description: "",
-      adresse: "",
-      nbr_place: "",
+
       date_DebutPub: "",
-      heure_debutPub: "",
       date_FinPub: "",
-      heure_finPub: "",
-      tarif: "",
+
       categorie: "",
     });
-    setNbr_place(0);
   };
   //run when use click on btn(Supprimer) for deleting event
   const deleteEvent = () => {
@@ -103,12 +79,12 @@ function EditEventPopUp(props) {
   useEffect(() => {
     if (props.data) {
       setEvenement(props.data);
-      setNbr_place(props.data.nbr_place);
     }
   }, [props.data, props.show]);
   return (
     <Modal
       {...props}
+      size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       animation={true}
@@ -116,7 +92,7 @@ function EditEventPopUp(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Modifer Événement{" "}
+          Modifier Annonce
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -146,12 +122,6 @@ function EditEventPopUp(props) {
                   onChange={handelChange}
                   required
                 />
-                <input
-                  type="time"
-                  name="heure_debutPub"
-                  value={evenement.heure_debutPub}
-                  onChange={handelChange}
-                />
               </div>
               <div id="ActEnd-date">
                 <span>Date fin</span>
@@ -167,35 +137,9 @@ function EditEventPopUp(props) {
                   onChange={handelChange}
                   required
                 />
-                <input
-                  type="time"
-                  name="heure_finPub"
-                  value={evenement.heure_finPub}
-                  onChange={handelChange}
-                />
               </div>
             </div>
-            <div className="addAct-NbrParticipant">
-              <div className="nbrParticipant-left">
-                <p>Nombre Participant</p>
-                <div id="counter-result">
-                  <h4>{nbr_place}</h4>
-                </div>
-              </div>
 
-              <div id="nbrParticipant-counter">
-                <div id="incrementBtn">
-                  <a onClick={increment}>
-                    <AddIcon />
-                  </a>
-                </div>
-                <div id="decrementBtn">
-                  <a onClick={decrement}>
-                    <RemoveIcon />
-                  </a>
-                </div>
-              </div>
-            </div>
             <h3>Catégorie</h3>
 
             <div className="addAct-category">
@@ -213,41 +157,7 @@ function EditEventPopUp(props) {
                 onChange={handleSelectInputChange}
               />
             </div>
-            <h3>Lieu d'événement</h3>
-            <div className="addAct-adress">
-              <input
-                type="text"
-                placeholder="Lieu"
-                name="adresse"
-                value={evenement.adresse}
-                onChange={handelChange}
-                // required
-              />
-              <button className="addAct-adressMap" type="submit">
-                <MapIcon id="map-Icon" />
-              </button>
-            </div>
-            <h3>Tarif</h3>
-            <div className="addAct-adress">
-              <input
-                type="text"
-                placeholder="Tarif"
-                name="tarif"
-                value={evenement.tarif}
-                onChange={handelChange}
-                id="tarifEvent"
-                required
-              />
-            </div>
-            <h3>Équipe</h3>
-            {/* <div className="addAct-category" id="eventEquipe">
-            <Select
-              closeMenuOnSelect={false}
-              components={animatedComponents}
-              isMulti
-              options={options}
-            />
-          </div> */}
+
             <div id="editEventAction">
               <div className="edit__action">
                 <button id="edit__btn" onClick={editEvent}>
@@ -265,4 +175,4 @@ function EditEventPopUp(props) {
   );
 }
 
-export default EditEventPopUp;
+export default EditAnnoncePopUp;

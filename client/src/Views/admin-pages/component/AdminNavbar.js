@@ -5,7 +5,7 @@ import AuthContext from "../../../Context/auth/authContext";
 import history from "../../../utilis/history";
 function AdminNavbar() {
   const authContext = useContext(AuthContext);
-  const { logout } = authContext;
+  const { logout, user } = authContext;
   const onLogout = () => {
     logout();
     history.push("/");
@@ -13,7 +13,7 @@ function AdminNavbar() {
   return (
     <div className=" navbar adminHomePage__navbar">
       <div className=" nav__option">
-        <h2>Welcome Admin</h2>
+        <h2>Bienvenu {user.role}</h2>
       </div>
       <div className="nav__option clock">
         {/* displaying system time for user ( set ticking to true for auto upadate each second) */}

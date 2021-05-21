@@ -2,7 +2,9 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 
-function DetailAnnoncePopUs(props) {
+function DetailAnnoncePopUp(props) {
+  const { categorie, description, adresse, nbr_place, date_Pub } = props.user;
+
   return (
     <Modal
       {...props}
@@ -29,27 +31,19 @@ function DetailAnnoncePopUs(props) {
             <div className="annonce__info">
               <dl>
                 <dt>Catégoris</dt>
-                <dd>Fitness</dd>
+                <dd>{categorie}</dd>
 
-                <dt>Tarif</dt>
-                <dd>100dt/Mois</dd>
                 <dt>Adresse</dt>
                 <dd>
                   <LocationOnIcon id="icon-loc" />
-                  Tunis{" "}
+                  {adresse}
                 </dd>
-                <dt>HORAIRES DE TRAVAIL</dt>
-                <dd> Lundi-jeudi 06:30 - 21:30 H </dd>
+                <dt>HORAIRES </dt>
+                <dd> {date_Pub}</dd>
                 <dt>Nombre de place</dt>
-                <dd>20/groupe</dd>
+                <dd>{nbr_place}</dd>
                 <dt>Description</dt>
-                <dd>
-                  Abdos-fessiers, Barres-Haltères, Gym Silhouette,… Pour vous
-                  tonifier, modeler votre silhouette, avoir une meilleure
-                  posture… Zumba, Cardio Move, Step, danse afro. Pour améliorer
-                  votre condition physique, vous dépenser, bruler les calories,
-                  tout en vous amusant.
-                </dd>
+                <dd>{description}</dd>
               </dl>
             </div>
           </div>
@@ -80,4 +74,4 @@ function DetailAnnoncePopUs(props) {
   );
 }
 
-export default DetailAnnoncePopUs;
+export default DetailAnnoncePopUp;

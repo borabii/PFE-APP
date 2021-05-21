@@ -37,9 +37,21 @@ const PublicationSchema = mongoose.Schema({
   heure_finPub: {
     type: String,
   },
+  tarif: {
+    type: Number,
+  },
+  image_url: {
+    type: String,
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  participants: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 module.exports = mongoose.model("Publication", PublicationSchema);

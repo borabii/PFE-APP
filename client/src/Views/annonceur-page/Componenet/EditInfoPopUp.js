@@ -33,7 +33,6 @@ function EditInfoPopUp(props) {
       [event.target.name]: event.target.value,
     });
   };
-  console.log(annonceurEditInfo);
   const handleSubmit = async (event) => {
     event.preventDefault();
     updateAnnonceurInfo(annonceurEditInfo, annonceur._id);

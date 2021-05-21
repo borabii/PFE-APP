@@ -8,7 +8,7 @@ function ComingPub() {
     <div className="comingPub">
       <Container>
         <Row xs={1} md={2} lg={2}>
-          <Col>
+          {/* <Col>
             <PubCard />
           </Col>
           <Col>
@@ -43,7 +43,7 @@ function ComingPub() {
           </Col>
           <Col>
             <PubCard />
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     </div>

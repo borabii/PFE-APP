@@ -118,11 +118,11 @@ function AnnonceurVisitedProfile() {
           itemPadding={[0, 5]}
           breakPoints={breakPoints}
         >
+          {/* <PubCard />
           <PubCard />
           <PubCard />
           <PubCard />
-          <PubCard />
-          <PubCard />
+          <PubCard /> */}
         </Carousel>
       </div>
       <div className="annonceurVisitedProfile-bottom">

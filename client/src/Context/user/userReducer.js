@@ -34,6 +34,7 @@ export default (state, action) => {
     case UPDATE_IMAGE:
       return {
         ...state,
+
         responseMessage: action.payload.data.msg,
       };
     case UPDATE_DESCRIPTION:
@@ -54,12 +55,14 @@ export default (state, action) => {
       return {
         ...state,
         annonceur: action.payload,
+        loading: false,
       };
     case LOAD_CATEGORIE:
       return {
         ...state,
         catégorieOption: action.payload.data.catégorieOption,
         fullCatégorieData: action.payload.data.fullCatégorieData,
+        loading: false,
       };
     case DELETE_CENTREOFINTERET:
     case ADD_CENTREOFINTERET:

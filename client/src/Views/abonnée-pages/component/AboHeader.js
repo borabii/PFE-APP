@@ -9,10 +9,14 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import AssistantPhotoIcon from "@material-ui/icons/AssistantPhoto";
-import AuthContext from "../../../Context/auth/authContext";
 //routing
 import history from "../../../utilis/history";
 import { NavLink, useRouteMatch } from "react-router-dom";
+//context
+import PubContext from "../../../Context/Publication/pubContext";
+
+import AuthContext from "../../../Context/auth/authContext";
+
 //this methode is used for detecting user mouse click out side searsh result
 let useClickOutside = (handler) => {
   let domNode = useRef();
@@ -54,12 +58,15 @@ function AboHeader() {
   //(Componenet level State)
   //this state for hide/show search result Dropdown when clicking on the searsh input bar
   const [showProfilDopDown, setShowProfilDopDown] = useState(false);
-
+  //app level state
+  //auth context
   const authContext = useContext(AuthContext);
   const { logout, user } = authContext;
-
+  //pub context
+  const pubContext = useContext(PubContext);
   const onLogout = () => {
     logout();
+    pubContext.clearAbonnéPub();
     history.push("/");
   };
   const data = [
@@ -166,7 +173,11 @@ function AboHeader() {
             </Nav.Link>
             <Nav.Link>
               <img
-                src="https://learnenglishteens.britishcouncil.org/sites/teens/files/styles/article/public/istock_000016994756small.jpg?itok=yczzK-18"
+                src={
+                  user.imageProfile
+                    ? `http://localhost:8000/${user.imageProfile}`
+                    : "https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommunity.atlassian.com%2Ft5%2FJira-Software-questions%2FIncorrect-URL-for-avatar-images-after-base-URL-changed%2Fqaq-p%2F705907&psig=AOvVaw0vAcSohhUhW7yz_a6yReaC&ust=1621046886814000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIjzx7yUyPACFQAAAAAdAAAAABAD"
+                }
                 alt=""
                 className="userPicture"
                 onClick={() =>

@@ -44,7 +44,7 @@ function AdminHomePage() {
           <div className="sidbar__item">
             {/* get sid menu item from sideBarData */}
             <NavLink to={path} exact activeClassName="selected" id="link-style">
-              <span id="sidebar-itemTitle">Dashbored</span>
+              <span id="sidebar-itemTitle">Dashborad</span>
             </NavLink>
             {result.map((item, index) => {
               return (

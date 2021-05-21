@@ -216,6 +216,7 @@ const UserState = (props) => {
         annonceur: state.annonceur,
         catégorieOption: state.catégorieOption,
         fullCatégorieData: state.fullCatégorieData,
+
         updateProfileImage,
         sendDemandeAbonné,
         ClearResponseMessage,

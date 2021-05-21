@@ -56,10 +56,7 @@ function AddCategoryPopUP(props) {
         <div className="addCategoryPopUP">
           {categorie.imageCatégorie && (
             <div className="img__holder">
-              <img
-                src={URL.createObjectURL(categorie.imageCatégorie)}
-                alt=""
-              ></img>
+              <img src={URL.createObjectURL(categorie.imageCatégorie)} alt="" />
             </div>
           )}
 
