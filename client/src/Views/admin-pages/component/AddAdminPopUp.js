@@ -50,6 +50,7 @@ function AddAdminPopUp(props) {
       password: "",
       permission: "",
     });
+    props.onHide();
   };
 
   return (

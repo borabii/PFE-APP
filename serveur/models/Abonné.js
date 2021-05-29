@@ -22,6 +22,10 @@ const AbonnéSchema = User.discriminator(
         type: String,
       },
     ],
+    distanceDeRecherche: {
+      type: Number,
+      default: 10000,
+    },
   })
 );
 module.exports = mongoose.model("Abonné");

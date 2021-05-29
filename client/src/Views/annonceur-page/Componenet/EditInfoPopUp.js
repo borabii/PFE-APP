@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
-import UserContext from "../../../Context/user/userContext";
 import { useSnackbar } from "notistack";
+import UserContext from "../../../Context/user/userContext";
 function EditInfoPopUp(props) {
+  console.log(props.data);
   const { enqueueSnackbar } = useSnackbar();
   //component level state
   const [annonceurEditInfo, setAnnonceurEditInfo] = useState({
@@ -68,7 +69,7 @@ function EditInfoPopUp(props) {
               type="text"
               id="annonceur-infoInput"
               name="nomAnnonceur"
-              defaultValue={annonceur.nomAnnonceur}
+              defaultValue={props.data && props.data.nomAnnonceur}
               onChange={handelChange}
             />
           </div>
@@ -78,7 +79,7 @@ function EditInfoPopUp(props) {
               type="text"
               id="annonceur-infoInput"
               name="emailProAnnonceur"
-              defaultValue={annonceur.emailProAnnonceur}
+              defaultValue={props.data && props.data.emailProAnnonceur}
               onChange={handelChange}
             />
           </div>
@@ -89,17 +90,7 @@ function EditInfoPopUp(props) {
               type="text"
               id="annonceur-infoInput"
               name="numTelAnnonceur"
-              defaultValue={annonceur.numTelAnnonceur}
-              onChange={handelChange}
-            />
-          </div>
-          <div id="info-adresse">
-            <label>Adresse</label>
-            <input
-              type="text"
-              id="annonceur-infoInput"
-              name="adresseAnnonceur"
-              defaultValue={annonceur.adresseAnnonceur}
+              defaultValue={props.data && props.data.numTelAnnonceur}
               onChange={handelChange}
             />
           </div>
@@ -110,7 +101,7 @@ function EditInfoPopUp(props) {
               rows="4"
               cols="30"
               name="descriptionAnnonceur"
-              defaultValue={annonceur.descriptionAnnonceur}
+              defaultValue={props.data && props.data.descriptionAnnonceur}
               onChange={handelChange}
             />
           </div>

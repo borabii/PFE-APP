@@ -3,7 +3,6 @@ import Modal from "react-bootstrap/Modal";
 import Select from "react-select";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
-import MapIcon from "@material-ui/icons/Map";
 import UserContext from "../../../Context/user/userContext";
 import PubContext from "../../../Context/Publication/pubContext";
 
@@ -80,10 +79,12 @@ function EditEventPopUp(props) {
       categorie: "",
     });
     setNbr_place(0);
+    props.onHide();
   };
   //run when use click on btn(Supprimer) for deleting event
   const deleteEvent = () => {
     deletePub(evenement._id);
+    props.onHide();
   };
   //handel user input change and set state with inputed value
   const handelChange = (event) => {
@@ -213,20 +214,7 @@ function EditEventPopUp(props) {
                 onChange={handleSelectInputChange}
               />
             </div>
-            <h3>Lieu d'événement</h3>
-            <div className="addAct-adress">
-              <input
-                type="text"
-                placeholder="Lieu"
-                name="adresse"
-                value={evenement.adresse}
-                onChange={handelChange}
-                // required
-              />
-              <button className="addAct-adressMap" type="submit">
-                <MapIcon id="map-Icon" />
-              </button>
-            </div>
+
             <h3>Tarif</h3>
             <div className="addAct-adress">
               <input
@@ -239,15 +227,7 @@ function EditEventPopUp(props) {
                 required
               />
             </div>
-            <h3>Équipe</h3>
-            {/* <div className="addAct-category" id="eventEquipe">
-            <Select
-              closeMenuOnSelect={false}
-              components={animatedComponents}
-              isMulti
-              options={options}
-            />
-          </div> */}
+
             <div id="editEventAction">
               <div className="edit__action">
                 <button id="edit__btn" onClick={editEvent}>

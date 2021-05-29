@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
-
+import { getDate } from "../../../utilis/date";
 function DetailReqAnnonceurPopUp(props) {
   const {
     _id,
@@ -14,17 +14,19 @@ function DetailReqAnnonceurPopUp(props) {
   //run when admin click on Accepter button to accepter a demande
   const acceptDemande = () => {
     axios.post(`http://localhost:8000/api/users/Admin/AddAnnonceur/${_id}`);
+    props.onHide();
   };
   //run when admin click on Refuser button to refuse a demande
   const refuserDemande = () => {
     axios.post(`http://localhost:8000/api/users/Admin/RejectDemande/${_id}`);
+    props.onHide();
   };
 
   return (
     <div>
       <Modal
         {...props}
-        size="lg"
+        size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
         animation={true}
@@ -48,8 +50,10 @@ function DetailReqAnnonceurPopUp(props) {
                   <ul>
                     <li>Nom: {props.demandeur.firstName}</li>
                     <li>Prénom: {props.demandeur.lastName}</li>
-                    <li>Email:{props.demandeur.email} </li>
-                    <li>Date inscription:{props.demandeur.inscriDate}</li>
+                    <li>Email: {props.demandeur.email} </li>
+                    <li>
+                      Date inscription: {getDate(props.demandeur.inscriDate)}
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -58,10 +62,10 @@ function DetailReqAnnonceurPopUp(props) {
               <h4>Information demande</h4>
               <div className="info__container">
                 <ul>
-                  <li>Nom:{nomAnnonceur}</li>
-                  <li>Catégorie:{catégorieAnnonceur}</li>
-                  <li>Email:{emailProAnnonceur}</li>
-                  <li>Date demande:{demandeDate}</li>
+                  <li>Nom: {nomAnnonceur}</li>
+                  <li>Catégorie: {catégorieAnnonceur}</li>
+                  <li>Email: {emailProAnnonceur}</li>
+                  <li>Date demande: {getDate(demandeDate)}</li>
                 </ul>
               </div>
             </div>

@@ -9,6 +9,7 @@ import PubContext from "../../../Context/Publication/pubContext";
 import EditActPopUp from "./EditActPopUp";
 import Spinner from "../../layout/Spinner";
 import ManagePubModalShow from "./ManagePubModalShow";
+import { useSnackbar } from "notistack";
 
 function UserPubOrganized() {
   //componenet level state
@@ -24,7 +25,14 @@ function UserPubOrganized() {
   ];
   //app level state
   const pubContext = useContext(PubContext);
-  const { loadActOrganized, pubsOrganized, loading, deletePub } = pubContext;
+  const {
+    pubResponseMsg,
+    ClearPubResponseMsg,
+    loadActOrganized,
+    pubsOrganized,
+    loading,
+    deletePub,
+  } = pubContext;
   useEffect(() => {
     loadActOrganized();
   }, []);
@@ -34,14 +42,16 @@ function UserPubOrganized() {
         pubsOrganized.filter(
           (item) =>
             new Date().setHours(0, 0, 0, 0) <=
-            new Date(item.date_DebutPub).setHours(0, 0, 0, 0)
+              new Date(item.date_DebutPub).setHours(0, 0, 0, 0) &&
+            new Date(item.date_DebutPub).getHours() >= new Date().getHours()
         )
       );
       setPassedPubs(
         pubsOrganized.filter(
           (item) =>
-            new Date().setHours(0, 0, 0, 0) >
-            new Date(item.date_DebutPub).setHours(0, 0, 0, 0)
+            new Date().setHours(0, 0, 0, 0) >=
+              new Date(item.date_DebutPub).setHours(0, 0, 0, 0) &&
+            new Date(item.date_DebutPub).getHours() <= new Date().getHours()
         )
       );
     }
@@ -64,6 +74,16 @@ function UserPubOrganized() {
     setEventClicked(item);
     setManageEventModalShow(true);
   };
+  //
+  const { enqueueSnackbar } = useSnackbar();
+  useEffect(() => {
+    if (pubResponseMsg !== "aucune message") {
+      enqueueSnackbar(pubResponseMsg, { variant: "success" });
+    }
+    return () => {
+      ClearPubResponseMsg();
+    };
+  }, [pubResponseMsg]);
   return (
     <Fragment>
       {pubsOrganized && !loading ? (
@@ -85,6 +105,7 @@ function UserPubOrganized() {
                       <>
                         <PubCard
                           editPubOption={true}
+                          editPermission={true}
                           act={item}
                           key={index}
                           editOnClick={(e) => handleEditClick(e, item)}
@@ -117,6 +138,7 @@ function UserPubOrganized() {
                       <Col xs={12} sm={6} md={6} lg={4}>
                         <PubCard
                           editPubOption={false}
+                          editPermission={true}
                           act={item}
                           key={index}
                           deleteOnClick={() => deletePub(item._id)}

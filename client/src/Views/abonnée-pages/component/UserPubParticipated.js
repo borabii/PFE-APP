@@ -28,7 +28,8 @@ function UserPubParticipated() {
         pubsParticipated.filter(
           (item) =>
             new Date().setHours(0, 0, 0, 0) <=
-            new Date(item.date_DebutPub).setHours(0, 0, 0, 0)
+              new Date(item.date_DebutPub).setHours(0, 0, 0, 0) &&
+            new Date(item.date_DebutPub).getHours() > new Date().getHours()
         )
       );
       setPassedPubs(
@@ -62,7 +63,11 @@ function UserPubParticipated() {
                   commingPubs.map((item, index) => {
                     return (
                       <>
-                        <PubCard act={item} key={index} />
+                        <PubCard
+                          act={item}
+                          key={index}
+                          editPermission={false}
+                        />
                       </>
                     );
                   })
@@ -83,7 +88,12 @@ function UserPubParticipated() {
                     return (
                       <>
                         <Col xs={12} md={6} lg={6}>
-                          <PubCard act={item} key={index} />
+                          <PubCard
+                            act={item}
+                            key={index}
+                            editPermission={true}
+                            editPermission={true}
+                          />
                         </Col>
                       </>
                     );

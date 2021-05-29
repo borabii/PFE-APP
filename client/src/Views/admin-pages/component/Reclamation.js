@@ -45,7 +45,7 @@ function Reclamation() {
               </thead>
               <tbody>
                 <tr>
-                  <th scope="row">1</th>
+                  <td>1</td>
                   <td>ID</td>
                   <td>ID annonceur</td>
                   <td> Nom annonceur</td>
@@ -60,10 +60,11 @@ function Reclamation() {
                       />
                       <VisibilityIcon
                         onClick={() => setReclamationModalShow(true)}
+                        id="dataTable-viewIcon"
                       />
                     </div>
                     <div id="ff">
-                      <DeleteIcon />
+                      <DeleteIcon id="dataTable-delteIcon" />
                     </div>
                   </td>
                 </tr>

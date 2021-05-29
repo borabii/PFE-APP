@@ -1,4 +1,4 @@
-import React, { lazy, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Style.css";
 
 import BoiteMessage from "./component/BoiteMessage";
@@ -12,7 +12,6 @@ import UserAbonné from "./component/UserAbonné";
 import UserAnnonceur from "./component/UserAnnonceur";
 import Reclamation from "./component/Reclamation";
 import AdminManagment from "./component/AdminManagment";
-import AdressManagment from "./component/AdressManagment";
 
 import { SideBarData } from "./component/SideBarData";
 import { Route, Switch, useRouteMatch, NavLink } from "react-router-dom";
@@ -43,7 +42,12 @@ function AdminHomePage() {
         <div className=" navbar px-0  adminHomePage__sidbar">
           <div className="sidbar__item">
             {/* get sid menu item from sideBarData */}
-            <NavLink to={path} exact activeClassName="selected" id="link-style">
+            <NavLink
+              to={path}
+              exact
+              activeClassName="selected-admin"
+              id="link-style"
+            >
               <span id="sidebar-itemTitle">Dashborad</span>
             </NavLink>
             {result.map((item, index) => {
@@ -52,7 +56,7 @@ function AdminHomePage() {
                   key={index}
                   to={`${url}${item.path}`}
                   exact
-                  activeClassName="selected"
+                  activeClassName="selected-admin"
                   id="link-style"
                 >
                   <span id="sidebar-itemTitle">{item.title}</span>
@@ -91,10 +95,6 @@ function AdminHomePage() {
               <Route
                 path={`${path}/adminManagment`}
                 component={AdminManagment}
-              />
-              <Route
-                path={`${path}/adressManagment`}
-                component={AdressManagment}
               />
             </Switch>
           </div>

@@ -23,7 +23,7 @@ class DemandeManagment extends React.Component {
       .get(
         `http://localhost:8000/api/users/Admin/getDemandeur/${item.demandeur}`
       )
-      .then((response) => this.setState({ DemandeurData: response.data }));
+      .then((response) => this.setState({ demandeurData: response.data }));
   };
   //run when compoenet is mounted to get all demande stored in db and set the state(demandes)
   //with response data
@@ -76,7 +76,7 @@ class DemandeManagment extends React.Component {
                   {this.state.demandes.map((data, index) => {
                     return (
                       <tr key={index}>
-                        <th scope="row">{data._id}</th>
+                        <td scope="row">{data._id}</td>
                         <td>{data.nomAnnonceur}</td>
                         <td>{data.demandeDate}</td>
                         <td>{data.catégorieAnnonceur}</td>
@@ -86,22 +86,11 @@ class DemandeManagment extends React.Component {
                           id="icone-action"
                         >
                           <div>
-                            <DetailReqAnnonceurPopUp
-                              user={
-                                this.state.demande
-                                  ? this.state.demande
-                                  : this.state.demandes
-                              }
-                              demandeur={this.state.demandeurData}
-                              show={this.state.detailReqModalShow}
-                              onHide={() =>
-                                this.setState({ detailReqModalShow: false })
-                              }
-                            />
                             <VisibilityIcon
                               onClick={() =>
                                 this.setState({ detailReqModalShow: true })
                               }
+                              id="dataTable-viewIcon"
                             />
                           </div>
                         </td>
@@ -112,6 +101,12 @@ class DemandeManagment extends React.Component {
               </table>
             </div>
           </div>
+          <DetailReqAnnonceurPopUp
+            user={this.state.demande ? this.state.demande : this.state.demandes}
+            demandeur={this.state.demandeurData}
+            show={this.state.detailReqModalShow}
+            onHide={() => this.setState({ detailReqModalShow: false })}
+          />
         </div>
       </div>
     );

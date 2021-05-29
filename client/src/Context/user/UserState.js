@@ -13,6 +13,7 @@ import {
   LOAD_CATEGORIE,
   DELETE_CENTREOFINTERET,
   ADD_CENTREOFINTERET,
+  UPDATE_DISTANCE_DE_RECHERCHE,
 } from "../types";
 const UserState = (props) => {
   //global state
@@ -21,6 +22,7 @@ const UserState = (props) => {
     annonceur: null,
     catégorieOption: null,
     fullCatégorieData: null,
+    userCurrentLocation: null,
   };
   const [state, dispatch] = useReducer(userReducer, initialState);
 
@@ -44,6 +46,27 @@ const UserState = (props) => {
       );
       dispatch({
         type: UPDATE_DESCRIPTION,
+        payload: response,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  //update user(abonné) distance de recherhce
+  const updateDistanceDeRecherhce = async (distance) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const userDistance = { distance };
+      const response = await axios.put(
+        "http://localhost:8000/api/users/UpdateDistanceRecherche",
+        userDistance
+      );
+      dispatch({
+        type: UPDATE_DISTANCE_DE_RECHERCHE,
         payload: response,
       });
     } catch (err) {
@@ -216,8 +239,9 @@ const UserState = (props) => {
         annonceur: state.annonceur,
         catégorieOption: state.catégorieOption,
         fullCatégorieData: state.fullCatégorieData,
-
+        userCurrentLocation: state.userCurrentLocation,
         updateProfileImage,
+        updateDistanceDeRecherhce,
         sendDemandeAbonné,
         ClearResponseMessage,
         updateDescription,

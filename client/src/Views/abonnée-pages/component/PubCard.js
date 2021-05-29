@@ -27,6 +27,14 @@ function PubCard(props) {
       setCatImage("");
     };
   }, [fullCatégorieData]);
+  const [adresse, setadresse] = useState("");
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //        `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${props.act.adresse.coordinates[0]}&longitude=${props.act.adresse.coordinates[1]}&localityLanguage=fr`
+  //     )
+  //     .then((data) => setadresse(data.data));
+  // }, [props.act, fullCatégorieData]);
   return (
     <Card className=" mb-3  pubCard pubCard-phone ">
       <div className="pubCard-image">
@@ -51,21 +59,29 @@ function PubCard(props) {
             <h4>{props.act.categorie}</h4>
             <span id="pub-add">
               <LocationOnIcon id="pubLoc-icon" />
-              <p>{props.act.adresse}</p>
+              <p>
+                {adresse &&
+                  adresse.locality + "," + adresse.principalSubdivision}
+              </p>
             </span>
           </div>
         </div>
         <div className="pubCardInfo-rigth">
-          <EditIcon
-            id="editEvent-icon"
-            style={{ display: props.editPubOption ? "block" : "none" }}
-            onClick={props.editOnClick}
-          />
-          <DeleteIcon
-            id="deletEvent-icon"
-            style={{ display: !props.editPubOption ? "block" : "none" }}
-            onClick={props.deleteOnClick}
-          />
+          {props.editPermission && (
+            <>
+              <EditIcon
+                id="editEvent-icon"
+                style={{ display: props.editPubOption ? "block" : "none" }}
+                onClick={props.editOnClick}
+              />
+              <DeleteIcon
+                id="deletEvent-icon"
+                style={{ display: !props.editPubOption ? "block" : "none" }}
+                onClick={props.deleteOnClick}
+              />
+            </>
+          )}
+
           <MoreHorizIcon
             id="detailEvent-icon"
             onClick={props.detailOnClickIcon}

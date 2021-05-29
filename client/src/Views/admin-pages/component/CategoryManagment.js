@@ -5,7 +5,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import AddCategoryPopUP from "./AddCategoryPopUP";
 import DetailCatégoriePopUp from "./DetailCatégoriePopUp";
-
+import swal from "sweetalert";
+import { getDate } from "../../../utilis/date";
 class CategoryManagment extends React.Component {
   constructor(props) {
     super(props);
@@ -33,19 +34,27 @@ class CategoryManagment extends React.Component {
   }
   //this method run when user click in action icon that delete catégorie
   deletItem = (data) => {
-    if (
-      window.confirm(`Vous êtes sûre de supprimer :${data.typeCatégorie} ?`)
-    ) {
-      axios
-        .delete(
-          `http://localhost:8000/api/Categorie/Admin/deleteCategorie/${data._id}`
-        )
-
-        .then((response) => {
-          this.setState({ categories: response.data.catégories });
-          console.log(response.data);
-        });
-    }
+    swal({
+      title: "Voulez vous supprimer cette catégorie",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal(
+          axios
+            .delete(
+              `http://localhost:8000/api/Categorie/Admin/deleteCategorie/${data._id}`
+            )
+            .then((response) => {
+              this.setState({ categories: response.data.catégories });
+            }),
+          swal({ icon: "success", title: "CATÉGORIÉ SUPPRIME AVEC SUCCES !" })
+        );
+      } else {
+        swal("Opération annuler! ");
+      }
+    });
   };
 
   render() {
@@ -113,31 +122,24 @@ class CategoryManagment extends React.Component {
                   {this.state.categories.map((data, index) => {
                     return (
                       <tr>
-                        <th scope="row">{data._id}</th>
+                        <td scope="row">{data._id}</td>
                         <td>{data.typeCatégorie}</td>
-                        <td>{data.addDate}</td>
+                        <td>{getDate(data.addDate)}</td>
 
                         <td id="icone-action">
                           <div onClick={() => this.selectedItem(index)}>
-                            <DetailCatégoriePopUp
-                              categorie={
-                                this.state.categorie
-                                  ? this.state.categorie
-                                  : this.state.categories
-                              }
-                              show={this.state.detailReqModalShow}
-                              onHide={() =>
-                                this.setState({ detailReqModalShow: false })
-                              }
-                            />
                             <VisibilityIcon
                               onClick={() =>
                                 this.setState({ detailReqModalShow: true })
                               }
+                              id="dataTable-viewIcon"
                             />
                           </div>
                           <div id="ff">
-                            <DeleteIcon onClick={() => this.deletItem(data)} />
+                            <DeleteIcon
+                              onClick={() => this.deletItem(data)}
+                              id="dataTable-delteIcon"
+                            />
                           </div>
                         </td>
                       </tr>
@@ -146,6 +148,15 @@ class CategoryManagment extends React.Component {
                 </tbody>
               </table>
             </div>
+            <DetailCatégoriePopUp
+              categorie={
+                this.state.categorie
+                  ? this.state.categorie
+                  : this.state.categories
+              }
+              show={this.state.detailReqModalShow}
+              onHide={() => this.setState({ detailReqModalShow: false })}
+            />
           </div>
         </div>
       </div>

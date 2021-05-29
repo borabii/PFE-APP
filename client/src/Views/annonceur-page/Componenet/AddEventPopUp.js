@@ -1,22 +1,34 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef, useMemo } from "react";
 import Modal from "react-bootstrap/Modal";
 import Select from "react-select";
-import makeAnimated from "react-select/animated";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
-import MapIcon from "@material-ui/icons/Map";
 import UserContext from "../../../Context/user/userContext";
 import PubContext from "../../../Context/Publication/pubContext";
-import { getNowDate } from "../../../utilis/date";
+import { getNowDate, getTime, getDate } from "../../../utilis/date";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import addPubsFormValidation from "../../../utilis/addPubsFromValidation";
+
+import "leaflet/dist/leaflet.css";
+import { Icon } from "leaflet";
 function AddEventPopUp(props) {
   //app level state
   const userContext = useContext(UserContext);
   const { catégorieOption, annonceur } = userContext;
   const pubContext = useContext(PubContext);
   const { addEvent } = pubContext;
+  //componenet level state
+  const [pos, setpos] = useState({
+    lat: annonceur.adresseAnnonceur.coordinates[0],
+    lng: annonceur.adresseAnnonceur.coordinates[1],
+  });
+  //
+  const [errorsMsg, setErrorsMsg] = useState({});
+
   // this state is use for handle participant counter value
   const [nbr_place, setNbr_place] = useState(0);
-
+  //
+  const [openMap, setOpenMap] = useState(false);
   //this methode is used for increment the state value(nbrParticipantCounter) by 1
   const increment = () => {
     setNbr_place(nbr_place + 1);
@@ -30,15 +42,12 @@ function AddEventPopUp(props) {
     }
   };
 
-  const animatedComponents = makeAnimated();
-
   const [evenement, setEvenement] = useState({
     description: "",
     adresse: "",
-    nbr_place: "",
     date_DebutPub: getNowDate(),
-    heure_debutPub: "",
-    date_FinPub: getNowDate(),
+    heure_debutPub: getTime(),
+    date_FinPub: "",
     heure_finPub: "",
     tarif: "",
     categorie: "",
@@ -54,27 +63,49 @@ function AddEventPopUp(props) {
     categorie,
   } = evenement;
 
+  //
+  const handelTimeChange = (event) => {
+    setEvenement({
+      ...evenement,
+      heure_finPub: event.target.value,
+    });
+    setErrorsMsg(addPubsFormValidation(evenement));
+  };
+  //
+  //
+  const handelDateChange = (event) => {
+    setEvenement({
+      ...evenement,
+      date_FinPub: event.target.value,
+    });
+    setErrorsMsg(addPubsFormValidation(evenement));
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setEvenement({ ...evenement, nbr_place: nbr_place });
-    addEvent(evenement, annonceur._id);
-    setEvenement({
-      description: "",
-      adresse: "",
-      nbr_place: "",
-      date_DebutPub: "",
-      heure_debutPub: "",
-      date_FinPub: "",
-      heure_finPub: "",
-      tarif: "",
-    });
-    setNbr_place(0);
+    addEvent(
+      {
+        description,
+        adresse: pos,
+        nbr_place,
+        date_DebutPub,
+        heure_debutPub,
+        date_FinPub,
+        heure_finPub,
+        tarif,
+        categorie,
+      },
+      annonceur._id
+    ).then(clearState);
+
+    props.onHide();
   };
+  //handel user change and set the state with inputed values
   const handelChange = (event) => {
     setEvenement({
       ...evenement,
       [event.target.name]: event.target.value,
     });
+    setErrorsMsg(addPubsFormValidation(evenement));
   };
 
   // method used to handel select change in form
@@ -84,12 +115,67 @@ function AddEventPopUp(props) {
       categorie: selectedOption.label,
     });
   };
+  //method user to let user locate user current pos and display a maker on his position
+  //and let him chnage it by draking the marker
+  const DraggableMarker = () => {
+    const markerRef = useRef(null);
+
+    //run when moving maker and get new latlag and set state(pos) with new marker position
+    const eventHandlers = useMemo(
+      () => ({
+        dragend() {
+          const marker = markerRef.current;
+          if (marker != null) {
+            setpos(marker.getLatLng());
+          }
+        },
+      }),
+      []
+    );
+    const icon1 = new Icon({
+      iconUrl: "/pin.svg",
+      iconSize: [25, 25],
+    });
+    return pos === null ? null : (
+      <Marker
+        draggable={true}
+        eventHandlers={eventHandlers}
+        position={pos}
+        ref={markerRef}
+        icon={icon1}
+      />
+    );
+  };
+  //open
+  const openMapBtn = () => {
+    setOpenMap(true);
+  };
+  //metho user to reset state after submit
+  const clearState = () => {
+    setNbr_place(0);
+    setEvenement({
+      description: "",
+      adresse: "",
+      date_DebutPub: getNowDate(),
+      heure_debutPub: getTime(),
+      date_FinPub: getNowDate(),
+      heure_finPub: "",
+      tarif: "",
+      categorie: "",
+    });
+  };
+  useEffect(() => {
+    return () => {
+      setOpenMap(false);
+    };
+  }, [props.show]);
   return (
     <Modal
       {...props}
       aria-labelledby="contained-modal-title-vcenter"
       centered
       animation={true}
+      scrollable={true}
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
@@ -116,6 +202,7 @@ function AddEventPopUp(props) {
                   type="date"
                   name="date_DebutPub"
                   value={evenement.date_DebutPub}
+                  min={getNowDate()}
                   onChange={handelChange}
                   required
                 />
@@ -133,17 +220,20 @@ function AddEventPopUp(props) {
                   type="date"
                   name="date_FinPub"
                   value={evenement.date_FinPub}
-                  onChange={handelChange}
+                  min={getDate(evenement.date_DebutPub)}
+                  onChange={handelDateChange}
                   required
                 />
                 <input
                   type="time"
                   name="heure_finPub"
                   value={evenement.heure_finPub}
-                  onChange={handelChange}
+                  onChange={handelTimeChange}
                 />
               </div>
             </div>
+            {errorsMsg && <p id="addPubsform-errorMsg">{errorsMsg.datePub}</p>}
+            {errorsMsg && <p id="addPubsform-errorMsg">{errorsMsg.heurePub}</p>}
             <div className="addAct-NbrParticipant">
               <div className="nbrParticipant-left">
                 <p>Nombre Participant</p>
@@ -176,24 +266,11 @@ function AddEventPopUp(props) {
                 onChange={handelCatégorieChange}
               />
             </div>
-            <h3>Lieu d'événement</h3>
-            <div className="addAct-adress">
-              <input
-                type="text"
-                placeholder="Lieu"
-                name="adresse"
-                value={evenement.adresse}
-                onChange={handelChange}
-                // required
-              />
-              <button className="addAct-adressMap" type="submit">
-                <MapIcon id="map-Icon" />
-              </button>
-            </div>
+
             <h3>Tarif</h3>
-            <div className="addAct-adress">
+            <div className="addAct-adress" id="tarif-event">
               <input
-                type="text"
+                type="number"
                 placeholder="Tarif"
                 name="tarif"
                 value={evenement.tarif}
@@ -202,15 +279,30 @@ function AddEventPopUp(props) {
                 required
               />
             </div>
-            <h3>Équipe</h3>
-            {/* <div className="addAct-category" id="eventEquipe">
-              <Select
-                closeMenuOnSelect={false}
-                components={animatedComponents}
-                isMulti
-                options={options}
-              />
-            </div> */}
+            <h3>Lieu d'événement</h3>
+            <div className="adr-option">
+              <p>Votre adresse sera choisir par défaut</p>
+              <button id="openMap-btn" onClick={openMapBtn}>
+                Choisir sur map
+              </button>
+            </div>
+
+            <div style={{ display: openMap ? "block" : "none" }}>
+              <div className="addEvent-mapContainer">
+                <MapContainer
+                  center={pos}
+                  zoom={13}
+                  className="addActmap-style"
+                  scrollWheelZoom={false}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <DraggableMarker />
+                </MapContainer>
+              </div>
+            </div>
 
             <button className="addAct-btn" type="submit">
               Publier

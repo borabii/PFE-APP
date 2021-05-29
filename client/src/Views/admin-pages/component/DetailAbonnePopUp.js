@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { calucleAge } from "../../../utilis/date";
+import { calucleAge, getDate } from "../../../utilis/date";
 function DetailAbonnePopUp(props) {
+  const [nbrAct, setnbrAct] = useState({});
   const {
     firstName,
     lastName,
@@ -14,11 +16,17 @@ function DetailAbonnePopUp(props) {
     dateOfBirth,
     centreInteret,
   } = props.user;
-
+  useEffect(() => {
+    axios
+      .get(
+        `http://localhost:8000/api/Publication/Admin/getNumberAct/${props.user._id}`
+      )
+      .then((response) => setnbrAct(response.data));
+  }, [props.show]);
   return (
     <Modal
       {...props}
-      size="lg"
+      size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       animation={true}
@@ -43,7 +51,7 @@ function DetailAbonnePopUp(props) {
                   <li>Prénom: {lastName} </li>
                   <li> Age: {calucleAge(dateOfBirth)} ans </li>
                   <li>Email: {email} </li>
-                  <li>Date d'inscrit: {inscriDate} </li>
+                  <li>Date d'inscrit: {getDate(inscriDate)} </li>
                 </ul>
               </div>
             </div>
@@ -63,7 +71,7 @@ function DetailAbonnePopUp(props) {
 
               <div className="info-item">
                 <h6> nombre d'activités</h6>
-                <h6>354</h6>
+                <h6>{nbrAct.nbrAct}</h6>
               </div>
 
               <div className="info-item">

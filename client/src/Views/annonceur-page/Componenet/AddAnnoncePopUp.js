@@ -40,13 +40,9 @@ function AddAnnoncePopUp(props) {
     event.preventDefault();
     const formData = new FormData();
     formData.append("description", annonce.description);
-
     formData.append("categorie", annonce.categorie);
-
     formData.append("date_DebutPub", annonce.date_DebutPub);
-
     formData.append("date_FinPub", annonce.date_FinPub);
-
     formData.append("imageAnnonce", annonce.imageAnnonce);
     addAnnonce(formData, annonceur._id);
     setAnnonce({
@@ -56,6 +52,7 @@ function AddAnnoncePopUp(props) {
       date_DebutPub: "",
       date_FinPub: "",
     });
+    props.onHide();
   };
 
   const imageSelectHandler = (event) => {

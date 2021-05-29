@@ -15,13 +15,17 @@ export const calucleAge = (date) => {
   let age = Math.abs(year - 1970);
   return age;
 };
-//methood user to transform date stored in mongode(2021-04-28T02:04:26.063+00:00) to (2021/4/28)
+//methood user to transform date stored in mongode(2021-04-28T02:04:26.063+00:00) to (2021/04/28)
 export const getDate = (date) => {
+  let newdate = "";
   var dateObj = new Date(date);
   var month = dateObj.getUTCMonth() + 1; //months from 1-12
   var day = dateObj.getUTCDate();
   var year = dateObj.getUTCFullYear();
-  const newdate = year + "-" + month + "-" + day;
+  if (month < 10) {
+    newdate = year + "-" + "0" + month + "-" + day;
+  } else newdate = year + "-" + month + "-" + day;
+
   return newdate;
 };
 
@@ -76,4 +80,15 @@ export const getDayName = (date) => {
   ];
   let dayStr = dayNames[day];
   return dayStr;
+};
+
+//extrat only time(16:00) from date(2021-05-26T16:00:09.429Z)
+export const getTime = () => {
+  let date = new Date();
+  let time = "";
+  date.setMinutes(0);
+  if (date.getHours() + 1) {
+    time = "0" + (date.getHours() + 1) + ":" + "0" + date.getMinutes();
+  } else time = date.getHours() + 1 + ":" + "0" + date.getMinutes();
+  return time;
 };

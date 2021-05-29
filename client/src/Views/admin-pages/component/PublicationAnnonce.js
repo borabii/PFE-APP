@@ -3,43 +3,64 @@ import axios from "axios";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SearchIcon from "@material-ui/icons/Search";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import DetailAnnoncePopUp from "./DetailAnnoncePopUp";
-
+import swal from "sweetalert";
+import { getDate } from "../../../utilis/date";
+import DetailAnnonceAdminPopUp from "./DetailAnnonceAdminPopUp";
 class PublicationAnnonce extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: null,
+      annonce: null,
       detailReqModalShow: false,
-      items: [],
+      annonces: [],
+      detailuser: {},
     };
   }
 
   updateItem = (index) => {
-    const user = this.state.items[index];
-    console.log(user);
-    this.setState({ id: user });
+    const user = this.state.annonces[index];
+    this.setState({ annonce: user });
+    axios
+      .get(`http://localhost:8000/api/users/Admin/getAnnonceur/${user.user}`)
+      .then((response) => {
+        this.setState({ detailuser: response.data });
+      });
   };
 
   componentDidMount() {
     axios
       .get("http://localhost:8000/api/Publication/Admin/getAnnonces")
       .then((response) => {
-        this.setState({ items: response.data });
+        this.setState({ annonces: response.data });
       });
   }
   //delet
   deletItem = (data) => {
-    if (window.confirm("are you sure !")) {
-      axios
-        .delete(`http://localhost:8000/api/Publication/deletepub/${data._id}`)
-
-        .then(
-          this.setState({
-            items: this.state.items.filter((item) => item._id !== data._id),
-          })
+    swal({
+      title: "Vous êtes sûre de supprimer ",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal(
+          axios
+            .delete(
+              `http://localhost:8000/api/Publication/deletepub/${data._id}`
+            )
+            .then(
+              this.setState({
+                annonces: this.state.annonces.filter(
+                  (item) => item._id !== data._id
+                ),
+              })
+            ),
+          swal({ icon: "success", title: "ANNONCE SUPPRIME AVEC SUCCES !" })
         );
-    }
+      } else {
+        swal("Opération annuler! ");
+      }
+    });
   };
 
   render() {
@@ -50,7 +71,7 @@ class PublicationAnnonce extends React.Component {
             <div className=" data-card ">
               <div className="card-body px-4  ">
                 <h5 className="card-title data-cardTitle"> Nombre Annonce</h5>
-                <p className="card-text">{this.state.items.length}</p>
+                <p className="card-text">{this.state.annonces.length}</p>
               </div>
             </div>
             <form>
@@ -78,35 +99,48 @@ class PublicationAnnonce extends React.Component {
                   </tr>
                 </thead>{" "}
                 <tbody>
-                  {this.state.items.map((data, index) => {
+                  {this.state.annonces.map((data, index) => {
                     return (
                       <tr key={index}>
-                        <th scope="row">{data._id}</th>
+                        <td scope="row">{data._id}</td>
                         <td>{data.categorie}</td>
-                        <td>{data.adresse}</td>
-                        <td>{data.date_Pub} </td>
+                        {/* <td>{data.adresse}</td> */}
+                        <td>ffffff </td>
+
+                        <td>{getDate(data.date_Pub)} </td>
                         <td
                           onClick={() => this.updateItem(index)}
                           id="icone-action"
                         >
                           <div>
-                            <DetailAnnoncePopUp
-                              user={
-                                this.state.id ? this.state.id : this.state.items
+                            <DetailAnnonceAdminPopUp
+                              data={
+                                this.state.annonce
+                                  ? this.state.annonce
+                                  : this.state.annonces
                               }
                               show={this.state.detailReqModalShow}
                               onHide={() =>
                                 this.setState({ detailReqModalShow: false })
+                              }
+                              organisateur={
+                                this.state.detailuser
+                                  ? this.state.detailuser
+                                  : {}
                               }
                             />
                             <VisibilityIcon
                               onClick={() =>
                                 this.setState({ detailReqModalShow: true })
                               }
+                              id="dataTable-viewIcon"
                             />
                           </div>
                           <div id="ff">
-                            <DeleteIcon onClick={() => this.deletItem(data)} />
+                            <DeleteIcon
+                              onClick={() => this.deletItem(data)}
+                              id="dataTable-delteIcon"
+                            />
                           </div>
                         </td>
                       </tr>

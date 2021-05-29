@@ -13,6 +13,10 @@ import {
   REMOVE_PARTICIPANTDATA,
   CLEAR_ANNONCEURPUBS,
   CLEAR_ABONNÉPUB,
+  GET_PUBSFORHOMEPAGE,
+  ACCEPT_PARTICIPANT,
+  ACCEPTED_PARTICIPANT_DATA,
+  REMOVE_ACCEPTED_PARTICIPANTDATA,
 } from "../types";
 export default (state, action) => {
   switch (action.type) {
@@ -26,6 +30,12 @@ export default (state, action) => {
       return {
         ...state,
         pubsParticipated: action.payload,
+        loading: false,
+      };
+    case GET_PUBSFORHOMEPAGE:
+      return {
+        ...state,
+        pubs: action.payload,
         loading: false,
       };
     case EDIT_PUB:
@@ -137,6 +147,17 @@ export default (state, action) => {
         participantData: action.payload,
         loading: false,
       };
+    case ACCEPTED_PARTICIPANT_DATA:
+      return {
+        ...state,
+        acceptedParticipantData: action.payload,
+        loading: false,
+      };
+    case REMOVE_ACCEPTED_PARTICIPANTDATA:
+      return {
+        ...state,
+        acceptedParticipantData: null,
+      };
     case REMOVE_PARTICIPANTDATA:
       return {
         ...state,
@@ -153,6 +174,12 @@ export default (state, action) => {
         ...state,
         pubsOrganized: null,
         pubsParticipated: null,
+      };
+
+    case ACCEPT_PARTICIPANT:
+      return {
+        ...state,
+        pubResponseMsg: action.payload.msg,
       };
     default:
       return state;

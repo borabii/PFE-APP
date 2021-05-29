@@ -3,6 +3,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 //icon
 import NotificationsIcon from "@material-ui/icons/Notifications";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
 import SearchIcon from "@material-ui/icons/Search";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
@@ -159,6 +160,24 @@ function AboHeader() {
           id="navbar-collpase"
         >
           <Nav>
+            <Nav.Link>
+              <div className="header-chatIcon">
+                <NavLink
+                  to={`${url}/Map`}
+                  exact
+                  activeStyle={{
+                    color: "rgba(0,0,0,.5)  ",
+                  }}
+                  className="navCollaps-item"
+                >
+                  <div className="header-chatIcon">
+                    {" "}
+                    <LocationOnIcon id="chatIcon" Style={{}} />
+                  </div>
+                </NavLink>
+              </div>
+              <h4 id="btnChat-small-device">Boite Message</h4>
+            </Nav.Link>
             <Nav.Link>
               <div className="header-chatIcon">
                 <ChatBubbleOutlineIcon id="chatIcon" />

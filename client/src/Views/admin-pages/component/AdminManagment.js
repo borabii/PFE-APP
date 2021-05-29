@@ -8,6 +8,7 @@ import AddAdminPopUp from "./AddAdminPopUp";
 import EditAdminPopUp from "./EditAdminPopUp";
 //call global method(getDate) from date.js
 import { getDate } from "../../../utilis/date";
+import swal from "sweetalert";
 
 class AdminManagment extends React.Component {
   constructor(props) {
@@ -26,19 +27,29 @@ class AdminManagment extends React.Component {
   };
   //this method run when user click in action icon that delete admin
   deleteAdmin = (adminData) => {
-    if (
-      window.confirm(
-        `Vous êtes sûre de supprimer :${
-          adminData.firstName + " " + adminData.lastName
-        } ?`
-      )
-    ) {
-      axios
-        .delete(`http://localhost:8000/api/users/deleteAdmin/${adminData._id}`)
-        .then((response) => {
-          this.setState({ admins: response.data.admins });
-        });
-    }
+    swal({
+      title: `Vous êtes sûre de supprimer :${
+        adminData.firstName + " " + adminData.lastName
+      } ?`,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal(
+          axios
+            .delete(
+              `http://localhost:8000/api/users/deleteAdmin/${adminData._id}`
+            )
+            .then((response) => {
+              this.setState({ admins: response.data.admins });
+            }),
+          swal({ icon: "success", title: "ADMIN SUPPRIME AVEC SUCCES !" })
+        );
+      } else {
+        swal("Opération annuler! ");
+      }
+    });
   };
   //run when compoenet is mounted to get all admin stored in db and set the state(admins)
   //with response data
@@ -120,26 +131,17 @@ class AdminManagment extends React.Component {
 
                         <td id="icone-action">
                           <div id="ff" onClick={() => this.selectedItem(index)}>
-                            <EditAdminPopUp
-                              user={
-                                this.state.admin
-                                  ? this.state.admin
-                                  : this.state.admins
-                              }
-                              show={this.state.editAdminModalShow}
-                              onHide={() =>
-                                this.setState({ editAdminModalShow: false })
-                              }
-                            />
                             <EditIcon
                               onClick={() =>
                                 this.setState({ editAdminModalShow: true })
                               }
+                              id="dataTable-viewIcon"
                             />
                           </div>
                           <div>
                             <DeleteIcon
                               onClick={() => this.deleteAdmin(data)}
+                              id="dataTable-delteIcon"
                             />
                           </div>
                         </td>
@@ -150,6 +152,11 @@ class AdminManagment extends React.Component {
               </table>
             </div>
           </div>
+          <EditAdminPopUp
+            user={this.state.admin ? this.state.admin : this.state.admins}
+            show={this.state.editAdminModalShow}
+            onHide={() => this.setState({ editAdminModalShow: false })}
+          />
         </div>
       </div>
     );

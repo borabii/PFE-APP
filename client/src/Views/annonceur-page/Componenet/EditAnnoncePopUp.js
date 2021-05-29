@@ -1,9 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Select from "react-select";
-import AddIcon from "@material-ui/icons/Add";
-import RemoveIcon from "@material-ui/icons/Remove";
-import MapIcon from "@material-ui/icons/Map";
+
 import UserContext from "../../../Context/user/userContext";
 import PubContext from "../../../Context/Publication/pubContext";
 function EditAnnoncePopUp(props) {
@@ -39,27 +37,24 @@ function EditAnnoncePopUp(props) {
     editPub(
       {
         description,
-
         date_DebutPub,
-
         date_FinPub,
-
         categorie,
       },
       evenement._id
     );
     setEvenement({
       description: "",
-
       date_DebutPub: "",
       date_FinPub: "",
-
       categorie: "",
     });
+    props.onHide();
   };
   //run when use click on btn(Supprimer) for deleting event
   const deleteEvent = () => {
     deletePub(evenement._id);
+    props.onHide();
   };
   //handel user input change and set state with inputed value
   const handelChange = (event) => {

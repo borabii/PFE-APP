@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, Fragment } from "react";
+import axios from "axios";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Carousel from "react-elastic-carousel";
 import PubCard from "../../abonnée-pages/component/PubCard";
@@ -6,23 +7,19 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import EditIcon from "@material-ui/icons/Edit";
-import AccessAlarmIcon from "@material-ui/icons/AccessAlarm";
-import EditWorktimePopUp from "./EditWorkTimePopUp";
 import EditInfoPopUp from "./EditInfoPopUp";
 import AddEventPopUp from "./AddEventPopUp";
 import AddAnnoncePopUp from "./AddAnnoncePopUp";
 import EditEventPopUp from "./EditEventPopUp";
 import UserContext from "../../../Context/user/userContext";
-import DetailEventPopUp from "../../admin-pages/component/DetailEventPopUp";
 import Spinner from "../../layout/Spinner";
 import PubContext from "../../../Context/Publication/pubContext";
 import { useSnackbar } from "notistack";
-import PubDetailPopUp from "../../abonnée-pages/component/PubDetailPopup";
-import ManagePubModalShow from "../../abonnée-pages/component/ManagePubModalShow";
 import Spinner1 from "../../layout/Spinner1";
 import AnnonceCard from "./AnnonceCard";
-import DétailAnnoncePopUp from "./DétailAnnoncePopUp";
 import EditAnnoncePopUp from "./EditAnnoncePopUp";
+import ManagePubModalShow from "../../abonnée-pages/component/ManagePubModalShow";
+import DetailAnnoncePopUp from "../../admin-pages/component/DetailAnnonceAdminPopUp";
 function AnnonceurVisitedProfile() {
   //app level state
   //Publication context
@@ -54,10 +51,9 @@ function AnnonceurVisitedProfile() {
   ];
   //componenet level state
   const [UserImage, setUserImage] = useState(null);
-  const [editWorkTimeModalShow, setEditWorkTimeModalShow] = useState(false);
   const [editEventModalShow, setEditEventModalShow] = useState(false);
   const [editAnnonceModalShow, setEditAnnonceModalShow] = useState(false);
-
+  const [adresse, setAdresse] = useState("");
   const [editInfoModalShow, setEditInfoModalShow] = useState(false);
   const [addEventModalShow, setAddEventModalShow] = useState(false);
   const [addAnnonceModalShow, setAddAnnonceModalShow] = useState(false);
@@ -114,6 +110,16 @@ function AnnonceurVisitedProfile() {
     };
   }, [loading === false, annonceur]);
   //
+  // useEffect(() => {
+  //   if (annonceur !== null) {
+  //     axios
+  //       .get(
+  //         `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${annonceur.adresseAnnonceur.coordinates[0]}&longitude=${annonceur.adresseAnnonceur.coordinates[1]}&localityLanguage=fr`
+  //       )
+  //       .then((data) => setAdresse(data.data));
+  //   }
+  // }, [annonceur]);
+  //
   const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     if (pubResponseMsg !== "aucune message") {
@@ -150,41 +156,33 @@ function AnnonceurVisitedProfile() {
                 <div id="user-name">
                   <h2>{annonceur.nomAnnonceur}</h2>
                   <span id="annoceur-contact">
-                    <h2 id="annonceur-tel">Numero tel:</h2>
-                    <p id="num-tel">{annonceur.numTelAnnonceur}</p>
+                    <h2 id="annonceur-tel">
+                      Numero tel:{annonceur.numTelAnnonceur}
+                    </h2>
                   </span>
                 </div>
                 <div id="annonceur-adresse">
                   <LocationOnIcon id="annonceurLoc-icon" />
-                  <p id="add">{annonceur.adresseAnnonceur}</p>
+                  <p id="add">
+                    {adresse &&
+                      adresse.locality + "," + adresse.principalSubdivision}
+                  </p>
                 </div>
               </div>
 
               <div className="annonceur-EditTime">
-                {/* <EditWorktimePopUp
-            show={editWorkTimeModalShow}
-            data={annonceur.horaireAnnonceur}
-            onHide={() => setEditWorkTimeModalShow(false)}
-          /> */}
                 <div id="HoraireTime">
-                  <h4>Horaire </h4>
-                  <div>
-                    <AccessAlarmIcon
-                      id="editWorkIcon"
-                      onClick={() => setEditWorkTimeModalShow(true)}
-                    />
-                  </div>
-                </div>
-                <div id="edit-profile">
                   <EditInfoPopUp
                     show={editInfoModalShow}
                     onHide={() => setEditInfoModalShow(false)}
                   />
                   <h4> Mes Info</h4>
-                  <EditIcon
-                    id="editInfoIcon"
-                    onClick={() => setEditInfoModalShow(true)}
-                  />
+                  <div>
+                    <EditIcon
+                      id="editInfoIcon"
+                      onClick={() => setEditInfoModalShow(true)}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -229,7 +227,10 @@ function AnnonceurVisitedProfile() {
                 </div>
                 <div id="user-adresse">
                   <LocationOnIcon id="userLoc-icon" />
-                  <p id="add">{annonceur.adresseAnnonceur}</p>
+                  <p id="add">
+                    {adresse &&
+                      adresse.locality + "," + adresse.principalSubdivision}
+                  </p>
                 </div>
                 <div className="annonceurProfile-rank">
                   <div id="user-avis">
@@ -243,22 +244,10 @@ function AnnonceurVisitedProfile() {
                 </div>
               </div>
               <div className="annonceur-EditTime">
-                <EditWorktimePopUp
-                  show={editWorkTimeModalShow}
-                  onHide={() => setEditWorkTimeModalShow(false)}
-                />
-                <div id="HoraireTime">
-                  <h4>Horaire </h4>
-                  <div>
-                    <AccessAlarmIcon
-                      id="editWorkIcon"
-                      onClick={() => setEditWorkTimeModalShow(true)}
-                    />
-                  </div>
-                </div>
                 <div id="edit-profile">
                   <EditInfoPopUp
                     show={editInfoModalShow}
+                    data={annonceur}
                     onHide={() => setEditInfoModalShow(false)}
                   />
                   <h4> Mes Info</h4>
@@ -272,6 +261,7 @@ function AnnonceurVisitedProfile() {
           </div>
           <div className="annonceurVisitedProfile-middel">
             <div id="middel-top">
+              {/* event */}
               <AddEventPopUp
                 show={addEventModalShow}
                 onHide={() => setAddEventModalShow(false)}
@@ -296,6 +286,7 @@ function AnnonceurVisitedProfile() {
                   anonceurEvent.map((item, index) => (
                     <>
                       <PubCard
+                        editPermission={true}
                         act={item}
                         editPubOption={true}
                         key={index}
@@ -312,6 +303,7 @@ function AnnonceurVisitedProfile() {
               )}
             </Carousel>
           </div>
+          {/*  */}
           <div className="annonceurVisitedProfile-bottom">
             <div id="middel-top">
               <AddAnnoncePopUp
@@ -327,6 +319,7 @@ function AnnonceurVisitedProfile() {
               </button>
             </div>
             <div id="user-interset">
+              {/* annonce */}
               <Container fluid className="noPadding">
                 <Row xs={1} sm={2} md={2} lg={3}>
                   {/* if there is a annonceurAnnonce and not loading, show list of annonce | if not -> show Spinner1 */}
@@ -360,6 +353,7 @@ function AnnonceurVisitedProfile() {
               </Container>
             </div>
           </div>
+          {/*  */}
         </div>
       ) : (
         <Spinner />
@@ -369,12 +363,13 @@ function AnnonceurVisitedProfile() {
         data={eventClicked}
         onHide={() => setEditEventModalShow(false)}
       />
+
       <ManagePubModalShow
         show={detailEventModalShow}
         data={eventClicked}
         onHide={() => setDetailEventModalShow(false)}
       />
-      <DétailAnnoncePopUp
+      <DetailAnnoncePopUp
         show={detailAnnonceModalShow}
         data={eventClicked}
         onHide={() => setDetailAnnonceModalShow(false)}

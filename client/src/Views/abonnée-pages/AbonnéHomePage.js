@@ -6,13 +6,13 @@ import AbonnéVisitedProfile from "./component/AbonnéVisitedProfile";
 import AnnonceurHomePage from "../annonceur-page/AnnonceurHomePage";
 import Home from "./component/Home";
 import Map from "./component/Map";
-import { Route, Switch, useRouteMatch } from "react-router-dom";
+import { Route, Switch, useRouteMatch, Link } from "react-router-dom";
 import FormDemandeEscpacePubs from "./component/FormDemandeEscpacePubs";
 import AuthContext from "../../Context/auth/authContext";
 import UserContext from "../../Context/user/userContext";
 import AbonnéActivités from "./component/AbonnéActivités";
 function AbonnéHomePage() {
-  const { path } = useRouteMatch();
+  const { url, path } = useRouteMatch();
   const authContext = useContext(AuthContext);
   const { loadUser } = authContext;
   const userContext = useContext(UserContext);
@@ -26,9 +26,12 @@ function AbonnéHomePage() {
   return (
     <div>
       <AboHeader />
-      <div className="homePageBody">
-        <Switch>
-          <Route path={path} exact component={Map} />
+
+      <Switch>
+        <Route path={`${path}/Map`} exact component={Map} />
+        <div className="homePageBody">
+          <Route path={path} exact component={Home} />
+
           <Route path={`${path}/MesActivités`} component={AbonnéActivités} />
           <Route path={`${path}/Compte`} component={AbonnéProfil} />
           <Route path={`${path}/EscpacePub`} component={AnnonceurHomePage} />
@@ -36,8 +39,8 @@ function AbonnéHomePage() {
             path={`${path}/FormDemandeEscpacePubs`}
             component={FormDemandeEscpacePubs}
           />
-        </Switch>
-      </div>
+        </div>
+      </Switch>
     </div>
   );
 }

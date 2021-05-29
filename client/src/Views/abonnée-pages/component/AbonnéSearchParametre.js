@@ -1,37 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Slider from "react-rangeslider";
 import "react-rangeslider/lib/index.css";
-function AbonnéSearchParametre() {
-  //this state is used for handling the sider value that define the distance of searsh per km
-  const [distance, setdistance] = useState(10);
+import UserContext from "../../../Context/user/userContext";
+import AuthContext from "../../../Context/auth/authContext";
+import { useSnackbar } from "notistack";
 
-  const handleChangeStart = () => {
-    console.log("Change event started");
-  };
+function AbonnéSearchParametre() {
+  //app level state
+  //userContext
+  const usercontext = useContext(UserContext);
+  const { updateDistanceDeRecherhce, responseMessage, ClearResponseMessage } =
+    usercontext;
+  const authcontext = useContext(AuthContext);
+  const { user } = authcontext;
+  //this state is used for handling the sider value that define the distance of searsh per km
+  const [distance, setdistance] = useState(user.distanceDeRecherche / 1000);
+
   const handleChange = (value) => {
     setdistance(value);
   };
-  const handleChangeComplete = () => {
-    console.log("Change event completed");
-  };
-  const { value } = distance;
 
+  const saveDistance = () => {
+    updateDistanceDeRecherhce(distance);
+  };
+  //used for displaying response msg
+  const { enqueueSnackbar } = useSnackbar();
+  useEffect(() => {
+    if (responseMessage !== "aucune message") {
+      enqueueSnackbar(
+        responseMessage,
+
+        { variant: "success" }
+      );
+    }
+    return () => {
+      ClearResponseMessage();
+    };
+  }, [responseMessage]);
   return (
     <div className="searchParametre">
       <h2>Distance de recherche</h2>
 
       <div className="slider">
-        <Slider
-          min={1}
-          max={100}
-          value={distance}
-          onChangeStart={handleChangeStart}
-          onChange={handleChange}
-          onChangeComplete={handleChangeComplete}
-        />
+        <Slider min={1} max={100} value={distance} onChange={handleChange} />
         <div className="value">{distance} km</div>
       </div>
-      <button className="btn-Distance" type="submit">
+      <button className="btn-Distance" onClick={saveDistance}>
         Enregistrer
       </button>
     </div>

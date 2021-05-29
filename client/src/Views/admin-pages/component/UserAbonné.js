@@ -5,7 +5,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import DetailAbonnePopUp from "./DetailAbonnePopUp";
 import { getDate } from "../../../utilis/date";
-
+import swal from "sweetalert";
 class UserAbonné extends React.Component {
   constructor(props) {
     super(props);
@@ -20,24 +20,31 @@ class UserAbonné extends React.Component {
   selectedItem = (index) => {
     this.setState({ abonné: this.state.abonnés[index] });
   };
-  //this method run when user click in action icon that delete abonné
+
   deletabonné = (data) => {
-    if (
-      window.confirm(
-        `Vous êtes sûre de supprimer :${data.firstName + " " + data.lastName} ?`
-      )
-    ) {
-      axios
-        .delete(
-          `http://localhost:8000/api/users/Admin/deleteAbonne/${data._id}`
-        )
-
-        .then((response) => {
-          this.setState({ abonnés: response.data.abonnes });
-
-          console.log(response.data.msg);
-        });
-    }
+    swal({
+      title: `Vous êtes sûre de supprimer :${
+        data.firstName + " " + data.lastName
+      } ?`,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal(
+          axios
+            .delete(
+              `http://localhost:8000/api/users/Admin/deleteAbonne/${data._id}`
+            )
+            .then((response) => {
+              this.setState({ abonnés: response.data.abonnes });
+            }),
+          swal({ icon: "success", title: "COMPTE SUPPRIME AVEC SUCCES !" })
+        );
+      } else {
+        swal("Opération annuler! ");
+      }
+    });
   };
   //run when compoenet is mounted to get all abonnés stored in db and set the state(abonnés)
   //with response data
@@ -75,7 +82,7 @@ class UserAbonné extends React.Component {
           {/* data table */}
           <div className="dataTable__bottom">
             <div class="table-wrapper-scroll-y my-custom-scrollbar">
-              <table className="table  table-hover table-striped   text-center my-table">
+              <table className="table table-hover table-striped text-center my-table">
                 <thead>
                   <tr>
                     <th scope="col">id</th>
@@ -90,34 +97,27 @@ class UserAbonné extends React.Component {
                   {this.state.abonnés.map((data, index) => {
                     return (
                       <tr>
-                        <th scope="row">{data._id}</th>
-                        <td>{data.firstName}</td>
+                        <td>{data._id}</td>
+                        <td>
+                          <p>{data.firstName}</p>
+                        </td>
                         <td>{data.lastName}</td>
                         <td>{data.email}</td>
                         <td>{getDate(data.inscriDate)}</td>
 
                         <td id="icone-action">
                           <div onClick={() => this.selectedItem(index)}>
-                            <DetailAbonnePopUp
-                              user={
-                                this.state.abonné
-                                  ? this.state.abonné
-                                  : this.state.abonnés
-                              }
-                              show={this.state.detailReqModalShow}
-                              onHide={() =>
-                                this.setState({ detailReqModalShow: false })
-                              }
-                            />
                             <VisibilityIcon
                               onClick={() =>
                                 this.setState({ detailReqModalShow: true })
                               }
+                              id="dataTable-viewIcon"
                             />
                           </div>
                           <div id="ff">
                             <DeleteIcon
                               onClick={() => this.deletabonné(data)}
+                              id="dataTable-delteIcon"
                             />
                           </div>
                         </td>
@@ -127,6 +127,11 @@ class UserAbonné extends React.Component {
                 </tbody>
               </table>
             </div>
+            <DetailAbonnePopUp
+              user={this.state.abonné ? this.state.abonné : this.state.abonnés}
+              show={this.state.detailReqModalShow}
+              onHide={() => this.setState({ detailReqModalShow: false })}
+            />
           </div>
         </div>
       </div>

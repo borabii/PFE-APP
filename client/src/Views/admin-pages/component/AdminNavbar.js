@@ -13,7 +13,7 @@ function AdminNavbar() {
   return (
     <div className=" navbar adminHomePage__navbar">
       <div className=" nav__option">
-        <h2>Bienvenu {user.role}</h2>
+        <h2>Bienvenu, {user.firstName}</h2>
       </div>
       <div className="nav__option clock">
         {/* displaying system time for user ( set ticking to true for auto upadate each second) */}

@@ -34,9 +34,6 @@ function AbonnéInfo() {
     const formData = new FormData();
     formData.append("imageProfile", UserImage);
     updateProfileImage(formData);
-    // return () => {
-    //   window.location.reload(false);
-    // };
   }, [UserImage]);
 
   // handel user nex description value

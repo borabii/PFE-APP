@@ -5,7 +5,15 @@ const DemandeAnonnceurSchema = mongoose.Schema({
     type: String,
   },
   adresseAnnonceur: {
-    type: String,
+    type: {
+      type: String,
+      enum: ["Point"],
+      default: "Point",
+    },
+    coordinates: {
+      type: [Number],
+      default: [0, 0],
+    },
   },
   numTelAnnonceur: {
     type: String,
@@ -33,4 +41,6 @@ const DemandeAnonnceurSchema = mongoose.Schema({
     default: Date.now,
   },
 });
+DemandeAnonnceurSchema.index({ adresseAnnonceur: "2dsphere" });
+
 module.exports = mongoose.model("DemandeAnnonceur", DemandeAnonnceurSchema);

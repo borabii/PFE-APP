@@ -1,8 +1,36 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Modal from "react-bootstrap/Modal";
-import { getDayName } from "../../../utilis/date";
+import axios from "axios";
+import { getDayName, calucleAge } from "../../../utilis/date";
+import PubContext from "../../../Context/Publication/pubContext";
+import Spinner1 from "../../layout/Spinner1";
+import { useSnackbar } from "notistack";
+
 function PubDetailPopUp(props) {
+  const { enqueueSnackbar } = useSnackbar();
+
+  const participate = () => {
+    axios
+      .put(
+        `http://localhost:8000/api/Publication/partcipatePub/${props.data._id}`
+      )
+      .then((res) => enqueueSnackbar(res.data.msg, { variant: "success" }));
+  };
+  const pubContext = useContext(PubContext);
+  const {
+    getAcceptedParticipantData,
+    acceptedParticipantData,
+    ClearAcceptedParticipantData,
+    loading,
+  } = pubContext;
+  useEffect(() => {
+    getAcceptedParticipantData(props.data._id);
+    return () => {
+      ClearAcceptedParticipantData();
+    };
+  }, [props.show === true && !loading]);
+
   return (
     <Modal
       {...props}
@@ -29,7 +57,7 @@ function PubDetailPopUp(props) {
                 <dt>Adresse</dt>
                 <dd>
                   <LocationOnIcon id="icon-loc" />
-                  {props.data.adresse}
+                  {/* {props.data.adresse} */}
                 </dd>
                 <dt>HORAIRES </dt>
                 <dd>
@@ -38,8 +66,8 @@ function PubDetailPopUp(props) {
                   {getDayName(props.data.date_FinPub) ===
                   getDayName(props.data.date_DebutPub)
                     ? ""
-                    : "jusqu'à" + getDayName(props.data.date_FinPub)}
-                  {props.data.heure_debutPub} "a" {props.data.heure_finPub}
+                    : " jusqu'à " + getDayName(props.data.date_FinPub)}
+                  {props.data.heure_debutPub} a {props.data.heure_finPub}
                 </dd>
               </dl>
             </div>
@@ -48,89 +76,72 @@ function PubDetailPopUp(props) {
             <h3>ORGANISER PAR</h3>
             <div className="organizateur__container">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREzWk9kfZiZ3-enCoEgErPVWons-ZKHSt_Ow&usqp=CAU"
+                src={`http://localhost:8000/${props.user.imageProfile}`}
                 alt=""
               />
               <div className="organizateur__info">
                 <dl>
-                  <dd> Galaxy Gym</dd>
+                  <dd>
+                    {" "}
+                    {props.user.firstName} {props.user.lastName}
+                  </dd>
                   <dd>
                     <LocationOnIcon id="icon-loc" />
                     Monplaisir
                   </dd>
-                  <dd> mail@gmail.com</dd>
+                  <dd> {props.user.email}</dd>
                 </dl>
               </div>
             </div>
           </div>
           <div className="pubDetailPopUp__participation">
-            <button className="btn-participation">Je parrticipe</button>
+            <button className="btn-participation" onClick={participate}>
+              Je parrticipe
+            </button>
           </div>
 
           {/*  */}
-          <div className="pubDetailPopUp__prticipant ">
-            <div className="pub-partcipantList">
-              <div className="pub-particiant">
-                <div className="pub-particiantLeft">
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREzWk9kfZiZ3-enCoEgErPVWons-ZKHSt_Ow&usqp=CAU"
-                    alt=""
-                  />
-                  <div className="pub-particiantInfo">
-                    <p id="participant-name">ben ouirane rabii</p>
-                    <p id="participant-age">42 ans</p>
-                    <p id="participant-adresse">
-                      <LocationOnIcon id="paricipantAdresse-icon" />
-                      Djerba
-                    </p>
+
+          {/*  */}
+          {!loading && acceptedParticipantData !== null ? (
+            acceptedParticipantData && acceptedParticipantData.length > 0 ? (
+              acceptedParticipantData.map((item, index) => {
+                return (
+                  <div className="pubDetailPopUp__prticipant " key={index}>
+                    <div className="pub-partcipantList">
+                      <div className="pub-particiant">
+                        <div className="pub-particiantLeft">
+                          <img
+                            src={`http://localhost:8000/${props.user.imageProfile}`}
+                            alt=""
+                          />
+                          <div className="pub-particiantInfo">
+                            <p id="participant-name">
+                              {item.firstName + " " + item.lastName}
+                            </p>
+                            <p id="participant-age">
+                              {calucleAge(item.dateOfBirth)} ans
+                            </p>
+                            <p id="participant-adresse">
+                              <LocationOnIcon id="paricipantAdresse-icon" />
+                              Djerba
+                            </p>
+                          </div>
+                        </div>
+                        <div className="pub-particiantAction">Voir Profile</div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="pub-particiantAction">Voir Profile</div>
-              </div>
-            </div>
-          </div>
-          <div className="pubDetailPopUp__prticipant ">
-            <div className="pub-partcipantList">
-              <div className="pub-particiant">
-                <div className="pub-particiantLeft">
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREzWk9kfZiZ3-enCoEgErPVWons-ZKHSt_Ow&usqp=CAU"
-                    alt=""
-                  />
-                  <div className="pub-particiantInfo">
-                    <p id="participant-name">ben ouirane rabii</p>
-                    <p id="participant-age">42 ans</p>
-                    <p id="participant-adresse">
-                      <LocationOnIcon id="paricipantAdresse-icon" />
-                      Djerba
-                    </p>
-                  </div>
-                </div>
-                <div className="pub-particiantAction">Voir Profile</div>
-              </div>
-            </div>
-          </div>
-          <div className="pubDetailPopUp__prticipant ">
-            <div className="pub-partcipantList">
-              <div className="pub-particiant">
-                <div className="pub-particiantLeft">
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREzWk9kfZiZ3-enCoEgErPVWons-ZKHSt_Ow&usqp=CAU"
-                    alt=""
-                  />
-                  <div className="pub-particiantInfo">
-                    <p id="participant-name">ben ouirane rabii</p>
-                    <p id="participant-age">42 ans</p>
-                    <p id="participant-adresse">
-                      <LocationOnIcon id="paricipantAdresse-icon" />
-                      Djerba
-                    </p>
-                  </div>
-                </div>
-                <div className="pub-particiantAction">Voir Profile</div>
-              </div>
-            </div>
-          </div>
+                );
+              })
+            ) : (
+              <h1 id="noParticipant-msg">Aucune participation</h1>
+            )
+          ) : (
+            <Spinner1 />
+          )}
+          {/*  */}
+
           <div id="hide">ss</div>
         </div>
       </Modal.Body>

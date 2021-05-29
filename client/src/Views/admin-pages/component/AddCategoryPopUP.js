@@ -38,6 +38,7 @@ function AddCategoryPopUP(props) {
     );
     //clear form after submit
     setCategorie({ imageCatégorie: "", typeCatégorie: "" });
+    props.onHide();
   };
   return (
     <Modal

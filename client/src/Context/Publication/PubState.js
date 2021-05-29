@@ -17,6 +17,10 @@ import {
   REMOVE_PARTICIPANTDATA,
   CLEAR_ANNONCEURPUBS,
   CLEAR_ABONNÉPUB,
+  GET_PUBSFORHOMEPAGE,
+  ACCEPT_PARTICIPANT,
+  ACCEPTED_PARTICIPANT_DATA,
+  REMOVE_ACCEPTED_PARTICIPANTDATA,
 } from "../types";
 const PubState = (props) => {
   const initialState = {
@@ -24,7 +28,10 @@ const PubState = (props) => {
     anonceurEvent: null,
     pubsOrganized: null,
     pubsParticipated: null,
+    pubs: null,
+
     participantData: null,
+    acceptedParticipantData: null,
     pubResponseMsg: "aucune message",
   };
 
@@ -54,6 +61,20 @@ const PubState = (props) => {
       });
     } catch (err) {}
   };
+  //load pubs(annonce,event,act) for user home page
+  const loadPubs = async (lat, lon, radius) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/api/Publication/homaPagePub/${lat}/${lon}/${radius}`
+      );
+      dispatch({
+        type: GET_PUBSFORHOMEPAGE,
+        payload: response.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   //load posted  annonceur event
   const loadEvent = async (annonceurId) => {
     try {
@@ -64,7 +85,9 @@ const PubState = (props) => {
         type: GET_ANNONCEUREVENT,
         payload: response.data,
       });
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
   //load posted  annonceur Annonce
   const loadAnnonce = async (annonceurId) => {
@@ -76,7 +99,9 @@ const PubState = (props) => {
         type: GET_ANNONCEURANNONCE,
         payload: response.data,
       });
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
   // add Activity
   const addAct = async (formData) => {
@@ -154,7 +179,6 @@ const PubState = (props) => {
       console.log(err);
     }
   };
-  //add annonce
   // add  Annonce
   const addAnnonce = async (formData, annonceurId) => {
     try {
@@ -170,7 +194,22 @@ const PubState = (props) => {
       console.log(err);
     }
   };
-  //get participant data in pub
+  //Accepte participant
+  const acceptParticipant = async (pubId, participantId) => {
+    try {
+      const res = await axios.put(
+        `http://localhost:8000/api/Publication/AccepteParticipant/${pubId}/${participantId}`
+      );
+
+      dispatch({
+        type: ACCEPT_PARTICIPANT,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  //get ALL participant data in pub
   const getParticipantData = async (pubId) => {
     try {
       const res = await axios.get(
@@ -184,11 +223,27 @@ const PubState = (props) => {
       console.log(err);
     }
   };
+  //get ONLY accepted participant data in pub
+  const getAcceptedParticipantData = async (pubId) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:8000/api/Publication/HomePagePubs/getParticipantData/${pubId}`
+      );
+      dispatch({
+        type: ACCEPTED_PARTICIPANT_DATA,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   //clear global state that handel response message
   const ClearPubResponseMsg = () =>
     dispatch({ type: REMOVE_PUBRSPONSEMESSAGE });
   //clear global state (participantData)
   const ClearParticipantData = () => dispatch({ type: REMOVE_PARTICIPANTDATA });
+  const ClearAcceptedParticipantData = () =>
+    dispatch({ type: REMOVE_ACCEPTED_PARTICIPANTDATA });
 
   // Clear Annonceur pub(annonce(annonceurAnnonce ) and (event(anonceurEvent)))
   const clearAnnonceurPub = () => {
@@ -211,8 +266,11 @@ const PubState = (props) => {
         pubResponseMsg: state.pubResponseMsg,
         annonceurAnnonce: state.annonceurAnnonce,
         anonceurEvent: state.anonceurEvent,
+        pubs: state.pubs,
         participantData: state.participantData,
+        acceptedParticipantData: state.acceptedParticipantData,
         loadActOrganized,
+        loadPubs,
         addAct,
         editPub,
         ClearPubResponseMsg,
@@ -226,6 +284,9 @@ const PubState = (props) => {
         clearAnnonceurPub,
         clearAbonnéPub,
         addAnnonce,
+        acceptParticipant,
+        getAcceptedParticipantData,
+        ClearAcceptedParticipantData,
       }}
     >
       {props.children}

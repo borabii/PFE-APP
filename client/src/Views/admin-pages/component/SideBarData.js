@@ -11,12 +11,7 @@ export const SideBarData = [
     cName: "nav-text",
     permission: "1",
   },
-  {
-    title: "Gestion Localité",
-    path: "/adressManagment",
-    cName: "nav-text",
-    permission: "1",
-  },
+
   {
     title: "Annonce",
     path: "/pubAnnonce",

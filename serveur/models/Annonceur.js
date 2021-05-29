@@ -5,7 +5,15 @@ const AnnonceurSchema = new mongoose.Schema({
     type: String,
   },
   adresseAnnonceur: {
-    type: String,
+    type: {
+      type: String,
+      enum: ["Point"],
+      default: "Point",
+    },
+    coordinates: {
+      type: [Number],
+      default: [0, 0],
+    },
   },
   numTelAnnonceur: {
     type: String,
@@ -22,20 +30,7 @@ const AnnonceurSchema = new mongoose.Schema({
   imageCouverture: {
     type: String,
   },
-  horaireAnnonceur: [
-    {
-      jour: {
-        type: String,
-        enum: ["mo", "tu", "we", "th", "fr", "sa", "su"],
-      },
-      heureDebut: {
-        type: String,
-      },
-      heureFin: {
-        type: String,
-      },
-    },
-  ],
+
   abonnéId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Abonné",
@@ -45,5 +40,6 @@ const AnnonceurSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+AnnonceurSchema.index({ adresseAnnonceur: "2dsphere" });
 
 module.exports = mongoose.model("Annonceur", AnnonceurSchema);

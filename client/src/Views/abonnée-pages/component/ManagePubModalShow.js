@@ -4,20 +4,29 @@ import Modal from "react-bootstrap/Modal";
 import { getDayName, calucleAge } from "../../../utilis/date";
 import CheckIcon from "@material-ui/icons/Check";
 import ClearIcon from "@material-ui/icons/Clear";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import PubContext from "../../../Context/Publication/pubContext";
 import Spinner1 from "../../layout/Spinner1";
 function ManagePubModalShow(props) {
   const pubContext = useContext(PubContext);
-  const { getParticipantData, participantData, ClearParticipantData, loading } =
-    pubContext;
+  const {
+    getParticipantData,
+    participantData,
+    ClearParticipantData,
+    loading,
+    acceptParticipant,
+  } = pubContext;
   useEffect(() => {
     getParticipantData(props.data._id);
     return () => {
       ClearParticipantData();
     };
   }, [props.show === true && !loading]);
-
+  //run when user click on check icon to accept participant
+  const acceptParticipantRequest = () => {
+    acceptParticipant(props.data._id, props.data.user);
+  };
   return (
     <Modal
       {...props}
@@ -44,7 +53,7 @@ function ManagePubModalShow(props) {
                 <dt>Adresse</dt>
                 <dd>
                   <LocationOnIcon id="icon-loc" />
-                  {props.data.adresse}
+                  {/* {props.data.adresse} */}
                 </dd>
                 <dt>HORAIRES </dt>
                 <dd>
@@ -86,14 +95,31 @@ function ManagePubModalShow(props) {
                             </p>
                             <p id="participant-adresse">
                               <LocationOnIcon id="paricipantAdresse-icon" />
-                              {item.adress}
+                              {/* {item.adress} */}
                             </p>
                           </div>
                         </div>
                         <div className="pub-participant-action">
                           <div className="pub-participant-actioIcon">
-                            <CheckIcon id="accpetParticipant-icon" />
-                            <ClearIcon id="removeParticipant-icon" />
+                            {props.data.participants.filter(function (
+                              participant
+                            ) {
+                              return (
+                                participant._id === item._id &&
+                                participant.etat === "attent"
+                              );
+                            }).length > 0 ? (
+                              <>
+                                <CheckIcon
+                                  id="accpetParticipant-icon"
+                                  onClick={acceptParticipantRequest}
+                                />
+                                <ClearIcon id="removeParticipant-icon" />
+                              </>
+                            ) : (
+                              <CheckCircleOutlineIcon id="accpetedParticipant-icon" />
+                            )}
+
                             <AccountBoxIcon id="visitParticipantAccount-icon" />
                           </div>
                         </div>

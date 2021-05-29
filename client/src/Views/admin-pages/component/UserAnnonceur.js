@@ -5,6 +5,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import DetailAnnonceurPopUp from "./DetailAnnonceurPopUp";
 import { getDate } from "../../../utilis/date";
+import swal from "sweetalert";
 
 class UserAnnonceur extends React.Component {
   constructor(props) {
@@ -29,17 +30,28 @@ class UserAnnonceur extends React.Component {
       .then((response) => this.setState({ DemandeurData: response.data }));
   };
   //this method run when user click in action icon that delete annonceur
-
   deletannonceur = (data) => {
-    if (window.confirm(`Vous êtes sûre de supprimer :${data.nomAnnonceur} ?`)) {
-      axios
-        .delete(
-          `http://localhost:8000/api/users/Admin/deleteAnnonceure/${data._id}`
-        )
-        .then((response) => {
-          this.setState({ annonceurs: response.data.annonceurs });
-        });
-    }
+    swal({
+      title: `Vous êtes sûre de supprimer :${data.nomAnnonceur} ?`,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal(
+          axios
+            .delete(
+              `http://localhost:8000/api/users/Admin/deleteAnnonceure/${data._id}`
+            )
+            .then((response) => {
+              this.setState({ abonnés: response.data.abonnes });
+            }),
+          swal({ icon: "success", title: "COMPTE SUPPRIME AVEC SUCCES !" })
+        );
+      } else {
+        swal("opération annuler! ");
+      }
+    });
   };
   //run when compoenet is mounted to get all annonceur stored in db and set the state(annonceurs)
   //with response data
@@ -91,7 +103,7 @@ class UserAnnonceur extends React.Component {
                   {this.state.annonceurs.map((data, index) => {
                     return (
                       <tr>
-                        <th scope="row">{data._id}</th>
+                        <td scope="row">{data._id}</td>
                         <td>{data.nomAnnonceur}</td>
                         <td> {data.emailProAnnonceur}</td>
                         <td>{data.catégorieAnnonceur}</td>
@@ -114,11 +126,13 @@ class UserAnnonceur extends React.Component {
                               onClick={() =>
                                 this.setState({ detailReqModalShow: true })
                               }
+                              id="dataTable-viewIcon"
                             />
                           </div>
                           <div id="ff">
                             <DeleteIcon
                               onClick={() => this.deletannonceur(data)}
+                              id="dataTable-delteIcon"
                             />
                           </div>
                         </td>

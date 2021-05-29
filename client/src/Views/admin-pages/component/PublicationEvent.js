@@ -4,39 +4,59 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import SearchIcon from "@material-ui/icons/Search";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import DetailEventPopUp from "./DetailEventPopUp";
+import swal from "sweetalert";
+import { getDate } from "../../../utilis/date";
 
 class PublicationEvent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: null,
+      event: null,
       detailReqModalShow: false,
-      items: [],
+      events: [],
+      detailuser: {},
     };
   }
 
   updateItem = (index) => {
-    const user = this.state.items[index];
-    this.setState({ id: user });
+    const user = this.state.events[index];
+    this.setState({ event: user });
+    axios
+      .get(`http://localhost:8000/api/users/Admin/getAnnonceur/${user.user}`)
+      .then((response) => {
+        this.setState({ detailuser: response.data });
+      });
   };
   componentDidMount() {
     axios
       .get("http://localhost:8000/api/Publication/Admin/getEvents")
       .then((response) => {
-        this.setState({ items: response.data });
+        this.setState({ events: response.data });
       });
   }
   //delete
   deletItem = (data) => {
-    if (window.confirm("are you sure !")) {
-      axios
-        .delete(`http://localhost:8000/api/Publication/deletepub/${data._id}`)
-        .then(
-          this.setState({
-            items: this.state.items.filter((item) => item._id !== data._id),
-          })
+    swal({
+      title: "Voulez vous supprimer cette événement",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal(
+          axios
+            .delete(
+              `http://localhost:8000/api/Publication/deletepub/${data._id}`
+            )
+            .then((response) => {
+              this.setState({ events: response.data.abonnes });
+            }),
+          swal({ icon: "success", title: "ÉVÉNEMENT SUPPRIME AVEC SUCCES !" })
         );
-    }
+      } else {
+        swal("Opération annuler! ");
+      }
+    });
   };
 
   render() {
@@ -47,7 +67,7 @@ class PublicationEvent extends React.Component {
             <div className=" data-card ">
               <div className="card-body px-2  ">
                 <h5 className="card-title data-cardTitle"> Nombre évenement</h5>
-                <p className="card-text">{this.state.items.length}</p>
+                <p className="card-text">{this.state.events.length}</p>
               </div>
             </div>
 
@@ -76,35 +96,42 @@ class PublicationEvent extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.items.map((data, index) => {
+                  {this.state.events.map((data, index) => {
                     return (
                       <tr key={index}>
-                        <th scope="row">{data._id}</th>
+                        <td>{data._id}</td>
                         <td>{data.categorie}</td>
-                        <td>{data.adresse}</td>
-                        <td>{data.date_Pub} </td>
+                        <td>aaaaaaaaa</td>
+                        <td>{getDate(data.date_Pub)} </td>
                         <td
                           onClick={() => this.updateItem(index)}
                           id="icone-action"
                         >
                           <div>
                             <DetailEventPopUp
-                              user={
-                                this.state.id ? this.state.id : this.state.items
+                              data={
+                                this.state.event
+                                  ? this.state.event
+                                  : this.state.events
                               }
                               show={this.state.detailReqModalShow}
                               onHide={() =>
                                 this.setState({ detailReqModalShow: false })
                               }
+                              organisateur={this.state.detailuser}
                             />
                             <VisibilityIcon
                               onClick={() =>
                                 this.setState({ detailReqModalShow: true })
                               }
+                              id="dataTable-viewIcon"
                             />
                           </div>
                           <div id="ff">
-                            <DeleteIcon onClick={() => this.deletItem(data)} />
+                            <DeleteIcon
+                              onClick={() => this.deletItem(data)}
+                              id="dataTable-delteIcon"
+                            />
                           </div>
                         </td>
                       </tr>

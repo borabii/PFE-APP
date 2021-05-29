@@ -1,7 +1,11 @@
-import React from "react";
-import Modal from "react-bootstrap/Modal";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
+import Modal from "react-bootstrap/Modal";
+import { getDate } from "../../../utilis/date";
 function DetailAnnonceurPopUp(props) {
+  const [nbrPubs, setnbrPubs] = useState({});
+
   const {
     nomAnnonceur,
     adresseAnnonceur,
@@ -9,11 +13,17 @@ function DetailAnnonceurPopUp(props) {
     catégorieAnnonceur,
     aceptationDate,
   } = props.user;
-
+  useEffect(() => {
+    axios
+      .get(
+        `http://localhost:8000/api/Publication/Admin/getAnnonceEventNumber/${props.user._id}`
+      )
+      .then((response) => setnbrPubs(response.data));
+  }, [props.show]);
   return (
     <Modal
       {...props}
-      size="lg"
+      size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       animation={true}
@@ -40,7 +50,9 @@ function DetailAnnonceurPopUp(props) {
                   <li>Nom : {props.demandeur.firstName}</li>
                   <li>Prenom: {props.demandeur.lastName} </li>
                   <li>Email: {props.demandeur.email} </li>
-                  <li>Date d'inscrit: {props.demandeur.inscriDate} </li>
+                  <li>
+                    Date d'inscrit: {getDate(props.demandeur.inscriDate)}{" "}
+                  </li>
                 </ul>
               </div>
             </div>
@@ -55,10 +67,9 @@ function DetailAnnonceurPopUp(props) {
               <div className="user__Info">
                 <ul>
                   <li>Nom: {nomAnnonceur}</li>
-                  <li>Adresse: {adresseAnnonceur}</li>
+                  {/* <li>Adresse: {adresseAnnonceur}</li> */}
                   <li>Catégorie: {catégorieAnnonceur}</li>
-                  <li>Date création:{aceptationDate}</li>
-                  <li>Horaire:</li>
+                  <li>Date création: {getDate(aceptationDate)}</li>
                 </ul>
               </div>
             </div>
@@ -77,12 +88,12 @@ function DetailAnnonceurPopUp(props) {
 
               <div className="info-item">
                 <h6> nombre d'annonce</h6>
-                <h6>354</h6>
+                <h6>{nbrPubs.nbrAnnoncedeannonceur}</h6>
               </div>
 
               <div className="info-item">
                 <h6> nombre d'event</h6>
-                <h6>354</h6>
+                <h6>{nbrPubs.nbrEventdeannonceur}</h6>
               </div>
             </div>
           </div>

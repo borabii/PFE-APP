@@ -54,7 +54,7 @@
 .annonceur-EditTime {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: flex-start;
   background-color: #f6f5f5;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
@@ -391,13 +391,42 @@
 #tarifEvent {
   border-right: 2px solid #3aceb9;
   border-radius: 5px;
+  margin-bottom: 0px;
 }
 #eventEquipe {
   margin-bottom: 20px;
 }
-/***************************************/
-/************DetailEventPopUp*********/
-/*************************************/
+.addEvent-mapContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.addActmap-style {
+  width: 400px;
+  height: 400px;
+}
+#tarif-event > input {
+  margin-bottom: 0px;
+}
+.adr-option {
+  display: flex;
+  justify-content: space-between;
+}
+.adr-option > p {
+  margin-top: 3px;
+}
+.adr-option > #openMap-btn {
+  border: none;
+  outline: none;
+  height: 30px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 20px;
+  background-color: #3aceb9;
+}
+/*************************************************/
+/************DetailEventPopUp********************/
+/***********************************************/
 #editEventAction {
   display: flex;
   justify-content: center;
@@ -472,6 +501,11 @@
   .noPadding {
     padding-left: 0;
     padding-right: 20;
+  }
+  .annonceur-EditTime {
+    justify-content: center;
+    margin-left: 15px;
+    margin-right: 15px;
   }
   /*********************************************/
   /********************************************/

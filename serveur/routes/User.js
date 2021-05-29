@@ -124,33 +124,24 @@ router.post(
   async (req, res) => {
     const {
       nomAnnonceur,
-      adresseAnnonceur,
       numTelAnnonceur,
       emailProAnnonceur,
       catégorieAnnonceur,
     } = req.body;
     const { file } = req;
-
-    const photo = file;
     try {
-      let demande = await DemandeAnnonceur.findOne({
-        demandeur: req.user.id,
-      });
-
-      // if id abonné  is already have a demande
-      if (demande) {
-        return res.json("Demande déja envoyer");
-      }
-
       demandeAnnonceur = new DemandeAnnonceur({
         nomAnnonceur,
-        adresseAnnonceur,
         numTelAnnonceur,
         emailProAnnonceur,
         catégorieAnnonceur,
         justificatifAnnonceur: file.filename,
         demandeur: req.user.id,
       });
+      demandeAnnonceur.adresseAnnonceur.coordinates = [
+        req.body.adrlat,
+        req.body.adrlng,
+      ];
 
       await demandeAnnonceur.save();
       res.send("Votre Demande est ajouter avec succés ");
@@ -160,6 +151,24 @@ router.post(
     }
   }
 );
+//check if abonné already send a  demande  Annonceur or not
+router.get("/EtatDemandeEscpaceAnnonceur", auth, async (req, res) => {
+  try {
+    let demande = await DemandeAnnonceur.findOne({
+      demandeur: req.user.id,
+    });
+
+    // if id abonné  is already have a demande
+    if (demande) {
+      return res.json({ isSent: true });
+    } else {
+      return res.json({ isSent: false });
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 //update user profile picture
 router.put(
   "/UpadateImageProfile",
@@ -192,6 +201,22 @@ router.put("/upadateDescription", auth, async (req, res) => {
     });
     res.json({
       msg: "decription mise a jour avec succés",
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error ");
+  }
+});
+//update abonné distance de recherche
+router.put("/UpdateDistanceRecherche", auth, async (req, res) => {
+  try {
+    await Abonné.findByIdAndUpdate(req.user.id, {
+      $set: {
+        distanceDeRecherche: req.body.distance * 1000,
+      },
+    });
+    res.json({
+      msg: "Distance de recherhce mise a jour avec succés",
     });
   } catch (err) {
     console.error(err.message);
@@ -272,53 +297,6 @@ router.put(
     }
   }
 );
-//add new Horaire annonceur Horaire
-router.post("/Annonceur/AddHoraire/:annonceurID", auth, async (req, res) => {
-  try {
-    Annonceur.findById(req.params.annonceurID).then((annonceur) => {
-      const newHoraire = {
-        jour: req.body.jour,
-        heureDebut: req.body.heureDebut,
-        heureFin: req.body.heureFin,
-      };
-
-      // Add to horaire to  horaireAnnonceur array
-      annonceur.horaireAnnonceur.unshift(newHoraire);
-
-      // Save
-      annonceur.save().then((annonceur) =>
-        res.json({
-          msg: "horaire ajouter avec succes",
-          annonceur: annonceur.horaireAnnonceur,
-        })
-      );
-    });
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error ");
-  }
-});
-//Update horaire
-router.post("/Annonceur/updateHoraire/:annonceurID", auth, async (req, res) => {
-  try {
-    Annonceur.findById(req.params.annonceurID).then((annonceur) => {
-      const newHoraire = req.body;
-      // Add to comments array
-      annonceur.horaireAnnonceur = newHoraire;
-
-      // Save
-      annonceur.save().then((annonceur) =>
-        res.json({
-          msg: "horaire mise a jour avec succes",
-          annonceur: annonceur.horaireAnnonceur,
-        })
-      );
-    });
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error ");
-  }
-});
 
 /*********************************************************************** */
 /*****************************Admin route****************************** */
@@ -484,6 +462,16 @@ router.get("/Admin/dashboard", async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error ");
+  }
+});
+//get Annonceur data
+router.get("/Admin/getAnnonceur/:annonceurId", auth, async (req, res) => {
+  try {
+    const annonceur = await Annonceur.findById(req.params.annonceurId);
+    res.json(annonceur);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
   }
 });
 //

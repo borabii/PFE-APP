@@ -16,7 +16,15 @@ const PublicationSchema = mongoose.Schema({
     type: String,
   },
   adresse: {
-    type: String,
+    type: {
+      type: String,
+      enum: ["Point"],
+      default: "Point",
+    },
+    coordinates: {
+      type: [Number],
+      default: [0, 0],
+    },
   },
   nbr_place: {
     type: Number,
@@ -49,9 +57,17 @@ const PublicationSchema = mongoose.Schema({
   },
   participants: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+      etat: {
+        type: String,
+        default: "attent",
+        enum: ["attent", "accepter", "refuser"],
+      },
     },
   ],
 });
+PublicationSchema.index({ adresse: "2dsphere" });
 module.exports = mongoose.model("Publication", PublicationSchema);

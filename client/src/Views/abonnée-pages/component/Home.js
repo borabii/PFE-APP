@@ -6,9 +6,9 @@ import ComingPub from "./ComingPub";
 import AddActivityPopUp from "./AddActivityPopUp";
 
 import PubContext from "../../../Context/Publication/pubContext";
-import UserContext from "../../../Context/user/userContext";
+import AuthContext from "../../../Context/auth/authContext";
+
 import { useSnackbar } from "notistack";
-import PubDetailPopUp from "./PubDetailPopup";
 
 // used for hide addActivity-btn-small when scrolling in small device screnn
 const useHideOnScrolled = () => {
@@ -29,9 +29,49 @@ const useHideOnScrolled = () => {
 
 function Home() {
   //component level state
+  const [commingPubs, setCommingPubs] = useState([]);
+  const [todayPubs, setTodayPubs] = useState([]);
+  //pub context
   const pubContext = useContext(PubContext);
-  const { pubResponseMsg, ClearPubResponseMsg } = pubContext;
-
+  const { pubResponseMsg, ClearPubResponseMsg, loadPubs, pubs } = pubContext;
+  //auth Context
+  const authContext = useContext(AuthContext);
+  const { user, isAuthenticated } = authContext;
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      console.log("Latitude is :", position.coords.latitude);
+      console.log("Longitude is :", position.coords.longitude);
+      loadPubs(
+        [position.coords.latitude],
+        [position.coords.longitude],
+        user.distanceDeRecherche
+      );
+      // loadPubs(
+      //   [35.52625493547043],
+      //   [11.034331019983348],
+      //   user.distanceDeRecherche
+      // );
+    });
+  }, [isAuthenticated]);
+  useEffect(() => {
+    if (pubs) {
+      setTodayPubs(
+        pubs.filter(
+          (item) =>
+            new Date(item.date_DebutPub).setHours(0, 0, 0, 0) ===
+              new Date().setHours(0, 0, 0, 0) &&
+            new Date(item.date_DebutPub).getHours() > new Date().getHours()
+        )
+      );
+      setCommingPubs(
+        pubs.filter(
+          (item) =>
+            new Date(item.date_DebutPub).setHours(0, 0, 0, 0) >
+            new Date().setHours(0, 0, 0, 0)
+        )
+      );
+    }
+  }, [pubs]);
   const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     if (pubResponseMsg !== "aucune message") {
@@ -47,7 +87,6 @@ function Home() {
   const [showAddActivityPopUp, SetShowAddActivityPopUp] = useState(false);
   return (
     <div className="home">
-      <button>Map</button>
       <button
         className="addActivity-btn"
         onClick={() => SetShowAddActivityPopUp(true)}
@@ -70,7 +109,7 @@ function Home() {
 
       <div className="homePageBody-TodayPub">
         <h2>AUJOURD’HUI A PROXIMITÉ</h2>
-        <TodayPub />
+        <TodayPub pubs={todayPubs !== null ? todayPubs : []} />
       </div>
       <div className="homePageBody-Catégorie">
         <h2>Catégorie</h2>
@@ -78,7 +117,7 @@ function Home() {
       </div>
       <div className="homePageBody-ComingPub">
         <h2>A Venir</h2>
-        <ComingPub />
+        <ComingPub pubs={commingPubs !== null ? commingPubs : []} />
       </div>
     </div>
   );

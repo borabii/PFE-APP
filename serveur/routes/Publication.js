@@ -5,6 +5,7 @@ const auth = require("../middleware/auth"); //middleware next()
 const router = express.Router();
 const multer = require("multer");
 const Annonceur = require("../models/Annonceur");
+const mongoose = require("mongoose");
 //for image upload
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -31,9 +32,22 @@ let upload = multer({
   },
   fileFilter: fileFilter,
 });
+//used to add String time ("12:00") to date
+const concatDateTime = (timeString, date) => {
+  let userInput = timeString;
+  let hours = userInput.slice(0, 2);
+  let minutes = userInput.slice(3);
+  newDate = new Date(date);
+  newDate.setHours(hours, minutes);
+  let dateTimeZone = new Date(newDate).toLocaleString("en-US", {
+    timeZone: "Europe/Paris",
+  });
+  return dateTimeZone;
+};
+
 //add pub(type=="Activity")
 router.post("/addActivity", auth, async (req, res) => {
-  const {
+  let {
     description,
     categorie,
     adresse,
@@ -43,18 +57,24 @@ router.post("/addActivity", auth, async (req, res) => {
     date_FinPub,
     heure_finPub,
   } = req.body;
+
   try {
     publication = new Publication({
       description,
       categorie,
       adresse,
       nbr_place,
-      date_DebutPub,
+      date_DebutPub: concatDateTime(heure_debutPub, date_DebutPub),
       heure_debutPub,
-      date_FinPub,
+      date_FinPub: concatDateTime(heure_finPub, date_FinPub),
       heure_finPub,
       user: req.user.id,
     });
+    publication.adresse.coordinates = [
+      parseFloat(req.body.adresse.lat),
+      parseFloat(req.body.adresse.lng),
+    ];
+
     const act = await publication.save();
     res.send({ msg: "Activité ajouter avec succes" });
   } catch (err) {
@@ -68,21 +88,56 @@ router.get("/getActOrganized", auth, async (req, res) => {
     const activity = await Publication.find({ user: req.user.id }).sort({
       date_Pub: -1,
     }); //sort by date -1 -> most recent activity first
+
     res.json(activity);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error ");
   }
 });
-//get all user(activity) participated activity
+//get publication for AbonnéHomePage(near pubs for his current position)
+router.get(
+  "/homaPagePub/:userLat/:userlon/:userCirclRaidus",
+  auth,
+  async (req, res) => {
+    try {
+      var neighborhood = await Publication.find({
+        adresse: {
+          $near: {
+            $geometry: {
+              type: "Point",
+              coordinates: [req.params.userLat, req.params.userlon],
+            },
+            $maxDistance: req.params.userCirclRaidus, //distance en metre
+            $minDistance: 0,
+          },
+        },
+        // date_DebutPub: { $gte: new Date() },
+      });
+      res.json(neighborhood);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error ");
+    }
+  }
+);
+//get all user(pubs) participated (etat:accepter)pubs
 router.get("/getActParticipated", auth, async (req, res) => {
   try {
-    const activity = await Publication.find({ participants: req.user.id }).sort(
+    //$unwind used to specifie on with filed match will run
+    const activity = await Publication.aggregate([
       {
-        date_Pub: -1,
-      }
-    ); //sort by date -1 -> most recent activity first
-    res.json(activity);
+        $unwind: "$participants",
+      },
+      //$match return document that match condition
+      {
+        $match: {
+          "participants._id": mongoose.Types.ObjectId(req.user.id),
+          "participants.etat": "accepter",
+        },
+      },
+    ]);
+    res.send(activity);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error ");
@@ -136,9 +191,21 @@ router.put("/updatePublication/:pubId", auth, async (req, res) => {
     const activityFields = {};
     if (description) activityFields.description = description; // if there's description -> add to activityFields.description
     if (adresse) activityFields.adresse = adresse;
-    if (date_DebutPub) activityFields.date_DebutPub = date_DebutPub;
-    if (heure_debutPub) activityFields.heure_debutPub = heure_debutPub;
-    if (date_FinPub) activityFields.date_FinPub = date_FinPub;
+
+    if (heure_debutPub && date_DebutPub)
+      activityFields.date_DebutPub = concatDateTime(
+        heure_debutPub,
+        date_DebutPub
+      );
+
+    if (!heure_debutPub == null && date_DebutPub)
+      activityFields.date_DebutPub = date_DebutPub;
+
+    if (heure_finPub && date_FinPub)
+      activityFields.date_FinPub = concatDateTime(heure_finPub, date_FinPub);
+
+    if (!heure_finPub == null && date_FinPub)
+      activityFields.date_FinPub = concatDateTime(heure_finPub, date_FinPub);
     if (heure_finPub) activityFields.heure_finPub = heure_finPub;
     if (tarif) activityFields.tarif = tarif;
     if (categorie) activityFields.categorie = categorie;
@@ -162,40 +229,86 @@ router.put("/updatePublication/:pubId", auth, async (req, res) => {
     res.status(500).send("Server error ");
   }
 });
-//get participant data in pub
+//get all participant data in pub
 router.get("/getParticipantData/:pubId", auth, async (req, res) => {
   try {
     const participants = await Publication.findById(req.params.pubId).select(
-      "participants"
+      "participants "
     );
+    const ids = participants.participants.filter((item) => item._id);
     const participant = await Abonné.find({
-      _id: { $in: participants.participants },
-    }).select(
-      "firstName lastName dateOfBirth dateOfBirth imageProfile adress "
-    );
+      _id: { $in: ids },
+    }).select("firstName lastName  dateOfBirth imageProfile adress ");
     res.send(participant);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
   }
 });
+//get all participant data in pub  for home page  pub
+router.get(
+  "/HomePagePubs/getParticipantData/:pubId",
+  auth,
+  async (req, res) => {
+    try {
+      const participants = await Publication.findById(req.params.pubId).select(
+        "participants "
+      );
+      const ids = participants.participants.filter(
+        (item) => item.etat == "accepter"
+      );
+
+      const participant = await Abonné.find({
+        _id: { $in: ids },
+      }).select("firstName lastName  dateOfBirth imageProfile adress ");
+      res.send(participant);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+//Accepte participant in pub
+router.put(
+  "/AccepteParticipant/:pubId/:participantId",
+  auth,
+  async (req, res) => {
+    try {
+      const a = await Publication.findById(req.params.pubId).then((post) => {
+        const b = post.participants.filter(
+          (item) => item._id == req.params.participantId
+        );
+        b[0].etat = "accepter";
+        post.nbr_place -= 1;
+        post.save();
+        res.send({
+          post,
+          user: b[0]._id,
+          pub: req.params.pubId,
+          msg: "Participant  accpeter avec succes",
+        });
+      });
+      console.log(a);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
 //participate to  Publication
 router.put("/partcipatePub/:pubId", auth, async (req, res) => {
   try {
     Publication.findById(req.params.pubId).then((post) => {
-      if (
-        post.participants.filter((item) => item.toString() === req.user.id)
-          .length > 0
-      ) {
-        return res
-          .status(400)
-          .json({ msg: "user déja participer a cette publication" });
+      if (post.participants.filter((item) => item.toString() === req.user.id)) {
+        return res.json({ msg: "user déja participer a cette publication" });
       }
-
       // Add user id to participants array
       post.participants.unshift(req.user.id);
-
-      post.save().then((post) => res.json(post));
+      post
+        .save()
+        .then((post) =>
+          res.json({ post, msg: "Vous avez participer avec succes " })
+        );
     });
   } catch (err) {}
 });
@@ -219,13 +332,17 @@ router.post("/addEvent/:annonceurId", auth, async (req, res) => {
       adresse,
       tarif,
       nbr_place,
-      date_DebutPub,
+      date_DebutPub: concatDateTime(heure_debutPub, date_DebutPub),
       heure_debutPub,
-      date_FinPub,
+      date_FinPub: concatDateTime(heure_finPub, date_FinPub),
       heure_finPub,
       user: req.params.annonceurId,
       typePub: "Event",
     });
+    publication.adresse.coordinates = [
+      parseFloat(req.body.adresse.lat),
+      parseFloat(req.body.adresse.lng),
+    ];
     const event = await publication.save();
     res.send({ event, msg: "Evenement  ajouter avec succes" });
   } catch (err) {
@@ -307,4 +424,43 @@ router.get("/Admin/getEvents", async (req, res) => {
     res.status(500).send("Server Error get contacts");
   }
 });
+// get activity number  posted by id of user  for admin
+router.get("/Admin/getNumberAct/:userId", async (req, res) => {
+  try {
+    const count = { nbrActdeabonne: null };
+    await Publication.countDocuments({
+      typePub: "Activity",
+      user: req.params.userId,
+    }).then((docCount) => {
+      count.nbrActdeabonne = docCount;
+      res.json({ nbrAct: count.nbrActdeabonne });
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error get contacts");
+  }
+});
+// get annonce and event number  posted by id of user  for admin
+router.get("/Admin/getAnnonceEventNumber/:userId", async (req, res) => {
+  try {
+    const count = { nbrAnnoncedeannonceur: null, nbrEventdeannonceur: null };
+    await Publication.countDocuments({
+      typePub: "Annonce",
+      user: req.params.userId,
+    }).then((docCount) => {
+      count.nbrAnnoncedeannonceur = docCount;
+    });
+    await Publication.countDocuments({
+      typePub: "Event",
+      user: req.params.userId,
+    }).then((docCount) => {
+      count.nbrEventdeannonceur = docCount;
+    });
+    res.json(count);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error get contacts");
+  }
+});
+
 module.exports = router;
