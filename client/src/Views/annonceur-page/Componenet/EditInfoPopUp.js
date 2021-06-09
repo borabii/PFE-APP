@@ -3,7 +3,6 @@ import Modal from "react-bootstrap/Modal";
 import { useSnackbar } from "notistack";
 import UserContext from "../../../Context/user/userContext";
 function EditInfoPopUp(props) {
-  console.log(props.data);
   const { enqueueSnackbar } = useSnackbar();
   //component level state
   const [annonceurEditInfo, setAnnonceurEditInfo] = useState({
@@ -13,13 +12,7 @@ function EditInfoPopUp(props) {
     adresseAnnonceur: "",
     emailProAnnonceur: "",
   });
-  const {
-    nomAnnonceur,
-    numTelAnnonceur,
-    descriptionAnnonceur,
-    adresseAnnonceur,
-    emailProAnnonceur,
-  } = annonceurEditInfo;
+
   const userContext = useContext(UserContext);
   const {
     annonceur,

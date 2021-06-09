@@ -17,6 +17,25 @@ const AbonnéSchema = User.discriminator(
       type: Boolean,
       default: false,
     },
+    userScore: {
+      type: Number,
+      default: 0,
+    },
+    userAvis: [
+      {
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+        avis: {
+          type: Number,
+        },
+        rateDate: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
     centreInteret: [
       {
         type: String,
@@ -26,6 +45,8 @@ const AbonnéSchema = User.discriminator(
       type: Number,
       default: 10000,
     },
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   })
 );
 module.exports = mongoose.model("Abonné");

@@ -14,45 +14,26 @@ function Catégorie() {
   ];
 
   return (
-    <div>
-      <Carousel
-        pagination={false}
-        itemPadding={[0, 10]}
-        breakPoints={breakPoints}
-        className="CatégorieCard-carousel"
-      >
-        {fullCatégorieData &&
-          fullCatégorieData.map((item, index) => (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <CatégorieCard data={item} key={index} />
-              <p style={{ alignSelf: "center" }}>{item.typeCatégorie}</p>
-            </div>
-          ))}
-        {/* <CatégorieCard />
-        <CatégorieCard />
-        <CatégorieCard />
-        <CatégorieCard />
-        <CatégorieCard />
-        <CatégorieCard />
-        <CatégorieCard />
-        <CatégorieCard />
-        <CatégorieCard />
-        <CatégorieCard />
-        <CatégorieCard />
-        <CatégorieCard />
-        <CatégorieCard />
-        <CatégorieCard />
-        <CatégorieCard />
-        <CatégorieCard />
-        <CatégorieCard />
-        <CatégorieCard /> */}
-      </Carousel>
-    </div>
+    <Carousel
+      pagination={false}
+      itemPadding={[0, 10]}
+      breakPoints={breakPoints}
+      className="CatégorieCard-carousel"
+    >
+      {fullCatégorieData &&
+        fullCatégorieData.map((item, index) => (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+            key={index}
+          >
+            <CatégorieCard data={item} />
+            <p style={{ alignSelf: "center" }}>{item.typeCatégorie}</p>
+          </div>
+        ))}
+    </Carousel>
   );
 }
 

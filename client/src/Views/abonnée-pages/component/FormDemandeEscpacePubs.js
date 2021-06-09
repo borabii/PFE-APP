@@ -55,7 +55,9 @@ function FormDemandeEscpacePubs() {
 
     //global method created in userState to send formDate to server
     sendDemandeAbonné(formData);
-
+    setIsRequestAlreadySent({
+      isSent: true,
+    });
     //clear form after submit
     setDemandeAnnonceur({
       nomAnnonceur: "",
@@ -124,7 +126,7 @@ function FormDemandeEscpacePubs() {
       []
     );
     const icon1 = new Icon({
-      iconUrl: "/pin.svg",
+      iconUrl: "/flag.svg",
       iconSize: [25, 25],
     });
     return pos === null ? null : (
@@ -137,104 +139,20 @@ function FormDemandeEscpacePubs() {
       />
     );
   };
+  const [IsRequestAlreadySent, setIsRequestAlreadySent] = useState({
+    isSent: null,
+  });
+
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/users/EtatDemandeEscpaceAnnonceur")
       .then((res) => setIsRequestAlreadySent(res.data));
   }, []);
   //
-  const [IsRequestAlreadySent, setIsRequestAlreadySent] = useState(null);
   return (
     <div className="FormDemandeEscpacePubs">
       <h1>Formulaire demande escpace publicitaire</h1>
-      {IsRequestAlreadySent !== null && !IsRequestAlreadySent ? (
-        <form
-          className="FormDemandeEscpacePubs-form"
-          onSubmit={handleSubmit}
-          encType="multipart/form-data"
-        >
-          <div className="demmande-formInput">
-            <label>
-              Nom<span>*</span>
-            </label>
-            <input
-              type="text"
-              name="nomAnnonceur"
-              value={demandeAnnonceur.nomAnnonceur}
-              onChange={handelChange}
-              required
-            />
-          </div>
-
-          <div className="demmande-formInput">
-            <label>
-              Numéro téléphone<span>*</span>
-            </label>
-            <input
-              type="tel"
-              name="numTelAnnonceur"
-              value={demandeAnnonceur.numTelAnnonceur}
-              onChange={handelChange}
-              required
-            />
-          </div>
-          <div className="demmande-formInput">
-            <label>Email professionelle</label>
-            <input
-              type="email"
-              name="emailProAnnonceur"
-              value={demandeAnnonceur.emailProAnnonceur}
-              onChange={handelChange}
-            />
-          </div>
-          <div className="demmande-formSelect">
-            <label>
-              Catégorie<span>*</span>
-            </label>
-            <Select
-              className="basic-single"
-              classNamePrefix="select"
-              name="catégorieAnnonceur"
-              options={catégorieOption}
-              onChange={handelCatégorieChange}
-            />
-          </div>
-          <div className="demmande-formInput">
-            <label>
-              Justificatif<span>*</span>
-            </label>
-            <input
-              type="file"
-              id="justificatif-input"
-              name="justificatifAnnonceur"
-              onChange={imageSelectHandler}
-              required
-            />
-          </div>
-          <h3 id="adr-title">
-            Adresse<span>*</span>
-          </h3>
-          <div className="demande-adresse">
-            <div className="addAct-mapContainer">
-              <MapContainer
-                center={[36.78729147, 10.18432617]}
-                zoom={13}
-                className="addActmap-style"
-                scrollWheelZoom={false}
-              >
-                <TileLayer
-                  attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <DraggableMarker />
-              </MapContainer>
-            </div>
-          </div>
-          <div className="demmande-formBtn">
-            <button>Ennvoyer</button>
-          </div>
-        </form>
-      ) : (
+      {IsRequestAlreadySent.isSent ? (
         <Fragment>
           <div className="requestAlreadySent-msg">
             <div className="requestAlreadySent-msgLeft">
@@ -246,6 +164,95 @@ function FormDemandeEscpacePubs() {
               <p>Merci de patienter</p>
             </div>
           </div>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <form
+            className="FormDemandeEscpacePubs-form"
+            onSubmit={handleSubmit}
+            encType="multipart/form-data"
+          >
+            <div className="demmande-formInput">
+              <label>
+                Nom<span>*</span>
+              </label>
+              <input
+                type="text"
+                name="nomAnnonceur"
+                value={demandeAnnonceur.nomAnnonceur}
+                onChange={handelChange}
+                required
+              />
+            </div>
+
+            <div className="demmande-formInput">
+              <label>
+                Numéro téléphone<span>*</span>
+              </label>
+              <input
+                type="tel"
+                name="numTelAnnonceur"
+                value={demandeAnnonceur.numTelAnnonceur}
+                onChange={handelChange}
+                required
+              />
+            </div>
+            <div className="demmande-formInput">
+              <label>Email professionelle</label>
+              <input
+                type="email"
+                name="emailProAnnonceur"
+                value={demandeAnnonceur.emailProAnnonceur}
+                onChange={handelChange}
+              />
+            </div>
+            <div className="demmande-formSelect">
+              <label>
+                Catégorie<span>*</span>
+              </label>
+              <Select
+                className="basic-single"
+                classNamePrefix="select"
+                name="catégorieAnnonceur"
+                options={catégorieOption}
+                onChange={handelCatégorieChange}
+              />
+            </div>
+            <div className="demmande-formInput">
+              <label>
+                Justificatif<span>*</span>
+              </label>
+              <input
+                type="file"
+                id="justificatif-input"
+                name="justificatifAnnonceur"
+                onChange={imageSelectHandler}
+                required
+              />
+            </div>
+            <h3 id="adr-title">
+              Adresse<span>*</span>
+            </h3>
+            <div className="demande-adresse">
+              <div className="addAct-mapContainer">
+                <MapContainer
+                  center={[36.78729147, 10.18432617]}
+                  zoom={13}
+                  className="addActmap-style"
+                  scrollWheelZoom={false}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <DraggableMarker />
+                </MapContainer>
+              </div>
+            </div>
+            <div className="demmande-formBtn">
+              <button>Ennvoyer</button>
+            </div>
+          </form>
         </Fragment>
       )}
     </div>

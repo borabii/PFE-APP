@@ -7,7 +7,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import PubContext from "../../../Context/Publication/pubContext";
 import Spinner from "../../layout/Spinner";
-
+import PubDetailPopUp from "./PubDetailPopup";
+import axios from "axios";
 function UserPubParticipated() {
   const breakPoints = [
     { width: 1, itemsToShow: 1, showArrows: true },
@@ -21,6 +22,18 @@ function UserPubParticipated() {
   //componenet level state
   const [commingPubs, setCommingPubs] = useState([]);
   const [passedPubs, setPassedPubs] = useState([]);
+  const [eventClicked, setEventClicked] = useState({});
+  const [editEventModalShow, setEditEventModalShow] = useState(false);
+  const [pubOrganisateur, setPubOrganisateur] = useState({});
+
+  //this methode used for handel user click in which event card
+  const handleDetailClick = (e, item) => {
+    setEventClicked(item);
+    setEditEventModalShow(true);
+    axios
+      .get(`http://localhost:8000/api/users/Admin/getDemandeur/${item.user}`)
+      .then((res) => setPubOrganisateur(res.data));
+  };
 
   useEffect(() => {
     if (pubsParticipated) {
@@ -67,6 +80,7 @@ function UserPubParticipated() {
                           act={item}
                           key={index}
                           editPermission={false}
+                          detailOnClickIcon={(e) => handleDetailClick(e, item)}
                         />
                       </>
                     );
@@ -91,8 +105,10 @@ function UserPubParticipated() {
                           <PubCard
                             act={item}
                             key={index}
-                            editPermission={true}
-                            editPermission={true}
+                            editPermission={false}
+                            detailOnClickIcon={(e) =>
+                              handleDetailClick(e, item)
+                            }
                           />
                         </Col>
                       </>
@@ -108,6 +124,13 @@ function UserPubParticipated() {
       ) : (
         <Spinner />
       )}
+      <PubDetailPopUp
+        show={editEventModalShow}
+        data={eventClicked}
+        participat={false}
+        user={pubOrganisateur}
+        onHide={() => setEditEventModalShow(false)}
+      />
     </Fragment>
   );
 }

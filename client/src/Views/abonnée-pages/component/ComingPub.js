@@ -13,9 +13,14 @@ function ComingPub(props) {
   const handleDetailClick = (e, item) => {
     setEventClicked(item);
     setEditEventModalShow(true);
-    axios
-      .get(`http://localhost:8000/api/users/Admin/getDemandeur/${item.user}`)
-      .then((res) => setorg(res.data));
+    if (item.typePub == "Activity") {
+      axios
+        .get(`http://localhost:8000/api/users/Admin/getDemandeur/${item.user}`)
+        .then((res) => setorg(res.data));
+    } else
+      axios
+        .get(`http://localhost:8000/api/users/Admin/getAnnonceur/${item.user}`)
+        .then((res) => setorg(res.data));
   };
   return (
     <div className="comingPub">
@@ -24,13 +29,11 @@ function ComingPub(props) {
           {props.pubs.length > 0 ? (
             props.pubs.map((item, index) => {
               return (
-                <Col>
+                <Col key={index}>
                   <PubCard
                     editPubOption={false}
                     editPermission={false}
                     act={item}
-                    key={index}
-                    // deleteOnClick={() => deletePub(item._id)}
                     detailOnClickIcon={(e) => handleDetailClick(e, item)}
                   />
                 </Col>
@@ -46,6 +49,7 @@ function ComingPub(props) {
         data={eventClicked}
         user={org}
         onHide={() => setEditEventModalShow(false)}
+        participat={true}
       />
     </div>
   );

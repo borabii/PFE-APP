@@ -15,6 +15,7 @@ import {
   CLEAR_ABONNÉPUB,
   GET_PUBSFORHOMEPAGE,
   ACCEPT_PARTICIPANT,
+  REFUSE_PARTICIPANT,
   ACCEPTED_PARTICIPANT_DATA,
   REMOVE_ACCEPTED_PARTICIPANTDATA,
 } from "../types";
@@ -175,12 +176,46 @@ export default (state, action) => {
         pubsOrganized: null,
         pubsParticipated: null,
       };
-
+    case REFUSE_PARTICIPANT:
     case ACCEPT_PARTICIPANT:
-      return {
-        ...state,
-        pubResponseMsg: action.payload.msg,
-      };
+      if (action.payload.post.typePub === "Event") {
+        return {
+          ...state,
+          // event._id === action.payload.pub._id ? If true -> return action.payload.pub {pub Object} | if not -> return event
+          // for Updating only for 1 event, the rest will be the same and must be returned on state.anonceurEvent
+          anonceurEvent: state.anonceurEvent.map((event) =>
+            event._id === action.payload.post._id ? action.payload.post : event
+          ),
+          loading: false,
+          pubResponseMsg: action.payload.msg,
+        };
+      } else if (action.payload.post.typePub === "Activity") {
+        return {
+          ...state,
+          // activity._id === action.payload.pub._id ? If true -> return action.payload.pub {pub Object} | if not -> return activity
+          // for Updating only for 1 activity, the rest will be the same and must be returned on state.pubsOrganized
+          pubsOrganized: state.pubsOrganized.map((activity) =>
+            activity._id === action.payload.post._id
+              ? action.payload.post
+              : activity
+          ),
+          loading: false,
+          pubResponseMsg: action.payload.msg,
+        };
+      } else {
+        return {
+          ...state,
+          // annonce._id === action.payload.pub._id ? If true -> return action.payload.pub {pub Object} | if not -> return annonce
+          // for Updating only for 1 annonce, the rest will be the same and must be returned on state.annonceurAnnonce
+          annonceurAnnonce: state.annonceurAnnonce.map((annonce) =>
+            annonce._id === action.payload.post._id
+              ? action.payload.post
+              : annonce
+          ),
+          loading: false,
+          pubResponseMsg: action.payload.msg,
+        };
+      }
     default:
       return state;
   }

@@ -10,22 +10,24 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import AssistantPhotoIcon from "@material-ui/icons/AssistantPhoto";
+import Badge from "@material-ui/core/Badge";
+//compoenet
+import NotificationDropDown from "./NotificationDropDown";
+
 //routing
 import history from "../../../utilis/history";
 import { NavLink, useRouteMatch } from "react-router-dom";
 //context
 import PubContext from "../../../Context/Publication/pubContext";
-
+import NotifContext from "../../../Context/notification/notifContext";
 import AuthContext from "../../../Context/auth/authContext";
 
-//this methode is used for detecting user mouse click out side searsh result
-let useClickOutside = (handler) => {
-  let domNode = useRef();
-
+//this custom hook is used for detecting user mouse click out side searsh result
+let useClickOutside = (ref, onClickOutside) => {
   useEffect(() => {
     let maybeHandler = (event) => {
-      if (!domNode.current.contains(event.target)) {
-        handler();
+      if (ref.current && !ref.current.contains(event.target)) {
+        onClickOutside();
       }
     };
     document.addEventListener("mousedown", maybeHandler); //add event listener
@@ -33,41 +35,57 @@ let useClickOutside = (handler) => {
     return () => {
       document.removeEventListener("mousedown", maybeHandler); //remove event listener
     };
-  });
-
-  return domNode;
+  }, [ref, onClickOutside]);
 };
+
 function AboHeader() {
   const { url } = useRouteMatch();
   //create a ref
-  let domNode = useClickOutside(() => {
+  const searshRef = useRef("menu");
+  const notifRef = useRef("notif");
+  const profileDropDownRef = useRef("dropdown");
+  //use custom hook to detect click outside
+  useClickOutside(searshRef, () => {
     setShowSearchResultDropdown(false);
   });
-  //create a ref
-  let domNode1 = useClickOutside(() => {
+  useClickOutside(profileDropDownRef, () => {
     setShowProfilDopDown(false);
   });
+  useClickOutside(notifRef, () => {
+    setShowNotifDopDown(false);
+  });
+
   //(Componenet level State)
   //this state for handeling selected search option
   const [searchOption, setSearchOption] = useState("annonce");
 
-  //(Componenet level State)
   //this state for hide/show search result Dropdown when clicking on the searsh input bar
   const [showSearchResultDropdown, setShowSearchResultDropdown] =
     useState(false);
 
-  //(Componenet level State)
-  //this state for hide/show search result Dropdown when clicking on the searsh input bar
+  //this state for hide/show Profile Dropdown when clicking on user Image
   const [showProfilDopDown, setShowProfilDopDown] = useState(false);
+
+  //this state for hide/show notification  Dropdown when clicking on the notif icon
+  const [showNotifDopDown, setShowNotifDopDown] = useState(false);
+
   //app level state
   //auth context
   const authContext = useContext(AuthContext);
   const { logout, user } = authContext;
   //pub context
   const pubContext = useContext(PubContext);
+  //notif context
+  const notifContext = useContext(NotifContext);
+  const { notification, clearNotification, getNotif } = notifContext;
+  useEffect(() => {
+    getNotif();
+  }, []);
+  //logout method
   const onLogout = () => {
     logout();
     pubContext.clearAbonnéPub();
+    clearNotification();
     history.push("/");
   };
   const data = [
@@ -107,7 +125,7 @@ function AboHeader() {
       </div>
       <div>
         <Nav>
-          <div className="aboHeader-searsh" ref={domNode}>
+          <div className="aboHeader-searsh">
             <div className="searshSelect">
               <select
                 id="dropdown-searshOption"
@@ -135,6 +153,7 @@ function AboHeader() {
               <SearchIcon id="searshIcon" />
             </div>
             <div
+              ref={searshRef}
               className="searsh-resault"
               style={{ display: showSearchResultDropdown ? "block" : "none" }}
             >
@@ -172,7 +191,7 @@ function AboHeader() {
                 >
                   <div className="header-chatIcon">
                     {" "}
-                    <LocationOnIcon id="chatIcon" Style={{}} />
+                    <LocationOnIcon id="chatIcon" />
                   </div>
                 </NavLink>
               </div>
@@ -186,7 +205,27 @@ function AboHeader() {
             </Nav.Link>
             <Nav.Link>
               <div className="header-notifIcon">
-                <NotificationsIcon id="notifIcon" />
+                <Badge
+                  badgeContent={notification !== null ? notification.length : 0}
+                  max={20}
+                  className="notifbadge"
+                  color="secondary"
+                >
+                  <NotificationsIcon
+                    id="notifIcon"
+                    onClick={() =>
+                      setShowNotifDopDown(
+                        (showNotifDopDown) => !showNotifDopDown
+                      )
+                    }
+                  />
+
+                  <NotificationDropDown
+                    show={showNotifDopDown}
+                    myRef={notifRef}
+                    onHide={() => setShowNotifDopDown(false)}
+                  />
+                </Badge>
               </div>
               <h4 id="btnNotif-small-device">Notification</h4>
             </Nav.Link>
@@ -219,7 +258,7 @@ function AboHeader() {
               </h4>
 
               <div
-                ref={domNode1}
+                ref={profileDropDownRef}
                 className="profile-dropDown"
                 style={{ display: showProfilDopDown ? "block" : "none" }}
               >

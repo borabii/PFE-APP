@@ -5,6 +5,7 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import UserContext from "../../../Context/user/userContext";
 import PubContext from "../../../Context/Publication/pubContext";
+import swal from "sweetalert";
 
 function EditEventPopUp(props) {
   //app level state
@@ -83,8 +84,22 @@ function EditEventPopUp(props) {
   };
   //run when use click on btn(Supprimer) for deleting event
   const deleteEvent = () => {
-    deletePub(evenement._id);
-    props.onHide();
+    swal({
+      title: `Vous êtes sûre de supprimer?`,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal(
+          deletePub(evenement._id),
+          swal({ icon: "success", title: "Événement supprimé avec succés!" }),
+          props.onHide()
+        );
+      } else {
+        swal("opération annuler!");
+      }
+    });
   };
   //handel user input change and set state with inputed value
   const handelChange = (event) => {

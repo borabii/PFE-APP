@@ -1,5 +1,6 @@
+import moment from "moment";
 //Global methods
-
+const today = moment.utc().local().format();
 //methode used to calcule age from given date
 export const calucleAge = (date) => {
   let dob = new Date(date);
@@ -15,7 +16,7 @@ export const calucleAge = (date) => {
   let age = Math.abs(year - 1970);
   return age;
 };
-//methood user to transform date stored in mongode(2021-04-28T02:04:26.063+00:00) to (2021/04/28)
+//methood user to transform date stored in mongode(2021-04-28T02:04:26.063+00:00) to (2021-04-28)
 export const getDate = (date) => {
   let newdate = "";
   var dateObj = new Date(date);
@@ -24,19 +25,25 @@ export const getDate = (date) => {
   var year = dateObj.getUTCFullYear();
   if (month < 10) {
     newdate = year + "-" + "0" + month + "-" + day;
+  }
+  if (day < 10) {
+    newdate = year + "-" + "0" + month + "-" + "0" + day;
   } else newdate = year + "-" + month + "-" + day;
 
   return newdate;
 };
 
-//get cureent date
+//get cureent date(2020/05/16)
 export const getNowDate = () => {
-  var curr = new Date();
-  curr.setDate(curr.getDate());
-  var date = curr.toISOString().substr(0, 10);
+  var curr = today;
+  var date = curr.substr(0, 10);
   return date;
 };
-
+//get cureent full date(2020/05/16)
+export const getFullNowDate = () => {
+  var curr = today;
+  return curr;
+};
 //this methode is used for display monthName from date Sting
 export const getMonthName = (date) => {
   let d = new Date(date);
@@ -84,10 +91,10 @@ export const getDayName = (date) => {
 
 //extrat only time(16:00) from date(2021-05-26T16:00:09.429Z)
 export const getTime = () => {
-  let date = new Date();
+  let date = new Date(today);
   let time = "";
   date.setMinutes(0);
-  if (date.getHours() + 1) {
+  if (date.getHours() + 1 < 10) {
     time = "0" + (date.getHours() + 1) + ":" + "0" + date.getMinutes();
   } else time = date.getHours() + 1 + ":" + "0" + date.getMinutes();
   return time;

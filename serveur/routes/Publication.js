@@ -6,7 +6,10 @@ const router = express.Router();
 const multer = require("multer");
 const Annonceur = require("../models/Annonceur");
 const mongoose = require("mongoose");
-//for image upload
+const moment = require("../../client/node_modules/moment");
+const Notification = require("../models/Notifcation");
+//for image uploads
+//object that containt where to store uploaded image
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./uploads/");
@@ -15,7 +18,7 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + file.originalname);
   },
 });
-
+//method that controle uploded file type
 const fileFilter = (req, file, cb) => {
   const allowedFileTypes = ["image/jpeg", "image/jpg", "image/png"];
   if (allowedFileTypes.includes(file.mimetype)) {
@@ -64,9 +67,9 @@ router.post("/addActivity", auth, async (req, res) => {
       categorie,
       adresse,
       nbr_place,
-      date_DebutPub: concatDateTime(heure_debutPub, date_DebutPub),
+      date_DebutPub,
       heure_debutPub,
-      date_FinPub: concatDateTime(heure_finPub, date_FinPub),
+      date_FinPub,
       heure_finPub,
       user: req.user.id,
     });
@@ -75,7 +78,8 @@ router.post("/addActivity", auth, async (req, res) => {
       parseFloat(req.body.adresse.lng),
     ];
 
-    const act = await publication.save();
+    await publication.save();
+    Abonné.findOneAndUpdate({ _id: req.user.id }, { $inc: { userScore: 5 } });
     res.send({ msg: "Activité ajouter avec succes" });
   } catch (err) {
     console.error(err.message);
@@ -112,7 +116,8 @@ router.get(
             $minDistance: 0,
           },
         },
-        // date_DebutPub: { $gte: new Date() },
+        date_DebutPub: { $gte: moment.utc().local().format() },
+        user: { $ne: req.user.id },
       });
       res.json(neighborhood);
     } catch (err) {
@@ -191,21 +196,9 @@ router.put("/updatePublication/:pubId", auth, async (req, res) => {
     const activityFields = {};
     if (description) activityFields.description = description; // if there's description -> add to activityFields.description
     if (adresse) activityFields.adresse = adresse;
-
-    if (heure_debutPub && date_DebutPub)
-      activityFields.date_DebutPub = concatDateTime(
-        heure_debutPub,
-        date_DebutPub
-      );
-
-    if (!heure_debutPub == null && date_DebutPub)
-      activityFields.date_DebutPub = date_DebutPub;
-
-    if (heure_finPub && date_FinPub)
-      activityFields.date_FinPub = concatDateTime(heure_finPub, date_FinPub);
-
-    if (!heure_finPub == null && date_FinPub)
-      activityFields.date_FinPub = concatDateTime(heure_finPub, date_FinPub);
+    if (date_DebutPub) activityFields.date_DebutPub = date_DebutPub;
+    if (date_FinPub) activityFields.date_FinPub = date_FinPub;
+    if (heure_debutPub) activityFields.heure_debutPub = heure_debutPub;
     if (heure_finPub) activityFields.heure_finPub = heure_finPub;
     if (tarif) activityFields.tarif = tarif;
     if (categorie) activityFields.categorie = categorie;
@@ -233,7 +226,7 @@ router.put("/updatePublication/:pubId", auth, async (req, res) => {
 router.get("/getParticipantData/:pubId", auth, async (req, res) => {
   try {
     const participants = await Publication.findById(req.params.pubId).select(
-      "participants "
+      "participants"
     );
     const ids = participants.participants.filter((item) => item._id);
     const participant = await Abonné.find({
@@ -245,7 +238,7 @@ router.get("/getParticipantData/:pubId", auth, async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
-//get all participant data in pub  for home page  pub
+//get all accepted participant data in pub  for home page  pub
 router.get(
   "/HomePagePubs/getParticipantData/:pubId",
   auth,
@@ -257,7 +250,6 @@ router.get(
       const ids = participants.participants.filter(
         (item) => item.etat == "accepter"
       );
-
       const participant = await Abonné.find({
         _id: { $in: ids },
       }).select("firstName lastName  dateOfBirth imageProfile adress ");
@@ -281,14 +273,55 @@ router.put(
         b[0].etat = "accepter";
         post.nbr_place -= 1;
         post.save();
+
         res.send({
           post,
           user: b[0]._id,
           pub: req.params.pubId,
-          msg: "Participant  accpeter avec succes",
+          msg: "Participant accpeter avec succes",
         });
       });
-      console.log(a);
+      await Abonné.findOneAndUpdate(
+        { _id: req.params.participantId },
+        { $inc: { userScore: 10 } }
+      );
+      notif = new Notification({
+        sender: req.user.id,
+        reciver: req.params.participantId,
+        content: "Accepte votre participation",
+      });
+      notif.save();
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+//Refuser participant in pub
+router.put(
+  "/RefuseParticipant/:pubId/:participantId",
+  auth,
+  async (req, res) => {
+    try {
+      const a = await Publication.findById(req.params.pubId).then((post) => {
+        const b = post.participants.filter(
+          (item) => item._id == req.params.participantId
+        );
+        b[0].etat = "refuser";
+        post.save();
+        res.send({
+          post,
+          user: b[0]._id,
+          pub: req.params.pubId,
+          msg: "Participant refuser avec succes",
+        });
+      });
+      notif = new Notification({
+        sender: req.user.id,
+        reciver: req.params.participantId,
+        content: "Refuse votre participation",
+      });
+      notif.save();
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");
@@ -299,9 +332,14 @@ router.put(
 router.put("/partcipatePub/:pubId", auth, async (req, res) => {
   try {
     Publication.findById(req.params.pubId).then((post) => {
-      if (post.participants.filter((item) => item.toString() === req.user.id)) {
-        return res.json({ msg: "user déja participer a cette publication" });
+      if (post.participants.length > 0) {
+        if (
+          post.participants.filter((item) => item.toString() === req.user.id)
+        ) {
+          return res.json({ msg: "user déja participer a cette publication" });
+        }
       }
+
       // Add user id to participants array
       post.participants.unshift(req.user.id);
       post
@@ -309,6 +347,12 @@ router.put("/partcipatePub/:pubId", auth, async (req, res) => {
         .then((post) =>
           res.json({ post, msg: "Vous avez participer avec succes " })
         );
+      notif = new Notification({
+        sender: req.user.id,
+        reciver: post.user,
+        content: "A participer a votre publication",
+      });
+      notif.save();
     });
   } catch (err) {}
 });
@@ -380,6 +424,75 @@ router.post(
     }
   }
 );
+//get 10 last annonce for landing page
+router.get("/landingPage/news/Annonce", async (req, res) => {
+  try {
+    const annonce = await Publication.find({ typePub: "Annonce" })
+      .select(
+        "adresse description categorie image_url date_DebutPub date_FinPub"
+      )
+      .sort({ date_Pub: -1 })
+      .limit(10);
+    res.send(annonce);
+  } catch (err) {
+    console.log(err);
+  }
+});
+//get 10 last activty for landing page
+router.get("/landingPage/news/Activity", async (req, res) => {
+  try {
+    const activity = await Publication.find({ typePub: "Activity" })
+      .sort({ date_Pub: -1 })
+      .limit(10);
+    res.json(activity);
+  } catch (err) {
+    console.log(err);
+  }
+});
+//get 10 last event for landing page
+router.get("/landingPage/news/Event", async (req, res) => {
+  try {
+    const event = await Publication.find({ typePub: "Event" })
+      .select(
+        "adresse description categorie image_url date_DebutPub date_FinPub"
+      )
+      .sort({ date_Pub: -1 })
+      .limit(10);
+    res.send(event);
+  } catch (err) {
+    console.log(err);
+  }
+});
+//get top 3 user of today for landing page
+router.get("/landingPage/news/topUser", async (req, res) => {
+  try {
+    const event = await Abonné.find()
+      .select("adresse description firstName lastName imageProfile userScore")
+      .sort({ userScore: "desc" })
+      .limit(3);
+    res.send(event);
+  } catch (err) {
+    console.log(err);
+  }
+});
+////get 10 last user posted activity
+router.get("/Profile/getActOrg/:id", auth, async (req, res) => {
+  try {
+    const activity = await Publication.find({
+      user: req.params.id,
+      date_DebutPub: { $gte: new Date() },
+    })
+      .sort({
+        date_Pub: -1,
+      })
+      .limit(10); //sort by date -1 -> most recent activity first
+
+    res.json(activity);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error ");
+  }
+});
 /**************************************************************** */
 //delete publication(activity,event,annonce)
 router.delete("/deletepub/:pubId", async (req, res) => {
@@ -427,17 +540,21 @@ router.get("/Admin/getEvents", async (req, res) => {
 // get activity number  posted by id of user  for admin
 router.get("/Admin/getNumberAct/:userId", async (req, res) => {
   try {
-    const count = { nbrActdeabonne: null };
+    const count = { nbrActdeabonne: null, totalRate: null };
     await Publication.countDocuments({
       typePub: "Activity",
       user: req.params.userId,
     }).then((docCount) => {
       count.nbrActdeabonne = docCount;
-      res.json({ nbrAct: count.nbrActdeabonne });
     });
+    const profileInfo = await Abonné.findById(req.params.userId);
+    const totalRate =
+      profileInfo.userAvis.reduce((accum, item) => accum + item.avis, 0) /
+      profileInfo.userAvis.length;
+    res.json({ nbrAct: count.nbrActdeabonne, totalRate: totalRate });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error get contacts");
+    res.status(500).send("Server Error");
   }
 });
 // get annonce and event number  posted by id of user  for admin

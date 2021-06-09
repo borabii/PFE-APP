@@ -4,6 +4,8 @@ import Select from "react-select";
 
 import UserContext from "../../../Context/user/userContext";
 import PubContext from "../../../Context/Publication/pubContext";
+import swal from "sweetalert";
+
 function EditAnnoncePopUp(props) {
   //app level state
   //User context
@@ -15,65 +17,61 @@ function EditAnnoncePopUp(props) {
 
   //component level state
   // this state is used to store user inputed value in form
-  const [evenement, setEvenement] = useState({
+  const [annonce, setAnnonce] = useState({
     description: "",
     date_DebutPub: "",
     date_FinPub: "",
     categorie: "",
   });
-  const {
-    description,
-
-    date_DebutPub,
-
-    date_FinPub,
-
-    categorie,
-  } = evenement;
-  // this state is use for handle participant counter value
-  const [nbr_place, setNbr_place] = useState(0);
   //method run when user click on btn (Modifer) to edit event
   const editEvent = () => {
-    editPub(
-      {
-        description,
-        date_DebutPub,
-        date_FinPub,
-        categorie,
-      },
-      evenement._id
+    editPub(annonce, annonce._id).then(
+      setAnnonce({
+        description: "",
+        date_DebutPub: "",
+        date_FinPub: "",
+        categorie: "",
+      }),
+      props.onHide()
     );
-    setEvenement({
-      description: "",
-      date_DebutPub: "",
-      date_FinPub: "",
-      categorie: "",
-    });
-    props.onHide();
   };
   //run when use click on btn(Supprimer) for deleting event
   const deleteEvent = () => {
-    deletePub(evenement._id);
-    props.onHide();
+    swal({
+      title: `Vous êtes sûre de supprimer?`,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal(
+          deletePub(annonce._id),
+          swal({ icon: "success", title: "Événement supprimé avec succés!" }),
+          props.onHide()
+        );
+      } else {
+        swal("opération annuler!");
+      }
+    });
   };
   //handel user input change and set state with inputed value
   const handelChange = (event) => {
-    setEvenement({
-      ...evenement,
+    setAnnonce({
+      ...annonce,
       [event.target.name]: event.target.value,
     });
   };
   //handel input select change and set state with the value
   const handleSelectInputChange = (selectedOption) => {
-    setEvenement({
-      ...evenement,
+    setAnnonce({
+      ...annonce,
       categorie: selectedOption.label,
     });
   };
   // run when model is open
   useEffect(() => {
     if (props.data) {
-      setEvenement(props.data);
+      setAnnonce(props.data);
     }
   }, [props.data, props.show]);
   return (
@@ -100,7 +98,7 @@ function EditAnnoncePopUp(props) {
                 cols="50"
                 placeholder="Description"
                 name="description"
-                value={evenement.description}
+                value={annonce.description}
                 onChange={handelChange}
                 required
               />
@@ -110,8 +108,8 @@ function EditAnnoncePopUp(props) {
                   type="date"
                   name="date_DebutPub"
                   defaultValue={
-                    evenement.date_DebutPub
-                      ? evenement.date_DebutPub.substr(0, 10)
+                    annonce.date_DebutPub
+                      ? annonce.date_DebutPub.substr(0, 10)
                       : ""
                   }
                   onChange={handelChange}
@@ -125,9 +123,7 @@ function EditAnnoncePopUp(props) {
                   type="date"
                   name="date_FinPub"
                   defaultValue={
-                    evenement.date_FinPub
-                      ? evenement.date_FinPub.substr(0, 10)
-                      : ""
+                    annonce.date_FinPub ? annonce.date_FinPub.substr(0, 10) : ""
                   }
                   onChange={handelChange}
                   required
@@ -146,7 +142,7 @@ function EditAnnoncePopUp(props) {
                 value={
                   catégorieOption &&
                   catégorieOption.filter(
-                    (option) => option.label === evenement.categorie
+                    (option) => option.label === annonce.categorie
                   )
                 }
                 onChange={handleSelectInputChange}

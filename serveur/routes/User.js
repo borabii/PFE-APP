@@ -13,7 +13,10 @@ const Admin = require("../models/Admin");
 const Annonceur = require("../models/Annonceur");
 const DemandeAnnonceur = require("../models/DemandeAnnonceur");
 const Publication = require("../models/Publication");
+const Notification = require("../models/Notifcation");
 
+//for image uploads
+//object that containt where to store uploaded image
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./uploads/");
@@ -22,7 +25,7 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + file.originalname);
   },
 });
-
+//method that controle uploded file type
 const fileFilter = (req, file, cb) => {
   const allowedFileTypes = ["image/jpeg", "image/jpg", "image/png"];
   if (allowedFileTypes.includes(file.mimetype)) {
@@ -223,6 +226,166 @@ router.put("/UpdateDistanceRecherche", auth, async (req, res) => {
     res.status(500).send("Server Error ");
   }
 });
+//loaduser(abonné) profile data
+router.get("/loadUser/:abonneId", auth, async (req, res) => {
+  try {
+    let totalRate = 0;
+    let actualRate = [];
+    const profileInfo = await Abonné.findById(req.params.abonneId).select(
+      "-email -gendre -inscriDate -distanceDeRecherche -isAnnonceur -password  -description"
+    );
+    console.log(profileInfo);
+    const alreadyFollowed =
+      profileInfo.followers.filter((item) => item.toString() === req.user.id)
+        .length > 0;
+    if (
+      profileInfo.userAvis.length > 0 &&
+      profileInfo.userAvis[0].avis !== null
+    ) {
+      totalRate =
+        profileInfo.userAvis.reduce((accum, item) => accum + item.avis, 0) /
+        profileInfo.userAvis.length;
+      actualRate = profileInfo.userAvis.filter(
+        (item) => item.user.toString() === req.user.id
+      );
+    }
+
+    res.json({
+      profileInfo,
+      isAlreadyFollowed: alreadyFollowed,
+      totalRate: totalRate,
+      actualRate: actualRate[0].avis < 0 ? 0 : actualRate[0].avis,
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error ");
+  }
+});
+// rate user(abonné)
+router.post("/rating/:abonneId", auth, async (req, res) => {
+  try {
+    Abonné.findById(req.params.abonneId).then((abonné) => {
+      if (
+        //if user already rate this user
+        abonné.userAvis.filter((rate) => rate.user.toString() === req.user.id)
+          .length > 0
+      ) {
+        // Get replaced avis  index
+        const replacedIndex = abonné.userAvis
+          .map((item) => item.user.toString())
+          .indexOf(req.user.id);
+        // Splice userAvis and replace avis old value with new value
+        abonné.userAvis.splice(replacedIndex.avis, 1, req.body.avis);
+        res.json({
+          msg: `Vous avez évaluez ${abonné.firstName} avec succés`,
+        });
+      }
+      //if user rate this user for the first time
+      const newAvis = {
+        user: req.user.id,
+        avis: req.body.avis,
+      };
+      // Add to avis array
+      abonné.userAvis.unshift(newAvis);
+      // Save
+      abonné.save().then((abonné) =>
+        res.json({
+          msg: `Vous avez évaluez ${abonné.firstName} avec succés`,
+        })
+      );
+      //add notification
+      notif = new Notification({
+        sender: req.user.id,
+        reciver: req.params.abonneId,
+        content: "vous avez evaluer",
+      });
+      notif.save();
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+//follow user(abonné)
+router.post("/follow/:abonneId", auth, async (req, res) => {
+  try {
+    await Abonné.findOne({ _id: req.user.id }).then((abonné) => {
+      if (
+        abonné.following.filter(
+          (item) => item.toString() === req.params.abonneId
+        ).length > 0
+      ) {
+        return res.status(400).json({ msg: "vous avez déja suiver ce abonné" });
+      }
+      // Add user id to following array
+      abonné.following.unshift(req.params.abonneId);
+      abonné.save();
+    });
+    Abonné.findOne({ _id: req.params.abonneId }).then((abonné) => {
+      if (
+        abonné.followers.filter((item) => item.toString() === req.user.id)
+          .length > 0
+      ) {
+        return res.status(400).json({ msg: "vous avez déja suiver ce abonné" });
+      }
+      // Add user id to following array
+      abonné.followers.unshift(req.user.id);
+      abonné.save();
+      res.json({
+        msg: `Vous avez suivre ${abonné.firstName} avec succés`,
+      });
+      //add notification
+      notif = new Notification({
+        sender: req.user.id,
+        reciver: req.params.abonneId,
+        content: "vous avez suivre",
+      });
+      notif.save();
+    });
+  } catch (err) {
+    res.status(500).send("Server Error ");
+    console.log(err);
+  }
+});
+//unfollow user(abonné)
+router.delete("/unfollow/:abonneId", auth, async (req, res) => {
+  try {
+    await Abonné.findOne({ _id: req.user.id }).then((abonné) => {
+      if (
+        abonné.following.filter(
+          (item) => item.toString() === req.params.abonneId
+        ).length > 0
+      ) {
+        const replacedIndex = abonné.following
+          .map((item) => item.toString())
+          .indexOf(req.user.id);
+        // Splice userAvis and replace avis old value with new value
+        abonné.following.splice(replacedIndex, 1);
+        abonné.save();
+      }
+    });
+
+    Abonné.findOne({ _id: req.params.abonneId }).then((abonné) => {
+      if (
+        abonné.followers.filter((item) => item.toString() === req.user.id)
+          .length > 0
+      ) {
+        const replacedIndex = abonné.followers
+          .map((item) => item.toString())
+          .indexOf(req.user.id);
+        // Splice userAvis and replace avis old value with new value
+        abonné.followers.splice(replacedIndex, 1);
+        abonné.save();
+      }
+      res.json({
+        msg: `Vous avez se désabonner de ${abonné.firstName} avec succés`,
+      });
+    });
+  } catch (err) {
+    res.status(500).send("Server Error ");
+
+    console.log(err);
+  }
+});
 /************************************************************************** */
 /*****************************Anonnceur route*******************************/
 /************************************************************************ */
@@ -334,6 +497,13 @@ router.post("/Admin/AddAnnonceur/:demandeId", auth, async (req, res) => {
         etatDemande: "Accepter",
       },
     });
+    // notif = new Notification({
+    //   sender: req.params.demandeData.demandeur,
+    //   reciver: req.params.demandeData.demandeur,
+    //   type: "adminNotification",
+    //   content: "Votre demande d'escpace pubs est accepter",
+    // });
+    await notif.save();
     res.send({ msg: "Annonceur ajouter avec succés" });
   } catch (err) {
     console.error(err.message);
@@ -347,6 +517,11 @@ router.post("/Admin/RejectDemande/:demandeId", auth, async (req, res) => {
       $set: {
         etatDemande: "Refuser",
       },
+    });
+    notif = new Notification({
+      sender: req.user.id,
+      reciver: req.params.demandeId,
+      content: "Votre demande d'escpace pubs est refuser",
     });
     res.send({ msg: "demande refuser avec succés" });
   } catch (err) {
@@ -406,7 +581,7 @@ router.delete("/Admin/deleteAbonne/:abonneId", auth, async (req, res) => {
 //get list annonceurs for admin
 router.get("/Admin/getAnnonceur", auth, async (req, res) => {
   try {
-    const annonceur = await Annonceur.find();
+    const annonceur = await Annonceur.find().select("-password");
     res.json(annonceur);
   } catch (err) {
     console.error(err.message);

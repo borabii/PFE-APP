@@ -1,19 +1,31 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
+import AuthContext from "../../../Context/auth/authContext";
+import Rating from "@material-ui/lab/Rating";
 function AbonneNote() {
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
+
   return (
     <div className="abonneNote">
       <div className="abonée-notes">
         <div className="abonne_avis ">
           <h4>Avis</h4>
-          <p>stars</p>
+          <p>
+            <Rating
+              name="size-large"
+              defaultValue={
+                user.userAvis.reduce((accum, item) => accum + item.avis, 0) /
+                user.userAvis.length
+              }
+            />
+          </p>
         </div>
         <div className=" score_globale ">
           <h4>Score</h4>
-          <p>550</p>
+          <p>{user.userScore}</p>
         </div>
       </div>
       <div className="score_detail">

@@ -6,10 +6,10 @@ import { getDayName, calucleAge } from "../../../utilis/date";
 import PubContext from "../../../Context/Publication/pubContext";
 import Spinner1 from "../../layout/Spinner1";
 import { useSnackbar } from "notistack";
+import history from "../../../utilis/history";
 
 function PubDetailPopUp(props) {
   const { enqueueSnackbar } = useSnackbar();
-
   const participate = () => {
     axios
       .put(
@@ -76,26 +76,45 @@ function PubDetailPopUp(props) {
             <h3>ORGANISER PAR</h3>
             <div className="organizateur__container">
               <img
-                src={`http://localhost:8000/${props.user.imageProfile}`}
+                src={`http://localhost:8000/${
+                  props.user.imageProfile
+                    ? props.user.imageProfile
+                    : props.user.imageCouverture
+                }`}
                 alt=""
               />
               <div className="organizateur__info">
                 <dl>
                   <dd>
-                    {" "}
-                    {props.user.firstName} {props.user.lastName}
+                    {props.data.typePub === "Activity"
+                      ? props.user.firstName + " " + props.user.lastName
+                      : props.user.nomAnnonceur}
                   </dd>
                   <dd>
                     <LocationOnIcon id="icon-loc" />
                     Monplaisir
                   </dd>
-                  <dd> {props.user.email}</dd>
+                  <dd>
+                    {" "}
+                    {props.data.typePub === "Activity"
+                      ? props.user.email
+                      : props.user.emailProAnnonceur}
+                  </dd>
                 </dl>
               </div>
             </div>
           </div>
           <div className="pubDetailPopUp__participation">
-            <button className="btn-participation" onClick={participate}>
+            <button
+              className="btn-participation"
+              onClick={participate}
+              style={{
+                display:
+                  props.data.nbr_place > 0 || !props.participate
+                    ? "block"
+                    : "none",
+              }}
+            >
               Je parrticipe
             </button>
           </div>
@@ -103,6 +122,7 @@ function PubDetailPopUp(props) {
           {/*  */}
 
           {/*  */}
+          <h2>Participants</h2>
           {!loading && acceptedParticipantData !== null ? (
             acceptedParticipantData && acceptedParticipantData.length > 0 ? (
               acceptedParticipantData.map((item, index) => {
@@ -128,7 +148,16 @@ function PubDetailPopUp(props) {
                             </p>
                           </div>
                         </div>
-                        <div className="pub-particiantAction">Voir Profile</div>
+                        <div
+                          className="pub-particiantAction"
+                          onClick={() =>
+                            history.push(
+                              `/AbonnéHomePage/AbonnéProfile/${item._id}`
+                            )
+                          }
+                        >
+                          Voir Profile
+                        </div>
                       </div>
                     </div>
                   </div>

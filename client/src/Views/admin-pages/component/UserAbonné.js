@@ -10,7 +10,7 @@ class UserAbonné extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      abonné: null,
+      abonné: {},
       detailReqModalShow: false,
       abonnés: [],
     };
@@ -128,7 +128,7 @@ class UserAbonné extends React.Component {
               </table>
             </div>
             <DetailAbonnePopUp
-              user={this.state.abonné ? this.state.abonné : this.state.abonnés}
+              user={this.state.abonné}
               show={this.state.detailReqModalShow}
               onHide={() => this.setState({ detailReqModalShow: false })}
             />

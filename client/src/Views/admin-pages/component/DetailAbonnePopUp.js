@@ -15,7 +15,9 @@ function DetailAbonnePopUp(props) {
     imageProfile,
     dateOfBirth,
     centreInteret,
+    userScore,
   } = props.user;
+  console.log(props.user.following);
   useEffect(() => {
     axios
       .get(
@@ -62,11 +64,16 @@ function DetailAbonnePopUp(props) {
             <div className="detail__account">
               <div className="info-item">
                 <h6>Nombre Abonnés</h6>
-                <h6>354</h6>
+                <h6>
+                  {typeof props.user.following !== "undefined" &&
+                  props.user.following.length
+                    ? props.user.following.length
+                    : "0"}
+                </h6>
               </div>
               <div className="info-item">
                 <h6> Avis</h6>
-                <h6>354</h6>
+                <h6>{nbrAct.totalRate}</h6>
               </div>
 
               <div className="info-item">
@@ -76,7 +83,7 @@ function DetailAbonnePopUp(props) {
 
               <div className="info-item">
                 <h6> Score Globale</h6>
-                <h6>354</h6>
+                <h6>{userScore}</h6>
               </div>
             </div>
             <div className="user__interet">

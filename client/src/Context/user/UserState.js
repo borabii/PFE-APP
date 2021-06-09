@@ -14,6 +14,11 @@ import {
   DELETE_CENTREOFINTERET,
   ADD_CENTREOFINTERET,
   UPDATE_DISTANCE_DE_RECHERCHE,
+  LOAD_PROFIL_INFO,
+  CLEAR_USERLOADED_PROFILEINFO,
+  RATE_USER,
+  FOLLOW_USER,
+  UNFOLLOW_USER,
 } from "../types";
 const UserState = (props) => {
   //global state
@@ -23,6 +28,7 @@ const UserState = (props) => {
     catégorieOption: null,
     fullCatégorieData: null,
     userCurrentLocation: null,
+    visitedProfileInfo: null,
   };
   const [state, dispatch] = useReducer(userReducer, initialState);
 
@@ -54,11 +60,6 @@ const UserState = (props) => {
   };
   //update user(abonné) distance de recherhce
   const updateDistanceDeRecherhce = async (distance) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
     try {
       const userDistance = { distance };
       const response = await axios.put(
@@ -73,6 +74,7 @@ const UserState = (props) => {
       console.log(err);
     }
   };
+
   //update user(abonné) profile image
   const updateProfileImage = async (formData) => {
     const config = {
@@ -130,7 +132,6 @@ const UserState = (props) => {
     }
   };
   //add user(abonné) centre of interet
-
   const addCentreOfInteret = async (categorieType) => {
     try {
       const response = await axios.put(
@@ -141,6 +142,76 @@ const UserState = (props) => {
         type: ADD_CENTREOFINTERET,
         payload: response,
       });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  //load user(abonné) profile info
+  const loadUserProfileInfo = async (userId) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/api/users/loadUser/${userId}`
+      );
+      dispatch({
+        type: LOAD_PROFIL_INFO,
+        payload: response,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  // Clear loaded user(abonné) profile info
+  const clearAbonnéUserProfileInfo = () => {
+    dispatch({
+      type: CLEAR_USERLOADED_PROFILEINFO,
+    });
+  };
+  const rateUser = async (avis, userId) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/api/users/rating/${userId}`,
+        avis,
+        config
+      );
+      dispatch({
+        type: RATE_USER,
+        payload: response,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  //follow user(abonné)
+  const followUser = async (userId) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/api/users/follow/${userId}`
+      );
+      dispatch({
+        type: FOLLOW_USER,
+        payload: response,
+      });
+      loadUserProfileInfo(userId);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  //unfollow user(abonné)
+  const unFollowUser = async (userId) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8000/api/users/unfollow/${userId}`
+      );
+      dispatch({
+        type: UNFOLLOW_USER,
+        payload: response,
+      });
+      loadUserProfileInfo(userId);
     } catch (err) {
       console.log(err);
     }
@@ -240,6 +311,7 @@ const UserState = (props) => {
         catégorieOption: state.catégorieOption,
         fullCatégorieData: state.fullCatégorieData,
         userCurrentLocation: state.userCurrentLocation,
+        visitedProfileInfo: state.visitedProfileInfo,
         updateProfileImage,
         updateDistanceDeRecherhce,
         sendDemandeAbonné,
@@ -251,6 +323,11 @@ const UserState = (props) => {
         getCatégorie,
         addCentreOfInteret,
         deleteCentreOfInteret,
+        loadUserProfileInfo,
+        clearAbonnéUserProfileInfo,
+        rateUser,
+        followUser,
+        unFollowUser,
       }}
     >
       {props.children}

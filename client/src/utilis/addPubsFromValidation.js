@@ -1,14 +1,18 @@
-import { getTime } from "../utilis/date";
+import moment from "moment";
 const addPubsFormValidation = (values) => {
   let errorsMsg = {};
 
   if (
-    new Date("1/1/1999 " + values.heure_finPub) <
-      new Date("1/1/1999 " + values.heure_debutPub) &&
-    parseInt(values.heure_debutPub) - parseInt(values.heure_finPub) < 24
+    moment(
+      moment(values.date_DebutPub + " " + values.heure_debutPub).format()
+    ).isAfter(moment(values.date_FinPub + " " + values.heure_finPub).format())
   ) {
     errorsMsg.heurePub = "Heure fin pub doit étre supérieur à heure debut pub";
-  } else if (values.heure_debutPub < getTime()) {
+  } else if (
+    moment(values.date_DebutPub).isSame(moment().format("YYYY-MM-DD")) &&
+    moment(values.date_DebutPub).isSame(values.date_FinPub) &&
+    moment(values.heure_debutPub, "HH:mm") < moment.utc().local()
+  ) {
     errorsMsg.heurePub = "Heure doit etre superieur à l'heure actuelle";
   }
 

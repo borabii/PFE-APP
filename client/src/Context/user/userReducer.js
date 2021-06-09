@@ -10,6 +10,11 @@ import {
   ADD_CENTREOFINTERET,
   DELETE_CENTREOFINTERET,
   UPDATE_DISTANCE_DE_RECHERCHE,
+  LOAD_PROFIL_INFO,
+  CLEAR_USERLOADED_PROFILEINFO,
+  RATE_USER,
+  FOLLOW_USER,
+  UNFOLLOW_USER,
 } from "../types";
 export default (state, action) => {
   switch (action.type) {
@@ -23,7 +28,6 @@ export default (state, action) => {
       return {
         ...state,
         responseMessage: action.payload.data.msg,
-
         anononceur: (state.annonceur.imageCouverture =
           action.payload.data.image),
       };
@@ -32,10 +36,23 @@ export default (state, action) => {
         ...state,
         responseMessage: action.payload.data.msg,
       };
+    case LOAD_PROFIL_INFO:
+      return {
+        ...state,
+        loading: false,
+        visitedProfileInfo: action.payload.data,
+      };
+    case CLEAR_USERLOADED_PROFILEINFO:
+      return {
+        ...state,
+        visitedProfileInfo: null,
+      };
+    case FOLLOW_USER:
+    case UNFOLLOW_USER:
+    case RATE_USER:
     case UPDATE_IMAGE:
       return {
         ...state,
-
         responseMessage: action.payload.data.msg,
       };
     case UPDATE_DESCRIPTION:

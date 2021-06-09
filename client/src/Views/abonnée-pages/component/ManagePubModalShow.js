@@ -5,9 +5,11 @@ import { getDayName, calucleAge } from "../../../utilis/date";
 import CheckIcon from "@material-ui/icons/Check";
 import ClearIcon from "@material-ui/icons/Clear";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import PubContext from "../../../Context/Publication/pubContext";
 import Spinner1 from "../../layout/Spinner1";
+import history from "../../../utilis/history";
 function ManagePubModalShow(props) {
   const pubContext = useContext(PubContext);
   const {
@@ -16,6 +18,7 @@ function ManagePubModalShow(props) {
     ClearParticipantData,
     loading,
     acceptParticipant,
+    refuseParticipant,
   } = pubContext;
   useEffect(() => {
     getParticipantData(props.data._id);
@@ -23,10 +26,6 @@ function ManagePubModalShow(props) {
       ClearParticipantData();
     };
   }, [props.show === true && !loading]);
-  //run when user click on check icon to accept participant
-  const acceptParticipantRequest = () => {
-    acceptParticipant(props.data._id, props.data.user);
-  };
   return (
     <Modal
       {...props}
@@ -101,7 +100,9 @@ function ManagePubModalShow(props) {
                         </div>
                         <div className="pub-participant-action">
                           <div className="pub-participant-actioIcon">
-                            {props.data.participants.filter(function (
+                            {!loading &&
+                            participantData !== null &&
+                            props.data.participants.filter(function (
                               participant
                             ) {
                               return (
@@ -112,15 +113,38 @@ function ManagePubModalShow(props) {
                               <>
                                 <CheckIcon
                                   id="accpetParticipant-icon"
-                                  onClick={acceptParticipantRequest}
+                                  onClick={() =>
+                                    acceptParticipant(props.data._id, item._id)
+                                  }
                                 />
-                                <ClearIcon id="removeParticipant-icon" />
+                                <ClearIcon
+                                  id="removeParticipant-icon"
+                                  onClick={() =>
+                                    refuseParticipant(props.data._id, item._id)
+                                  }
+                                />
                               </>
-                            ) : (
+                            ) : props.data.participants.filter(function (
+                                participant
+                              ) {
+                                return (
+                                  participant._id === item._id &&
+                                  participant.etat === "accepter"
+                                );
+                              }).length > 0 ? (
                               <CheckCircleOutlineIcon id="accpetedParticipant-icon" />
+                            ) : (
+                              <HighlightOffIcon id="refusedParticipant-icon" />
                             )}
 
-                            <AccountBoxIcon id="visitParticipantAccount-icon" />
+                            <AccountBoxIcon
+                              id="visitParticipantAccount-icon"
+                              onClick={() =>
+                                history.push(
+                                  `/AbonnéHomePage/AbonnéProfile/${item._id}`
+                                )
+                              }
+                            />
                           </div>
                         </div>
                       </div>

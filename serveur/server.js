@@ -16,6 +16,9 @@ app.use("/api/users", require("./routes/user"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/Publication", require("./routes/publication"));
 app.use("/api/Categorie", require("./routes/Catégorie"));
+app.use("/api/Contact", require("./routes/Contact"));
+app.use("/api/Notification", require("./routes/Notification"));
+
 //define servert port
 const PORT = process.env.PORT || 8000;
 

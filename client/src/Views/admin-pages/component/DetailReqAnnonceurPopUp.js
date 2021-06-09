@@ -80,7 +80,7 @@ function DetailReqAnnonceurPopUp(props) {
             <div className="demande__action">
               <div className="demande__form">
                 <button id="accept__btn" onClick={acceptDemande}>
-                  Ajouter
+                  Accepter
                 </button>
                 <button id="refuse__btn" onClick={refuserDemande}>
                   Refuser

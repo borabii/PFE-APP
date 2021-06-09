@@ -4,12 +4,13 @@ import TodayPub from "./TodayPub";
 import AddIcon from "@material-ui/icons/Add";
 import ComingPub from "./ComingPub";
 import AddActivityPopUp from "./AddActivityPopUp";
-
 import PubContext from "../../../Context/Publication/pubContext";
 import AuthContext from "../../../Context/auth/authContext";
-
 import { useSnackbar } from "notistack";
+import NotifContext from "../../../Context/notification/notifContext";
 
+import { getFullNowDate, getDate } from "../../../utilis/date";
+import moment from "moment";
 // used for hide addActivity-btn-small when scrolling in small device screnn
 const useHideOnScrolled = () => {
   const [hidden, setHidden] = useState(false);
@@ -36,38 +37,44 @@ function Home() {
   const { pubResponseMsg, ClearPubResponseMsg, loadPubs, pubs } = pubContext;
   //auth Context
   const authContext = useContext(AuthContext);
-  const { user, isAuthenticated } = authContext;
+  const { user } = authContext;
+  //notif context
+  const notifContext = useContext(NotifContext);
+  const { getNotif } = notifContext;
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      console.log("Latitude is :", position.coords.latitude);
-      console.log("Longitude is :", position.coords.longitude);
-      loadPubs(
-        [position.coords.latitude],
-        [position.coords.longitude],
-        user.distanceDeRecherche
-      );
-      // loadPubs(
-      //   [35.52625493547043],
-      //   [11.034331019983348],
-      //   user.distanceDeRecherche
-      // );
-    });
-  }, [isAuthenticated]);
+    if (user.distanceDeRecherche !== null) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        // loadPubs(
+        //   [position.coords.latitude],
+        //   [position.coords.longitude],
+        //   user.distanceDeRecherche
+        // );
+        loadPubs(
+          [35.52625493547043],
+          [11.034331019983348],
+          user.distanceDeRecherche
+        );
+      });
+    }
+    getNotif();
+  }, [user]);
+  console.log(moment().format("YYYY-MM-DD"));
+
   useEffect(() => {
     if (pubs) {
       setTodayPubs(
         pubs.filter(
           (item) =>
-            new Date(item.date_DebutPub).setHours(0, 0, 0, 0) ===
-              new Date().setHours(0, 0, 0, 0) &&
-            new Date(item.date_DebutPub).getHours() > new Date().getHours()
+            moment(getDate(item.date_DebutPub)).isSame(
+              moment().format("YYYY-MM-DD")
+            ) && moment(item.date_DebutPub, "HH:mm") > moment.utc().local()
         )
       );
       setCommingPubs(
-        pubs.filter(
-          (item) =>
-            new Date(item.date_DebutPub).setHours(0, 0, 0, 0) >
-            new Date().setHours(0, 0, 0, 0)
+        pubs.filter((item) =>
+          moment(getDate(item.date_DebutPub)).isAfter(
+            moment().format("YYYY-MM-DD")
+          )
         )
       );
     }

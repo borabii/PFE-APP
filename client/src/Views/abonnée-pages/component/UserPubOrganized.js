@@ -10,8 +10,11 @@ import EditActPopUp from "./EditActPopUp";
 import Spinner from "../../layout/Spinner";
 import ManagePubModalShow from "./ManagePubModalShow";
 import { useSnackbar } from "notistack";
-
+import { getFullNowDate, getNowDate } from "../../../utilis/date";
 function UserPubOrganized() {
+  console.log(getFullNowDate());
+  console.log(getNowDate());
+
   //componenet level state
   const [commingPubs, setCommingPubs] = useState([]);
   const [passedPubs, setPassedPubs] = useState([]);
@@ -135,12 +138,11 @@ function UserPubOrganized() {
                 {passedPubs.length > 0 ? (
                   passedPubs.map((item, index) => {
                     return (
-                      <Col xs={12} sm={6} md={6} lg={4}>
+                      <Col xs={12} sm={6} md={6} lg={4} key={index}>
                         <PubCard
                           editPubOption={false}
                           editPermission={true}
                           act={item}
-                          key={index}
                           deleteOnClick={() => deletePub(item._id)}
                           detailOnClickIcon={(e) => handleDetailClick(e, item)}
                         />

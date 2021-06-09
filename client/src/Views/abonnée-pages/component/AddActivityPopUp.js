@@ -10,10 +10,11 @@ import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import addPubsFormValidation from "../../../utilis/addPubsFromValidation";
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
+import moment from "moment";
 function AddActivityPopUp(props) {
   //componenet level state
   const [pos, setpos] = useState(null);
-  //
+  //state for handling error msg
   const [errorsMsg, setErrorsMsg] = useState({});
 
   //app level state
@@ -90,8 +91,6 @@ function AddActivityPopUp(props) {
     });
     setErrorsMsg(addPubsFormValidation(activity));
   };
-  //
-  console.log(activity);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -101,14 +100,12 @@ function AddActivityPopUp(props) {
         categorie,
         adresse: pos,
         nbr_place,
-        date_DebutPub,
+        date_DebutPub: moment(date_DebutPub + " " + heure_debutPub).format(),
         heure_debutPub,
-        date_FinPub,
+        date_FinPub: moment(date_FinPub + " " + heure_finPub).format(),
         heure_finPub,
       }).then(clearState);
     }
-
-    // props.onHide();
   };
   //metho user to reset state after submit
   const clearState = () => {
@@ -231,7 +228,7 @@ function AddActivityPopUp(props) {
                   type="date"
                   name="date_FinPub"
                   value={activity.date_FinPub}
-                  min={getDate(activity.date_DebutPub)}
+                  min={moment(activity.date_DebutPub).format("YYYY-MM-DD")}
                   onChange={handelDateChange}
                   required
                 />
@@ -294,7 +291,6 @@ function AddActivityPopUp(props) {
                   />
                   <DraggableMarker />
                 </MapContainer>
-                ,
               </div>
             </div>
 

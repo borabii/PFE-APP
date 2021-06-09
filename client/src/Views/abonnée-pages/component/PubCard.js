@@ -27,11 +27,12 @@ function PubCard(props) {
       setCatImage("");
     };
   }, [fullCatégorieData]);
+
   const [adresse, setadresse] = useState("");
   // useEffect(() => {
   //   axios
   //     .get(
-  //        `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${props.act.adresse.coordinates[0]}&longitude=${props.act.adresse.coordinates[1]}&localityLanguage=fr`
+  //       `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${props.act.adresse.coordinates[0]}&longitude=${props.act.adresse.coordinates[1]}&localityLanguage=fr`
   //     )
   //     .then((data) => setadresse(data.data));
   // }, [props.act, fullCatégorieData]);
@@ -49,7 +50,15 @@ function PubCard(props) {
 
         <img src={`http://localhost:8000/${catImage.imageCatégorie}`} alt="" />
       </div>
-      <div className="pubCard-info">
+      <div
+        className="pubCard-info"
+        style={{
+          borderTop:
+            props.act.typePub === "Activity"
+              ? "5px solid #f35552"
+              : "5px solid #56cc94",
+        }}
+      >
         <div className="pubCardInfo-left">
           <div className="pubInfo-date" id="event-date">
             <h4>{getMonthName(props.act.date_DebutPub)}</h4>

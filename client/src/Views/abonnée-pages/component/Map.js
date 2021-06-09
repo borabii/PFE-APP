@@ -16,7 +16,7 @@ function Map() {
   const [position, setPosition] = useState(null);
   //app level state
   const pubContext = useContext(PubContext);
-  const { pubs } = pubContext;
+  const { pubs, loadPubs } = pubContext;
   const authContext = useContext(AuthContext);
   const { user } = authContext;
   const userIcon = new Icon({
@@ -46,15 +46,38 @@ function Map() {
     //locate user current position
     const map = useMap();
     useEffect(() => {
-      map.locate().on("locationfound", function (e) {
-        setPosition(e.latlng);
-        console.log(e.latlng);
-        map.flyTo(e.latlng, 10);
+      // map.locate().on("locationfound", function (e) {
+      //   setPosition(e.latlng);
+      //   map.flyTo(e.latlng, 10);
+      //   const radius = user.distanceDeRecherche;
+      //   const circle = L.circle(e.latlng, radius);
+      //   circle.addTo(map);
+      // });
+      navigator.geolocation.getCurrentPosition(function (position) {
+        setPosition({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+        map.flyTo(
+          { lat: position.coords.latitude, lng: position.coords.longitude },
+          10
+        );
         const radius = user.distanceDeRecherche;
-        const circle = L.circle(e.latlng, radius);
+        const circle = L.circle(
+          { lat: position.coords.latitude, lng: position.coords.longitude },
+          radius
+        );
         circle.addTo(map);
+        loadPubs(
+          [position.coords.latitude],
+          [position.coords.longitude],
+          user.distanceDeRecherche
+        );
       });
-    }, []);
+      return () => {
+        // map.stopLocate();
+      };
+    }, [map]);
     return position === null ? null : (
       <Marker position={position} icon={userIcon}>
         <Popup>You are here</Popup>
@@ -115,6 +138,7 @@ function Map() {
         zoom={14}
         scrollWheelZoom
         className="map-style"
+        preferCanvas={true}
       >
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

@@ -19,6 +19,7 @@ import {
   CLEAR_ABONNÉPUB,
   GET_PUBSFORHOMEPAGE,
   ACCEPT_PARTICIPANT,
+  REFUSE_PARTICIPANT,
   ACCEPTED_PARTICIPANT_DATA,
   REMOVE_ACCEPTED_PARTICIPANTDATA,
 } from "../types";
@@ -147,11 +148,6 @@ const PubState = (props) => {
   };
   //delete publication(annonce,activité,event)
   const deletePub = async (pubId) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
     try {
       const res = await axios.delete(
         `http://localhost:8000/api/Publication/deletepub/${pubId}`
@@ -203,6 +199,21 @@ const PubState = (props) => {
 
       dispatch({
         type: ACCEPT_PARTICIPANT,
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  //refuse participant
+  const refuseParticipant = async (pubId, participantId) => {
+    try {
+      const res = await axios.put(
+        `http://localhost:8000/api/Publication/refuseParticipant/${pubId}/${participantId}`
+      );
+
+      dispatch({
+        type: REFUSE_PARTICIPANT,
         payload: res.data,
       });
     } catch (err) {
@@ -266,7 +277,6 @@ const PubState = (props) => {
         pubResponseMsg: state.pubResponseMsg,
         annonceurAnnonce: state.annonceurAnnonce,
         anonceurEvent: state.anonceurEvent,
-        pubs: state.pubs,
         participantData: state.participantData,
         acceptedParticipantData: state.acceptedParticipantData,
         loadActOrganized,
@@ -285,6 +295,7 @@ const PubState = (props) => {
         clearAbonnéPub,
         addAnnonce,
         acceptParticipant,
+        refuseParticipant,
         getAcceptedParticipantData,
         ClearAcceptedParticipantData,
       }}

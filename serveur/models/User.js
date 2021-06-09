@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const options = { discriminatorKey: "Role" };
+
 //define user Schema
 const UserSchema = mongoose.Schema(
   {

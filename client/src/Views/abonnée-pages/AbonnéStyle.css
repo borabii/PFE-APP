@@ -134,7 +134,13 @@
 .header-notifIcon {
   margin-right: 20px;
 }
-.header-notifIcon > #notifIcon {
+
+.header-notifIcon > .notifbadge {
+  width: 40px;
+  height: 40px;
+  margin-top: 4px;
+}
+.header-notifIcon > .notifbadge > #notifIcon {
   width: 40px;
   height: 45px;
   align-self: center;
@@ -353,8 +359,8 @@
 }
 
 .abonnéVisitedProfile-top > .top-left > img {
-  width: 250px;
-  height: 100%;
+  width: 400px;
+  height: 300px;
   border: 3px solid #3aceb9;
   box-sizing: border-box;
   border-radius: 10px;
@@ -416,6 +422,17 @@
   outline: none;
   border: none;
 }
+.userProfile-action > #btn-unfollow {
+  width: 150px;
+  height: 45px;
+  /* color: white; */
+  font-size: large;
+  letter-spacing: 0.02rem;
+  background: #3aceb9;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+}
 .top-middle > .userProfile-action > #user-report > a {
   cursor: pointer;
 }
@@ -426,7 +443,7 @@
 }
 .abonnéVisitedProfile-top > .top-right > .userProfile-note > #user-rate {
   width: 249px;
-  height: 150px;
+  height: 100px;
   background: #f6f5f5;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
@@ -445,6 +462,19 @@
   background: #f6f5f5;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
+}
+#profilecategory {
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  letter-spacing: 0.02rem;
+  background-color: #ecad42;
+  border-radius: 50px;
+  padding: 5px 8px 5px 8px;
+  margin-bottom: 10px;
+  box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
 }
 
 .abonnéVisitedProfile > .abonnéVisitedProfile-bottom {
@@ -1261,6 +1291,7 @@ input[type="file"] {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   width: 100%;
+  height: 150px;
 }
 .organizateur__container > img {
   width: 100px;
@@ -1273,6 +1304,9 @@ input[type="file"] {
   display: flex;
   margin-left: 30px;
   margin-top: 20px;
+}
+.organizateur__info > dl > dd {
+  font-size: 20px;
 }
 .pubDetailPopUp__participation {
   padding-bottom: 40px;
@@ -1373,9 +1407,11 @@ input[type="file"] {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  margin-right: 5px;
+  margin-right: 10px;
   margin-bottom: 5px;
   letter-spacing: 0.02rem;
+  cursor: pointer;
+  font-size: 18px;
 }
 .pub-participant-action {
   display: flex;
@@ -1394,6 +1430,14 @@ input[type="file"] {
   > .pub-participant-actioIcon
   > #accpetedParticipant-icon {
   color: #44c9bb;
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
+}
+.pub-participant-action
+  > .pub-participant-actioIcon
+  > #refusedParticipant-icon {
+  color: red;
   width: 35px;
   height: 35px;
   margin-right: 10px;
@@ -1417,24 +1461,18 @@ input[type="file"] {
 /*************** map style******************************/
 /******************************************************/
 .map-container {
-  background-color: red;
   overflow: hidden;
+  position: fixed;
+  top: 10%;
 }
 .map-style {
-  height: 100vh;
-  /* margin-bottom: 0px; */
-  width: 100%;
-  margin-top: 5px;
+  width: 100vw;
 
-  position: relative;
-  z-index: 1;
+  height: 90vh;
 }
-
-.map-detail {
-  position: absolute;
-  right: 0px;
-  z-index: 1000;
-  background-color: rgba(255, 50, 50, 0.5);
+.leaflet-fade-anim .leaflet-tile,
+.leaflet-zoom-anim .leaflet-zoom-animated {
+  will-change: auto !important;
 }
 .mapMarker-info {
   height: 100%;
@@ -1457,6 +1495,67 @@ input[type="file"] {
   font-size: 15px;
   margin-left: 5px;
   margin-top: 2px;
+}
+/*********************************************************/
+/***********Notification style****************/
+/*******************************************************/
+.Notification-list {
+  position: absolute;
+  width: 350px;
+  top: 70px;
+  right: 10px;
+  -webkit-transition: height 1s ease;
+  -moz-transition: height 1s ease;
+  -o-transition: height 1s ease;
+  -ms-transition: height 1s ease;
+  transition: height 1s ease;
+  background: #f5f5f5;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.Notification-list > p {
+  text-align: right;
+  color: white;
+  letter-spacing: 0.02rem;
+  font-size: 15px;
+}
+.notif {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  background-color: white;
+  margin-top: 5px;
+}
+.notif:hover {
+  color: #040941;
+  box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
+}
+.notif-img {
+  border: 2px solid #3aceb9;
+  border-radius: 40px;
+  /* 
+  height: 65px;
+  width: 65px; */
+  margin: 5px;
+}
+.notif-left {
+  display: flex;
+}
+.notif-img > img {
+  border-radius: 50%;
+  height: 55px;
+  width: 55px;
+}
+.notif-detail {
+  margin-top: 5px;
+  margin-left: 5px;
+}
+.notif-time {
+  margin-top: 10px;
+  margin-right: 5px;
 }
 
 /*******************************************************/
@@ -1582,7 +1681,6 @@ input[type="file"] {
     > #user-sendMessage
     > a {
     font-size: 20px;
-    font-weight: 600;
   }
   .abonnéVisitedProfile
     > .abonnéVisitedProfile-topSmallDevice
@@ -1593,7 +1691,7 @@ input[type="file"] {
     height: 50px;
   }
   .abonnéVisitedProfile > .abonnéVisitedProfile-topSmallDevice > .top-right {
-    margin-top: 20px;
+    margin-top: 40px;
   }
   .abonnéVisitedProfile
     > .abonnéVisitedProfile-topSmallDevice
@@ -1601,7 +1699,7 @@ input[type="file"] {
     > .userProfile-note
     > #user-rate {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-around;
   }
@@ -1612,6 +1710,7 @@ input[type="file"] {
   .abonnéVisitedProfile-middel > #user-interset {
     padding-top: 10px;
   }
+
   .abonnéVisitedProfile-bottom {
     margin-top: 20px;
   }
@@ -1830,6 +1929,24 @@ input[type="file"] {
   .abonnéVisitedProfile
     > .abonnéVisitedProfile-topSmallDevice
     > .top-middle
+    > .userProfile-rank
+    > #user-avis
+    > h3 {
+    font-size: 20px;
+    letter-spacing: 0.02rem;
+  }
+  .abonnéVisitedProfile
+    > .abonnéVisitedProfile-topSmallDevice
+    > .top-middle
+    > .userProfile-rank
+    > #user-score
+    > h3 {
+    font-size: 20px;
+    letter-spacing: 0.02rem;
+  }
+  .abonnéVisitedProfile
+    > .abonnéVisitedProfile-topSmallDevice
+    > .top-middle
     > .userProfile-action {
     display: flex;
     justify-content: space-around;
@@ -1841,8 +1958,7 @@ input[type="file"] {
     > .userProfile-action
     > #user-sendMessage
     > a {
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 14px;
   }
   .abonnéVisitedProfile
     > .abonnéVisitedProfile-topSmallDevice
@@ -1861,9 +1977,17 @@ input[type="file"] {
     > .userProfile-note
     > #user-rate {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-around;
+  }
+  .abonnéVisitedProfile
+    > .abonnéVisitedProfile-topSmallDevice
+    > .top-right
+    > .userProfile-note
+    > #user-rate
+    > h3 {
+    font-size: 20px;
   }
   #interest-card {
     width: 100%;
@@ -1871,12 +1995,18 @@ input[type="file"] {
   }
   .abonnéVisitedProfile-middel > #user-interset {
     padding-top: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
   }
-  .abonnéVisitedProfile-bottom {
-    margin-top: 20px;
+  .abonnéVisitedProfile-middel > h2 {
+    font-size: 25px;
+    margin-left: 10px;
   }
+
   .abonnéVisitedProfile-bottom > h2 {
-    margin-bottom: 40px;
+    font-size: 25px;
+    margin-left: 10px;
+    margin-bottom: 10px;
   }
   /*************************************************/
   /*****add activity popUp small device Style******/

@@ -7,9 +7,12 @@ import AbonnéHomePage from "./Views/abonnée-pages/AbonnéHomePage";
 import AuthState from "./Context/auth/AuthState";
 import PubState from "./Context/Publication/PubState";
 import UserState from "./Context/user/UserState";
+import NotifState from "./Context/notification/notifState";
 import { SnackbarProvider } from "notistack";
 import history from "../src/utilis/history";
 import PrivateRoute from "../src/routing/PrivateRoute";
+import ProtectedRoute from "./routing/ProtectedRoute";
+import AdminProtectedRoute from "../src/routing/AdminProtectedRoute";
 import setAuthToken from "./utilis/setAuthToken";
 if (localStorage.getItem("token")) {
   setAuthToken(localStorage.getItem("token")); //  axios.defaults.headers.common['x-auth-token'] = token;
@@ -20,19 +23,25 @@ function App() {
       <AuthState>
         <UserState>
           <PubState>
-            <div className="app">
-              <Router history={history}>
-                <Switch>
-                  <PrivateRoute exact path="/" component={LandingPage} />
-                  <Route path="/AdminHomePage">
-                    <AdminHomePage />
-                  </Route>
-                  <Route path="/AbonnéHomePage">
-                    <AbonnéHomePage />
-                  </Route>
-                </Switch>
-              </Router>
-            </div>
+            <NotifState>
+              {" "}
+              <div className="app">
+                <Router history={history}>
+                  <Switch>
+                    <PrivateRoute exact path="/" component={LandingPage} />
+                    <AdminProtectedRoute
+                      path="/AdminHomePage"
+                      component={AdminHomePage}
+                    />
+
+                    <ProtectedRoute
+                      path="/AbonnéHomePage"
+                      component={AbonnéHomePage}
+                    />
+                  </Switch>
+                </Router>
+              </div>
+            </NotifState>
           </PubState>
         </UserState>
       </AuthState>

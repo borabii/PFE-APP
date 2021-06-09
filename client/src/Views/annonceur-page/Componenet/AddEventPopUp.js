@@ -5,10 +5,10 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import UserContext from "../../../Context/user/userContext";
 import PubContext from "../../../Context/Publication/pubContext";
-import { getNowDate, getTime, getDate } from "../../../utilis/date";
+import { getNowDate, getTime } from "../../../utilis/date";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import addPubsFormValidation from "../../../utilis/addPubsFromValidation";
-
+import moment from "moment";
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
 function AddEventPopUp(props) {
@@ -29,6 +29,7 @@ function AddEventPopUp(props) {
   const [nbr_place, setNbr_place] = useState(0);
   //
   const [openMap, setOpenMap] = useState(false);
+
   //this methode is used for increment the state value(nbrParticipantCounter) by 1
   const increment = () => {
     setNbr_place(nbr_place + 1);
@@ -117,7 +118,7 @@ function AddEventPopUp(props) {
   };
   //method user to let user locate user current pos and display a maker on his position
   //and let him chnage it by draking the marker
-  const DraggableMarker = () => {
+  const AddEventMapAdresse = () => {
     const markerRef = useRef(null);
 
     //run when moving maker and get new latlag and set state(pos) with new marker position
@@ -133,24 +134,20 @@ function AddEventPopUp(props) {
       []
     );
     const icon1 = new Icon({
-      iconUrl: "/pin.svg",
+      iconUrl: "/eventMarker.svg",
       iconSize: [25, 25],
     });
     return pos === null ? null : (
       <Marker
         draggable={true}
         eventHandlers={eventHandlers}
-        position={pos}
+        position={pos || [36.78729147, 10.18432617]}
         ref={markerRef}
         icon={icon1}
       />
     );
   };
-  //open
-  const openMapBtn = () => {
-    setOpenMap(true);
-  };
-  //metho user to reset state after submit
+  //method used to reset state after submit or when the component is unmounted
   const clearState = () => {
     setNbr_place(0);
     setEvenement({
@@ -184,7 +181,7 @@ function AddEventPopUp(props) {
       </Modal.Header>
       <Modal.Body>
         <div className="addActivityPopUp">
-          <form className="addAct-form" onSubmit={handleSubmit}>
+          <div className="addAct-form">
             <div className="addAct-principalInfo">
               <h3>information Principale</h3>
               <textarea
@@ -220,7 +217,7 @@ function AddEventPopUp(props) {
                   type="date"
                   name="date_FinPub"
                   value={evenement.date_FinPub}
-                  min={getDate(evenement.date_DebutPub)}
+                  min={moment(evenement.date_DebutPub).format("YYYY-MM-DD")}
                   onChange={handelDateChange}
                   required
                 />
@@ -282,7 +279,10 @@ function AddEventPopUp(props) {
             <h3>Lieu d'événement</h3>
             <div className="adr-option">
               <p>Votre adresse sera choisir par défaut</p>
-              <button id="openMap-btn" onClick={openMapBtn}>
+              <button
+                id="openMap-btn"
+                onClick={() => setOpenMap((openMap) => !openMap)}
+              >
                 Choisir sur map
               </button>
             </div>
@@ -290,7 +290,7 @@ function AddEventPopUp(props) {
             <div style={{ display: openMap ? "block" : "none" }}>
               <div className="addEvent-mapContainer">
                 <MapContainer
-                  center={pos}
+                  center={[36.78729147, 10.18432617]}
                   zoom={13}
                   className="addActmap-style"
                   scrollWheelZoom={false}
@@ -299,15 +299,15 @@ function AddEventPopUp(props) {
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   />
-                  <DraggableMarker />
+                  <AddEventMapAdresse />
                 </MapContainer>
               </div>
             </div>
 
-            <button className="addAct-btn" type="submit">
+            <button className="addAct-btn" onClick={handleSubmit}>
               Publier
             </button>
-          </form>
+          </div>
         </div>
       </Modal.Body>
     </Modal>
