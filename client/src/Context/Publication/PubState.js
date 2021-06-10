@@ -238,7 +238,7 @@ const PubState = (props) => {
   const getAcceptedParticipantData = async (pubId) => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/api/Publication/HomePagePubs/getParticipantData/${pubId}`
+        `http://localhost:8000/api/Publication/HomePagePubs/getAcceptedParticipantData/${pubId}`
       );
       dispatch({
         type: ACCEPTED_PARTICIPANT_DATA,

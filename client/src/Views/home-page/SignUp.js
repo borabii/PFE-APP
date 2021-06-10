@@ -28,14 +28,8 @@ function SignUp() {
     password: "",
     ConfirmPassword: "",
   });
-  const {
-    firstName,
-    lastName,
-    dateOfBirth,
-    email,
-    password,
-    ConfirmPassword,
-  } = userForm;
+  const { firstName, lastName, dateOfBirth, email, password, ConfirmPassword } =
+    userForm;
   // setUser state based on user's input
   const handelChange = (event) => {
     setUserForm({
@@ -74,7 +68,7 @@ function SignUp() {
           </div>
         </div>
         <div className="signIn__rigth">
-          <h1 id="signUp-title">INSCRIVIZ VOUS</h1>
+          <h1 id="signUp-title">INSCRIVEZ VOUS</h1>
           <form className="form" onSubmit={handleSubmit}>
             <div className="form-inputs">
               <input

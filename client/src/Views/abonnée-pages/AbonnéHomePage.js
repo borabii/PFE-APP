@@ -14,7 +14,7 @@ import AbonnéActivités from "./component/AbonnéActivités";
 function AbonnéHomePage() {
   const { path } = useRouteMatch();
   const authContext = useContext(AuthContext);
-  const { loadUser } = authContext;
+  const { loadUser, isAuthenticated } = authContext;
   const userContext = useContext(UserContext);
   //app level state
   const { getCatégorie } = userContext;
@@ -22,7 +22,7 @@ function AbonnéHomePage() {
   useEffect(() => {
     getCatégorie();
     loadUser();
-  }, []);
+  }, [isAuthenticated]);
   return (
     <div>
       <AboHeader />

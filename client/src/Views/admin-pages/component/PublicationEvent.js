@@ -35,7 +35,7 @@ class PublicationEvent extends React.Component {
       });
   }
   //delete
-  deletItem = (data) => {
+  deletePub = (data) => {
     swal({
       title: "Voulez vous supprimer cette événement",
       icon: "warning",
@@ -129,7 +129,7 @@ class PublicationEvent extends React.Component {
                           </div>
                           <div id="ff">
                             <DeleteIcon
-                              onClick={() => this.deletItem(data)}
+                              onClick={() => this.deletePub(data)}
                               id="dataTable-delteIcon"
                             />
                           </div>

@@ -58,8 +58,6 @@ function Home() {
     }
     getNotif();
   }, [user]);
-  console.log(moment().format("YYYY-MM-DD"));
-
   useEffect(() => {
     if (pubs) {
       setTodayPubs(

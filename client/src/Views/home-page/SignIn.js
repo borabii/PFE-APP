@@ -7,7 +7,8 @@ import history from "../../utilis/history";
 function SignIn() {
   const authContext = useContext(AuthContext);
   //app level state
-  const { isAuthenticated, login, invalidUserInformationMsg } = authContext;
+  const { isAuthenticated, login, logout, invalidUserInformationMsg, user } =
+    authContext;
   const userRole = localStorage.getItem("role");
   //component level state for handling user inputed values
   const [userForm, setUserForm] = useState({
@@ -20,12 +21,15 @@ function SignIn() {
   const [errorsMsg, setErrorsMsg] = useState({});
   //redirect user after signIn
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && user.status === "active") {
       if (userRole === "Admin" || userRole === "Super Admin") {
         history.push("/AdminHomePage");
       } else {
         history.push("/AbonnéHomePage");
       }
+    } else if (isAuthenticated && user.status === "desactivier") {
+      history.push("/blockedUser");
+      logout();
     }
   }, [isAuthenticated, userRole]);
 

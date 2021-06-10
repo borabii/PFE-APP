@@ -38,7 +38,7 @@ function AddAdminPopUp(props) {
     });
   };
   //run when user click on submit button
-  const handleSubmit = async (event) => {
+  const addAdmin = async (event) => {
     event.preventDefault();
     axios.post("http://localhost:8000/api/users/Admin/addAdmin", userForm);
     //clear form after submit
@@ -67,7 +67,7 @@ function AddAdminPopUp(props) {
       </Modal.Header>
       <Modal.Body>
         <div className="addAdminPopUP">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={addAdmin}>
             <input
               type="text"
               placeholder=" Nom"

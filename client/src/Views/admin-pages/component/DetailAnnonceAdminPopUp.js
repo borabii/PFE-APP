@@ -13,6 +13,7 @@ function DetailAnnonceAdminPopUp(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
       animation={true}
+      scrollable={true}
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">

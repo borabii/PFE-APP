@@ -33,7 +33,7 @@ function EditAdminPopUp(props) {
       permission: selectedOption.label,
     });
   };
-  const handleSubmit = async (event) => {
+  const editAdmin = async (event) => {
     event.preventDefault();
     axios.put(
       `http://localhost:8000/api/users/Admin/editAdmin/${props.user._id}`,
@@ -61,7 +61,7 @@ function EditAdminPopUp(props) {
       </Modal.Header>
       <Modal.Body>
         <div className="editAdminPopUP">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={editAdmin}>
             <Select
               defaultValue={options.filter(
                 (option) => option.label === props.user.permission

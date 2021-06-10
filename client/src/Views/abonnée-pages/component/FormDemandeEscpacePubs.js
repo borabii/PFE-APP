@@ -45,7 +45,6 @@ function FormDemandeEscpacePubs() {
     formData.append("numTelAnnonceur", demandeAnnonceur.numTelAnnonceur);
     formData.append("adrlat", pos.lat);
     formData.append("adrlng", pos.lng);
-
     formData.append("emailProAnnonceur", demandeAnnonceur.emailProAnnonceur);
     formData.append("catégorieAnnonceur", demandeAnnonceur.catégorieAnnonceur);
     formData.append(

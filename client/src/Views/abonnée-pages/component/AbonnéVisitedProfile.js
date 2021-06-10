@@ -14,7 +14,7 @@ import PubDetailPopUp from "./PubDetailPopup";
 import UserContext from "../../../Context/user/userContext";
 import { useSnackbar } from "notistack";
 import Spinner from "../../layout/Spinner";
-
+import SignalPopUp from "./SignalPopUp";
 function AbonnéVisitedProfile(props) {
   const breakPoints = [
     { width: 1, itemsToShow: 1, showArrows: true },
@@ -42,7 +42,7 @@ function AbonnéVisitedProfile(props) {
   const [pubOrganisateur, setPubOrganisateur] = useState({});
   const [eventClicked, setEventClicked] = useState({});
   const [detailPubModalShow, setDetailPubModalShow] = useState(false);
-
+  const [showSignalerPopUp, setShowSignalerPopUp] = useState(false);
   const handleDetailClick = (e, item) => {
     setEventClicked(item);
     setDetailPubModalShow(true);
@@ -135,7 +135,7 @@ function AbonnéVisitedProfile(props) {
                 )}
 
                 <div id="user-report">
-                  <a>Signaler</a>
+                  <a onClick={() => setShowSignalerPopUp(true)}>Signaler</a>
                 </div>
               </div>
             </div>
@@ -215,7 +215,12 @@ function AbonnéVisitedProfile(props) {
                   </button>
                 )}{" "}
                 <div id="user-report">
-                  <a>Signaler</a>
+                  <a onClick={() => setShowSignalerPopUp(true)}>Signaler</a>
+                  <SignalPopUp
+                    show={showSignalerPopUp}
+                    onHide={() => setShowSignalerPopUp(false)}
+                    userId={props.match.params.id}
+                  />
                 </div>
               </div>
             </div>

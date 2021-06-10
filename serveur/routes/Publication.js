@@ -240,7 +240,7 @@ router.get("/getParticipantData/:pubId", auth, async (req, res) => {
 });
 //get all accepted participant data in pub  for home page  pub
 router.get(
-  "/HomePagePubs/getParticipantData/:pubId",
+  "/HomePagePubs/getAcceptedParticipantData/:pubId",
   auth,
   async (req, res) => {
     try {

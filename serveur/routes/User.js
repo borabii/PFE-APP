@@ -497,12 +497,12 @@ router.post("/Admin/AddAnnonceur/:demandeId", auth, async (req, res) => {
         etatDemande: "Accepter",
       },
     });
-    // notif = new Notification({
-    //   sender: req.params.demandeData.demandeur,
-    //   reciver: req.params.demandeData.demandeur,
-    //   type: "adminNotification",
-    //   content: "Votre demande d'escpace pubs est accepter",
-    // });
+    notif = new Notification({
+      sender: req.user.id,
+      reciver: demandeData.demandeur,
+      typeNotif: "adminNotification",
+      content: "Votre demande d'escpace pubs est accepter",
+    });
     await notif.save();
     res.send({ msg: "Annonceur ajouter avec succés" });
   } catch (err) {
@@ -513,38 +513,30 @@ router.post("/Admin/AddAnnonceur/:demandeId", auth, async (req, res) => {
 //add annonceur route(demmande refuser)
 router.post("/Admin/RejectDemande/:demandeId", auth, async (req, res) => {
   try {
-    await DemandeAnnonceur.findByIdAndUpdate(req.params.demandeId, {
+    const a = await DemandeAnnonceur.findByIdAndUpdate(req.params.demandeId, {
       $set: {
         etatDemande: "Refuser",
       },
     });
     notif = new Notification({
       sender: req.user.id,
-      reciver: req.params.demandeId,
+      reciver: a.demandeur,
       content: "Votre demande d'escpace pubs est refuser",
     });
-    res.send({ msg: "demande refuser avec succés" });
+    await notif.save();
+    res.send({ a, msg: "demande refuser avec succés" });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error ");
   }
 });
 
-//get propritare demande
-router.get("/Admin/getDemandeur/:demandeurId", auth, async (req, res) => {
-  try {
-    const demandeurInfo = await Abonné.findById(req.params.demandeurId);
-    res.json(demandeurInfo);
-  } catch (err) {
-    console.error(err.message);
-    // res.status(500).send("Server Error ");
-  }
-});
-
 //get demandeannonceur for admin
 router.get("/Admin/getDemandeAnnonceur", auth, async (req, res) => {
   try {
-    const demandeAnnonceur = await DemandeAnnonceur.find();
+    const demandeAnnonceur = await DemandeAnnonceur.find().sort({
+      demandeDate: -1,
+    });
     res.json(demandeAnnonceur);
   } catch (err) {
     console.error(err.message);
@@ -554,7 +546,9 @@ router.get("/Admin/getDemandeAnnonceur", auth, async (req, res) => {
 //get demande propritaire(abonné)  for admin
 router.get("/Admin/getDemandeur/:demandeurId", auth, async (req, res) => {
   try {
-    const demandeur = await Abonné.findById(req.params.demandeurId);
+    const demandeur = await Abonné.findById(req.params.demandeurId).select(
+      "-password -description -distanceDeRecherche -followers -following -userAvis -userScore"
+    );
     res.json(demandeur);
   } catch (err) {
     console.error(err.message);
@@ -564,7 +558,11 @@ router.get("/Admin/getDemandeur/:demandeurId", auth, async (req, res) => {
 //get list abonnes for admin
 router.get("/Admin/getAbonnes", auth, async (req, res) => {
   try {
-    const abonnes = await Abonné.find();
+    const abonnes = await Abonné.find()
+      .select("-password -description -distanceDeRecherche ")
+      .sort({
+        inscriDate: -1,
+      });
     res.json(abonnes);
   } catch (err) {
     console.error(err.message);
@@ -581,7 +579,9 @@ router.delete("/Admin/deleteAbonne/:abonneId", auth, async (req, res) => {
 //get list annonceurs for admin
 router.get("/Admin/getAnnonceur", auth, async (req, res) => {
   try {
-    const annonceur = await Annonceur.find().select("-password");
+    const annonceur = await Annonceur.find().select("-password").sort({
+      aceptationDate: -1,
+    });
     res.json(annonceur);
   } catch (err) {
     console.error(err.message);

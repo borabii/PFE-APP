@@ -6,6 +6,9 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import DetailAbonnePopUp from "./DetailAbonnePopUp";
 import { getDate } from "../../../utilis/date";
 import swal from "sweetalert";
+import Switch from "react-switch";
+import BlockIcon from "@material-ui/icons/Block";
+import CheckIcon from "@material-ui/icons/Check";
 class UserAbonné extends React.Component {
   constructor(props) {
     super(props);
@@ -13,7 +16,9 @@ class UserAbonné extends React.Component {
       abonné: {},
       detailReqModalShow: false,
       abonnés: [],
+      checked: false,
     };
+    this.handleChange = this.handleChange.bind(this);
   }
   //this method is used to store in abonné State which object is
   //selected in table to passe it like a props to the modal
@@ -21,7 +26,7 @@ class UserAbonné extends React.Component {
     this.setState({ abonné: this.state.abonnés[index] });
   };
 
-  deletabonné = (data) => {
+  deleteAbonné = (data) => {
     swal({
       title: `Vous êtes sûre de supprimer :${
         data.firstName + " " + data.lastName
@@ -55,7 +60,10 @@ class UserAbonné extends React.Component {
         this.setState({ abonnés: response.data });
       });
   }
-
+  handleChange(e, _id) {
+    console.log(_id);
+    this.setState({ checked: true });
+  }
   render() {
     return (
       <div className="userAbonné">
@@ -115,8 +123,17 @@ class UserAbonné extends React.Component {
                             />
                           </div>
                           <div id="ff">
+                            {/* <Switch
+                              height={30}
+                              width={50}
+                              onChange={
+                                ((e) => this.handleChange(e, data._id),
+                                data._id)
+                              }
+                              checked={this.state.checked}
+                            /> */}
                             <DeleteIcon
-                              onClick={() => this.deletabonné(data)}
+                              onClick={() => this.deleteAbonné(data)}
                               id="dataTable-delteIcon"
                             />
                           </div>

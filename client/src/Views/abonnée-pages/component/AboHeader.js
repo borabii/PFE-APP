@@ -136,7 +136,6 @@ function AboHeader() {
                 </option>
                 <option value="activity">Activity</option>
                 <option value="evenement">Evenement</option>
-                <option value="abonné">Abonné</option>
               </select>
             </div>
 

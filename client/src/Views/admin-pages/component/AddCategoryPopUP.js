@@ -20,7 +20,7 @@ function AddCategoryPopUP(props) {
       imageCatégorie: event.target.files[0],
     });
   };
-  const handelSubmit = (event) => {
+  const addCategory = (event) => {
     event.preventDefault();
     //creat object (formData) from state(categorie) value
     const formData = new FormData();
@@ -61,7 +61,7 @@ function AddCategoryPopUP(props) {
             </div>
           )}
 
-          <form onSubmit={handelSubmit}>
+          <form onSubmit={addCategory}>
             <input
               type="file"
               id="justificatif-input"

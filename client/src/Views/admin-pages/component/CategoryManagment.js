@@ -33,7 +33,7 @@ class CategoryManagment extends React.Component {
       });
   }
   //this method run when user click in action icon that delete catégorie
-  deletItem = (data) => {
+  deleteCategory = (data) => {
     swal({
       title: "Voulez vous supprimer cette catégorie",
       icon: "warning",

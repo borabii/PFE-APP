@@ -1,8 +1,7 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-
+import { getDate, getTime } from "../../../utilis/date";
 function DetailBoiteMessage(props) {
-  const { typePub, _id } = props.user;
   return (
     <Modal
       {...props}
@@ -19,20 +18,25 @@ function DetailBoiteMessage(props) {
           <div className="popupBody__bottom">
             <div className="boite__container ">
               <p>
-                <h5>Nom:{typePub}</h5> 20/03/2021
+                <span>Nom:</span>
+                {props.message.nom}
               </p>
               <p>
-                <h5>Email:{_id}</h5> 20/03/2021
+                <span>Email:</span>
+                {props.message.email}
               </p>
               <p>
-                <h5>Date d'envoie:</h5> 20/03/2021
+                <span>Date d'envoie:</span>
+                {getDate(props.message.DateEnvoie)}
               </p>
-              <h5>Message:</h5>
+              <p>
+                <span>Message:</span>
+              </p>
               <textarea
                 rows="5"
                 cols="50"
                 name="description"
-                value="zefzefzefzef"
+                value={props.message.message}
                 readOnly
               />
             </div>

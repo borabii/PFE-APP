@@ -1536,9 +1536,6 @@ input[type="file"] {
 .notif-img {
   border: 2px solid #3aceb9;
   border-radius: 40px;
-  /* 
-  height: 65px;
-  width: 65px; */
   margin: 5px;
 }
 .notif-left {
@@ -1549,6 +1546,13 @@ input[type="file"] {
   height: 55px;
   width: 55px;
 }
+.notif-imgAdmin > img {
+  height: 65px;
+  width: 65px;
+  border: 2px solid #3aceb9;
+  border-radius: 40px;
+  margin: 10px 5px 5px 5px;
+}
 .notif-detail {
   margin-top: 5px;
   margin-left: 5px;
@@ -1556,6 +1560,57 @@ input[type="file"] {
 .notif-time {
   margin-top: 10px;
   margin-right: 5px;
+}
+/*********************************************************/
+/***********Signal Pop up  style****************/
+/*******************************************************/
+
+.SignalPopUp-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px;
+}
+.SignalPopUp-container > h4 {
+  margin: 10px;
+}
+.signal-option {
+  margin: 10px;
+}
+.signal-option-form > textarea {
+  border: 2px solid #44c9bb;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+  width: 300px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 23px;
+  box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
+  outline: none;
+}
+
+.signal-option-form > .btn-signal {
+  border: 2px solid red;
+  border-radius: 10px;
+  width: 100px;
+  height: 40px;
+  text-transform: uppercase;
+  /* align-self: center; */
+  margin: 10px;
+}
+.signal-option-form > .btn-signal:hover {
+  background-color: red;
+  color: white;
+}
+/*************************************************************/
+/*************** blocked User page Style*********************/
+/***********************************************************/
+#blockedUser {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
 }
 
 /*******************************************************/

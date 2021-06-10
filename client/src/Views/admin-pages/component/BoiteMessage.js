@@ -3,38 +3,26 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import SearchIcon from "@material-ui/icons/Search";
 import DetailBoiteMessagePopUp from "./DetailBoiteMessagePopUp";
 import axios from "axios";
-
+import { getDate } from "../../../utilis/date";
 class BoiteMessage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: null,
+      message: null,
       detailReqModalShow: false,
-      items: [
-        {
-          typePub: "Activity",
-          _id: "6089f86bfcf1b64cd0974cfd",
-          description: "tezedzed",
-          adresse: "aaaaa",
-          nbr_place: 2,
-          user: "607e141dc0fb704f84df1b46",
-          date_Pub: "2021-04-29T00:06:03.199Z",
-          __v: 0,
-        },
-      ],
+      messages: [],
     };
   }
 
   updateItem = (index) => {
-    const user = this.state.items[index];
-    console.log(user);
-    this.setState({ id: user });
+    const item = this.state.messages[index];
+    this.setState({ message: item });
   };
   componentDidMount() {
     axios
-      .get("http://localhost:8000/api/Publication/Admin/getActivity")
+      .get("http://localhost:8000/api/Contact/Admin/getContact")
       .then((response) => {
-        this.setState({ items: response.data.activity });
+        this.setState({ messages: response.data });
       });
   }
 
@@ -45,8 +33,8 @@ class BoiteMessage extends React.Component {
           <div className="dataTable__top">
             <div className=" data-card ">
               <div className="card-body px-4  ">
-                <h5 className="card-title data-cardTitle"> Nombre Activité</h5>
-                <p className="card-text">1000</p>
+                <h5 className="card-title data-cardTitle"> Nombre Message</h5>
+                <p className="card-text">{this.state.messages.length}</p>
               </div>
             </div>
 
@@ -75,17 +63,19 @@ class BoiteMessage extends React.Component {
                   </tr>
                 </thead>{" "}
                 <tbody>
-                  {this.state.items.map((data, index) => {
+                  {this.state.messages.map((data, index) => {
                     return (
                       <tr key={index}>
-                        <th scope="row">1</th>
-                        <td>{data.typePub}</td>
                         <td>{data._id}</td>
-                        <td>{data.firstName} </td>
+                        <td>{data.nom}</td>
+                        <td>{data.email}</td>
+                        <td>{getDate(data.DateEnvoie)} </td>
                         <td onClick={() => this.updateItem(index)}>
                           <DetailBoiteMessagePopUp
-                            user={
-                              this.state.id ? this.state.id : this.state.items
+                            message={
+                              this.state.message
+                                ? this.state.message
+                                : this.state.messages
                             }
                             show={this.state.detailReqModalShow}
                             onHide={() =>

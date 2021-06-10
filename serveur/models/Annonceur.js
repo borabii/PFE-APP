@@ -16,7 +16,7 @@ const AnnonceurSchema = new mongoose.Schema({
     },
   },
   numTelAnnonceur: {
-    type: String,
+    type: Number,
   },
   emailProAnnonceur: {
     type: String,

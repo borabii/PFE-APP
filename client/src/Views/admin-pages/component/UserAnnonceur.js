@@ -30,7 +30,7 @@ class UserAnnonceur extends React.Component {
       .then((response) => this.setState({ DemandeurData: response.data }));
   };
   //this method run when user click in action icon that delete annonceur
-  deletannonceur = (data) => {
+  deletAnnonceur = (data) => {
     swal({
       title: `Vous êtes sûre de supprimer :${data.nomAnnonceur} ?`,
       icon: "warning",
@@ -131,7 +131,7 @@ class UserAnnonceur extends React.Component {
                           </div>
                           <div id="ff">
                             <DeleteIcon
-                              onClick={() => this.deletannonceur(data)}
+                              onClick={() => this.deletAnnonceur(data)}
                               id="dataTable-delteIcon"
                             />
                           </div>

@@ -14,6 +14,8 @@ import PrivateRoute from "../src/routing/PrivateRoute";
 import ProtectedRoute from "./routing/ProtectedRoute";
 import AdminProtectedRoute from "../src/routing/AdminProtectedRoute";
 import setAuthToken from "./utilis/setAuthToken";
+import BlockedUser from "./Views/error-page/BlockedUser";
+import NotFound from "./Views/error-page/NotFound";
 if (localStorage.getItem("token")) {
   setAuthToken(localStorage.getItem("token")); //  axios.defaults.headers.common['x-auth-token'] = token;
 }
@@ -33,11 +35,12 @@ function App() {
                       path="/AdminHomePage"
                       component={AdminHomePage}
                     />
-
                     <ProtectedRoute
                       path="/AbonnéHomePage"
                       component={AbonnéHomePage}
                     />
+                    <Route path="/blockedUser" component={BlockedUser} />
+                    <Route path="*" component={NotFound} />
                   </Switch>
                 </Router>
               </div>
