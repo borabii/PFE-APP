@@ -22,7 +22,6 @@ router.get("/", auth, async (req, res) => {
 //login endpoint (public access)
 router.post("/signin", async (req, res) => {
   const { email, password } = req.body;
-
   try {
     let user = await User.findOne({ email: email });
     if (!user) {

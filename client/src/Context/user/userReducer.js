@@ -12,6 +12,8 @@ import {
   UPDATE_DISTANCE_DE_RECHERCHE,
   LOAD_PROFIL_INFO,
   CLEAR_USERLOADED_PROFILEINFO,
+  LOAD_ANNONCEUR_PROFIL_INFO,
+  CLEAR_ANNONCEUR_LOADED_PROFILEINFO,
   RATE_USER,
   FOLLOW_USER,
   UNFOLLOW_USER,
@@ -36,12 +38,14 @@ export default (state, action) => {
         ...state,
         responseMessage: action.payload.data.msg,
       };
+    case LOAD_ANNONCEUR_PROFIL_INFO:
     case LOAD_PROFIL_INFO:
       return {
         ...state,
         loading: false,
         visitedProfileInfo: action.payload.data,
       };
+    case CLEAR_ANNONCEUR_LOADED_PROFILEINFO:
     case CLEAR_USERLOADED_PROFILEINFO:
       return {
         ...state,

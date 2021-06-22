@@ -104,15 +104,17 @@ function PubDetailPopUp(props) {
               </div>
             </div>
           </div>
-          <div className="pubDetailPopUp__participation">
+          <div
+            className="pubDetailPopUp__participation"
+            style={{
+              display: props.participate ? "block" : "none",
+            }}
+          >
             <button
               className="btn-participation"
               onClick={participate}
               style={{
-                display:
-                  props.data.nbr_place > 0 || !props.participate
-                    ? "block"
-                    : "none",
+                display: props.data.nbr_place > 0 ? "block" : "none",
               }}
             >
               Je parrticipe
@@ -132,7 +134,7 @@ function PubDetailPopUp(props) {
                       <div className="pub-particiant">
                         <div className="pub-particiantLeft">
                           <img
-                            src={`http://localhost:8000/${props.user.imageProfile}`}
+                            src={`http://localhost:8000/${item.imageProfile}`}
                             alt=""
                           />
                           <div className="pub-particiantInfo">

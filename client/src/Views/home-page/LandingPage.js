@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import BlockedUser from "../error-page/BlockedUser";
 import Header from "./components/Header";
 import Home from "./Home";
 import SignIn from "./SignIn";
@@ -11,15 +12,9 @@ function LandingPage() {
       <Router>
         <Header />
         <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/SignIn">
-            <SignIn />{" "}
-          </Route>
-          <Route path="/SignUp">
-            <SignUp />
-          </Route>
+          <Route exact path="/" component={Home} />
+          <Route path="/SignIn" component={SignIn} />
+          <Route path="/SignUp" component={SignUp} />
         </Switch>
       </Router>
     </div>

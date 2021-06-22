@@ -16,6 +16,8 @@ import {
   UPDATE_DISTANCE_DE_RECHERCHE,
   LOAD_PROFIL_INFO,
   CLEAR_USERLOADED_PROFILEINFO,
+  LOAD_ANNONCEUR_PROFIL_INFO,
+  CLEAR_ANNONCEUR_LOADED_PROFILEINFO,
   RATE_USER,
   FOLLOW_USER,
   UNFOLLOW_USER,
@@ -164,6 +166,26 @@ const UserState = (props) => {
   const clearAbonnéUserProfileInfo = () => {
     dispatch({
       type: CLEAR_USERLOADED_PROFILEINFO,
+    });
+  };
+  //load user(Annonceur) profile info
+  const loadAnnonceurProfileInfo = async (userId) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/api/users/loadAnnonceur/${userId}`
+      );
+      dispatch({
+        type: LOAD_ANNONCEUR_PROFIL_INFO,
+        payload: response,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  // Clear loaded user(Annonceur) profile info
+  const clearAnnonceurProfileInfo = () => {
+    dispatch({
+      type: CLEAR_ANNONCEUR_LOADED_PROFILEINFO,
     });
   };
   const rateUser = async (avis, userId) => {
@@ -325,6 +347,8 @@ const UserState = (props) => {
         deleteCentreOfInteret,
         loadUserProfileInfo,
         clearAbonnéUserProfileInfo,
+        loadAnnonceurProfileInfo,
+        clearAnnonceurProfileInfo,
         rateUser,
         followUser,
         unFollowUser,

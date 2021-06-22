@@ -1,5 +1,6 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
+import moment from "moment";
 
 function DetailCatégoriePopUp(props) {
   const { typeCatégorie, imageCatégorie, addDate } = props.categorie;
@@ -26,7 +27,10 @@ function DetailCatégoriePopUp(props) {
                   <h5>Nom:</h5> {typeCatégorie}
                 </p>
                 <p>
-                  <h5>Date Création:</h5> {addDate}
+                  <h5>Date Création:</h5>{" "}
+                  {moment(addDate).format("YYYY-MM-DD") +
+                    " à " +
+                    moment(addDate).format("HH:mm")}
                 </p>
 
                 <h5>Photo:</h5>

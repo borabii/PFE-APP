@@ -21,7 +21,7 @@ import { NavLink, useRouteMatch } from "react-router-dom";
 import PubContext from "../../../Context/Publication/pubContext";
 import NotifContext from "../../../Context/notification/notifContext";
 import AuthContext from "../../../Context/auth/authContext";
-
+import Logo from "../../image/Logo.png";
 //this custom hook is used for detecting user mouse click out side searsh result
 let useClickOutside = (ref, onClickOutside) => {
   useEffect(() => {
@@ -116,7 +116,8 @@ function AboHeader() {
       <div>
         <Navbar.Brand>
           <NavLink to={url}>
-            <h2>Logo</h2>
+            {/* <h2>Logo</h2> */}
+            <img src={Logo} style={{ width: "100px", height: "70px" }} alt="" />
           </NavLink>
         </Navbar.Brand>
       </div>

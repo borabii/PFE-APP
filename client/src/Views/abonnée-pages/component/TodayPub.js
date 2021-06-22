@@ -58,7 +58,7 @@ function TodayPub(props) {
         data={eventClicked}
         user={pubOrganisateur}
         onHide={() => setEditEventModalShow(false)}
-        participat={true}
+        participate={true}
       />
     </div>
   );

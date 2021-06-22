@@ -509,7 +509,9 @@ router.delete("/deletepub/:pubId", async (req, res) => {
 });
 router.get("/Admin/getActivities", async (req, res) => {
   try {
-    const activity = await Publication.find({ typePub: "Activity" });
+    const activity = await Publication.find({ typePub: "Activity" }).sort({
+      date_Pub: -1,
+    });
 
     res.json(activity);
   } catch (err) {
@@ -520,7 +522,9 @@ router.get("/Admin/getActivities", async (req, res) => {
 //get all publication(annonces) for admin
 router.get("/Admin/getAnnonces", async (req, res) => {
   try {
-    const annonces = await Publication.find({ typePub: "Annonce" });
+    const annonces = await Publication.find({ typePub: "Annonce" }).sort({
+      date_Pub: -1,
+    });
     res.json(annonces);
   } catch (err) {
     console.error(err.message);
@@ -530,7 +534,9 @@ router.get("/Admin/getAnnonces", async (req, res) => {
 //get all publication(event) for admin
 router.get("/Admin/getEvents", async (req, res) => {
   try {
-    const events = await Publication.find({ typePub: "Event" });
+    const events = await Publication.find({ typePub: "Event" }).sort({
+      date_Pub: -1,
+    });
     res.json(events);
   } catch (err) {
     console.error(err.message);

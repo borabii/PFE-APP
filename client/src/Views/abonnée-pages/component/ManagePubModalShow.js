@@ -144,6 +144,12 @@ function ManagePubModalShow(props) {
                                   `/AbonnéHomePage/AbonnéProfile/${item._id}`
                                 )
                               }
+                              style={{
+                                display:
+                                  props.data.typePub == "Event"
+                                    ? "none"
+                                    : "block",
+                              }}
                             />
                           </div>
                         </div>

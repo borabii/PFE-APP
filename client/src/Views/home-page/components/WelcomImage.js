@@ -7,7 +7,7 @@ function WelcomImage() {
       <div className="intro">
         <div className="overlay">
           <div className="col col-md-8 col-md-offset-2 mx-auto  intro-text">
-            <h1>APPLICATION DE RENCONTRE SPORTIVE</h1>
+            <h1>GeoSport</h1>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tempor
               tristique neque, commodo, id senectus. Interdum mauris in faucibus

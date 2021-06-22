@@ -234,7 +234,6 @@ router.get("/loadUser/:abonneId", auth, async (req, res) => {
     const profileInfo = await Abonné.findById(req.params.abonneId).select(
       "-email -gendre -inscriDate -distanceDeRecherche -isAnnonceur -password  -description"
     );
-    console.log(profileInfo);
     const alreadyFollowed =
       profileInfo.followers.filter((item) => item.toString() === req.user.id)
         .length > 0;
@@ -255,6 +254,38 @@ router.get("/loadUser/:abonneId", auth, async (req, res) => {
       isAlreadyFollowed: alreadyFollowed,
       totalRate: totalRate,
       actualRate: actualRate[0].avis < 0 ? 0 : actualRate[0].avis,
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error ");
+  }
+});
+//loaduser(Annonceur) profile data
+router.get("/loadAnnonceur/:userId", auth, async (req, res) => {
+  try {
+    let totalRate = 0;
+    let actualRate = [];
+    const profileInfo = await Annonceur.findById(req.params.userId);
+    // const alreadyFollowed =
+    //   profileInfo.followers.filter((item) => item.toString() === req.user.id)
+    //     .length > 0;
+    // if (
+    //   profileInfo.userAvis.length > 0 &&
+    //   profileInfo.userAvis[0].avis !== null
+    // ) {
+    //   totalRate =
+    //     profileInfo.userAvis.reduce((accum, item) => accum + item.avis, 0) /
+    //     profileInfo.userAvis.length;
+    //   actualRate = profileInfo.userAvis.filter(
+    //     (item) => item.user.toString() === req.user.id
+    //   );
+    // }
+
+    res.json({
+      profileInfo,
+      // isAlreadyFollowed: alreadyFollowed,
+      // totalRate: totalRate,
+      // actualRate: actualRate[0].avis < 0 ? 0 : actualRate[0].avis,
     });
   } catch (err) {
     console.error(err.message);
@@ -569,13 +600,48 @@ router.get("/Admin/getAbonnes", auth, async (req, res) => {
     res.status(500).send("Server Error ");
   }
 });
-//delete abonne for admin
-router.delete("/Admin/deleteAbonne/:abonneId", auth, async (req, res) => {
-  const abonneId = req.params.abonneId;
-  await Abonné.findByIdAndRemove(abonneId);
-  const abonnes = await Abonné.find();
-  res.json({ abonnes, msg: "Abonné supprimer avec succés " });
+
+//desactivate abonné(status=false)
+router.post("/Admin/desactivateAbonne/:abonneId", auth, async (req, res) => {
+  try {
+    await Abonné.findByIdAndUpdate(req.params.abonneId, {
+      $set: {
+        status: false,
+      },
+    });
+    const abonnes = await Abonné.find()
+      .select("-password -description -distanceDeRecherche ")
+      .sort({
+        inscriDate: -1,
+      });
+
+    res.send({ abonnes, msg: "Abonné desactiver avec succés" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error ");
+  }
 });
+//activate abonné(status=false)
+router.post("/Admin/activateAbonne/:abonneId", auth, async (req, res) => {
+  try {
+    await Abonné.findByIdAndUpdate(req.params.abonneId, {
+      $set: {
+        status: true,
+      },
+    });
+    const abonnes = await Abonné.find()
+      .select("-password -description -distanceDeRecherche ")
+      .sort({
+        inscriDate: -1,
+      });
+
+    res.send({ abonnes, msg: "Abonné desactiver avec succés" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error ");
+  }
+});
+
 //get list annonceurs for admin
 router.get("/Admin/getAnnonceur", auth, async (req, res) => {
   try {
@@ -588,25 +654,45 @@ router.get("/Admin/getAnnonceur", auth, async (req, res) => {
     res.status(500).send("Server Error ");
   }
 });
-//delete annonceur for admin
-router.delete(
-  "/Admin/deleteAnnonceure/:annonceurId",
+//desactivate annonceur(status=false)
+router.post(
+  "/Admin/desactivateAnnonceur/:annonceurId",
   auth,
   async (req, res) => {
-    const id = await Annonceur.findById(req.params.annonceurId).select(
-      " abonnéId"
-    );
-    await Abonné.findByIdAndUpdate(id.abonnéId, {
-      $set: {
-        isAnnonceur: false,
-      },
-    });
-    await Annonceur.findByIdAndRemove(req.params.annonceurId);
-    const annonceurs = await Annonceur.find();
+    try {
+      await Annonceur.findByIdAndUpdate(req.params.annonceurId, {
+        $set: {
+          status: false,
+        },
+      });
+      const annonceurs = await Annonceur.find().select("-password").sort({
+        aceptationDate: -1,
+      });
 
-    res.json({ annonceurs, msg: "Annonceur supprimer !" });
+      res.send({ annonceurs, msg: "Annonceur desactiver avec succés" });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error ");
+    }
   }
 );
+//activate annonceur(status=false)
+router.post("/Admin/activateAnnonceur/:annonceurId", auth, async (req, res) => {
+  try {
+    await Annonceur.findByIdAndUpdate(req.params.annonceurId, {
+      $set: {
+        status: true,
+      },
+    });
+    const annonceurs = await Annonceur.find().select("-password").sort({
+      aceptationDate: -1,
+    });
+    res.send({ annonceurs, msg: "Annonceur desactiver avec succés" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error ");
+  }
+});
 //get data for dashboard
 router.get("/Admin/dashboard", async (req, res) => {
   try {

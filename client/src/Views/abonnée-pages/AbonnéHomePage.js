@@ -11,6 +11,7 @@ import FormDemandeEscpacePubs from "./component/FormDemandeEscpacePubs";
 import AuthContext from "../../Context/auth/authContext";
 import UserContext from "../../Context/user/userContext";
 import AbonnéActivités from "./component/AbonnéActivités";
+import AnnonceurVisitedProfile from "../annonceur-page/Componenet/AnnonceurVisitedProfile";
 function AbonnéHomePage() {
   const { path } = useRouteMatch();
   const authContext = useContext(AuthContext);
@@ -45,10 +46,10 @@ function AbonnéHomePage() {
             path={`${path}/AbonnéProfile/:id`}
             component={AbonnéVisitedProfile}
           />
-          {/* <Route
+          <Route
             path={`${path}/AnnonceurProfile/:id`}
             component={AnnonceurVisitedProfile}
-          /> */}
+          />
         </div>
       </Switch>
     </div>

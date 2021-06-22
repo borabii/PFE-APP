@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-import { getDate, getTime } from "../../../utilis/date";
+import { getDate } from "../../../utilis/date";
 function DetailBoiteMessage(props) {
   return (
     <Modal

@@ -55,22 +55,19 @@ function Map() {
       // });
       navigator.geolocation.getCurrentPosition(function (position) {
         setPosition({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
+          lat: 35.52625493547043,
+          lng: 11.034331019983348,
         });
-        map.flyTo(
-          { lat: position.coords.latitude, lng: position.coords.longitude },
-          10
-        );
+        map.flyTo({ lat: 35.52625493547043, lng: 11.034331019983348 }, 10);
         const radius = user.distanceDeRecherche;
         const circle = L.circle(
-          { lat: position.coords.latitude, lng: position.coords.longitude },
+          { lat: 35.52625493547043, lng: 11.034331019983348 },
           radius
         );
         circle.addTo(map);
         loadPubs(
-          [position.coords.latitude],
-          [position.coords.longitude],
+          [35.52625493547043],
+          [11.034331019983348],
           user.distanceDeRecherche
         );
       });

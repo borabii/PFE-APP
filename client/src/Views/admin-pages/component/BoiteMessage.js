@@ -86,6 +86,7 @@ class BoiteMessage extends React.Component {
                             onClick={() =>
                               this.setState({ detailReqModalShow: true })
                             }
+                            id="dataTable-viewIcon"
                           />
                         </td>
                       </tr>

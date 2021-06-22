@@ -16,20 +16,19 @@ function SignIn() {
     password: "",
   });
   const { email, password } = userForm;
-
   //state for handling error message for tayping error in from
   const [errorsMsg, setErrorsMsg] = useState({});
   //redirect user after signIn
   useEffect(() => {
-    if (isAuthenticated && user.status === "active") {
+    if (isAuthenticated) {
       if (userRole === "Admin" || userRole === "Super Admin") {
         history.push("/AdminHomePage");
-      } else {
+      } else if (userRole === "user" && user.status === true) {
         history.push("/AbonnéHomePage");
+      } else if (isAuthenticated && user.status === false) {
+        history.push("/blockedUser");
+        logout();
       }
-    } else if (isAuthenticated && user.status === "desactivier") {
-      history.push("/blockedUser");
-      logout();
     }
   }, [isAuthenticated, userRole]);
 

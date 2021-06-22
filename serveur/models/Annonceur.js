@@ -21,6 +21,10 @@ const AnnonceurSchema = new mongoose.Schema({
   emailProAnnonceur: {
     type: String,
   },
+  status: {
+    type: Boolean,
+    default: true,
+  },
   catégorieAnnonceur: {
     type: String,
   },

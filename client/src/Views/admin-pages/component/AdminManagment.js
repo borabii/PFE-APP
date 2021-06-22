@@ -6,9 +6,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import AddAdminPopUp from "./AddAdminPopUp";
 import EditAdminPopUp from "./EditAdminPopUp";
-//call global method(getDate) from date.js
-import { getDate } from "../../../utilis/date";
 import swal from "sweetalert";
+import moment from "moment";
 
 class AdminManagment extends React.Component {
   constructor(props) {
@@ -126,7 +125,7 @@ class AdminManagment extends React.Component {
                         <td>{data.firstName}</td>
                         <td>{data.lastName}</td>
                         <td>{data.email}</td>
-                        <td>{getDate(data.inscriDate)}</td>
+                        <td>{moment(data.inscriDate).format("YYYY-MM-DD")}</td>
                         <td>{data.permission}</td>
 
                         <td id="icone-action">

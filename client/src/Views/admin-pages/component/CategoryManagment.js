@@ -6,7 +6,7 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import AddCategoryPopUP from "./AddCategoryPopUP";
 import DetailCatégoriePopUp from "./DetailCatégoriePopUp";
 import swal from "sweetalert";
-import { getDate } from "../../../utilis/date";
+import moment from "moment";
 class CategoryManagment extends React.Component {
   constructor(props) {
     super(props);
@@ -124,7 +124,11 @@ class CategoryManagment extends React.Component {
                       <tr>
                         <td scope="row">{data._id}</td>
                         <td>{data.typeCatégorie}</td>
-                        <td>{getDate(data.addDate)}</td>
+                        <td>
+                          {moment(data.addDate).format("YYYY-MM-DD") +
+                            " à " +
+                            moment(data.addDate).format("HH:mm")}
+                        </td>
 
                         <td id="icone-action">
                           <div onClick={() => this.selectedItem(index)}>
@@ -137,7 +141,7 @@ class CategoryManagment extends React.Component {
                           </div>
                           <div id="ff">
                             <DeleteIcon
-                              onClick={() => this.deletItem(data)}
+                              onClick={() => this.deleteCategory(data)}
                               id="dataTable-delteIcon"
                             />
                           </div>

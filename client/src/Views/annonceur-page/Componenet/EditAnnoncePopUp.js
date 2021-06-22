@@ -5,6 +5,9 @@ import Select from "react-select";
 import UserContext from "../../../Context/user/userContext";
 import PubContext from "../../../Context/Publication/pubContext";
 import swal from "sweetalert";
+import { getNowDate } from "../../../utilis/date";
+
+import moment from "moment";
 
 function EditAnnoncePopUp(props) {
   //app level state
@@ -107,11 +110,10 @@ function EditAnnoncePopUp(props) {
                 <input
                   type="date"
                   name="date_DebutPub"
-                  defaultValue={
-                    annonce.date_DebutPub
-                      ? annonce.date_DebutPub.substr(0, 10)
-                      : ""
-                  }
+                  defaultValue={moment(annonce.date_DebutPub).format(
+                    "YYYY-MM-DD"
+                  )}
+                  min={getNowDate()}
                   onChange={handelChange}
                   required
                 />
@@ -122,9 +124,10 @@ function EditAnnoncePopUp(props) {
                 <input
                   type="date"
                   name="date_FinPub"
-                  defaultValue={
-                    annonce.date_FinPub ? annonce.date_FinPub.substr(0, 10) : ""
-                  }
+                  defaultValue={moment(annonce.date_FinPub).format(
+                    "YYYY-MM-DD"
+                  )}
+                  min={moment(annonce.date_DebutPub).format("YYYY-MM-DD")}
                   onChange={handelChange}
                   required
                 />

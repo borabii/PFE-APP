@@ -23,7 +23,7 @@ function NewsActivity() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/Publication/landingPage/news/Annonce")
+      .get("http://localhost:8000/api/Publication/landingPage/news/Activity")
       .then((res) => setActivité(res.data));
     return () => {
       setActivité([]);

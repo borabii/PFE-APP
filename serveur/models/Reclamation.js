@@ -1,19 +1,19 @@
 const mongoose = require("mongoose");
 //define Reclamation Schema
 const ReclamationSchema = mongoose.Schema({
-  IdSignialeur: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Abonné",
+    ref: "user",
   },
-  IdReclameur: {
+  reportedUser: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Abonné",
+    ref: "user",
   },
 
   cause: {
     type: String,
   },
-  demandeDate: {
+  reportDate: {
     type: Date,
     default: Date.now,
   },

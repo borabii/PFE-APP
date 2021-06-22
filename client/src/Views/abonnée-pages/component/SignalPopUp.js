@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
+import { useSnackbar } from "notistack";
 
 function SignalPopUp(props) {
   const [showAutreDropdown, setShowAutreDropdown] = useState(false);
@@ -14,15 +15,22 @@ function SignalPopUp(props) {
       [event.target.name]: event.target.value,
     });
   };
-  const handleSubmit = (event) => {
+  const { enqueueSnackbar } = useSnackbar();
+
+  const reportUser = (event) => {
     event.preventDefault();
-    axios.post(
-      `http://localhost:8000/api/Reclamation/addReclamation/${props.userId}`,
-      reclamation
-    );
+    axios
+      .post(
+        `http://localhost:8000/api/Reclamation/reportUser/${props.userId}`,
+        reclamation
+      )
+      .then((response) =>
+        enqueueSnackbar(response.data.msg, { variant: "success" })
+      );
     setReclamation({
       cause: "",
     });
+    props.onHide();
   };
   useEffect(() => {
     return () => {
@@ -50,7 +58,7 @@ function SignalPopUp(props) {
           <div className="SignalPopUp-container">
             <h4>Pourquoi signalez-vous ce compte ? </h4>
 
-            <form className="signal-option-form" onSubmit={handleSubmit}>
+            <form className="signal-option-form" onSubmit={reportUser}>
               <table className="signal-option">
                 <tr>
                   <td>Faux profile</td>

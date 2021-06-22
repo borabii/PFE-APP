@@ -5,6 +5,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
 import PubDetailPopUp from "../../abonnée-pages/component/PubDetailPopup";
+import AnnnonceCard from "../../annonceur-page/Componenet/AnnonceCard";
+
 function ComingPub(props) {
   const [eventClicked, setEventClicked] = useState({});
   const [org, setorg] = useState({});

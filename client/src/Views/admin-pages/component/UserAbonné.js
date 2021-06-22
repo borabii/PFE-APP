@@ -1,14 +1,11 @@
 import React from "react";
 import axios from "axios";
-import DeleteIcon from "@material-ui/icons/Delete";
 import SearchIcon from "@material-ui/icons/Search";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import DetailAbonnePopUp from "./DetailAbonnePopUp";
 import { getDate } from "../../../utilis/date";
 import swal from "sweetalert";
 import Switch from "react-switch";
-import BlockIcon from "@material-ui/icons/Block";
-import CheckIcon from "@material-ui/icons/Check";
 class UserAbonné extends React.Component {
   constructor(props) {
     super(props);
@@ -18,38 +15,68 @@ class UserAbonné extends React.Component {
       abonnés: [],
       checked: false,
     };
-    this.handleChange = this.handleChange.bind(this);
   }
   //this method is used to store in abonné State which object is
   //selected in table to passe it like a props to the modal
   selectedItem = (index) => {
     this.setState({ abonné: this.state.abonnés[index] });
   };
-
-  deleteAbonné = (data) => {
-    swal({
-      title: `Vous êtes sûre de supprimer :${
-        data.firstName + " " + data.lastName
-      } ?`,
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
-        swal(
-          axios
-            .delete(
-              `http://localhost:8000/api/users/Admin/deleteAbonne/${data._id}`
-            )
-            .then((response) => {
-              this.setState({ abonnés: response.data.abonnes });
-            }),
-          swal({ icon: "success", title: "COMPTE SUPPRIME AVEC SUCCES !" })
-        );
-      } else {
-        swal("Opération annuler! ");
-      }
-    });
+  //run when user activate user Status(switch checked)
+  activateAbonné = (id) => {
+    axios
+      .post(`http://localhost:8000/api/users/Admin/activateAbonne/${id}`)
+      .then((response) => {
+        this.setState({ abonnés: response.data.abonnes });
+      });
+  };
+  //run when user desactivate user Status(switch unchecked)
+  desactivateAbonné = (id) => {
+    axios
+      .post(`http://localhost:8000/api/users/Admin/desactivateAbonne/${id}`)
+      .then((response) => {
+        this.setState({ abonnés: response.data.abonnes });
+      });
+  };
+  //handel status change (true/false)
+  //run when user click on the switch
+  changeStatusAbonné = (e, data) => {
+    if (data.status == true) {
+      swal({
+        title: `Vous êtes sûre de désactiver :${
+          data.firstName + " " + data.lastName
+        } ?`,
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          swal(
+            this.desactivateAbonné(data._id),
+            swal({ icon: "success", title: "COMPTE DESACTIVER AVEC SUCCES !" })
+          );
+        } else {
+          swal("Opération annuler! ");
+        }
+      });
+    } else {
+      swal({
+        title: `Vous êtes sûre d'activer :${
+          data.firstName + " " + data.lastName
+        } ?`,
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          swal(
+            this.activateAbonné(data._id),
+            swal({ icon: "success", title: "COMPTE ACTIVER AVEC SUCCES !" })
+          );
+        } else {
+          swal("Opération annuler! ");
+        }
+      });
+    }
   };
   //run when compoenet is mounted to get all abonnés stored in db and set the state(abonnés)
   //with response data
@@ -60,10 +87,7 @@ class UserAbonné extends React.Component {
         this.setState({ abonnés: response.data });
       });
   }
-  handleChange(e, _id) {
-    console.log(_id);
-    this.setState({ checked: true });
-  }
+
   render() {
     return (
       <div className="userAbonné">
@@ -123,18 +147,11 @@ class UserAbonné extends React.Component {
                             />
                           </div>
                           <div id="ff">
-                            {/* <Switch
-                              height={30}
-                              width={50}
-                              onChange={
-                                ((e) => this.handleChange(e, data._id),
-                                data._id)
-                              }
-                              checked={this.state.checked}
-                            /> */}
-                            <DeleteIcon
-                              onClick={() => this.deleteAbonné(data)}
-                              id="dataTable-delteIcon"
+                            <Switch
+                              height={25}
+                              width={45}
+                              onChange={(e) => this.changeStatusAbonné(e, data)}
+                              checked={data.status}
                             />
                           </div>
                         </td>

@@ -1,7 +1,11 @@
 import moment from "moment";
 const addPubsFormValidation = (values) => {
   let errorsMsg = {};
-
+  console.log(
+    moment(values.date_DebutPub).isSame(moment().format("YYYY-MM-DD")) &&
+      moment(values.date_DebutPub).isSame(values.date_FinPub) &&
+      moment(values.heure_debutPub, "HH:mm") < moment.utc().local()
+  );
   if (
     moment(
       moment(values.date_DebutPub + " " + values.heure_debutPub).format()
@@ -10,7 +14,6 @@ const addPubsFormValidation = (values) => {
     errorsMsg.heurePub = "Heure fin pub doit étre supérieur à heure debut pub";
   } else if (
     moment(values.date_DebutPub).isSame(moment().format("YYYY-MM-DD")) &&
-    moment(values.date_DebutPub).isSame(values.date_FinPub) &&
     moment(values.heure_debutPub, "HH:mm") < moment.utc().local()
   ) {
     errorsMsg.heurePub = "Heure doit etre superieur à l'heure actuelle";

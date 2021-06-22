@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
-import DeleteIcon from "@material-ui/icons/Delete";
 import SearchIcon from "@material-ui/icons/Search";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import DetailAnnonceurPopUp from "./DetailAnnonceurPopUp";
 import { getDate } from "../../../utilis/date";
 import swal from "sweetalert";
+import Switch from "react-switch";
 
 class UserAnnonceur extends React.Component {
   constructor(props) {
@@ -29,30 +29,60 @@ class UserAnnonceur extends React.Component {
       )
       .then((response) => this.setState({ DemandeurData: response.data }));
   };
-  //this method run when user click in action icon that delete annonceur
-  deletAnnonceur = (data) => {
-    swal({
-      title: `Vous êtes sûre de supprimer :${data.nomAnnonceur} ?`,
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
-        swal(
-          axios
-            .delete(
-              `http://localhost:8000/api/users/Admin/deleteAnnonceure/${data._id}`
-            )
-            .then((response) => {
-              this.setState({ abonnés: response.data.abonnes });
-            }),
-          swal({ icon: "success", title: "COMPTE SUPPRIME AVEC SUCCES !" })
-        );
-      } else {
-        swal("opération annuler! ");
-      }
-    });
+  //run when user activate user Status(switch checked)
+  activateAnnonceur = (id) => {
+    axios
+      .post(`http://localhost:8000/api/users/Admin/activateAnnonceur/${id}`)
+      .then((response) => {
+        this.setState({ annonceurs: response.data.annonceurs });
+      });
   };
+  //run when user desactivate user Status(switch unchecked)
+  desactivateAnnonceur = (id) => {
+    axios
+      .post(`http://localhost:8000/api/users/Admin/desactivateAnnonceur/${id}`)
+      .then((response) => {
+        this.setState({ annonceurs: response.data.annonceurs });
+      });
+  };
+  //handel status change (true/false)
+  //run when user click on the switch
+  changeStatusAnnonceur = (e, data) => {
+    if (data.status == true) {
+      swal({
+        title: `Vous êtes sûre de désactiver :${data.nomAnnonceur} ?`,
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          swal(
+            this.desactivateAnnonceur(data._id),
+            swal({ icon: "success", title: "COMPTE DESACTIVER AVEC SUCCES !" })
+          );
+        } else {
+          swal("Opération annuler! ");
+        }
+      });
+    } else {
+      swal({
+        title: `Vous êtes sûre d'activer :${data.nomAnnonceur} ?`,
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          swal(
+            this.activateAnnonceur(data._id),
+            swal({ icon: "success", title: "COMPTE ACTIVER AVEC SUCCES !" })
+          );
+        } else {
+          swal("Opération annuler! ");
+        }
+      });
+    }
+  };
+
   //run when compoenet is mounted to get all annonceur stored in db and set the state(annonceurs)
   //with response data
   componentDidMount() {
@@ -130,9 +160,11 @@ class UserAnnonceur extends React.Component {
                             />
                           </div>
                           <div id="ff">
-                            <DeleteIcon
-                              onClick={() => this.deletAnnonceur(data)}
-                              id="dataTable-delteIcon"
+                            <Switch
+                              height={25}
+                              width={45}
+                              onChange={(e) => this.changeStatusAbonné(e, data)}
+                              checked={data.status}
                             />
                           </div>
                         </td>

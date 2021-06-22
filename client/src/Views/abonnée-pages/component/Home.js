@@ -11,6 +11,7 @@ import NotifContext from "../../../Context/notification/notifContext";
 
 import { getFullNowDate, getDate } from "../../../utilis/date";
 import moment from "moment";
+import TodayAnnonce from "./TodayAnnonce";
 // used for hide addActivity-btn-small when scrolling in small device screnn
 const useHideOnScrolled = () => {
   const [hidden, setHidden] = useState(false);
@@ -63,14 +64,14 @@ function Home() {
       setTodayPubs(
         pubs.filter(
           (item) =>
-            moment(getDate(item.date_DebutPub)).isSame(
+            moment(moment(item.date_DebutPub).format("YYYY-MM-DD")).isSame(
               moment().format("YYYY-MM-DD")
             ) && moment(item.date_DebutPub, "HH:mm") > moment.utc().local()
         )
       );
       setCommingPubs(
         pubs.filter((item) =>
-          moment(getDate(item.date_DebutPub)).isAfter(
+          moment(moment(item.date_DebutPub).format("YYYY-MM-DD")).isAfter(
             moment().format("YYYY-MM-DD")
           )
         )
@@ -119,6 +120,14 @@ function Home() {
       <div className="homePageBody-Catégorie">
         <h2>Catégorie</h2>
         <Catégorie />
+      </div>
+      <div className="homePageBody-Catégorie">
+        <h2>Les Annonces</h2>
+        <TodayAnnonce
+          data={
+            pubs !== null && pubs.filter((item) => item.typePub === "Annonce")
+          }
+        />
       </div>
       <div className="homePageBody-ComingPub">
         <h2>A Venir</h2>

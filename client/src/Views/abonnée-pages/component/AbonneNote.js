@@ -28,55 +28,7 @@ function AbonneNote() {
           <p>{user.userScore}</p>
         </div>
       </div>
-      <div className="score_detail">
-        <h2> Score détaille</h2>
-        <Container>
-          <Row xs={2} md={4} lg={6}>
-            <Col>
-              <div id="category">
-                <div>football </div>
-                <div>550</div>
-              </div>
-            </Col>
-            <Col>
-              <div id="category">
-                <div>football </div>
-                <div>550</div>
-              </div>
-            </Col>
-            <Col>
-              <div id="category">
-                <div>football </div>
-                <div>550</div>
-              </div>
-            </Col>
-            <Col>
-              <div id="category">
-                <div>football </div>
-                <div>550</div>
-              </div>
-            </Col>
-            <Col>
-              <div id="category">
-                <div>football </div>
-                <div>550</div>
-              </div>
-            </Col>
-            <Col>
-              <div id="category">
-                <div>football </div>
-                <div>550</div>
-              </div>
-            </Col>
-            <Col>
-              <div id="category">
-                <div>football </div>
-                <div>550</div>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+
       <div className="avis_detail">
         <h2>Avis reçus</h2>
         <div className="recived-note">
@@ -86,8 +38,10 @@ function AbonneNote() {
               alt=""
             />
             <div className="recived-note-container">
-              <h4>nom</h4>
-              <div>stars</div>
+              <h4>user user</h4>
+              <div>
+                <Rating name="size-large" defaultValue={2} />
+              </div>
             </div>
           </div>
 
@@ -100,8 +54,10 @@ function AbonneNote() {
               alt=""
             />
             <div className="recived-note-container">
-              <h4>nom</h4>
-              <div>stars</div>
+              <h4>test test</h4>
+              <div>
+                <Rating name="size-large" defaultValue={3} />
+              </div>
             </div>
           </div>
 

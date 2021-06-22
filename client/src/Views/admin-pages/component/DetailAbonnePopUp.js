@@ -17,7 +17,6 @@ function DetailAbonnePopUp(props) {
     centreInteret,
     userScore,
   } = props.user;
-  console.log(props.user.following);
   useEffect(() => {
     axios
       .get(

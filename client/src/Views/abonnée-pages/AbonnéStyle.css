@@ -1426,6 +1426,7 @@ input[type="file"] {
   margin-right: 10px;
   cursor: pointer;
 }
+
 .pub-participant-action
   > .pub-participant-actioIcon
   > #accpetedParticipant-icon {
@@ -1611,6 +1612,14 @@ input[type="file"] {
   display: flex;
   justify-content: center;
   margin-top: 5%;
+}
+/*****************************/
+/***reclamtion popUp style***/
+/***************************/
+.reclamation-liste {
+  overflow-y: scroll;
+  height: 350px;
+  width: 100%;
 }
 
 /*******************************************************/

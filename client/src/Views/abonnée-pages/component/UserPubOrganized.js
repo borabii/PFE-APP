@@ -11,6 +11,7 @@ import Spinner from "../../layout/Spinner";
 import ManagePubModalShow from "./ManagePubModalShow";
 import { useSnackbar } from "notistack";
 import { getFullNowDate, getNowDate } from "../../../utilis/date";
+import moment from "moment";
 function UserPubOrganized() {
   console.log(getFullNowDate());
   console.log(getNowDate());
@@ -42,19 +43,17 @@ function UserPubOrganized() {
   useEffect(() => {
     if (pubsOrganized) {
       setCommingPubs(
-        pubsOrganized.filter(
-          (item) =>
-            new Date().setHours(0, 0, 0, 0) <=
-              new Date(item.date_DebutPub).setHours(0, 0, 0, 0) &&
-            new Date(item.date_DebutPub).getHours() >= new Date().getHours()
+        pubsOrganized.filter((item) =>
+          moment(moment(item.date_DebutPub).format()).isSameOrAfter(
+            moment.utc().local()
+          )
         )
       );
       setPassedPubs(
-        pubsOrganized.filter(
-          (item) =>
-            new Date().setHours(0, 0, 0, 0) >=
-              new Date(item.date_DebutPub).setHours(0, 0, 0, 0) &&
-            new Date(item.date_DebutPub).getHours() <= new Date().getHours()
+        pubsOrganized.filter((item) =>
+          moment(moment(item.date_DebutPub).format()).isBefore(
+            moment.utc().local()
+          )
         )
       );
     }

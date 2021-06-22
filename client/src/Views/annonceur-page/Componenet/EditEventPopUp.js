@@ -6,6 +6,9 @@ import RemoveIcon from "@material-ui/icons/Remove";
 import UserContext from "../../../Context/user/userContext";
 import PubContext from "../../../Context/Publication/pubContext";
 import swal from "sweetalert";
+import { getNowDate } from "../../../utilis/date";
+import moment from "moment";
+import addPubsFormValidation from "../../../utilis/addPubsFromValidation";
 
 function EditEventPopUp(props) {
   //app level state
@@ -28,11 +31,11 @@ function EditEventPopUp(props) {
       setNbr_place((prevnbr_place) => prevnbr_place - 1);
     }
   };
+
   //component level state
   // this state is used to store user inputed value in form
   const [evenement, setEvenement] = useState({
     description: "",
-    adresse: "",
     date_DebutPub: "",
     heure_debutPub: "",
     date_FinPub: "",
@@ -50,37 +53,43 @@ function EditEventPopUp(props) {
     tarif,
     categorie,
   } = evenement;
+
+  //state for handling error msg
+  const [errorsMsg, setErrorsMsg] = useState({});
   // this state is use for handle participant counter value
   const [nbr_place, setNbr_place] = useState(0);
   //method run when user click on btn (Modifer) to edit event
   const editEvent = () => {
-    editPub(
-      {
-        description,
-        adresse,
-        nbr_place,
-        date_DebutPub,
-        heure_debutPub,
-        date_FinPub,
-        heure_finPub,
-        tarif,
-        categorie,
-      },
-      evenement._id
-    );
-    setEvenement({
-      description: "",
-      adresse: "",
-      nbr_place: "",
-      date_DebutPub: "",
-      heure_debutPub: "",
-      date_FinPub: "",
-      heure_finPub: "",
-      tarif: "",
-      categorie: "",
-    });
-    setNbr_place(0);
-    props.onHide();
+    setErrorsMsg(addPubsFormValidation(evenement));
+
+    if (Object.keys(errorsMsg).length === 0) {
+      editPub(
+        {
+          description,
+          adresse,
+          nbr_place,
+          date_DebutPub: moment(date_DebutPub + " " + heure_debutPub).format(),
+          heure_debutPub,
+          date_FinPub: moment(date_FinPub + " " + heure_finPub).format(),
+          heure_finPub,
+          tarif,
+          categorie,
+        },
+        props.data._id
+      ).then(
+        setEvenement({
+          description: "",
+          date_DebutPub: "",
+          heure_debutPub: "",
+          date_FinPub: "",
+          heure_finPub: "",
+          tarif: "",
+          categorie: "",
+        }),
+        setNbr_place(0),
+        props.onHide()
+      );
+    }
   };
   //run when use click on btn(Supprimer) for deleting event
   const deleteEvent = () => {
@@ -92,7 +101,7 @@ function EditEventPopUp(props) {
     }).then((willDelete) => {
       if (willDelete) {
         swal(
-          deletePub(evenement._id),
+          deletePub(props.data._id),
           swal({ icon: "success", title: "Événement supprimé avec succés!" }),
           props.onHide()
         );
@@ -107,6 +116,7 @@ function EditEventPopUp(props) {
       ...evenement,
       [event.target.name]: event.target.value,
     });
+    setErrorsMsg(addPubsFormValidation(evenement));
   };
   //handel input select change and set state with the value
   const handleSelectInputChange = (selectedOption) => {
@@ -115,13 +125,37 @@ function EditEventPopUp(props) {
       categorie: selectedOption.label,
     });
   };
+  console.log(evenement);
+
   // run when model is open
   useEffect(() => {
     if (props.data) {
-      setEvenement(props.data);
+      setEvenement({
+        description: props.data.description,
+        date_DebutPub: moment(props.data.date_DebutPub).format("YYYY-MM-DD"),
+        heure_debutPub: props.data.heure_debutPub,
+        date_FinPub: moment(props.data.date_FinPub).format("YYYY-MM-DD"),
+        heure_finPub: props.data.heure_finPub,
+        tarif: props.data.tarif,
+        categorie: props.data.categorie,
+      });
       setNbr_place(props.data.nbr_place);
     }
+    return () => {
+      setEvenement({
+        description: "",
+        date_DebutPub: "",
+        heure_debutPub: "",
+        date_FinPub: "",
+        heure_finPub: "",
+        tarif: "",
+        categorie: "",
+      });
+      setNbr_place(0);
+      setErrorsMsg({});
+    };
   }, [props.data, props.show]);
+
   return (
     <Modal
       {...props}
@@ -154,11 +188,8 @@ function EditEventPopUp(props) {
                 <input
                   type="date"
                   name="date_DebutPub"
-                  defaultValue={
-                    evenement.date_DebutPub
-                      ? evenement.date_DebutPub.substr(0, 10)
-                      : ""
-                  }
+                  value={moment(evenement.date_DebutPub).format("YYYY-MM-DD")}
+                  min={getNowDate()}
                   onChange={handelChange}
                   required
                 />
@@ -175,11 +206,8 @@ function EditEventPopUp(props) {
                 <input
                   type="date"
                   name="date_FinPub"
-                  defaultValue={
-                    evenement.date_FinPub
-                      ? evenement.date_FinPub.substr(0, 10)
-                      : ""
-                  }
+                  value={moment(evenement.date_FinPub).format("YYYY-MM-DD")}
+                  min={moment(evenement.date_DebutPub).format("YYYY-MM-DD")}
                   onChange={handelChange}
                   required
                 />
@@ -191,6 +219,8 @@ function EditEventPopUp(props) {
                 />
               </div>
             </div>
+            {errorsMsg && <p id="addPubsform-errorMsg">{errorsMsg.heurePub}</p>}
+
             <div className="addAct-NbrParticipant">
               <div className="nbrParticipant-left">
                 <p>Nombre Participant</p>

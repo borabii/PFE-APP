@@ -44,6 +44,7 @@ function EditAdminPopUp(props) {
       password: "",
       permission: "",
     });
+    props.onHide();
   };
 
   return (

@@ -9,11 +9,12 @@ function AnnonceCard(props) {
         src={`http://localhost:8000/${props.annonceData.image_url}`}
         alt=""
       />
-      <div
-        className="annonceCard-action"
-        style={{ display: props.editPubOption ? "block" : "none" }}
-      >
-        <EditIcon id="annonceCardAction-edit" onClick={props.editOnClick} />
+      <div className="annonceCard-action">
+        <EditIcon
+          id="annonceCardAction-edit"
+          onClick={props.editOnClick}
+          style={{ display: props.editPubOption ? "block" : "none" }}
+        />
         <MoreHorizIcon
           id="annonceCardAction-detail"
           onClick={props.detailOnClickIcon}

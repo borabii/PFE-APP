@@ -172,9 +172,11 @@
 }
 #dataTable-viewIcon {
   color: #1ab394;
+  cursor: pointer;
 }
 #dataTable-delteIcon {
   color: red;
+  cursor: pointer;
 }
 /* admin page componenet with add button style  */
 #form-1 {

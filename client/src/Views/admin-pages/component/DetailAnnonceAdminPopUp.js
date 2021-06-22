@@ -4,8 +4,6 @@ import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { getTime, getDate } from "../../../utilis/date";
 function DetailAnnonceAdminPopUp(props) {
   const { categorie, description, date_Pub } = props.data;
-  // const { imageCouverture, nomAnnonceur, adress, emailProAnnonceur } =
-  //   props.organisateur;
   return (
     <Modal
       {...props}

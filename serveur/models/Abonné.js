@@ -17,6 +17,10 @@ const AbonnéSchema = User.discriminator(
       type: Boolean,
       default: false,
     },
+    status: {
+      type: Boolean,
+      default: true,
+    },
     userScore: {
       type: Number,
       default: 0,

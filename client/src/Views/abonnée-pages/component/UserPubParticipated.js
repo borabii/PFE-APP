@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect, Fragment } from "react";
 import PubCard from "./PubCard";
 import Carousel from "react-elastic-carousel";
+import moment from "moment";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -38,18 +39,17 @@ function UserPubParticipated() {
   useEffect(() => {
     if (pubsParticipated) {
       setCommingPubs(
-        pubsParticipated.filter(
-          (item) =>
-            new Date().setHours(0, 0, 0, 0) <=
-              new Date(item.date_DebutPub).setHours(0, 0, 0, 0) &&
-            new Date(item.date_DebutPub).getHours() > new Date().getHours()
+        pubsParticipated.filter((item) =>
+          moment(moment(item.date_DebutPub).format()).isSameOrAfter(
+            moment.utc().local()
+          )
         )
       );
       setPassedPubs(
-        pubsParticipated.filter(
-          (item) =>
-            new Date().setHours(0, 0, 0, 0) >
-            new Date(item.date_DebutPub).setHours(0, 0, 0, 0)
+        pubsParticipated.filter((item) =>
+          moment(moment(item.date_DebutPub).format()).isBefore(
+            moment.utc().local()
+          )
         )
       );
     }
@@ -127,7 +127,7 @@ function UserPubParticipated() {
       <PubDetailPopUp
         show={editEventModalShow}
         data={eventClicked}
-        participat={false}
+        participat={true}
         user={pubOrganisateur}
         onHide={() => setEditEventModalShow(false)}
       />
