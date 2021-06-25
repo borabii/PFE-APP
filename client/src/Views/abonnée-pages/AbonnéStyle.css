@@ -128,8 +128,37 @@
   -o-transition: height 1s ease;
   -ms-transition: height 1s ease;
   transition: height 1s ease;
-  background: black;
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
+}
+.searsh-dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5px;
+}
+.searsh-resault > .searsh-dropdown > .resulatContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  padding: 5px;
+  cursor: pointer;
+  width: 95%;
+  border-radius: 15px;
+  align-items: center;
+  background-color: white;
+}
+
+.resulatContainer-left {
+  display: flex;
+  flex-direction: column;
+}
+.resulatContainer-left > p > #resAddressIcon {
+  color: red;
+  height: 15px;
+
+  margin-bottom: 5px;
 }
 .header-notifIcon {
   margin-right: 20px;
@@ -1292,6 +1321,7 @@ input[type="file"] {
   border-radius: 10px;
   width: 100%;
   height: 150px;
+  cursor: pointer;
 }
 .organizateur__container > img {
   width: 100px;
@@ -1419,6 +1449,9 @@ input[type="file"] {
   justify-content: center;
   margin-right: 10px;
 }
+.pub-participant-actioIcon {
+  display: flex;
+}
 .pub-participant-action > .pub-participant-actioIcon > #accpetParticipant-icon {
   color: #44c9bb;
   width: 40px;
@@ -1464,12 +1497,12 @@ input[type="file"] {
 .map-container {
   overflow: hidden;
   position: fixed;
-  top: 10%;
+  top: 12%;
 }
 .map-style {
   width: 100vw;
 
-  height: 90vh;
+  height: 87.8vh;
 }
 .leaflet-fade-anim .leaflet-tile,
 .leaflet-zoom-anim .leaflet-zoom-animated {
@@ -1514,6 +1547,8 @@ input[type="file"] {
   border-radius: 10px;
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.4);
+  max-height: 400px;
+  overflow-y: auto;
 }
 .Notification-list > p {
   text-align: right;
@@ -1535,7 +1570,6 @@ input[type="file"] {
   box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.25);
 }
 .notif-img {
-  border: 2px solid #3aceb9;
   border-radius: 40px;
   margin: 5px;
 }
@@ -1543,6 +1577,8 @@ input[type="file"] {
   display: flex;
 }
 .notif-img > img {
+  border: 2px solid #3aceb9;
+
   border-radius: 50%;
   height: 55px;
   width: 55px;
@@ -1569,22 +1605,50 @@ input[type="file"] {
 .SignalPopUp-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  margin: 10px;
+
+  width: 100%;
 }
 .SignalPopUp-container > h4 {
-  margin: 10px;
+  margin-bottom: 30px;
+  text-align: center;
+  letter-spacing: 0.02rem;
 }
-.signal-option {
-  margin: 10px;
+
+.SignalPopUp-container > .signal-option-form > .signal-option > .signalValue {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 }
+.SignalPopUp-container
+  > .signal-option-form
+  > .signal-option
+  > .signalValue
+  > input {
+  width: 20px;
+}
+.SignalPopUp-container
+  > .signal-option-form
+  > .signal-option
+  > .signalValue
+  > p {
+  font-size: 18px;
+  letter-spacing: 0.02rem;
+}
+.SignalPopUp-container
+  > .signal-option-form
+  > .signal-option
+  > .signalValue
+  > #autreBtn {
+  cursor: pointer;
+}
+
 .signal-option-form > textarea {
   border: 2px solid #44c9bb;
   border-radius: 5px;
-  margin: 5px;
   padding: 5px;
-  width: 300px;
+  width: 100%;
+  margin-bottom: 10px;
   font-weight: 400;
   font-style: normal;
   line-height: 23px;
@@ -1594,12 +1658,14 @@ input[type="file"] {
 
 .signal-option-form > .btn-signal {
   border: 2px solid red;
+  background-color: transparent;
   border-radius: 10px;
   width: 100px;
   height: 40px;
   text-transform: uppercase;
-  /* align-self: center; */
-  margin: 10px;
+  margin-left: 39%;
+  outline: none;
+  letter-spacing: 0.02rem;
 }
 .signal-option-form > .btn-signal:hover {
   background-color: red;
@@ -1620,6 +1686,204 @@ input[type="file"] {
   overflow-y: scroll;
   height: 350px;
   width: 100%;
+}
+/**************************************************/
+/********BoiteMsg*********************/
+/****************************************************/
+.BoiteMsg {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+.BoiteMsg-right {
+  width: 30%;
+  border-radius: 10px;
+  margin: 5px;
+}
+.BoiteMsg-left {
+  width: 70%;
+  border-radius: 10px;
+}
+/**************************************************/
+/********ConversationContainer*********************/
+/****************************************************/
+
+.conversationContainer {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+.conversationTop {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.conversationTop > .user-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-top: 10px;
+  border: 2px solid #3aceb9;
+}
+.conversationContainer > .conversationTop > .recherche > #form-2 {
+  display: flex;
+  flex-direction: row;
+  border: 2px solid grey;
+  background-color: #f6f5f5;
+  border-radius: 10px;
+  margin: 10px;
+  width: 350px;
+}
+.conversationContainer > .conversationTop > .recherche > #form-2 > input {
+  border-radius: 10px 0px 0px 10px;
+  border: none;
+  width: 90%;
+}
+.conversationContainer > .conversationTop > .recherche > #form-2 > .icon {
+  padding-top: 5px;
+}
+.conversationBottom > .conv_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 150px;
+  overflow-y: scroll;
+  height: 350px;
+}
+
+.conversationBottom > .conv_container > .conversation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: grey;
+  border-radius: 10px;
+  margin: 10px;
+}
+.conversationBottom > .conv_container > .conversation:hover {
+  background-color: #f6f5f5;
+}
+
+.conversationBottom > .conv_container > .conversation > .conv-detail {
+  display: flex;
+  flex-direction: row;
+}
+.conversationBottom
+  > .conv_container
+  > .conversation
+  > .conv-detail
+  > .sender-img
+  > img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #3aceb9;
+  margin: 5px;
+}
+
+.conversationBottom > .conv_container > .conversation > .msg-time {
+  margin-left: 0px;
+  margin-top: 20px;
+}
+/**************************************************/
+/********MessagesContainer************************/
+/****************************************************/
+.conversation-detail {
+  display: flex;
+  flex-direction: column;
+  background-color: #f6f5f5;
+  height: 100%;
+}
+.conversation-detail > .convTop {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  background: #ffffff;
+}
+.conversation-detail > .convTop > img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #44c9bb;
+  margin: 10px;
+}
+.conversation-detail > .convTop > p {
+  margin-top: 10px;
+}
+.convTop {
+  height: 10%;
+}
+.convBottom {
+  height: 20%;
+}
+.convMidle {
+  height: 69%;
+  overflow-y: scroll;
+  padding: 10px;
+}
+.conversation-detail > .convMidle > .send {
+  display: flex;
+  justify-content: flex-end;
+}
+.conversation-detail > .convMidle > .send :hover {
+  background-color: #67dfcf;
+}
+.conversation-detail > .convMidle > .send > p {
+  height: fit-content;
+  padding-left: 5px;
+  padding-right: 5px;
+  width: fit-content;
+  background: #3aceb9;
+  border-radius: 10px;
+  max-width: 250px;
+  padding: 10px;
+  word-break: break-all;
+  margin-left: 5px;
+}
+.conversation-detail > .convMidle > .reciv {
+  display: flex;
+  justify-content: start;
+}
+.conversation-detail > .convMidle > .reciv :hover {
+  background-color: rgb(146, 139, 139);
+}
+.conversation-detail > .convMidle > .reciv > p {
+  height: fit-content;
+  padding-left: 5px;
+  padding-right: 5px;
+  width: fit-content;
+  max-width: 250px;
+  padding: 10px;
+  word-break: break-all;
+  background: #ffffff;
+  border-radius: 10px;
+  background-color: rgb(179, 172, 172);
+}
+.convBottom {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.conversation-detail > .convBottom > .form-msg {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  border-radius: 5px;
+  width: 90%;
+  height: 40px;
+}
+.conversation-detail > .convBottom > .form-msg > input {
+  border-radius: 10px;
+  width: 85%;
+}
+.conversation-detail > .convBottom > .form-msg > .msg-icon {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  color: #3aceb9;
 }
 
 /*******************************************************/
@@ -2351,7 +2615,7 @@ input[type="file"] {
     height: 82vh;
     margin-bottom: 0px;
     width: 100%;
-    margin-top: -32px;
+    /* margin-top: -10px; */
     margin-left: 0px;
     /* margin-right: 20px; */
   }

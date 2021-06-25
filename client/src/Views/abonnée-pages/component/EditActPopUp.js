@@ -94,7 +94,6 @@ function EditActPopUp(props) {
     });
     setErrorsMsg(addPubsFormValidation(actvité));
   };
-  console.log(actvité);
 
   const deleteActivité = () => {
     swal({

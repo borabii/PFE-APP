@@ -13,9 +13,6 @@ import { useSnackbar } from "notistack";
 import { getFullNowDate, getNowDate } from "../../../utilis/date";
 import moment from "moment";
 function UserPubOrganized() {
-  console.log(getFullNowDate());
-  console.log(getNowDate());
-
   //componenet level state
   const [commingPubs, setCommingPubs] = useState([]);
   const [passedPubs, setPassedPubs] = useState([]);

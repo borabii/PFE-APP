@@ -84,21 +84,22 @@ function AddAnnoncePopUp(props) {
 
           <form className="addAct-form " onSubmit={handleSubmit}>
             <div className="add-img">
-              <h3>
-                {" "}
-                annonce <span>*</span>
-              </h3>
+              <h3> Ajouter une image</h3>
 
-              <div className="demmande-formInput">
+              <div className="demmande-formInput mb-0">
                 <input
                   type="file"
                   id="justificatif-input"
                   name="imageAnnonce"
                   onChange={imageSelectHandler}
+                  required
                 />
               </div>
             </div>
-            <div className="addAct-principalInfo">
+            <div
+              className="addAct-principalInfo mb-0"
+              style={{ marginBottom: "0px" }}
+            >
               <h3>information Principale</h3>
 
               <textarea
@@ -133,11 +134,11 @@ function AddAnnoncePopUp(props) {
               </div>
             </div>
 
-            <h3>Catégorie</h3>
+            <h3 style={{ marginTop: "0px", marginBottom: "0px" }}>Catégorie</h3>
 
-            <div className="addAct-category">
+            <div className="addAct-category ">
               <Select
-                className="basic-single"
+                className="basic-single "
                 classNamePrefix="select"
                 name="categorie"
                 options={catégorieOption}

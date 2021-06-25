@@ -14,7 +14,7 @@ const Annonceur = require("../models/Annonceur");
 const DemandeAnnonceur = require("../models/DemandeAnnonceur");
 const Publication = require("../models/Publication");
 const Notification = require("../models/Notifcation");
-
+const moment = require("../../client/node_modules/moment");
 //for image uploads
 //object that containt where to store uploaded image
 const storage = multer.diskStorage({
@@ -235,25 +235,24 @@ router.get("/loadUser/:abonneId", auth, async (req, res) => {
       "-email -gendre -inscriDate -distanceDeRecherche -isAnnonceur -password  -description"
     );
     const alreadyFollowed =
+      profileInfo.followers &&
       profileInfo.followers.filter((item) => item.toString() === req.user.id)
         .length > 0;
-    if (
-      profileInfo.userAvis.length > 0 &&
-      profileInfo.userAvis[0].avis !== null
-    ) {
+    if (profileInfo.userAvis !== null && profileInfo.userAvis.length > 0) {
       totalRate =
         profileInfo.userAvis.reduce((accum, item) => accum + item.avis, 0) /
         profileInfo.userAvis.length;
       actualRate = profileInfo.userAvis.filter(
         (item) => item.user.toString() === req.user.id
       );
+      actualRate = actualRate[0].avis !== null ? actualRate[0].avis : 0;
     }
 
     res.json({
       profileInfo,
       isAlreadyFollowed: alreadyFollowed,
       totalRate: totalRate,
-      actualRate: actualRate[0].avis < 0 ? 0 : actualRate[0].avis,
+      actualRate: actualRate,
     });
   } catch (err) {
     console.error(err.message);
@@ -266,26 +265,25 @@ router.get("/loadAnnonceur/:userId", auth, async (req, res) => {
     let totalRate = 0;
     let actualRate = [];
     const profileInfo = await Annonceur.findById(req.params.userId);
-    // const alreadyFollowed =
-    //   profileInfo.followers.filter((item) => item.toString() === req.user.id)
-    //     .length > 0;
-    // if (
-    //   profileInfo.userAvis.length > 0 &&
-    //   profileInfo.userAvis[0].avis !== null
-    // ) {
-    //   totalRate =
-    //     profileInfo.userAvis.reduce((accum, item) => accum + item.avis, 0) /
-    //     profileInfo.userAvis.length;
-    //   actualRate = profileInfo.userAvis.filter(
-    //     (item) => item.user.toString() === req.user.id
-    //   );
-    // }
+    const alreadyFollowed =
+      profileInfo.followers &&
+      profileInfo.followers.filter((item) => item.toString() === req.user.id)
+        .length > 0;
+    if (profileInfo.userAvis !== null && profileInfo.userAvis.length > 0) {
+      totalRate =
+        profileInfo.userAvis.reduce((accum, item) => accum + item.avis, 0) /
+        profileInfo.userAvis.length;
+      actualRate = profileInfo.userAvis.filter(
+        (item) => item.user.toString() === req.user.id
+      );
+      actualRate = actualRate[0].avis !== null ? actualRate[0].avis : 0;
+    }
 
     res.json({
       profileInfo,
-      // isAlreadyFollowed: alreadyFollowed,
-      // totalRate: totalRate,
-      // actualRate: actualRate[0].avis < 0 ? 0 : actualRate[0].avis,
+      isAlreadyFollowed: alreadyFollowed,
+      totalRate: totalRate,
+      actualRate: actualRate,
     });
   } catch (err) {
     console.error(err.message);
@@ -305,25 +303,30 @@ router.post("/rating/:abonneId", auth, async (req, res) => {
         const replacedIndex = abonné.userAvis
           .map((item) => item.user.toString())
           .indexOf(req.user.id);
-        // Splice userAvis and replace avis old value with new value
-        abonné.userAvis.splice(replacedIndex.avis, 1, req.body.avis);
+        // // Splice userAvis and replace avis old value with new value
+        abonné.userAvis[replacedIndex].avis = req.body.avis;
+        abonné.userAvis[replacedIndex].rateDate = moment().format();
+
+        abonné.save();
         res.json({
           msg: `Vous avez évaluez ${abonné.firstName} avec succés`,
         });
+      } else {
+        //if user rate this user for the first time
+        const newAvis = {
+          user: req.user.id,
+          avis: req.body.avis,
+        };
+        // Add to avis array
+        abonné.userAvis.unshift(newAvis);
+        // Save
+        abonné.save().then((abonné) =>
+          res.json({
+            msg: `Vous avez évaluez ${abonné.firstName} avec succés`,
+          })
+        );
       }
-      //if user rate this user for the first time
-      const newAvis = {
-        user: req.user.id,
-        avis: req.body.avis,
-      };
-      // Add to avis array
-      abonné.userAvis.unshift(newAvis);
-      // Save
-      abonné.save().then((abonné) =>
-        res.json({
-          msg: `Vous avez évaluez ${abonné.firstName} avec succés`,
-        })
-      );
+
       //add notification
       notif = new Notification({
         sender: req.user.id,
@@ -331,6 +334,46 @@ router.post("/rating/:abonneId", auth, async (req, res) => {
         content: "vous avez evaluer",
       });
       notif.save();
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+//
+router.post("/ratingAnnonceur/:annonceurId", auth, async (req, res) => {
+  try {
+    Annonceur.findById(req.params.annonceurId).then((annonceur) => {
+      if (
+        //if user already rate this user
+        annonceur.userAvis.filter(
+          (rate) => rate.user.toString() === req.user.id
+        ).length > 0
+      ) {
+        // Get replaced avis  index
+        const replacedIndex = annonceur.userAvis
+          .map((item) => item.user.toString())
+          .indexOf(req.user.id);
+        // // Splice userAvis and replace avis old value with new value
+        annonceur.userAvis[replacedIndex].avis = req.body.avis;
+        annonceur.save();
+        res.json({
+          msg: `Vous avez évaluez ${annonceur.nomAnnonceur} avec succés`,
+        });
+      } else {
+        //if user rate this user for the first time
+        const newAvis = {
+          user: req.user.id,
+          avis: req.body.avis,
+        };
+        // Add to avis array
+        annonceur.userAvis.unshift(newAvis);
+        // Save
+        annonceur.save().then((annonceur) =>
+          res.json({
+            msg: `Vous avez évaluez ${annonceur.firstName} avec succés`,
+          })
+        );
+      }
     });
   } catch (err) {
     console.log(err);
@@ -409,6 +452,87 @@ router.delete("/unfollow/:abonneId", auth, async (req, res) => {
       }
       res.json({
         msg: `Vous avez se désabonner de ${abonné.firstName} avec succés`,
+      });
+    });
+  } catch (err) {
+    res.status(500).send("Server Error ");
+
+    console.log(err);
+  }
+});
+
+//follow user(annonceur)
+router.post("/followAnnonceur/:annonceurId", auth, async (req, res) => {
+  try {
+    await Abonné.findOne({ _id: req.user.id }).then((abonné) => {
+      if (
+        abonné.following.filter(
+          (item) => item.toString() === req.params.annonceurId
+        ).length > 0
+      ) {
+        return res
+          .status(400)
+          .json({ msg: "vous avez déja suiver ce annonceur" });
+      } else {
+        // Add user id to following array
+        abonné.following.unshift(req.params.annonceurId);
+        abonné.save();
+      }
+    });
+    Annonceur.findOne({ _id: req.params.annonceurId }).then((annonceur) => {
+      if (
+        annonceur.followers.filter((item) => item.toString() === req.user.id)
+          .length > 0
+      ) {
+        return res
+          .status(400)
+          .json({ msg: "vous avez déja suiver ce annonceur" });
+      } else {
+        // Add user id to following array
+        annonceur.followers.unshift(req.user.id);
+        annonceur.save();
+        res.json({
+          msg: `Vous avez suivre ${annonceur.nomAnnonceur} avec succés`,
+        });
+      }
+    });
+  } catch (err) {
+    res.status(500).send("Server Error ");
+    console.log(err);
+  }
+});
+//unfollow user(annonceur)
+router.delete("/unfollowAnnonceur/:annonceurId", auth, async (req, res) => {
+  try {
+    await Abonné.findOne({ _id: req.user.id }).then((abonné) => {
+      if (
+        abonné.following.filter(
+          (item) => item.toString() === req.params.annonceurId
+        ).length > 0
+      ) {
+        const replacedIndex = abonné.following
+          .map((item) => item.toString())
+          .indexOf(req.user.id);
+        // Splice userAvis and replace avis old value with new value
+        abonné.following.splice(replacedIndex, 1);
+        abonné.save();
+      }
+    });
+
+    Annonceur.findOne({ _id: req.params.annonceurId }).then((annonceur) => {
+      if (
+        annonceur.followers.filter((item) => item.toString() === req.user.id)
+          .length > 0
+      ) {
+        const replacedIndex = annonceur.followers
+          .map((item) => item.toString())
+          .indexOf(req.user.id);
+        // Splice userAvis and replace avis old value with new value
+        annonceur.followers.splice(replacedIndex, 1);
+        annonceur.save();
+      }
+      res.json({
+        msg: `Vous avez se désabonner de ${annonceur.nomAnnonceur} avec succés`,
       });
     });
   } catch (err) {

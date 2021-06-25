@@ -54,7 +54,8 @@ router.get("/Admin/getUserReport/:userId", auth, async (req, res) => {
       reportedUser: req.params.userId,
     })
       .select("-reportedUser")
-      .populate("user", "firstName lastName   imageProfile");
+      .populate("user", "firstName lastName   imageProfile")
+      .sort({ reportDate: -1 });
     res.json(notif);
   } catch (err) {
     console.error(err.message);

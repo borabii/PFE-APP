@@ -21,6 +21,9 @@ import {
   RATE_USER,
   FOLLOW_USER,
   UNFOLLOW_USER,
+  FOLLOW_ANNONCEUR,
+  UNFOLLOW_ANNONCEUR,
+  RATE_ANNONCEUR,
 } from "../types";
 const UserState = (props) => {
   //global state
@@ -188,22 +191,30 @@ const UserState = (props) => {
       type: CLEAR_ANNONCEUR_LOADED_PROFILEINFO,
     });
   };
+  //rate abonné
   const rateUser = async (avis, userId) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
     try {
       const response = await axios.post(
         `http://localhost:8000/api/users/rating/${userId}`,
-        avis,
-        config
+        avis
       );
       dispatch({
         type: RATE_USER,
-        payload: response,
+        payload: response.data,
       });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  //rate annonceur
+  const rateAnnonceur = async (avis, userId) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/api/users/ratingAnnonceur/${userId}`,
+        avis
+      );
+      dispatch({ type: RATE_ANNONCEUR, payload: response });
+      loadAnnonceurProfileInfo(userId);
     } catch (err) {
       console.log(err);
     }
@@ -234,6 +245,36 @@ const UserState = (props) => {
         payload: response,
       });
       loadUserProfileInfo(userId);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  //follow user(annonceur)
+  const followAnnonceur = async (userId) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/api/users/followAnnonceur/${userId}`
+      );
+      dispatch({
+        type: FOLLOW_ANNONCEUR,
+        payload: response,
+      });
+      loadAnnonceurProfileInfo(userId);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  //unfollow user(annonceur)
+  const unFollowAnnonceur = async (userId) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8000/api/users/unfollowAnnonceur/${userId}`
+      );
+      dispatch({
+        type: UNFOLLOW_ANNONCEUR,
+        payload: response,
+      });
+      loadAnnonceurProfileInfo(userId);
     } catch (err) {
       console.log(err);
     }
@@ -350,8 +391,11 @@ const UserState = (props) => {
         loadAnnonceurProfileInfo,
         clearAnnonceurProfileInfo,
         rateUser,
+        rateAnnonceur,
         followUser,
         unFollowUser,
+        followAnnonceur,
+        unFollowAnnonceur,
       }}
     >
       {props.children}

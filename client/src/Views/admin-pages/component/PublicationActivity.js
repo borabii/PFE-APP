@@ -93,8 +93,9 @@ class PublicationActivity extends React.Component {
                   <tr>
                     <th scope="col">id</th>
                     <th scope="col">Categorie</th>
-                    <th scope="col">adresse</th>
                     <th scope="col">Date</th>
+                    <th scope="col">Nombre participants</th>
+
                     <th scope="col">Action</th>
                   </tr>
                 </thead>{" "}
@@ -104,10 +105,10 @@ class PublicationActivity extends React.Component {
                       <tr key={index}>
                         <td>{data._id}</td>
                         <td>{data.categorie}</td>
-                        {/* <td>{data.adresse}</td> */}
-                        <td>aaaaaaa</td>
 
                         <td>{getDate(data.date_Pub)} </td>
+                        <td>{data.participants.length} </td>
+
                         <td
                           onClick={() => this.updateItem(index)}
                           id="icone-action"

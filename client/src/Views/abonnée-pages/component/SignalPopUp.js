@@ -54,108 +54,99 @@ function SignalPopUp(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="SignalPopUp">
-          <div className="SignalPopUp-container">
-            <h4>Pourquoi signalez-vous ce compte ? </h4>
+        <div className="SignalPopUp-container">
+          <h4>Pourquoi signalez-vous ce compte ? </h4>
 
-            <form className="signal-option-form" onSubmit={reportUser}>
-              <table className="signal-option">
-                <tr>
-                  <td>Faux profile</td>
-                  <td>
-                    <input
-                      type="radio"
-                      onChange={handelChange}
-                      value="Faux profile ."
-                      name="cause"
-                      onClick={() =>
-                        setShowAutreDropdown(showAutreDropdown ? false : false)
-                      }
-                    />
-                  </td>
-                </tr>
+          <form className="signal-option-form" onSubmit={reportUser}>
+            <div className="signal-option">
+              <div className="signalValue">
+                <p>Faux profile</p>
 
-                <tr>
-                  <td>Faux nom</td>
-                  <td>
-                    <input
-                      type="radio"
-                      onChange={handelChange}
-                      value=" Faux nom ."
-                      name="cause"
-                      onClick={() =>
-                        setShowAutreDropdown(showAutreDropdown ? false : false)
-                      }
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Harcélement autre utilisateur</td>
-                  <td>
-                    <input
-                      type="radio"
-                      onChange={handelChange}
-                      value="harcélement autre utilisateur"
-                      name="cause"
-                      onClick={() =>
-                        setShowAutreDropdown(showAutreDropdown ? false : false)
-                      }
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>usurpation d'identité</td>
-                  <td>
-                    <input
-                      type="radio"
-                      onChange={handelChange}
-                      value="usurpation d'identité."
-                      name="cause"
-                      onClick={() =>
-                        setShowAutreDropdown(showAutreDropdown ? false : false)
-                      }
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Publication de contenus inappropriés</td>
-                  <td>
-                    <input
-                      type="radio"
-                      onChange={handelChange}
-                      value="Publication de contenus inappropriés."
-                      name="cause"
-                      onClick={() =>
-                        setShowAutreDropdown(showAutreDropdown ? false : false)
-                      }
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    onClick={() =>
-                      setShowAutreDropdown(
-                        (showAutreDropdown) => !showAutreDropdown
-                      )
-                    }
-                  >
-                    {" "}
-                    Autre...
-                  </td>
-                </tr>
-              </table>
-              <textarea
-                style={{ display: showAutreDropdown ? "block" : "none" }}
-                placeholder="écrivez vos raisons..."
-                onChange={handelChange}
-                name="cause"
-              />
-              <button className="btn-signal" type="submit">
-                {" "}
-                signaler
-              </button>
-            </form>
-          </div>
+                <input
+                  type="radio"
+                  onChange={handelChange}
+                  value="Faux profile ."
+                  name="cause"
+                  onClick={() =>
+                    setShowAutreDropdown(showAutreDropdown ? false : false)
+                  }
+                />
+              </div>
+
+              <div className="signalValue">
+                <p>Faux nom</p>
+
+                <input
+                  type="radio"
+                  onChange={handelChange}
+                  value=" Faux nom ."
+                  name="cause"
+                  onClick={() =>
+                    setShowAutreDropdown(showAutreDropdown ? false : false)
+                  }
+                />
+              </div>
+              <div className="signalValue">
+                <p>Harcélement autre utilisateur</p>
+                <input
+                  type="radio"
+                  onChange={handelChange}
+                  value="harcélement autre utilisateur"
+                  name="cause"
+                  onClick={() =>
+                    setShowAutreDropdown(showAutreDropdown ? false : false)
+                  }
+                />
+              </div>
+              <div className="signalValue">
+                <p>Usurpation d'identité</p>
+                <input
+                  type="radio"
+                  onChange={handelChange}
+                  value="usurpation d'identité."
+                  name="cause"
+                  onClick={() =>
+                    setShowAutreDropdown(showAutreDropdown ? false : false)
+                  }
+                />
+              </div>
+              <div className="signalValue">
+                <p>Publication de contenus inappropriés</p>
+                <input
+                  type="radio"
+                  onChange={handelChange}
+                  value="Publication de contenus inappropriés."
+                  name="cause"
+                  onClick={() =>
+                    setShowAutreDropdown(showAutreDropdown ? false : false)
+                  }
+                />
+              </div>
+              <div className="signalValue">
+                <p
+                  onClick={() =>
+                    setShowAutreDropdown(
+                      (showAutreDropdown) => !showAutreDropdown
+                    )
+                  }
+                  id="autreBtn"
+                >
+                  {" "}
+                  Autre...
+                </p>
+              </div>
+            </div>
+            <textarea
+              style={{ display: showAutreDropdown ? "block" : "none" }}
+              placeholder="écrivez vos raisons..."
+              onChange={handelChange}
+              name="cause"
+            />
+            <button className="btn-signal" type="submit">
+              {" "}
+              signaler
+            </button>
+          </form>
         </div>
       </Modal.Body>
     </Modal>

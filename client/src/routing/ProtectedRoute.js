@@ -5,12 +5,17 @@ import { Route, Redirect } from "react-router-dom";
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   // props
   const tokenExist = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        tokenExist ? <Component {...props} /> : <Redirect to="/" />
+        tokenExist && role === "user" ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/" />
+        )
       }
     />
   );

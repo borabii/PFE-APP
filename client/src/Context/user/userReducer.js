@@ -15,8 +15,11 @@ import {
   LOAD_ANNONCEUR_PROFIL_INFO,
   CLEAR_ANNONCEUR_LOADED_PROFILEINFO,
   RATE_USER,
+  RATE_ANNONCEUR,
   FOLLOW_USER,
   UNFOLLOW_USER,
+  FOLLOW_ANNONCEUR,
+  UNFOLLOW_ANNONCEUR,
 } from "../types";
 export default (state, action) => {
   switch (action.type) {
@@ -53,7 +56,10 @@ export default (state, action) => {
       };
     case FOLLOW_USER:
     case UNFOLLOW_USER:
+    case FOLLOW_ANNONCEUR:
+    case UNFOLLOW_ANNONCEUR:
     case RATE_USER:
+    case RATE_ANNONCEUR:
     case UPDATE_IMAGE:
       return {
         ...state,

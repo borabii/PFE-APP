@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
@@ -53,11 +53,13 @@ function PubDetailPopUp(props) {
                 <dt>Catégoris</dt>
                 <dd>{props.data.categorie}</dd>
                 <dt>Description</dt>
-                <dd id="description">{props.data.description}</dd>
+                <dd id="description">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. *
+                </dd>
                 <dt>Adresse</dt>
                 <dd>
                   <LocationOnIcon id="icon-loc" />
-                  {/* {props.data.adresse} */}
+                  hiboun,Mahdia
                 </dd>
                 <dt>HORAIRES </dt>
                 <dd>
@@ -74,7 +76,18 @@ function PubDetailPopUp(props) {
           </div>
           <div className="pubDetailPopUp__organizateur">
             <h3>ORGANISER PAR</h3>
-            <div className="organizateur__container">
+            <div
+              className="organizateur__container"
+              onClick={() =>
+                props.data.typePub === "Activity"
+                  ? history.push(
+                      `/AbonnéHomePage/AbonnéProfile/${props.data.user}`
+                    )
+                  : history.push(
+                      `/AbonnéHomePage/AnnonceurProfile/${props.data.user}`
+                    )
+              }
+            >
               <img
                 src={`http://localhost:8000/${
                   props.user.imageProfile

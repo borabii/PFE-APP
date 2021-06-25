@@ -78,6 +78,7 @@ function NewsActivity() {
                       fontSize: "12px",
                       textAlign: "left",
                     }}
+                    className="tttt"
                   >
                     {item.description}
                   </Card.Text>

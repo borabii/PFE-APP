@@ -7,6 +7,11 @@
 .my-carousel {
   margin-top: 40px;
 }
+.tttt {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
 .navbar-light .navbar-toggler {
   color: rgba(0, 0, 0, 0.5);
   border: 2px solid #3aceb9;

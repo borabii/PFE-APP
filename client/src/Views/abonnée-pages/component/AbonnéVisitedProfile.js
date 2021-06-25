@@ -36,7 +36,7 @@ function AbonnéVisitedProfile(props) {
     responseMessage,
     ClearResponseMessage,
   } = userContext;
-  //omponent level state
+  //component level state
   // const [Data, setData] = useState({});
   const [Act, setAct] = useState({});
   const [pubOrganisateur, setPubOrganisateur] = useState({});
@@ -98,13 +98,23 @@ function AbonnéVisitedProfile(props) {
                 </div>
                 <div id="user-adresse">
                   <LocationOnIcon id="userLoc-icon" />
+                  hiboun,Mahdia
                   {/* <p>{Data.abonnéProfile.adress}</p> */}
                 </div>
               </div>
               <div className="userProfile-rank">
                 <div id="user-avis">
                   <h3>Avis</h3>
-                  <p>{visitedProfileInfo.totalRate}</p>
+                  <p>
+                    <Rating
+                      name="customized-empty"
+                      size="large"
+                      value={visitedProfileInfo.totalRate}
+                      emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                      precision={0.5}
+                      readOnly
+                    />
+                  </p>
                 </div>
                 <div id="user-score">
                   <h3>Score</h3>

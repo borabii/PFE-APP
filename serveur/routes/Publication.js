@@ -334,7 +334,8 @@ router.put("/partcipatePub/:pubId", auth, async (req, res) => {
     Publication.findById(req.params.pubId).then((post) => {
       if (post.participants.length > 0) {
         if (
-          post.participants.filter((item) => item.toString() === req.user.id)
+          post.participants.filter((item) => item._id.equals(req.user.id))
+            .length > 0
         ) {
           return res.json({ msg: "user déja participer a cette publication" });
         }

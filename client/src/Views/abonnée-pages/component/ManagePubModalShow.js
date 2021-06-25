@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Modal from "react-bootstrap/Modal";
 import { getDayName, calucleAge } from "../../../utilis/date";
@@ -10,7 +10,13 @@ import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import PubContext from "../../../Context/Publication/pubContext";
 import Spinner1 from "../../layout/Spinner1";
 import history from "../../../utilis/history";
+import axios from "axios";
+
 function ManagePubModalShow(props) {
+  // console.log(
+  //   props.data.adresse.coordinates.length > 0 &&
+  //     props.data.adresse.coordinates[0]
+  // );
   const pubContext = useContext(PubContext);
   const {
     getParticipantData,
@@ -22,10 +28,23 @@ function ManagePubModalShow(props) {
   } = pubContext;
   useEffect(() => {
     getParticipantData(props.data._id);
+    if (props.data.adresse) {
+      // axios
+      //   .get(
+      //     `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${props.data.adresse.coordinates[0]}&longitude=${props.data.adresse.coordinates[1]}&localityLanguage=fr`
+      //   )
+      //   .then((data) => setadresse(data.data));
+    }
+
     return () => {
       ClearParticipantData();
     };
   }, [props.show === true && !loading]);
+  const [adresse, setadresse] = useState("");
+
+  // useEffect(() => {
+  //
+  // }, [props.show === true && props.data && !loading]);
   return (
     <Modal
       {...props}
@@ -52,7 +71,8 @@ function ManagePubModalShow(props) {
                 <dt>Adresse</dt>
                 <dd>
                   <LocationOnIcon id="icon-loc" />
-                  {/* {props.data.adresse} */}
+                  {adresse &&
+                    adresse.locality + "," + adresse.principalSubdivision}{" "}
                 </dd>
                 <dt>HORAIRES </dt>
                 <dd>
@@ -93,8 +113,8 @@ function ManagePubModalShow(props) {
                               {calucleAge(item.dateOfBirth)} ans
                             </p>
                             <p id="participant-adresse">
-                              <LocationOnIcon id="paricipantAdresse-icon" />
-                              {/* {item.adress} */}
+                              {/* <LocationOnIcon id="paricipantAdresse-icon" />
+                              {item.adress} */}
                             </p>
                           </div>
                         </div>
@@ -164,8 +184,6 @@ function ManagePubModalShow(props) {
           ) : (
             <Spinner1 />
           )}
-
-          {/*  */}
 
           <div id="hide">ss</div>
         </div>

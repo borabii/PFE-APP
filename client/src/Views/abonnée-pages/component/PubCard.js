@@ -11,7 +11,10 @@ function PubCard(props) {
   //app level state(user context)
   const userContext = useContext(UserContext);
   const { fullCatégorieData, getCatégorie } = userContext;
+  //comonent level state
   const [catImage, setCatImage] = useState("");
+  const [adresse, setadresse] = useState("");
+
   useEffect(() => {
     getCatégorie();
   }, []);
@@ -29,7 +32,6 @@ function PubCard(props) {
     };
   }, [fullCatégorieData]);
 
-  const [adresse, setadresse] = useState("");
   // useEffect(() => {
   //   axios
   //     .get(

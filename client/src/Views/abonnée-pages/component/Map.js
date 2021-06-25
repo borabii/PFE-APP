@@ -7,10 +7,12 @@ import AuthContext from "../../../Context/auth/authContext";
 import PubContext from "../../../Context/Publication/pubContext";
 import PubDetailPopUp from "./PubDetailPopup";
 import axios from "axios";
+import ViewAnnoncePopUp from "../../annonceur-page/Componenet/ViewAnnoncePopUp";
 
 function Map() {
   //componenet state
   const [editEventModalShow, setEditEventModalShow] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
   const [activeMark, setActiveMark] = useState({});
   const [org, setorg] = useState({});
   const [position, setPosition] = useState(null);
@@ -53,26 +55,41 @@ function Map() {
       //   const circle = L.circle(e.latlng, radius);
       //   circle.addTo(map);
       // });
-      navigator.geolocation.getCurrentPosition(function (position) {
-        setPosition({
-          lat: 35.52625493547043,
-          lng: 11.034331019983348,
-        });
-        map.flyTo({ lat: 35.52625493547043, lng: 11.034331019983348 }, 10);
+      // navigator.geolocation.getCurrentPosition(function (position) {
+      //   setPosition({
+      //     lat: position.coords.latitude,
+      //     lng: position.coords.longitude,
+      //   });
+      //   map.flyTo(
+      //     { lat: position.coords.latitude, lng: position.coords.longitude },
+      //     10
+      //   );
+      //   const radius = user.distanceDeRecherche;
+      //   const circle = L.circle(
+      //     { lat: position.coords.latitude, lng: position.coords.longitude },
+      //     radius
+      //   );
+      //   circle.addTo(map);
+      //   loadPubs(
+      //     [position.coords.latitude],
+      //     [position.coords.longitude],
+      //     user.distanceDeRecherche
+      //   );
+      // });
+      // return () => {
+      //   // map.stopLocate();
+      // };
+    }, [map]);
+    useEffect(() => {
+      map.locate().on("locationfound", function (e) {
+        setPosition(e.latlng);
+        map.flyTo(e.latlng, map.getZoom());
         const radius = user.distanceDeRecherche;
-        const circle = L.circle(
-          { lat: 35.52625493547043, lng: 11.034331019983348 },
-          radius
-        );
+        const circle = L.circle(e.latlng, radius);
         circle.addTo(map);
-        loadPubs(
-          [35.52625493547043],
-          [11.034331019983348],
-          user.distanceDeRecherche
-        );
       });
-      return () => {
-        // map.stopLocate();
+      return function cleanup() {
+        map.stopLocate();
       };
     }, [map]);
     return position === null ? null : (
@@ -118,15 +135,23 @@ function Map() {
   const handleClick = (e, pub) => {
     setActiveMark(pub);
     setEditEventModalShow(true);
-    axios
-      .get(`http://localhost:8000/api/users/Admin/getDemandeur/${pub.user}`)
-      .then((res) => setorg(res.data));
+    if (pub.typePub == "Activity" || pub.typePub == "Event") {
+      if (pub.typePub == "Activity") {
+        axios
+          .get(`http://localhost:8000/api/users/Admin/getDemandeur/${pub.user}`)
+          .then((res) => setorg(res.data));
+      } else {
+        axios
+          .get(`http://localhost:8000/api/users/Admin/getAnnonceur/${pub.user}`)
+          .then((res) => setorg(res.data));
+      }
+    } else {
+      axios
+        .get(`http://localhost:8000/api/users/Admin/getAnnonceur/${pub.user}`)
+        .then((res) => setorg(res.data));
+      setModalShow(true);
+    }
   };
-  // useEffect(() => {
-  //   if (position) {
-  //     loadPubs([position.lat], [position.lng], user.distanceDeRecherche);
-  //   }
-  // }, [position !== null]);
 
   return (
     <div className="map-container">
@@ -166,6 +191,12 @@ function Map() {
         data={activeMark}
         user={org}
         onHide={() => setEditEventModalShow(false)}
+      />
+      <ViewAnnoncePopUp
+        show={modalShow}
+        data={activeMark}
+        user={org}
+        onHide={() => setModalShow(false)}
       />
     </div>
   );

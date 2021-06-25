@@ -24,7 +24,6 @@ function TodayAnnonce(props) {
         setModalShow(true);
       });
   };
-  console.log(modalShow);
   return (
     <Carousel
       pagination={false}

@@ -29,7 +29,7 @@ const AbonnéSchema = User.discriminator(
       {
         user: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
+          ref: "Abonné",
         },
         avis: {
           type: Number,
@@ -49,8 +49,8 @@ const AbonnéSchema = User.discriminator(
       type: Number,
       default: 10000,
     },
-    following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: "Abonné" }],
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "Abonné" }],
   })
 );
 module.exports = mongoose.model("Abonné");

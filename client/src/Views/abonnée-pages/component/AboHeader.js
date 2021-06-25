@@ -90,24 +90,24 @@ function AboHeader() {
   };
   const data = [
     {
-      key: "john",
-      value: "John Doe",
+      addresse: "houmt souk,djerba",
+      catégorie: "Foot",
+      date: "2015-06-18 à 13:30",
     },
     {
-      key: "jane",
-      value: "Jane Doe",
+      addresse: "sfax",
+      catégorie: "Foot",
+      date: "2015-06-18 à 15:25",
     },
     {
-      key: "mary",
-      value: "Mary Phillips",
+      addresse: "menzah6,Ariana",
+      catégorie: "Foot",
+      date: "2015-06-18 à 14:00",
     },
     {
-      key: "robert",
-      value: "Robert",
-    },
-    {
-      key: "karius",
-      value: "Karius",
+      addresse: "nabeul,Nabeul",
+      catégorie: "Foot",
+      date: "2015-06-18 à 16:15",
     },
   ];
 
@@ -157,13 +157,20 @@ function AboHeader() {
               className="searsh-resault"
               style={{ display: showSearchResultDropdown ? "block" : "none" }}
             >
-              <ul>
-                {data.map((item) => (
-                  <li key={item.key}>
-                    <a>{item.value}</a>
-                  </li>
+              <div className="searsh-dropdown">
+                {data.map((item, key) => (
+                  <div className="resulatContainer">
+                    <div className="resulatContainer-left">
+                      {item.catégorie}
+                      <p>
+                        <LocationOnIcon id="resAddressIcon" />
+                        {item.addresse}
+                      </p>
+                    </div>
+                    <div className="resulatContainer-rigth">{item.date}</div>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           </div>
         </Nav>
@@ -198,9 +205,19 @@ function AboHeader() {
               <h4 id="btnChat-small-device">Boite Message</h4>
             </Nav.Link>
             <Nav.Link>
-              <div className="header-chatIcon">
-                <ChatBubbleOutlineIcon id="chatIcon" />
-              </div>
+              <NavLink
+                to={`${url}/BoiteMsg`}
+                exact
+                activeStyle={{
+                  color: "rgba(0,0,0,.5)  ",
+                }}
+                className="navCollaps-item"
+              >
+                <div className="header-chatIcon">
+                  {" "}
+                  <ChatBubbleOutlineIcon id="chatIcon" />
+                </div>
+              </NavLink>
               <h4 id="btnChat-small-device">Boite Message</h4>
             </Nav.Link>
             <Nav.Link>

@@ -722,6 +722,10 @@ dd {
   border: 3px solid #3aceb9;
   border-radius: 50%;
 }
+.user__Info {
+  display: inline-block;
+  word-break: break-all;
+}
 .user__Info > ul {
   margin-left: 0px;
   list-style: none;

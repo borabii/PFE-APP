@@ -128,7 +128,7 @@
 }
 
 .annonceurVisitedProfile-top > .top-left > img {
-  width: 250px;
+  width: 450px;
   height: 100%;
   border: 3px solid #3aceb9;
   box-sizing: border-box;
@@ -260,19 +260,20 @@
   margin-bottom: 20px;
   bottom: 0;
   right: 0;
+  display: flex;
   background-color: #f6f5f5;
 }
 .annonceCard-action > #annonceCardAction-edit {
   color: #3aceb9;
-  width: 30px;
-  height: 30px;
+  width: 50px;
+  height: 40px;
   margin-right: 5px;
   cursor: pointer;
 }
 .annonceCard-action > #annonceCardAction-detail {
   color: #040941;
-  width: 40px;
-  height: 30px;
+  width: 50px;
+  height: 40px;
   cursor: pointer;
 }
 .detailAnnonce__top > a > img {
@@ -458,15 +459,16 @@
 /************************************/
 /******add annonce popup style******/
 /**********************************/
-
 .addActivityPopUp > .img__holder > img {
-  border: solid;
+  border: 2px solid #3aceb9;
   height: 300px;
-  width: 400px;
-  margin: 20px;
+  width: 100%;
 }
 .addAct-form {
   margin-bottom: 10px;
+}
+.addAct-principalInfo > h3 {
+  margin-top: 0px;
 }
 @media screen and (max-width: 600px) {
   /*******************************/

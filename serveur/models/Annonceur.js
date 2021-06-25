@@ -25,6 +25,22 @@ const AnnonceurSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  userAvis: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Abonné",
+      },
+      avis: {
+        type: Number,
+        default: 0,
+      },
+      rateDate: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
   catégorieAnnonceur: {
     type: String,
   },
@@ -43,6 +59,7 @@ const AnnonceurSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "Abonné" }],
 });
 AnnonceurSchema.index({ adresseAnnonceur: "2dsphere" });
 
