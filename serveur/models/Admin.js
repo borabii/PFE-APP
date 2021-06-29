@@ -6,6 +6,7 @@ const AdminSchema = User.discriminator(
   new mongoose.Schema({
     permission: {
       type: String,
+      required: true,
     },
   })
 );

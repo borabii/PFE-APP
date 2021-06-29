@@ -1,7 +1,7 @@
 const express = require("express");
 const connectDB = require("./config/db");
 var cors = require("cors");
-const app = express();
+var app = express();
 
 //// Init Middleware
 app.use(cors());
@@ -17,9 +17,10 @@ app.use("/api/Publication", require("./routes/publication"));
 app.use("/api/Categorie", require("./routes/Catégorie"));
 app.use("/api/Contact", require("./routes/Contact"));
 app.use("/api/Reclamation", require("./routes/Reclamation"));
-
 app.use("/api/Notification", require("./routes/Notification"));
 
+app.use("/api/Conversations", require("./routes/Conversations"));
+app.use("/api/Messages", require("./routes/Messages"));
 //define servert port
 const PORT = process.env.PORT || 8000;
 

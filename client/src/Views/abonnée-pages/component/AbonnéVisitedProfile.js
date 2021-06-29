@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, Fragment } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
@@ -15,6 +15,8 @@ import UserContext from "../../../Context/user/userContext";
 import { useSnackbar } from "notistack";
 import Spinner from "../../layout/Spinner";
 import SignalPopUp from "./SignalPopUp";
+import history from "../../../utilis/history";
+
 function AbonnéVisitedProfile(props) {
   const breakPoints = [
     { width: 1, itemsToShow: 1, showArrows: true },
@@ -123,7 +125,7 @@ function AbonnéVisitedProfile(props) {
               </div>
               <div className="userProfile-action">
                 <div id="user-sendMessage">
-                  <a>
+                  <a onClick={() => history.push(`/AbonnéHomePage/BoiteMsg`)}>
                     <ChatBubbleOutlineIcon id="user-chatIcon" />
                     Envoyer un Message
                   </a>

@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const DemandeAnonnceurSchema = mongoose.Schema({
   nomAnnonceur: {
     type: String,
+    required: true,
   },
   adresseAnnonceur: {
     type: {
@@ -14,18 +15,23 @@ const DemandeAnonnceurSchema = mongoose.Schema({
       type: [Number],
       default: [0, 0],
     },
+    required: true,
   },
   numTelAnnonceur: {
     type: String,
+    required: true,
   },
   emailProAnnonceur: {
     type: String,
+    required: true,
   },
   catégorieAnnonceur: {
     type: String,
+    required: true,
   },
   justificatifAnnonceur: {
     type: String,
+    required: true,
   },
   demandeur: {
     type: mongoose.Schema.Types.ObjectId,

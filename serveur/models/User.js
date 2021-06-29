@@ -18,10 +18,11 @@ const UserSchema = mongoose.Schema(
     },
     gendre: {
       type: String,
+      required: true,
     },
     email: {
       type: String,
-      // required: true,
+      required: true,
       unique: true,
     },
     password: {

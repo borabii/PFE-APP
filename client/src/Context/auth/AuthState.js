@@ -100,7 +100,6 @@ const AuthState = (props) => {
         isAuthenticated: state.isAuthenticated,
         user: state.user,
         loading: state.loading,
-
         invalidUserInformationMsg: state.invalidUserInformationMsg,
         loadUser,
         login,

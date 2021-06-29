@@ -1746,16 +1746,16 @@ input[type="file"] {
 .conversationContainer > .conversationTop > .recherche > #form-2 > .icon {
   padding-top: 5px;
 }
-.conversationBottom > .conv_container {
+.conversationBottom > .conv > .conv_container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: 150px;
-  overflow-y: scroll;
-  height: 350px;
+  /* padding-top: 150px; */
+  overflow-y: auto;
+  max-height: 350px;
 }
 
-.conversationBottom > .conv_container > .conversation {
+.conversationBottom > .conv > .conv_container > .conversation {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -1763,15 +1763,16 @@ input[type="file"] {
   border-radius: 10px;
   margin: 10px;
 }
-.conversationBottom > .conv_container > .conversation:hover {
+.conversationBottom > .conv > .conv_container > .conversation:hover {
   background-color: #f6f5f5;
 }
 
-.conversationBottom > .conv_container > .conversation > .conv-detail {
+.conversationBottom > .conv > .conv_container > .conversation > .conv-detail {
   display: flex;
   flex-direction: row;
 }
 .conversationBottom
+  > .conv
   > .conv_container
   > .conversation
   > .conv-detail
@@ -1784,7 +1785,16 @@ input[type="file"] {
   margin: 5px;
 }
 
-.conversationBottom > .conv_container > .conversation > .msg-time {
+.conversationBottom
+  > .conv
+  > .conv_container
+  > .conversation
+  > .conv-detail
+  > .msg-detail {
+  display: flex;
+  flex-direction: column;
+}
+.conversationBottom > .conv > .conv_container > .conversation > .msg-time {
   margin-left: 0px;
   margin-top: 20px;
 }
@@ -1828,13 +1838,9 @@ input[type="file"] {
   display: flex;
   justify-content: flex-end;
 }
-.conversation-detail > .convMidle > .send :hover {
-  background-color: #67dfcf;
-}
-.conversation-detail > .convMidle > .send > p {
+
+.conversation-detail > .convMidle > .send > .msg-content > p {
   height: fit-content;
-  padding-left: 5px;
-  padding-right: 5px;
   width: fit-content;
   background: #3aceb9;
   border-radius: 10px;
@@ -1843,14 +1849,17 @@ input[type="file"] {
   word-break: break-all;
   margin-left: 5px;
 }
+.conversation-detail > .convMidle > .send > .msg-content > h1 {
+  font-size: 12px;
+  margin-top: -10px;
+  text-align: end;
+}
 .conversation-detail > .convMidle > .reciv {
   display: flex;
   justify-content: start;
 }
-.conversation-detail > .convMidle > .reciv :hover {
-  background-color: rgb(146, 139, 139);
-}
-.conversation-detail > .convMidle > .reciv > p {
+
+.conversation-detail > .convMidle > .reciv > .msg-content > p {
   height: fit-content;
   padding-left: 5px;
   padding-right: 5px;
@@ -1861,6 +1870,11 @@ input[type="file"] {
   background: #ffffff;
   border-radius: 10px;
   background-color: rgb(179, 172, 172);
+}
+.conversation-detail > .convMidle > .reciv > .msg-content > h1 {
+  font-size: 12px;
+  margin-top: -10px;
+  text-align: end;
 }
 .convBottom {
   width: 100%;
@@ -1878,12 +1892,14 @@ input[type="file"] {
 .conversation-detail > .convBottom > .form-msg > input {
   border-radius: 10px;
   width: 85%;
+  outline: none;
 }
 .conversation-detail > .convBottom > .form-msg > .msg-icon {
   width: 30px;
   height: 30px;
   margin: 5px;
   color: #3aceb9;
+  cursor: pointer;
 }
 
 /*******************************************************/

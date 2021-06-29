@@ -17,7 +17,7 @@ function DetailReqAnnonceurPopUp(props) {
     props.onHide();
   };
   //run when admin click on Refuser button to refuse a demande
-  const refuserDemande = () => {
+  const refuseDemande = () => {
     axios.post(`http://localhost:8000/api/users/Admin/RejectDemande/${_id}`);
     props.onHide();
   };
@@ -82,7 +82,7 @@ function DetailReqAnnonceurPopUp(props) {
                 <button id="accept__btn" onClick={acceptDemande}>
                   Accepter
                 </button>
-                <button id="refuse__btn" onClick={refuserDemande}>
+                <button id="refuse__btn" onClick={refuseDemande}>
                   Refuser
                 </button>
               </div>
