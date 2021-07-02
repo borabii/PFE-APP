@@ -48,7 +48,9 @@ router.get("/getListcategories", async (req, res) => {
 //get list categorie for admin
 router.get("/Admin/categorie", async (req, res) => {
   try {
-    const categorie = await Catégorie.find();
+    const categorie = await Catégorie.find().sort({
+      addDate: -1,
+    });
     res.json(categorie);
   } catch (err) {
     console.error(err.message);

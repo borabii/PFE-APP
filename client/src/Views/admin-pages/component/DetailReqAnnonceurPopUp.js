@@ -10,6 +10,7 @@ function DetailReqAnnonceurPopUp(props) {
     demandeDate,
     catégorieAnnonceur,
     justificatifAnnonceur,
+    etatDemande,
   } = props.user;
   //run when admin click on Accepter button to accepter a demande
   const acceptDemande = () => {
@@ -79,12 +80,18 @@ function DetailReqAnnonceurPopUp(props) {
             </div>
             <div className="demande__action">
               <div className="demande__form">
-                <button id="accept__btn" onClick={acceptDemande}>
-                  Accepter
-                </button>
-                <button id="refuse__btn" onClick={refuseDemande}>
-                  Refuser
-                </button>
+                {etatDemande == "Vérification en cours" ? (
+                  <>
+                    <button id="accept__btn" onClick={acceptDemande}>
+                      Accepter
+                    </button>
+                    <button id="refuse__btn" onClick={refuseDemande}>
+                      Refuser
+                    </button>
+                  </>
+                ) : (
+                  <div></div>
+                )}
               </div>
             </div>
           </div>

@@ -15,7 +15,7 @@ const DemandeAnonnceurSchema = mongoose.Schema({
       type: [Number],
       default: [0, 0],
     },
-    required: true,
+    // required: true,
   },
   numTelAnnonceur: {
     type: String,

@@ -72,7 +72,7 @@ function DetailAbonnePopUp(props) {
               </div>
               <div className="info-item">
                 <h6> Avis</h6>
-                <h6>{nbrAct.totalRate}</h6>
+                <h6>{nbrAct.totalRate !== null ? nbrAct.totalRate : "0"}</h6>
               </div>
 
               <div className="info-item">

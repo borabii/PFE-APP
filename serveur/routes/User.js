@@ -339,7 +339,7 @@ router.post("/rating/:abonneId", auth, async (req, res) => {
     console.log(err);
   }
 });
-//
+//rate user(annonceur)
 router.post("/ratingAnnonceur/:annonceurId", auth, async (req, res) => {
   try {
     Annonceur.findById(req.params.annonceurId).then((annonceur) => {
@@ -615,6 +615,27 @@ router.put(
     }
   }
 );
+//getuser info (image and name) for conversation
+//get demande propritaire(abonné)  for admin
+router.get("/getUserData/:userId", auth, async (req, res) => {
+  let user = {};
+  try {
+    const userIsAbonné = await Abonné.findById(req.params.userId).select(
+      "firstName lastName imageProfile"
+    );
+    if (userIsAbonné) {
+      res.json(userIsAbonné);
+    } else {
+      user = await Annonceur.findById(req.params.userId).select(
+        "nomAnnonceur imageCouverture "
+      );
+      res.json(user);
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error get contacts");
+  }
+});
 
 /*********************************************************************** */
 /*****************************Admin route****************************** */
@@ -942,7 +963,9 @@ router.put("/Admin/editAdmin/:adminId", auth, async (req, res) => {
 //get list admin
 router.get("/Admin/getadmin", auth, async (req, res) => {
   try {
-    const admin = await Admin.find();
+    const admin = await Admin.find().sort({
+      inscriDate: -1,
+    });
     res.json(admin);
   } catch (err) {
     console.error(err.message);

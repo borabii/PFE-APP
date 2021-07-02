@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
 import { format } from "timeago.js";
-
 import axios from "axios";
 import SearchIcon from "@material-ui/icons/Search";
 import AuthContext from "../../../Context/auth/authContext";
@@ -9,13 +8,14 @@ import SendRoundedIcon from "@material-ui/icons/SendRounded";
 import Conversation from "../component/Conversation";
 import SentimentSatisfiedRoundedIcon from "@material-ui/icons/SentimentSatisfiedRounded";
 function BoiteMsg() {
-  const [currentChat, setCurrentChat] = useState(null);
   const authContext = useContext(AuthContext);
-  const { user, isAuthenticated } = authContext;
+  const { user, isAuthenticated, annonceur } = authContext;
   const [conversations, setConversations] = useState([]);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [currentChat, setCurrentChat] = useState(null);
   const [arrivalMessage, setArrivalMessage] = useState(null);
+  const [reciver, setReciver] = useState(null);
   const socket = useRef();
   const scrollRef = useRef();
   useEffect(() => {
@@ -34,22 +34,28 @@ function BoiteMsg() {
       //   currentChat?.members.includes(arrivalMessage.sender) &&
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage]);
-  console.log(messages);
   //
   useEffect(() => {
     socket.current.emit("addUser", user._id);
     socket.current.on("getUsers", (users) => {
-      // console.log(users);
+      console.log(users);
     });
   }, [user]);
 
   //getConversation message
   useEffect(() => {
     const getMessages = async () => {
+      const reciverId =
+        currentChat !== null &&
+        currentChat?.members.filter((item) => item !== user._id);
       try {
-        const res = await axios.get(
-          `http://localhost:8000/api/Messages/getMsg/${currentChat?._id}`
-        );
+        const res = await axios
+          .get(`http://localhost:8000/api/Messages/getMsg/${currentChat?._id}`)
+          .then(
+            axios
+              .get(`http://localhost:8000/api/users/getUserData/${reciverId}`)
+              .then((res) => setReciver(res.data))
+          );
         setMessages(res.data);
       } catch (err) {
         console.log(err);
@@ -82,21 +88,23 @@ function BoiteMsg() {
       );
       setMessages([...messages, res.data]);
       setNewMessage("");
+      getConversations();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const getConversations = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:8000/api/Conversations/getUserConversation"
+      );
+      setConversations(res.data);
+      setCurrentChat(res.data[0]);
     } catch (err) {
       console.log(err);
     }
   };
   useEffect(() => {
-    const getConversations = async () => {
-      try {
-        const res = await axios.get(
-          "http://localhost:8000/api/Conversations/getUserConversation"
-        );
-        setConversations(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
     getConversations();
   }, []);
   //used to scroll down when new message comming
@@ -111,10 +119,10 @@ function BoiteMsg() {
           <div className="conversationTop">
             <img
               className="user-img"
-              src="https://scontent.ftun10-1.fna.fbcdn.net/v/t1.6435-1/p160x160/48393248_833225713675825_7128205995372707840_n.jpg?_nc_cat=100&ccb=1-3&_nc_sid=7206a8&_nc_ohc=4Vy6up_Qz2YAX9qWi-3&_nc_ht=scontent.ftun10-1.fna&tp=6&oh=502ce154be7887c45c1c1737c5763562&oe=60D95B68"
+              src={`http://localhost:8000/${user.imageProfile}`}
               alt=""
             />
-            <h2>wissal Messadi</h2>
+            <h2>{user.firstName + " " + user.lastName}</h2>
             <div className="recherche">
               <form id="form-2">
                 <input
@@ -147,10 +155,12 @@ function BoiteMsg() {
             <>
               <div className="convTop">
                 <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY40QtcjUzBkMDu9Mv0wQp0w26nhhVaUbasw&usqp=CAU"
+                  src={`http://localhost:8000/${
+                    reciver?.imageProfile || reciver?.imageCouverture
+                  }`}
                   alt=""
                 />
-                <p>Sarra</p>
+                <p>{reciver?.firstName || reciver?.nomAnnonceur}</p>
               </div>
 
               <div className="convMidle">

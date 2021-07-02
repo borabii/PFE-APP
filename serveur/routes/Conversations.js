@@ -5,19 +5,20 @@ const auth = require("../middleware/auth");
 
 router.post("/NewConv/:userId", auth, async (req, res) => {
   const newConversation = new Conversation({
-    members: [req.body.senderId, req.body.receiverId],
+    members: [req.user.id, req.params.userId],
   });
   // const savedConversation = [];
   try {
-    const conversation = await Conversation.findOne({
-      members: { $all: [req.params.userId, req.user.id] },
-    });
-    if (conversation) {
-      res.status(200).json(true);
-    }
-    if (conversation === null) {
-      newConversation.save().then(res.status(200).json("true"));
-    }
+    // const conversation = await Conversation.findOne({
+    //   members: { $all: [req.params.userId, req.user.id] },
+    // });
+    // if (conversation) {
+    //   res.status(200).json(true);
+    // }
+    // if (conversation === null) {
+    //   newConversation.save().then(res.status(200).json("true"));
+    // }
+    newConversation.save().then(res.status(200).json("true"));
   } catch (err) {
     res.status(500).json(err);
   }
@@ -28,7 +29,7 @@ router.get("/getUserConversation", auth, async (req, res) => {
   try {
     const conversation = await Conversation.find({
       members: { $in: [req.user.id] },
-    });
+    }).sort({ updatedAt: -1 });
     res.status(200).json(conversation);
   } catch (err) {
     res.status(500).json(err);
