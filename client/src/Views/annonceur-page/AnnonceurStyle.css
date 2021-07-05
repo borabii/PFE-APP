@@ -113,6 +113,9 @@
   padding-left: 10;
   padding-right: 20;
 }
+#annonceur-score {
+  text-align: center;
+}
 /************************************/
 /**Annonceur visited profile style**/
 /**********************************/
@@ -492,7 +495,9 @@
   #annonceur-score > h3 {
     font-size: 20px;
   }
-
+  #annonceur-score {
+    text-align: center;
+  }
   .addEvent-btn {
     font-size: 15px;
     width: 150px;

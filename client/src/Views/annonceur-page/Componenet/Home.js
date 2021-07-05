@@ -21,6 +21,9 @@ import EditAnnoncePopUp from "./EditAnnoncePopUp";
 import ManagePubModalShow from "../../abonnée-pages/component/ManagePubModalShow";
 import DetailAnnoncePopUp from "../../admin-pages/component/DetailAnnonceAdminPopUp";
 import BlockedUser from "../../error-page/BlockedUser";
+import { Rating } from "@material-ui/lab";
+import StarBorderIcon from "@material-ui/icons/StarBorder";
+
 function AnnonceurVisitedProfile() {
   //app level state
   //Publication context
@@ -193,11 +196,25 @@ function AnnonceurVisitedProfile() {
                 <div className="annonceurProfile-rank">
                   <div id="user-avis">
                     <h3>Avis</h3>
-                    <p>2.3 etoile</p>
+                    <p>
+                      <Rating
+                        name="customized-empty"
+                        size="large"
+                        value={
+                          annonceur?.userAvis.reduce(
+                            (accum, item) => accum + item.avis,
+                            0
+                          ) / annonceur?.userAvis.length
+                        }
+                        emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                        precision={0.5}
+                        readOnly
+                      />
+                    </p>
                   </div>
                   <div id="annonceur-score">
                     <h3>Abonnés</h3>
-                    <p>350</p>
+                    <p>{annonceur.followers.length}</p>
                   </div>
                 </div>
               </div>

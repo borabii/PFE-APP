@@ -59,6 +59,12 @@ function Home() {
     }
     getNotif();
   }, [user]);
+  console.log(moment.utc().local().format("HH:mm"));
+  console.log(
+    moment.utc("2021-07-05T01:00:00.000+00:00").format("HH:mm") <
+      moment.utc().local().format("HH:mm")
+  );
+
   useEffect(() => {
     if (pubs) {
       setTodayPubs(
@@ -97,7 +103,7 @@ function Home() {
         className="addActivity-btn"
         onClick={() => SetShowAddActivityPopUp(true)}
       >
-        <p id="addAct-text">Publier Activité</p>
+        <p id="addAct-text">Publier Activité{pubs?.length}</p>
       </button>
       <div id="addbtn-small">
         <button

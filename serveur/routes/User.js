@@ -370,7 +370,7 @@ router.post("/ratingAnnonceur/:annonceurId", auth, async (req, res) => {
         // Save
         annonceur.save().then((annonceur) =>
           res.json({
-            msg: `Vous avez évaluez ${annonceur.firstName} avec succés`,
+            msg: `Vous avez évaluez ${annonceur.nomAnnonceur} avec succés`,
           })
         );
       }
@@ -541,6 +541,19 @@ router.delete("/unfollowAnnonceur/:annonceurId", auth, async (req, res) => {
     console.log(err);
   }
 });
+//load annonceur data from user(abonné) id
+router.get("/getAnnonceurProfileData", auth, async (req, res) => {
+  try {
+    const annonceur = await Annonceur.findOne({ abonnéId: req.user.id }).select(
+      "nomAnnonceur imageCouverture"
+    );
+    res.send(annonceur);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error ");
+  }
+});
+
 /************************************************************************** */
 /*****************************Anonnceur route*******************************/
 /************************************************************************ */
@@ -549,6 +562,7 @@ router.delete("/unfollowAnnonceur/:annonceurId", auth, async (req, res) => {
 router.get("/getAnnonceurData", auth, async (req, res) => {
   try {
     const annonceur = await Annonceur.findOne({ abonnéId: req.user.id });
+
     res.send(annonceur);
   } catch (err) {
     console.error(err.message);

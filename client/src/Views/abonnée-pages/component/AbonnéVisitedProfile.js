@@ -74,6 +74,15 @@ function AbonnéVisitedProfile(props) {
       ClearResponseMessage();
     };
   }, [responseMessage]);
+
+  const openChat = async () => {
+    const res = await axios.post(
+      `http://localhost:8000/api/Conversations/NewConv/${props.match.params.id}`
+    );
+    if (res.data) {
+      history.push(`/AbonnéHomePage/BoiteMsg`);
+    }
+  };
   return (
     <div className="abonnéVisitedProfile">
       {" "}
@@ -125,7 +134,7 @@ function AbonnéVisitedProfile(props) {
               </div>
               <div className="userProfile-action">
                 <div id="user-sendMessage">
-                  <a onClick={() => history.push(`/AbonnéHomePage/BoiteMsg`)}>
+                  <a onClick={() => openChat()}>
                     <ChatBubbleOutlineIcon id="user-chatIcon" />
                     Envoyer un Message
                   </a>

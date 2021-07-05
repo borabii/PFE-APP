@@ -31,9 +31,15 @@ function UserPubParticipated() {
   const handleDetailClick = (e, item) => {
     setEventClicked(item);
     setEditEventModalShow(true);
-    axios
-      .get(`http://localhost:8000/api/users/Admin/getDemandeur/${item.user}`)
-      .then((res) => setPubOrganisateur(res.data));
+
+    if (item.typePub == "Activity") {
+      axios
+        .get(`http://localhost:8000/api/users/Admin/getDemandeur/${item.user}`)
+        .then((res) => setPubOrganisateur(res.data));
+    } else
+      axios
+        .get(`http://localhost:8000/api/users/Admin/getAnnonceur/${item.user}`)
+        .then((res) => setPubOrganisateur(res.data));
   };
 
   useEffect(() => {

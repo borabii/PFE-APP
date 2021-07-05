@@ -200,8 +200,9 @@ const UserState = (props) => {
       );
       dispatch({
         type: RATE_USER,
-        payload: response.data,
+        payload: response,
       });
+      loadUserProfileInfo(userId);
     } catch (err) {
       console.log(err);
     }

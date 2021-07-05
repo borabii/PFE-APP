@@ -9,16 +9,14 @@ router.post("/NewConv/:userId", auth, async (req, res) => {
   });
   // const savedConversation = [];
   try {
-    // const conversation = await Conversation.findOne({
-    //   members: { $all: [req.params.userId, req.user.id] },
-    // });
-    // if (conversation) {
-    //   res.status(200).json(true);
-    // }
-    // if (conversation === null) {
-    //   newConversation.save().then(res.status(200).json("true"));
-    // }
-    newConversation.save().then(res.status(200).json("true"));
+    const conversation = await Conversation.findOne({
+      members: { $all: [req.params.userId, req.user.id] },
+    });
+    if (conversation) {
+      res.status(200).json(true);
+    } else {
+      newConversation.save().then(res.status(200).json(true));
+    }
   } catch (err) {
     res.status(500).json(err);
   }

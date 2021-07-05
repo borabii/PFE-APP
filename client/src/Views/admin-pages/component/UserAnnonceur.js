@@ -163,7 +163,9 @@ class UserAnnonceur extends React.Component {
                             <Switch
                               height={25}
                               width={45}
-                              onChange={(e) => this.changeStatusAbonné(e, data)}
+                              onChange={(e) =>
+                                this.changeStatusAnnonceur(e, data)
+                              }
                               checked={data.status}
                             />
                           </div>

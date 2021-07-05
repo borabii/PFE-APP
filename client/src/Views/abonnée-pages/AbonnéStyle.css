@@ -1781,7 +1781,7 @@ input[type="file"] {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  border: 2px solid #ef8b25;
+  border: 2px solid #3aceb9;
   margin: 5px;
 }
 
@@ -1913,6 +1913,49 @@ input[type="file"] {
   margin: 5px;
   color: #3aceb9;
   cursor: pointer;
+}
+
+/*************************************/
+/***switch chat btn******************/
+/***********************************/
+.switchbChatBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin-bottom: 20px; */
+  margin-top: 10px;
+}
+.ChatBtn-switchComponent {
+  width: fit-content;
+  border-radius: 10px;
+  border: 2px solid #a09d9d;
+}
+.ChatBtn-switchComponent > #switchChat-btnleft {
+  border-radius: 8px 0px 0px 8px;
+  outline: none;
+  border: none;
+  border-right: 1px solid black;
+  width: 110px;
+  height: 30px;
+  background-color: transparent;
+  transition: all 1s ease;
+}
+#disableLinkStyle {
+  font-size: 20px;
+  letter-spacing: 0.02rem;
+  font-weight: 500;
+  color: #040941;
+  text-decoration: none;
+}
+.ChatBtn-switchComponent > #switchChat-btnrigth {
+  border-radius: 0px 8px 8px 0px;
+  width: 110px;
+  height: 30px;
+  outline: none;
+  border: none;
+  background-color: transparent;
+
+  transition: all 1s ease;
 }
 
 /*******************************************************/

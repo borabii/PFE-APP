@@ -13,6 +13,8 @@ import StarBorderIcon from "@material-ui/icons/StarBorder";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import AnnonceCard from "./AnnonceCard";
+import history from "../../../utilis/history";
+
 function AnnonceurVisitedProfile(props) {
   const breakPoints = [
     { width: 1, itemsToShow: 1, showArrows: true },
@@ -63,6 +65,14 @@ function AnnonceurVisitedProfile(props) {
       ClearResponseMessage();
     };
   }, [responseMessage]);
+  const openChat = async () => {
+    const res = await axios.post(
+      `http://localhost:8000/api/Conversations/NewConv/${props.match.params.id}`
+    );
+    if (res.data) {
+      history.push(`/AbonnéHomePage/BoiteMsg`);
+    }
+  };
   return (
     <div className="annonceurVisitedProfile">
       {visitedProfileInfo !== null && !loading ? (
@@ -108,7 +118,7 @@ function AnnonceurVisitedProfile(props) {
               </div>
               <div className="userProfile-action">
                 <div id="user-sendMessage">
-                  <a>
+                  <a onClick={() => openChat()}>
                     <ChatBubbleOutlineIcon id="user-chatIcon" />
                     Envoyer un Message
                   </a>

@@ -13,6 +13,7 @@ import AssistantPhotoIcon from "@material-ui/icons/AssistantPhoto";
 import Badge from "@material-ui/core/Badge";
 //compoenet
 import NotificationDropDown from "./NotificationDropDown";
+import PubDetailPopUp from "../component/PubDetailPopup";
 
 //routing
 import history from "../../../utilis/history";
@@ -22,6 +23,8 @@ import PubContext from "../../../Context/Publication/pubContext";
 import NotifContext from "../../../Context/notification/notifContext";
 import AuthContext from "../../../Context/auth/authContext";
 import Logo from "../../image/Logo.png";
+import axios from "axios";
+import moment from "moment";
 //this custom hook is used for detecting user mouse click out side searsh result
 let useClickOutside = (ref, onClickOutside) => {
   useEffect(() => {
@@ -58,7 +61,9 @@ function AboHeader() {
   //(Componenet level State)
   //this state for handeling selected search option
   const [searchOption, setSearchOption] = useState("annonce");
-
+  //
+  const [searshString, setSearshString] = useState("");
+  const [data, setData] = useState([]);
   //this state for hide/show search result Dropdown when clicking on the searsh input bar
   const [showSearchResultDropdown, setShowSearchResultDropdown] =
     useState(false);
@@ -68,7 +73,28 @@ function AboHeader() {
 
   //this state for hide/show notification  Dropdown when clicking on the notif icon
   const [showNotifDopDown, setShowNotifDopDown] = useState(false);
+  //
+  const [showPubDetail, setShowPubDetail] = useState(false);
+  //
+  const [eventClicked, setEventClicked] = useState({});
+  //
+  const [pubOrganisateur, setPubOrganisateur] = useState({});
+  //
+  const [adresse, setadresse] = useState("");
 
+  //this methode used for handel user click in which searsh card
+  const handleDetailClick = (e, item) => {
+    setEventClicked(item);
+    setShowPubDetail(true);
+    if (item.typePub == "Activity") {
+      axios
+        .get(`http://localhost:8000/api/users/Admin/getDemandeur/${item.user}`)
+        .then((res) => setPubOrganisateur(res.data));
+    } else
+      axios
+        .get(`http://localhost:8000/api/users/Admin/getAnnonceur/${item.user}`)
+        .then((res) => setPubOrganisateur(res.data));
+  };
   //app level state
   //auth context
   const authContext = useContext(AuthContext);
@@ -88,29 +114,26 @@ function AboHeader() {
     clearNotification();
     history.push("/");
   };
-  const data = [
-    {
-      addresse: "houmt souk,djerba",
-      catégorie: "Foot",
-      date: "2015-06-18 à 13:30",
-    },
-    {
-      addresse: "sfax",
-      catégorie: "Foot",
-      date: "2015-06-18 à 15:25",
-    },
-    {
-      addresse: "menzah6,Ariana",
-      catégorie: "Foot",
-      date: "2015-06-18 à 14:00",
-    },
-    {
-      addresse: "nabeul,Nabeul",
-      catégorie: "Foot",
-      date: "2015-06-18 à 16:15",
-    },
-  ];
 
+  const handelSearshChange = (e) => {
+    setData(
+      pubContext.pubs.filter((cls) =>
+        cls.categorie.toUpperCase().includes(e.target.value.toUpperCase())
+      )
+    );
+  };
+  const getGeoLocation = (geoCord) => {
+    let address = "";
+    axios
+      .get(
+        `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${geoCord.coordinates[0]}&longitude=${geoCord.coordinates[1]}&localityLanguage=fr`
+      )
+      .then(
+        (data) =>
+          (address = data.data.locality + " " + data.data.principalSubdivision)
+      );
+    return address;
+  };
   return (
     <Navbar collapseOnSelect expand="lg" className="abonné-Header" fixed="top">
       <div>
@@ -148,6 +171,7 @@ function AboHeader() {
                   (showSearchResultDropdown) => !showSearchResultDropdown
                 )
               }
+              onChange={handelSearshChange}
             />
             <div className="aboHeader-searshIcon">
               <SearchIcon id="searshIcon" />
@@ -158,18 +182,38 @@ function AboHeader() {
               style={{ display: showSearchResultDropdown ? "block" : "none" }}
             >
               <div className="searsh-dropdown">
-                {data.map((item, key) => (
-                  <div className="resulatContainer">
-                    <div className="resulatContainer-left">
-                      {item.catégorie}
-                      <p>
-                        <LocationOnIcon id="resAddressIcon" />
-                        {item.addresse}
-                      </p>
-                    </div>
-                    <div className="resulatContainer-rigth">{item.date}</div>
-                  </div>
-                ))}
+                {data.length > 0 ? (
+                  data.map((item, key) => {
+                    return (
+                      <div
+                        className="resulatContainer"
+                        onClick={(e) => handleDetailClick(e, item)}
+                      >
+                        <div className="resulatContainer-left">
+                          {item.catégorie}
+                          <p>
+                            <LocationOnIcon id="resAddressIcon" />
+                            {getGeoLocation(item.adresse)}
+                          </p>
+                        </div>
+                        <div className="resulatContainer-rigth">
+                          {moment(item.date_DebutPub).format("YYYY-MM-DD") +
+                            " à " +
+                            moment(item.date_DebutPub).format("HH:mm")}
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <p>Aucune publication trouvé</p>
+                )}
+                <PubDetailPopUp
+                  show={showPubDetail}
+                  data={eventClicked}
+                  user={pubOrganisateur}
+                  onHide={() => setShowPubDetail(false)}
+                  participate={true}
+                />
               </div>
             </div>
           </div>

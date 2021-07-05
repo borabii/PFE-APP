@@ -90,9 +90,9 @@ function PubDetailPopUp(props) {
             >
               <img
                 src={`http://localhost:8000/${
-                  props.user.imageProfile
-                    ? props.user.imageProfile
-                    : props.user.imageCouverture
+                  props.user?.imageProfile
+                    ? props.user?.imageProfile
+                    : props.user?.imageCouverture
                 }`}
                 alt=""
               />
@@ -100,8 +100,8 @@ function PubDetailPopUp(props) {
                 <dl>
                   <dd>
                     {props.data.typePub === "Activity"
-                      ? props.user.firstName + " " + props.user.lastName
-                      : props.user.nomAnnonceur}
+                      ? props.user?.firstName + " " + props.user?.lastName
+                      : props.user?.nomAnnonceur}
                   </dd>
                   <dd>
                     <LocationOnIcon id="icon-loc" />
@@ -110,8 +110,8 @@ function PubDetailPopUp(props) {
                   <dd>
                     {" "}
                     {props.data.typePub === "Activity"
-                      ? props.user.email
-                      : props.user.emailProAnnonceur}
+                      ? props.user?.email
+                      : props.user?.emailProAnnonceur}
                   </dd>
                 </dl>
               </div>

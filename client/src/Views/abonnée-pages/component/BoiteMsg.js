@@ -7,17 +7,43 @@ import { io } from "socket.io-client";
 import SendRoundedIcon from "@material-ui/icons/SendRounded";
 import Conversation from "../component/Conversation";
 import SentimentSatisfiedRoundedIcon from "@material-ui/icons/SentimentSatisfiedRounded";
+import { Link, Route, Switch, useRouteMatch } from "react-router-dom";
+import AnnonceurConversation from "./AnnonceurConversation";
+import AbonnéConversation from "../AbonnéConversation";
+import UserContext from "../../../Context/user/userContext";
 function BoiteMsg() {
   const authContext = useContext(AuthContext);
-  const { user, isAuthenticated, annonceur } = authContext;
+  const { user, isAuthenticated } = authContext;
+  // const userContext = useContext(UserContext);
+  // const { currentChat, loading } = userContext;
+
   const [conversations, setConversations] = useState([]);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [currentChat, setCurrentChat] = useState(null);
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const [reciver, setReciver] = useState(null);
+  const [organizedPubShow, setOrganizedPubShow] = useState(true);
+  const [participatedPubShow, setParticipatedPubShow] = useState(false);
+  const [annonceurData, setAnnonceurData] = useState({});
   const socket = useRef();
   const scrollRef = useRef();
+  const leftBtnHandler = async () => {
+    try {
+      await axios
+        .get(`http://localhost:8000/api/users/getAnnonceurProfileData`)
+        .then((res) => setAnnonceurData(res.data));
+      setOrganizedPubShow(false);
+      setParticipatedPubShow(true);
+    } catch (err) {}
+
+    // getConversations("60ae8c0e1f23df2dc03a10e6")
+  };
+  const rigthBtnHandler = () => {
+    setParticipatedPubShow(false);
+    setOrganizedPubShow(true);
+    // getConversations(user._id);
+  };
   useEffect(() => {
     socket.current = io("ws://localhost:8900");
     socket.current.on("getMessage", (data) => {
