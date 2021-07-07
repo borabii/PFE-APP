@@ -23,10 +23,10 @@ router.post("/NewConv/:userId", auth, async (req, res) => {
 });
 
 //get  users in conv
-router.get("/getUserConversation", auth, async (req, res) => {
+router.get("/getUserConversation/:userId", auth, async (req, res) => {
   try {
     const conversation = await Conversation.find({
-      members: { $in: [req.user.id] },
+      members: { $in: [req.params.userId] },
     }).sort({ updatedAt: -1 });
     res.status(200).json(conversation);
   } catch (err) {

@@ -23,8 +23,13 @@ import DetailAnnoncePopUp from "../../admin-pages/component/DetailAnnonceAdminPo
 import BlockedUser from "../../error-page/BlockedUser";
 import { Rating } from "@material-ui/lab";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
+import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
+import { Link, useRouteMatch } from "react-router-dom";
+import history from "../../../utilis/history";
 
 function AnnonceurVisitedProfile() {
+  const { url } = useRouteMatch();
+
   //app level state
   //Publication context
   const pubContext = useContext(PubContext);
@@ -188,6 +193,17 @@ function AnnonceurVisitedProfile() {
                         onClick={() => setEditInfoModalShow(true)}
                       />
                     </div>
+                  </div>
+                  <div
+                    id="HoraireTime"
+                    onClick={() =>
+                      history.push("/AbonnéHomePage/AnnonceurBoiteMsg")
+                    }
+                  >
+                    {/* <Link to={`${url}/AnnonceurBoiteMsg`}> */}
+                    <ChatBubbleOutlineIcon id="editInfoIcon" />
+                    <h4> Chat</h4>
+                    {/* </Link> */}
                   </div>
                 </div>
               </div>

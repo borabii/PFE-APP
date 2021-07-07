@@ -7,10 +7,7 @@ import { io } from "socket.io-client";
 import SendRoundedIcon from "@material-ui/icons/SendRounded";
 import Conversation from "../component/Conversation";
 import SentimentSatisfiedRoundedIcon from "@material-ui/icons/SentimentSatisfiedRounded";
-import { Link, Route, Switch, useRouteMatch } from "react-router-dom";
-import AnnonceurConversation from "./AnnonceurConversation";
-import AbonnéConversation from "../AbonnéConversation";
-import UserContext from "../../../Context/user/userContext";
+
 function BoiteMsg() {
   const authContext = useContext(AuthContext);
   const { user, isAuthenticated } = authContext;
@@ -122,7 +119,7 @@ function BoiteMsg() {
   const getConversations = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:8000/api/Conversations/getUserConversation"
+        `http://localhost:8000/api/Conversations/getUserConversation/${user._id}`
       );
       setConversations(res.data);
       setCurrentChat(res.data[0]);
@@ -132,7 +129,7 @@ function BoiteMsg() {
   };
   useEffect(() => {
     getConversations();
-  }, []);
+  }, [user]);
   //used to scroll down when new message comming
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });

@@ -53,9 +53,7 @@ function PubDetailPopUp(props) {
                 <dt>Catégoris</dt>
                 <dd>{props.data.categorie}</dd>
                 <dt>Description</dt>
-                <dd id="description">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. *
-                </dd>
+                <dd id="description">{props.data.description}</dd>
                 <dt>Adresse</dt>
                 <dd>
                   <LocationOnIcon id="icon-loc" />
@@ -64,12 +62,12 @@ function PubDetailPopUp(props) {
                 <dt>HORAIRES </dt>
                 <dd>
                   {" "}
-                  {getDayName(props.data.date_DebutPub)}
+                  {getDayName(props.data.date_DebutPub) + " "}
                   {getDayName(props.data.date_FinPub) ===
                   getDayName(props.data.date_DebutPub)
                     ? ""
-                    : " jusqu'à " + getDayName(props.data.date_FinPub)}
-                  {props.data.heure_debutPub} a {props.data.heure_finPub}
+                    : " jusqu'à " + getDayName(props.data.date_FinPub) + " "}
+                  {props.data.heure_debutPub} à {props.data.heure_finPub}
                 </dd>
               </dl>
             </div>
@@ -80,12 +78,14 @@ function PubDetailPopUp(props) {
               className="organizateur__container"
               onClick={() =>
                 props.data.typePub === "Activity"
-                  ? history.push(
+                  ? (history.push(
                       `/AbonnéHomePage/AbonnéProfile/${props.data.user}`
-                    )
-                  : history.push(
+                    ),
+                    props.onHide())
+                  : (history.push(
                       `/AbonnéHomePage/AnnonceurProfile/${props.data.user}`
-                    )
+                    ),
+                    props.onHide())
               }
             >
               <img

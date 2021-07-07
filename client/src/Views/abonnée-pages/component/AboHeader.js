@@ -25,6 +25,8 @@ import AuthContext from "../../../Context/auth/authContext";
 import Logo from "../../image/Logo.png";
 import axios from "axios";
 import moment from "moment";
+import ViewAnnoncePopUp from "../../annonceur-page/Componenet/ViewAnnoncePopUp";
+
 //this custom hook is used for detecting user mouse click out side searsh result
 let useClickOutside = (ref, onClickOutside) => {
   useEffect(() => {
@@ -62,14 +64,16 @@ function AboHeader() {
   //this state for handeling selected search option
   const [searchOption, setSearchOption] = useState("annonce");
   //
-  const [searshString, setSearshString] = useState("");
   const [data, setData] = useState([]);
   //this state for hide/show search result Dropdown when clicking on the searsh input bar
   const [showSearchResultDropdown, setShowSearchResultDropdown] =
     useState(false);
+  //
 
   //this state for hide/show Profile Dropdown when clicking on user Image
   const [showProfilDopDown, setShowProfilDopDown] = useState(false);
+  //
+  const [modalShow, setModalShow] = useState(false);
 
   //this state for hide/show notification  Dropdown when clicking on the notif icon
   const [showNotifDopDown, setShowNotifDopDown] = useState(false);
@@ -80,21 +84,8 @@ function AboHeader() {
   //
   const [pubOrganisateur, setPubOrganisateur] = useState({});
   //
-  const [adresse, setadresse] = useState("");
+  const [address, setAdresse] = useState([]);
 
-  //this methode used for handel user click in which searsh card
-  const handleDetailClick = (e, item) => {
-    setEventClicked(item);
-    setShowPubDetail(true);
-    if (item.typePub == "Activity") {
-      axios
-        .get(`http://localhost:8000/api/users/Admin/getDemandeur/${item.user}`)
-        .then((res) => setPubOrganisateur(res.data));
-    } else
-      axios
-        .get(`http://localhost:8000/api/users/Admin/getAnnonceur/${item.user}`)
-        .then((res) => setPubOrganisateur(res.data));
-  };
   //app level state
   //auth context
   const authContext = useContext(AuthContext);
@@ -114,25 +105,67 @@ function AboHeader() {
     clearNotification();
     history.push("/");
   };
-
+  //searsh methode
   const handelSearshChange = (e) => {
-    setData(
-      pubContext.pubs.filter((cls) =>
-        cls.categorie.toUpperCase().includes(e.target.value.toUpperCase())
-      )
-    );
+    if (e.target.value !== "") {
+      if (searchOption.localeCompare("annonce") === 0) {
+        setData(
+          pubContext.pubs.filter(
+            (pub) =>
+              pub.typePub.localeCompare("Annonce") === 0 &&
+              pub.categorie.toUpperCase().includes(e.target.value.toUpperCase())
+          )
+        );
+      } else if (searchOption.localeCompare("evenement") === 0) {
+        setData(
+          pubContext.pubs.filter(
+            (pub) =>
+              pub.typePub.localeCompare("Event") === 0 &&
+              pub.categorie.toUpperCase().includes(e.target.value.toUpperCase())
+          )
+        );
+      } else {
+        setData(
+          pubContext.pubs.filter(
+            (pub) =>
+              pub.typePub.localeCompare("Activity") === 0 &&
+              pub.categorie.toUpperCase().includes(e.target.value.toUpperCase())
+          )
+        );
+      }
+    }
   };
-  const getGeoLocation = (geoCord) => {
-    let address = "";
+  useEffect(() => {
+    data.length > 0 &&
+      data.map((item, index) => {
+        axios
+          .get(
+            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${item.adresse.coordinates[0]}&longitude=${item.adresse.coordinates[1]}&localityLanguage=fr`
+          )
+          .then((res) => {
+            setAdresse([
+              ...address,
+              res.data.locality + " " + res.data.principalSubdivision,
+            ]);
+          });
+      });
+    // return () => {
+    //   cleanup
+    // }
+  }, [data]);
+  //this methode used for handel user click in which searsh card
+  const handleDetailClick = (e, item) => {
+    setEventClicked(item);
+    if (item.typePub == "Activity" || item.typePub == "Event") {
+      axios
+        .get(`http://localhost:8000/api/users/Admin/getDemandeur/${item.user}`)
+        .then((res) => setPubOrganisateur(res.data));
+
+      setShowPubDetail(true);
+    } else setModalShow(true);
     axios
-      .get(
-        `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${geoCord.coordinates[0]}&longitude=${geoCord.coordinates[1]}&localityLanguage=fr`
-      )
-      .then(
-        (data) =>
-          (address = data.data.locality + " " + data.data.principalSubdivision)
-      );
-    return address;
+      .get(`http://localhost:8000/api/users/Admin/getAnnonceur/${item.user}`)
+      .then((res) => setPubOrganisateur(res.data));
   };
   return (
     <Navbar collapseOnSelect expand="lg" className="abonné-Header" fixed="top">
@@ -182,7 +215,7 @@ function AboHeader() {
               style={{ display: showSearchResultDropdown ? "block" : "none" }}
             >
               <div className="searsh-dropdown">
-                {data.length > 0 ? (
+                {data.length > 0 && address ? (
                   data.map((item, key) => {
                     return (
                       <div
@@ -190,10 +223,10 @@ function AboHeader() {
                         onClick={(e) => handleDetailClick(e, item)}
                       >
                         <div className="resulatContainer-left">
-                          {item.catégorie}
+                          {item.categorie}
                           <p>
                             <LocationOnIcon id="resAddressIcon" />
-                            {getGeoLocation(item.adresse)}
+                            {address[key]}
                           </p>
                         </div>
                         <div className="resulatContainer-rigth">
@@ -213,6 +246,12 @@ function AboHeader() {
                   user={pubOrganisateur}
                   onHide={() => setShowPubDetail(false)}
                   participate={true}
+                />
+                <ViewAnnoncePopUp
+                  show={modalShow}
+                  data={eventClicked}
+                  user={pubOrganisateur}
+                  onHide={() => setModalShow(false)}
                 />
               </div>
             </div>
@@ -246,7 +285,7 @@ function AboHeader() {
                   </div>
                 </NavLink>
               </div>
-              <h4 id="btnChat-small-device">Boite Message</h4>
+              {/* <h4 id="btnChat-small-device">Boite Message</h4> */}
             </Nav.Link>
             <Nav.Link>
               <NavLink

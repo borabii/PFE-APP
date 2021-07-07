@@ -64,11 +64,12 @@ function ViewAnnoncePopUp(props) {
             <div
               className="pubDetailPopUp__organizateur"
               style={{ width: "90%", cursor: "pointer" }}
-              onClick={() =>
+              onClick={() => (
                 history.push(
                   `/AbonnéHomePage/AnnonceurProfile/${props.data.user}`
-                )
-              }
+                ),
+                props.onHide()
+              )}
             >
               <h3>ORGANISER PAR</h3>
               {props.user !== null && (

@@ -1,11 +1,7 @@
 import moment from "moment";
 const addPubsFormValidation = (values) => {
   let errorsMsg = {};
-  console.log(
-    moment(values.date_DebutPub).isSame(moment().format("YYYY-MM-DD")) &&
-      moment(values.date_DebutPub).isSame(values.date_FinPub) &&
-      moment(values.heure_debutPub, "HH:mm") < moment.utc().local()
-  );
+
   if (
     moment(
       moment(values.date_DebutPub + " " + values.heure_debutPub).format()

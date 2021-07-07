@@ -9,7 +9,6 @@ function ContactUs() {
       [event.target.name]: event.target.value,
     });
   };
-  console.log(message);
 
   const handelSubmit = (e) => {
     e.preventDefault();
@@ -30,7 +29,7 @@ function ContactUs() {
           </div>
           <div className="row">
             <div className="col  col-xs-2  col-sm-12 col-md-12 col-lg-9">
-              <form>
+              <form onClick={handelSubmit}>
                 <div className="form-group">
                   <input
                     type="text"
@@ -64,12 +63,7 @@ function ContactUs() {
                     required
                   />
                 </div>
-                <button
-                  onClick={handelSubmit}
-                  className="btn btn-custom btn-lg"
-                >
-                  Envoyer
-                </button>
+                <button className="btn btn-custom btn-lg">Envoyer</button>
               </form>
             </div>
           </div>

@@ -310,7 +310,7 @@ function AbonnéVisitedProfile(props) {
           <PubDetailPopUp
             show={detailPubModalShow}
             data={eventClicked}
-            participat={true}
+            participate={true}
             user={pubOrganisateur}
             onHide={() => setDetailPubModalShow(false)}
           />

@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import Select from "react-select";
+import addUserFormValidation from "../../../utilis/addUserFormValidation";
 
 function AddAdminPopUp(props) {
+  //state for handling error msg
+  const [errorsMsg, setErrorsMsg] = useState({});
   // option for react select
   const options = [
     { value: "Gestion d'utilisateur", label: "Gestion d'utlisateur" },
@@ -28,7 +31,7 @@ function AddAdminPopUp(props) {
       ...userForm,
       [event.target.name]: event.target.value,
     });
-    console.log(userForm);
+    setErrorsMsg(addUserFormValidation(userForm));
   };
   //handel select selected option
   const handelCatégorieChange = (selectedOption) => {
@@ -75,6 +78,8 @@ function AddAdminPopUp(props) {
               name="firstName"
               value={userForm.firstName}
             />
+            {errorsMsg && <p>{errorsMsg.firstName}</p>}
+
             <input
               type="text"
               placeholder=" Prénom"
@@ -82,6 +87,8 @@ function AddAdminPopUp(props) {
               name="lastName"
               value={userForm.lastName}
             />
+            {errorsMsg && <p>{errorsMsg.lastName}</p>}
+
             <input
               type="email"
               placeholder=" Email"
@@ -89,6 +96,8 @@ function AddAdminPopUp(props) {
               name="email"
               value={userForm.email}
             />
+            {errorsMsg && <p>{errorsMsg.email}</p>}
+
             <input
               type="date"
               placeholder="Date de naissance "
@@ -103,6 +112,8 @@ function AddAdminPopUp(props) {
               name="number"
               value={userForm.number}
             />
+            {errorsMsg && <p>{errorsMsg.number}</p>}
+
             <Select
               options={options}
               className="select"

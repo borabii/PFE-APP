@@ -13,6 +13,7 @@ import UserContext from "../../Context/user/userContext";
 import AbonnéActivités from "./component/AbonnéActivités";
 import AnnonceurVisitedProfile from "../annonceur-page/Componenet/AnnonceurVisitedProfile";
 import BoiteMsg from "./component/BoiteMsg";
+import AnnonceurBoiteMsg from "../annonceur-page/Componenet/AnnonceurBoiteMsg";
 function AbonnéHomePage() {
   const { path } = useRouteMatch();
   const authContext = useContext(AuthContext);
@@ -32,6 +33,10 @@ function AbonnéHomePage() {
       <Switch>
         <Route path={`${path}/Map`} exact component={Map} />
         <Route path={`${path}/BoiteMsg`} exact component={BoiteMsg} />
+        <Route
+          path={`${path}/AnnonceurBoiteMsg`}
+          component={AnnonceurBoiteMsg}
+        />
       </Switch>
 
       <Switch>
