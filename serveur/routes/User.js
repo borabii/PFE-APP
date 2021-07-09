@@ -553,6 +553,18 @@ router.get("/getAnnonceurProfileData", auth, async (req, res) => {
     res.status(500).send("Server Error ");
   }
 });
+//loaduser(abonné) last 2 rate
+router.get("/loadAbonneLastRate", auth, async (req, res) => {
+  try {
+    const rate = await Abonné.findById(req.user.id)
+      .select("userAvis")
+      .populate("userAvis.user", "firstName lastName imageProfile");
+    res.json(rate);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error ");
+  }
+});
 
 /************************************************************************** */
 /*****************************Anonnceur route*******************************/

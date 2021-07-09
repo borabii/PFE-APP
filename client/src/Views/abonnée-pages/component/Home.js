@@ -103,7 +103,7 @@ function Home() {
         className="addActivity-btn"
         onClick={() => SetShowAddActivityPopUp(true)}
       >
-        <p id="addAct-text">Publier Activité{pubs?.length}</p>
+        <p id="addAct-text">Publier Activité</p>
       </button>
       <div id="addbtn-small">
         <button

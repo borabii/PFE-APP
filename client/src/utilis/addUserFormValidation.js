@@ -15,8 +15,11 @@ const addUserFormValidation = (values) => {
   } else if (!values.email.match(emailRegxs)) {
     errorsMsg.email = "email invalides";
   }
-  if (values.number.length < 7 || !values.number.match(phoneRegxs)) {
-    errorsMsg.number = "nompre de tel invalide ";
+  //   if (values.number.length < 7 || !values.number.match(phoneRegxs)) {
+  //     errorsMsg.number = "numéro tel invalide ";
+  //   }
+  if (values.password?.length < 7) {
+    errorsMsg.password = "minimun 8 caractere ";
   }
   return errorsMsg;
 };

@@ -43,17 +43,19 @@ function AddAdminPopUp(props) {
   //run when user click on submit button
   const addAdmin = async (event) => {
     event.preventDefault();
-    axios.post("http://localhost:8000/api/users/Admin/addAdmin", userForm);
-    //clear form after submit
-    setUserForm({
-      firstName: "",
-      lastName: "",
-      dateOfBirth: "",
-      email: "",
-      password: "",
-      permission: "",
-    });
-    props.onHide();
+    if (Object.keys(errorsMsg).length <= 0) {
+      axios.post("http://localhost:8000/api/users/Admin/addAdmin", userForm);
+      //clear form after submit
+      setUserForm({
+        firstName: "",
+        lastName: "",
+        dateOfBirth: "",
+        email: "",
+        password: "",
+        permission: "",
+      });
+      props.onHide();
+    }
   };
 
   return (
@@ -128,6 +130,8 @@ function AddAdminPopUp(props) {
               onChange={handelChange}
               value={userForm.password}
             />
+            {errorsMsg && <p>{errorsMsg.password}</p>}
+
             <button className="btn" type="submit">
               Ajouter
             </button>

@@ -567,7 +567,11 @@ router.get("/Admin/getNumberAct/:userId", async (req, res) => {
 // get annonce and event number  posted by id of user  for admin
 router.get("/Admin/getAnnonceEventNumber/:userId", async (req, res) => {
   try {
-    const count = { nbrAnnoncedeannonceur: null, nbrEventdeannonceur: null };
+    const count = {
+      nbrAnnoncedeannonceur: null,
+      nbrEventdeannonceur: null,
+      totalRate: null,
+    };
     await Publication.countDocuments({
       typePub: "Annonce",
       user: req.params.userId,
@@ -580,6 +584,10 @@ router.get("/Admin/getAnnonceEventNumber/:userId", async (req, res) => {
     }).then((docCount) => {
       count.nbrEventdeannonceur = docCount;
     });
+    const profileInfo = await Annonceur.findById(req.params.userId);
+    count.totalRate =
+      profileInfo.userAvis.reduce((accum, item) => accum + item.avis, 0) /
+      profileInfo.userAvis.length;
     res.json(count);
   } catch (err) {
     console.error(err.message);

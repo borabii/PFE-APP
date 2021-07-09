@@ -12,6 +12,7 @@ function DetailAnnonceurPopUp(props) {
     imageCouverture,
     catégorieAnnonceur,
     aceptationDate,
+    followers,
   } = props.user;
   useEffect(() => {
     axios
@@ -79,11 +80,11 @@ function DetailAnnonceurPopUp(props) {
             <div className="detail__account">
               <div className="info-item">
                 <h6>Nombre Abonnés</h6>
-                <h6>354</h6>
+                <h6>{followers?.length}</h6>
               </div>
               <div className="info-item">
                 <h6> Avis</h6>
-                <h6>354</h6>
+                <h6>{nbrPubs.totalRate !== null ? nbrPubs.totalRate : "0"}</h6>
               </div>
 
               <div className="info-item">
