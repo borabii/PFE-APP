@@ -70,16 +70,20 @@ function Home() {
       setTodayPubs(
         pubs.filter(
           (item) =>
+            item.typePub !== "Annonce" &&
             moment(moment(item.date_DebutPub).format("YYYY-MM-DD")).isSame(
               moment().format("YYYY-MM-DD")
-            ) && moment(item.date_DebutPub, "HH:mm") > moment.utc().local()
+            ) &&
+            moment(item.date_DebutPub, "HH:mm") > moment.utc().local()
         )
       );
       setCommingPubs(
-        pubs.filter((item) =>
-          moment(moment(item.date_DebutPub).format("YYYY-MM-DD")).isAfter(
-            moment().format("YYYY-MM-DD")
-          )
+        pubs.filter(
+          (item) =>
+            item.typePub !== "Annonce" &&
+            moment(moment(item.date_DebutPub).format("YYYY-MM-DD")).isAfter(
+              moment().format("YYYY-MM-DD")
+            )
         )
       );
     }

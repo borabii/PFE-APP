@@ -14,6 +14,7 @@ class UserAbonné extends React.Component {
       detailReqModalShow: false,
       abonnés: [],
       checked: false,
+      data: [],
     };
   }
   //this method is used to store in abonné State which object is
@@ -87,7 +88,18 @@ class UserAbonné extends React.Component {
         this.setState({ abonnés: response.data });
       });
   }
+  //searsh methode
+  handelSearshChange = (e) => {
+    if (e.target.value !== "") {
+      this.setState({
+        data: this.state.abonnés.filter((abonné) =>
+          abonné.email.toUpperCase().includes(e.target.value.toUpperCase())
+        ),
+      });
+    } else this.setState({ data: [] });
 
+    console.log(this.state.data);
+  };
   render() {
     return (
       <div className="userAbonné">
@@ -104,7 +116,8 @@ class UserAbonné extends React.Component {
               <input
                 className="form-control mr-sm-2 "
                 type="search"
-                placeholder="Search"
+                placeholder="Chercher par email"
+                onChange={this.handelSearshChange}
               />
               <div className="icon">
                 <SearchIcon />
@@ -126,7 +139,76 @@ class UserAbonné extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.abonnés.map((data, index) => {
+                  {this.state.data.length > 0
+                    ? this.state.data.map((data, index) => {
+                        return (
+                          <tr>
+                            <td>{data._id}</td>
+                            <td>
+                              <p>{data.firstName}</p>
+                            </td>
+                            <td>{data.lastName}</td>
+                            <td>{data.email}</td>
+                            <td>{getDate(data.inscriDate)}</td>
+
+                            <td id="icone-action">
+                              <div onClick={() => this.selectedItem(index)}>
+                                <VisibilityIcon
+                                  onClick={() =>
+                                    this.setState({ detailReqModalShow: true })
+                                  }
+                                  id="dataTable-viewIcon"
+                                />
+                              </div>
+                              <div id="ff">
+                                <Switch
+                                  height={25}
+                                  width={45}
+                                  onChange={(e) =>
+                                    this.changeStatusAbonné(e, data)
+                                  }
+                                  checked={data.status}
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : this.state.abonnés.map((data, index) => {
+                        return (
+                          <tr>
+                            <td>{data._id}</td>
+                            <td>
+                              <p>{data.firstName}</p>
+                            </td>
+                            <td>{data.lastName}</td>
+                            <td>{data.email}</td>
+                            <td>{getDate(data.inscriDate)}</td>
+
+                            <td id="icone-action">
+                              <div onClick={() => this.selectedItem(index)}>
+                                <VisibilityIcon
+                                  onClick={() =>
+                                    this.setState({ detailReqModalShow: true })
+                                  }
+                                  id="dataTable-viewIcon"
+                                />
+                              </div>
+                              <div id="ff">
+                                <Switch
+                                  height={25}
+                                  width={45}
+                                  onChange={(e) =>
+                                    this.changeStatusAbonné(e, data)
+                                  }
+                                  checked={data.status}
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  {/* {this.state.abonnés.map((data, index) => {
                     return (
                       <tr>
                         <td>{data._id}</td>
@@ -157,7 +239,7 @@ class UserAbonné extends React.Component {
                         </td>
                       </tr>
                     );
-                  })}
+                  })} */}
                 </tbody>
               </table>
             </div>

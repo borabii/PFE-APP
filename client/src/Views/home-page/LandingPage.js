@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import BlockedUser from "../error-page/BlockedUser";
 import Header from "./components/Header";
 import Home from "./Home";
 import SignIn from "./SignIn";

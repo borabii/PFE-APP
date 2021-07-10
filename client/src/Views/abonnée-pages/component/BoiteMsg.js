@@ -20,27 +20,12 @@ function BoiteMsg() {
   const [currentChat, setCurrentChat] = useState(null);
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const [reciver, setReciver] = useState(null);
-  const [organizedPubShow, setOrganizedPubShow] = useState(true);
-  const [participatedPubShow, setParticipatedPubShow] = useState(false);
-  const [annonceurData, setAnnonceurData] = useState({});
+
+  const [data, setData] = useState([]);
+
   const socket = useRef();
   const scrollRef = useRef();
-  const leftBtnHandler = async () => {
-    try {
-      await axios
-        .get(`http://localhost:8000/api/users/getAnnonceurProfileData`)
-        .then((res) => setAnnonceurData(res.data));
-      setOrganizedPubShow(false);
-      setParticipatedPubShow(true);
-    } catch (err) {}
 
-    // getConversations("60ae8c0e1f23df2dc03a10e6")
-  };
-  const rigthBtnHandler = () => {
-    setParticipatedPubShow(false);
-    setOrganizedPubShow(true);
-    // getConversations(user._id);
-  };
   useEffect(() => {
     socket.current = io("ws://localhost:8900");
     socket.current.on("getMessage", (data) => {
@@ -151,7 +136,7 @@ function BoiteMsg() {
                 <input
                   className="form-control mr-sm-2 "
                   type="search"
-                  placeholder="Search"
+                  placeholder="Chercher"
                 />
                 <div className="icon">
                   <SearchIcon />

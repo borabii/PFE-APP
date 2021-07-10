@@ -14,6 +14,7 @@ class PublicationAnnonce extends React.Component {
       detailReqModalShow: false,
       annonces: [],
       detailuser: {},
+      data: [],
     };
   }
 
@@ -33,6 +34,7 @@ class PublicationAnnonce extends React.Component {
       .then((response) => {
         this.setState({ annonces: response.data });
       });
+    console.log(this.state.annonces);
   }
   //delet
   deletePub = (data) => {
@@ -62,6 +64,16 @@ class PublicationAnnonce extends React.Component {
       }
     });
   };
+  //searsh methode
+  handelSearshChange = (e) => {
+    if (e.target.value !== "") {
+      this.setState({
+        data: this.state.annonces.filter((annonce) =>
+          annonce.categorie.toUpperCase().includes(e.target.value.toUpperCase())
+        ),
+      });
+    } else this.setState({ data: [] });
+  };
 
   render() {
     return (
@@ -78,7 +90,8 @@ class PublicationAnnonce extends React.Component {
               <input
                 className="form-control mr-sm-2 "
                 type="search"
-                placeholder="Search"
+                placeholder="Chercher par nom catégorie"
+                onChange={this.handelSearshChange}
               />
               <div className="icon">
                 <SearchIcon />
@@ -99,12 +112,107 @@ class PublicationAnnonce extends React.Component {
                   </tr>
                 </thead>{" "}
                 <tbody>
-                  {this.state.annonces.map((data, index) => {
+                  {this.state.data.length > 0
+                    ? this.state.data.map((data, index) => {
+                        return (
+                          <tr key={index}>
+                            <td scope="row">{data._id}</td>
+                            <td>{data.categorie}</td>
+                            {/* <td>{data.adresse}</td> */}
+                            <td>ffffff </td>
+
+                            <td>{getDate(data.date_Pub)} </td>
+                            <td
+                              onClick={() => this.updateItem(index)}
+                              id="icone-action"
+                            >
+                              <div>
+                                <DetailAnnonceAdminPopUp
+                                  data={
+                                    this.state.annonce
+                                      ? this.state.annonce
+                                      : this.state.annonces
+                                  }
+                                  show={this.state.detailReqModalShow}
+                                  onHide={() =>
+                                    this.setState({ detailReqModalShow: false })
+                                  }
+                                  organisateur={
+                                    this.state.detailuser
+                                      ? this.state.detailuser
+                                      : {}
+                                  }
+                                />
+                                <VisibilityIcon
+                                  onClick={() =>
+                                    this.setState({ detailReqModalShow: true })
+                                  }
+                                  id="dataTable-viewIcon"
+                                />
+                              </div>
+                              <div id="ff">
+                                <DeleteIcon
+                                  onClick={() => this.deletePub(data)}
+                                  id="dataTable-delteIcon"
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : this.state.annonces.map((data, index) => {
+                        return (
+                          <tr key={index}>
+                            <td scope="row">{data._id}</td>
+                            <td>{data.categorie}</td>
+                            {/* <td>{data.adresse}</td> */}
+                            <td>ffffff </td>
+
+                            <td>{getDate(data.date_Pub)} </td>
+                            <td
+                              onClick={() => this.updateItem(index)}
+                              id="icone-action"
+                            >
+                              <div>
+                                <DetailAnnonceAdminPopUp
+                                  data={
+                                    this.state.annonce
+                                      ? this.state.annonce
+                                      : this.state.annonces
+                                  }
+                                  show={this.state.detailReqModalShow}
+                                  onHide={() =>
+                                    this.setState({ detailReqModalShow: false })
+                                  }
+                                  organisateur={
+                                    this.state.detailuser
+                                      ? this.state.detailuser
+                                      : {}
+                                  }
+                                />
+                                <VisibilityIcon
+                                  onClick={() =>
+                                    this.setState({ detailReqModalShow: true })
+                                  }
+                                  id="dataTable-viewIcon"
+                                />
+                              </div>
+                              <div id="ff">
+                                <DeleteIcon
+                                  onClick={() => this.deletePub(data)}
+                                  id="dataTable-delteIcon"
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  {/* {this.state.annonces.map((data, index) => {
                     return (
                       <tr key={index}>
                         <td scope="row">{data._id}</td>
                         <td>{data.categorie}</td>
-                        {/* <td>{data.adresse}</td> */}
+                        <td>{data.adresse}</td>
                         <td>ffffff </td>
 
                         <td>{getDate(data.date_Pub)} </td>
@@ -145,7 +253,7 @@ class PublicationAnnonce extends React.Component {
                         </td>
                       </tr>
                     );
-                  })}
+                  })} */}
                 </tbody>
               </table>
             </div>

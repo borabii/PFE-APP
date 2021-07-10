@@ -12,6 +12,7 @@ class DemandeManagment extends React.Component {
       detailReqModalShow: false,
       demandeurData: {},
       demandes: [],
+      data: [],
     };
   }
   //this method is used to store in demande State which object is
@@ -34,7 +35,18 @@ class DemandeManagment extends React.Component {
         this.setState({ demandes: response.data });
       });
   }
-
+  //searsh methode
+  handelSearshChange = (e) => {
+    if (e.target.value !== "") {
+      this.setState({
+        data: this.state.demandes.filter((demande) =>
+          demande.nomAnnonceur
+            .toUpperCase()
+            .includes(e.target.value.toUpperCase())
+        ),
+      });
+    } else this.setState({ data: [] });
+  };
   render() {
     return (
       <div className="demande">
@@ -51,7 +63,8 @@ class DemandeManagment extends React.Component {
               <input
                 className="form-control mr-sm-2 "
                 type="search"
-                placeholder="Search"
+                placeholder="Chercher par nom annonceur"
+                onChange={this.handelSearshChange}
               />
               <div className="icon">
                 <SearchIcon />
@@ -73,7 +86,56 @@ class DemandeManagment extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.demandes.map((data, index) => {
+                  {this.state.data.length > 0
+                    ? this.state.data.map((data, index) => {
+                        return (
+                          <tr key={index}>
+                            <td scope="row">{data._id}</td>
+                            <td>{data.nomAnnonceur}</td>
+                            <td>{data.demandeDate}</td>
+                            <td>{data.catégorieAnnonceur}</td>
+                            <td>{data.etatDemande}</td>
+                            <td
+                              onClick={() => this.selectdItem(index)}
+                              id="icone-action"
+                            >
+                              <div>
+                                <VisibilityIcon
+                                  onClick={() =>
+                                    this.setState({ detailReqModalShow: true })
+                                  }
+                                  id="dataTable-viewIcon"
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : this.state.demandes.map((data, index) => {
+                        return (
+                          <tr key={index}>
+                            <td scope="row">{data._id}</td>
+                            <td>{data.nomAnnonceur}</td>
+                            <td>{data.demandeDate}</td>
+                            <td>{data.catégorieAnnonceur}</td>
+                            <td>{data.etatDemande}</td>
+                            <td
+                              onClick={() => this.selectdItem(index)}
+                              id="icone-action"
+                            >
+                              <div>
+                                <VisibilityIcon
+                                  onClick={() =>
+                                    this.setState({ detailReqModalShow: true })
+                                  }
+                                  id="dataTable-viewIcon"
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  {/* {this.state.demandes.map((data, index) => {
                     return (
                       <tr key={index}>
                         <td scope="row">{data._id}</td>
@@ -96,7 +158,7 @@ class DemandeManagment extends React.Component {
                         </td>
                       </tr>
                     );
-                  })}
+                  })} */}
                 </tbody>
               </table>
             </div>

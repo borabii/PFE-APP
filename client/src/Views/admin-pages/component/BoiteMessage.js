@@ -11,6 +11,7 @@ class BoiteMessage extends React.Component {
       message: null,
       detailReqModalShow: false,
       messages: [],
+      data: [],
     };
   }
 
@@ -25,7 +26,16 @@ class BoiteMessage extends React.Component {
         this.setState({ messages: response.data });
       });
   }
-
+  //searsh methode
+  handelSearshChange = (e) => {
+    if (e.target.value !== "") {
+      this.setState({
+        data: this.state.messages.filter((message) =>
+          message.email.toUpperCase().includes(e.target.value.toUpperCase())
+        ),
+      });
+    } else this.setState({ data: [] });
+  };
   render() {
     return (
       <div className="boiteMessage">
@@ -42,7 +52,8 @@ class BoiteMessage extends React.Component {
               <input
                 className="form-control mr-sm-2 "
                 type="search"
-                placeholder="Search"
+                placeholder="Chercher par email "
+                onChange={this.handelSearshChange}
               />
               <div className="icon">
                 <SearchIcon />
@@ -63,7 +74,66 @@ class BoiteMessage extends React.Component {
                   </tr>
                 </thead>{" "}
                 <tbody>
-                  {this.state.messages.map((data, index) => {
+                  {this.state.data.length > 0
+                    ? this.state.data.map((data, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{data._id}</td>
+                            <td>{data.nom}</td>
+                            <td>{data.email}</td>
+                            <td>{getDate(data.DateEnvoie)} </td>
+                            <td onClick={() => this.updateItem(index)}>
+                              <DetailBoiteMessagePopUp
+                                message={
+                                  this.state.message
+                                    ? this.state.message
+                                    : this.state.messages
+                                }
+                                show={this.state.detailReqModalShow}
+                                onHide={() =>
+                                  this.setState({ detailReqModalShow: false })
+                                }
+                              />
+                              <VisibilityIcon
+                                onClick={() =>
+                                  this.setState({ detailReqModalShow: true })
+                                }
+                                id="dataTable-viewIcon"
+                              />
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : this.state.messages.map((data, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{data._id}</td>
+                            <td>{data.nom}</td>
+                            <td>{data.email}</td>
+                            <td>{getDate(data.DateEnvoie)} </td>
+                            <td onClick={() => this.updateItem(index)}>
+                              <DetailBoiteMessagePopUp
+                                message={
+                                  this.state.message
+                                    ? this.state.message
+                                    : this.state.messages
+                                }
+                                show={this.state.detailReqModalShow}
+                                onHide={() =>
+                                  this.setState({ detailReqModalShow: false })
+                                }
+                              />
+                              <VisibilityIcon
+                                onClick={() =>
+                                  this.setState({ detailReqModalShow: true })
+                                }
+                                id="dataTable-viewIcon"
+                              />
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  {/* {this.state.messages.map((data, index) => {
                     return (
                       <tr key={index}>
                         <td>{data._id}</td>
@@ -91,7 +161,7 @@ class BoiteMessage extends React.Component {
                         </td>
                       </tr>
                     );
-                  })}
+                  })} */}
                 </tbody>
               </table>
             </div>{" "}

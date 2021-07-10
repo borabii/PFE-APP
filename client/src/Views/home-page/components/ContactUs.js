@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./ContactUs.css";
 import axios from "axios";
+
 function ContactUs() {
   const [message, setMessage] = useState({});
   const handelChange = (event) => {
@@ -12,7 +13,9 @@ function ContactUs() {
 
   const handelSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:8000/api/Contact/ContactUs", message);
+    axios
+      .post("http://localhost:8000/api/Contact/ContactUs", message)
+      .then(setMessage({ nom: "", email: "", message: "" }));
   };
   return (
     <div>

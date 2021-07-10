@@ -17,6 +17,7 @@ class AdminManagment extends React.Component {
       editAdminModalShow: false,
       addAdminModalShow: false,
       admins: [],
+      data: [],
     };
   }
   //this method is used to store in admin State which object is
@@ -59,7 +60,18 @@ class AdminManagment extends React.Component {
         this.setState({ admins: response.data });
       });
   }
+  //searsh methode
+  handelSearshChange = (e) => {
+    if (e.target.value !== "") {
+      this.setState({
+        data: this.state.admins.filter((admin) =>
+          admin.email.toUpperCase().includes(e.target.value.toUpperCase())
+        ),
+      });
+    } else this.setState({ data: [] });
 
+    console.log(this.state.data);
+  };
   render() {
     return (
       <div className="adminManagment">
@@ -96,7 +108,8 @@ class AdminManagment extends React.Component {
               <input
                 className="form-control mr-sm-2"
                 type="search"
-                placeholder="Search"
+                placeholder="Chercher par email"
+                onChange={this.handelSearshChange}
               />
               <div className="icon">
                 <SearchIcon />
@@ -118,7 +131,76 @@ class AdminManagment extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.admins.map((data, index) => {
+                  {this.state.data.length > 0
+                    ? this.state.data.map((data, index) => {
+                        return (
+                          <tr>
+                            <td>{data._id}</td>
+                            <td>{data.firstName}</td>
+                            <td>{data.lastName}</td>
+                            <td>{data.email}</td>
+                            <td>
+                              {moment(data.inscriDate).format("YYYY-MM-DD")}
+                            </td>
+                            <td>{data.permission}</td>
+
+                            <td id="icone-action">
+                              <div
+                                id="ff"
+                                onClick={() => this.selectedItem(index)}
+                              >
+                                <EditIcon
+                                  onClick={() =>
+                                    this.setState({ editAdminModalShow: true })
+                                  }
+                                  id="dataTable-viewIcon"
+                                />
+                              </div>
+                              <div>
+                                <DeleteIcon
+                                  onClick={() => this.deleteAdmin(data)}
+                                  id="dataTable-delteIcon"
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : this.state.admins.map((data, index) => {
+                        return (
+                          <tr>
+                            <td>{data._id}</td>
+                            <td>{data.firstName}</td>
+                            <td>{data.lastName}</td>
+                            <td>{data.email}</td>
+                            <td>
+                              {moment(data.inscriDate).format("YYYY-MM-DD")}
+                            </td>
+                            <td>{data.permission}</td>
+
+                            <td id="icone-action">
+                              <div
+                                id="ff"
+                                onClick={() => this.selectedItem(index)}
+                              >
+                                <EditIcon
+                                  onClick={() =>
+                                    this.setState({ editAdminModalShow: true })
+                                  }
+                                  id="dataTable-viewIcon"
+                                />
+                              </div>
+                              <div>
+                                <DeleteIcon
+                                  onClick={() => this.deleteAdmin(data)}
+                                  id="dataTable-delteIcon"
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  {/* {this.state.admins.map((data, index) => {
                     return (
                       <tr>
                         <td>{data._id}</td>
@@ -146,7 +228,7 @@ class AdminManagment extends React.Component {
                         </td>
                       </tr>
                     );
-                  })}
+                  })} */}
                 </tbody>
               </table>
             </div>

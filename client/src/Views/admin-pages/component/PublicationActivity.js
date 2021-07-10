@@ -14,6 +14,7 @@ class PublicationActivity extends React.Component {
       detailReqModalShow: false,
       activités: [],
       detailuser: {},
+      data: [],
     };
   }
   //
@@ -62,6 +63,20 @@ class PublicationActivity extends React.Component {
       }
     });
   };
+  //searsh methode
+  handelSearshChange = (e) => {
+    if (e.target.value !== "") {
+      this.setState({
+        data: this.state.activités.filter((activité) =>
+          activité.categorie
+            .toUpperCase()
+            .includes(e.target.value.toUpperCase())
+        ),
+      });
+    } else this.setState({ data: [] });
+
+    console.log(this.state.data);
+  };
 
   render() {
     return (
@@ -78,7 +93,8 @@ class PublicationActivity extends React.Component {
               <input
                 className="form-control mr-sm-2 "
                 type="search"
-                placeholder="Search"
+                placeholder="Chercher par nom catégorie"
+                onChange={this.handelSearshChange}
               />
               <div className="icon">
                 <SearchIcon />
@@ -100,7 +116,94 @@ class PublicationActivity extends React.Component {
                   </tr>
                 </thead>{" "}
                 <tbody>
-                  {this.state.activités.map((data, index) => {
+                  {this.state.data.length > 0
+                    ? this.state.data.map((data, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{data._id}</td>
+                            <td>{data.categorie}</td>
+
+                            <td>{getDate(data.date_Pub)} </td>
+                            <td>{data.participants.length} </td>
+
+                            <td
+                              onClick={() => this.updateItem(index)}
+                              id="icone-action"
+                            >
+                              <div>
+                                <DetailActivityPopUp
+                                  user={
+                                    this.state.activité
+                                      ? this.state.activité
+                                      : this.state.activités
+                                  }
+                                  show={this.state.detailReqModalShow}
+                                  onHide={() =>
+                                    this.setState({ detailReqModalShow: false })
+                                  }
+                                  organisateur={this.state.detailuser}
+                                />
+                                <VisibilityIcon
+                                  onClick={() =>
+                                    this.setState({ detailReqModalShow: true })
+                                  }
+                                  id="dataTable-viewIcon"
+                                />
+                              </div>
+                              <div id="ff">
+                                <DeleteIcon
+                                  onClick={() => this.deletePub(data)}
+                                  id="dataTable-delteIcon"
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : this.state.activités.map((data, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{data._id}</td>
+                            <td>{data.categorie}</td>
+
+                            <td>{getDate(data.date_Pub)} </td>
+                            <td>{data.participants.length} </td>
+
+                            <td
+                              onClick={() => this.updateItem(index)}
+                              id="icone-action"
+                            >
+                              <div>
+                                <DetailActivityPopUp
+                                  user={
+                                    this.state.activité
+                                      ? this.state.activité
+                                      : this.state.activités
+                                  }
+                                  show={this.state.detailReqModalShow}
+                                  onHide={() =>
+                                    this.setState({ detailReqModalShow: false })
+                                  }
+                                  organisateur={this.state.detailuser}
+                                />
+                                <VisibilityIcon
+                                  onClick={() =>
+                                    this.setState({ detailReqModalShow: true })
+                                  }
+                                  id="dataTable-viewIcon"
+                                />
+                              </div>
+                              <div id="ff">
+                                <DeleteIcon
+                                  onClick={() => this.deletePub(data)}
+                                  id="dataTable-delteIcon"
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  {/* {this.state.activités.map((data, index) => {
                     return (
                       <tr key={index}>
                         <td>{data._id}</td>
@@ -142,7 +245,7 @@ class PublicationActivity extends React.Component {
                         </td>
                       </tr>
                     );
-                  })}
+                  })} */}
                 </tbody>
               </table>
             </div>{" "}

@@ -15,6 +15,7 @@ class PublicationEvent extends React.Component {
       detailReqModalShow: false,
       events: [],
       detailuser: {},
+      data: [],
     };
   }
 
@@ -58,6 +59,18 @@ class PublicationEvent extends React.Component {
       }
     });
   };
+  //searsh methode
+  handelSearshChange = (e) => {
+    if (e.target.value !== "") {
+      this.setState({
+        data: this.state.events.filter((event) =>
+          event.categorie.toUpperCase().includes(e.target.value.toUpperCase())
+        ),
+      });
+    } else this.setState({ data: [] });
+
+    console.log(this.state.data);
+  };
 
   render() {
     return (
@@ -75,7 +88,8 @@ class PublicationEvent extends React.Component {
               <input
                 className="form-control mr-sm-2 "
                 type="search"
-                placeholder="Search"
+                placeholder="Chercher par nom catégorie"
+                onChange={this.handelSearshChange}
               />
               <div className="icon">
                 <SearchIcon />
@@ -96,7 +110,90 @@ class PublicationEvent extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.events.map((data, index) => {
+                  {this.state.data.length > 0
+                    ? this.state.data.map((data, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{data._id}</td>
+                            <td>{data.categorie}</td>
+                            <td>aaaaaaaaa</td>
+                            <td>{getDate(data.date_Pub)} </td>
+                            <td
+                              onClick={() => this.updateItem(index)}
+                              id="icone-action"
+                            >
+                              <div>
+                                <DetailEventPopUp
+                                  data={
+                                    this.state.event
+                                      ? this.state.event
+                                      : this.state.events
+                                  }
+                                  show={this.state.detailReqModalShow}
+                                  onHide={() =>
+                                    this.setState({ detailReqModalShow: false })
+                                  }
+                                  organisateur={this.state.detailuser}
+                                />
+                                <VisibilityIcon
+                                  onClick={() =>
+                                    this.setState({ detailReqModalShow: true })
+                                  }
+                                  id="dataTable-viewIcon"
+                                />
+                              </div>
+                              <div id="ff">
+                                <DeleteIcon
+                                  onClick={() => this.deletePub(data)}
+                                  id="dataTable-delteIcon"
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : this.state.events.map((data, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{data._id}</td>
+                            <td>{data.categorie}</td>
+                            <td>aaaaaaaaa</td>
+                            <td>{getDate(data.date_Pub)} </td>
+                            <td
+                              onClick={() => this.updateItem(index)}
+                              id="icone-action"
+                            >
+                              <div>
+                                <DetailEventPopUp
+                                  data={
+                                    this.state.event
+                                      ? this.state.event
+                                      : this.state.events
+                                  }
+                                  show={this.state.detailReqModalShow}
+                                  onHide={() =>
+                                    this.setState({ detailReqModalShow: false })
+                                  }
+                                  organisateur={this.state.detailuser}
+                                />
+                                <VisibilityIcon
+                                  onClick={() =>
+                                    this.setState({ detailReqModalShow: true })
+                                  }
+                                  id="dataTable-viewIcon"
+                                />
+                              </div>
+                              <div id="ff">
+                                <DeleteIcon
+                                  onClick={() => this.deletePub(data)}
+                                  id="dataTable-delteIcon"
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  {/* {this.state.events.map((data, index) => {
                     return (
                       <tr key={index}>
                         <td>{data._id}</td>
@@ -136,7 +233,7 @@ class PublicationEvent extends React.Component {
                         </td>
                       </tr>
                     );
-                  })}
+                  })} */}
                 </tbody>
               </table>
             </div>

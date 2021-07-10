@@ -16,6 +16,7 @@ class CategoryManagment extends React.Component {
       AddCatégorieModalShow: false,
       detailCatégorieModalShow: false,
       categories: [],
+      data: [],
     };
   }
   //this method is used to store in categorie State which object is
@@ -55,6 +56,21 @@ class CategoryManagment extends React.Component {
         swal("Opération annuler! ");
       }
     });
+  };
+
+  //searsh methode
+  handelSearshChange = (e) => {
+    if (e.target.value !== "") {
+      this.setState({
+        data: this.state.categories.filter((catégorie) =>
+          catégorie.typeCatégorie
+            .toUpperCase()
+            .includes(e.target.value.toUpperCase())
+        ),
+      });
+    } else this.setState({ data: [] });
+
+    console.log(this.state.data);
   };
 
   render() {
@@ -99,7 +115,8 @@ class CategoryManagment extends React.Component {
               <input
                 className="form-control mr-sm-2 "
                 type="search"
-                placeholder="Search"
+                placeholder="Chercher par nom catégorie"
+                onChange={this.handelSearshChange}
               />
               <div className="icon">
                 <SearchIcon />
@@ -119,7 +136,68 @@ class CategoryManagment extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.categories.map((data, index) => {
+                  {this.state.data.length > 0
+                    ? this.state.data.map((data, index) => {
+                        return (
+                          <tr>
+                            <td scope="row">{data._id}</td>
+                            <td>{data.typeCatégorie}</td>
+                            <td>
+                              {moment(data.addDate).format("YYYY-MM-DD") +
+                                " à " +
+                                moment(data.addDate).format("HH:mm")}
+                            </td>
+
+                            <td id="icone-action">
+                              <div onClick={() => this.selectedItem(index)}>
+                                <VisibilityIcon
+                                  onClick={() =>
+                                    this.setState({ detailReqModalShow: true })
+                                  }
+                                  id="dataTable-viewIcon"
+                                />
+                              </div>
+                              <div id="ff">
+                                <DeleteIcon
+                                  onClick={() => this.deleteCategory(data)}
+                                  id="dataTable-delteIcon"
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : this.state.categories.map((data, index) => {
+                        return (
+                          <tr>
+                            <td scope="row">{data._id}</td>
+                            <td>{data.typeCatégorie}</td>
+                            <td>
+                              {moment(data.addDate).format("YYYY-MM-DD") +
+                                " à " +
+                                moment(data.addDate).format("HH:mm")}
+                            </td>
+
+                            <td id="icone-action">
+                              <div onClick={() => this.selectedItem(index)}>
+                                <VisibilityIcon
+                                  onClick={() =>
+                                    this.setState({ detailReqModalShow: true })
+                                  }
+                                  id="dataTable-viewIcon"
+                                />
+                              </div>
+                              <div id="ff">
+                                <DeleteIcon
+                                  onClick={() => this.deleteCategory(data)}
+                                  id="dataTable-delteIcon"
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  {/* {this.state.categories.map((data, index) => {
                     return (
                       <tr>
                         <td scope="row">{data._id}</td>
@@ -148,7 +226,7 @@ class CategoryManagment extends React.Component {
                         </td>
                       </tr>
                     );
-                  })}
+                  })} */}
                 </tbody>
               </table>
             </div>

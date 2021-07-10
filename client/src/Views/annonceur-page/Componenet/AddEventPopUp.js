@@ -22,13 +22,14 @@ function AddEventPopUp(props) {
     lat: annonceur.adresseAnnonceur.coordinates[0],
     lng: annonceur.adresseAnnonceur.coordinates[1],
   });
+
   //
   const [errorsMsg, setErrorsMsg] = useState({});
 
   // this state is use for handle participant counter value
   const [nbr_place, setNbr_place] = useState(0);
   //
-  const [openMap, setOpenMap] = useState(false);
+  // const [openMap, setOpenMap] = useState(false);
 
   //this methode is used for increment the state value(nbrParticipantCounter) by 1
   const increment = () => {
@@ -147,6 +148,7 @@ function AddEventPopUp(props) {
       />
     );
   };
+
   //method used to reset state after submit or when the component is unmounted
   const clearState = () => {
     setNbr_place(0);
@@ -160,12 +162,16 @@ function AddEventPopUp(props) {
       tarif: "",
       categorie: "",
     });
+    setpos({
+      lat: annonceur.adresseAnnonceur.coordinates[0],
+      lng: annonceur.adresseAnnonceur.coordinates[1],
+    });
   };
-  useEffect(() => {
-    return () => {
-      setOpenMap(false);
-    };
-  }, [props.show]);
+  // useEffect(() => {
+  //   return () => {
+  //     setOpenMap(false);
+  //   };
+  // }, [props.show]);
   return (
     <Modal
       {...props}
@@ -279,18 +285,18 @@ function AddEventPopUp(props) {
             <h3>Lieu d'événement</h3>
             <div className="adr-option">
               <p>Votre adresse sera choisir par défaut</p>
-              <button
+              {/* <button
                 id="openMap-btn"
                 onClick={() => setOpenMap((openMap) => !openMap)}
               >
                 Choisir sur map
-              </button>
+              </button> */}
             </div>
 
-            <div style={{ display: openMap ? "block" : "none" }}>
+            <div>
               <div className="addEvent-mapContainer">
                 <MapContainer
-                  center={[36.78729147, 10.18432617]}
+                  center={pos}
                   zoom={13}
                   className="addActmap-style"
                   scrollWheelZoom={false}
