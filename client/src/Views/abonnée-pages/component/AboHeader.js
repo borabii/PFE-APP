@@ -301,7 +301,21 @@ function AboHeader() {
                   <ChatBubbleOutlineIcon id="chatIcon" />
                 </div>
               </NavLink>
-              <h4 id="btnChat-small-device">Boite Message</h4>
+              <NavLink
+                to={`${url}/BoiteMsg`}
+                exact
+                activeStyle={{
+                  color: "rgba(0,0,0,.5)  ",
+                }}
+                className="navCollaps-item"
+              >
+                <h4
+                  id="btnChat-small-device"
+                  style={{ marginTop: 8, marginBottom: 10 }}
+                >
+                  Boite Message
+                </h4>
+              </NavLink>
             </Nav.Link>
             <Nav.Link>
               <div className="header-notifIcon">
@@ -327,7 +341,6 @@ function AboHeader() {
                   />
                 </Badge>
               </div>
-              <h4 id="btnNotif-small-device">Notification</h4>
             </Nav.Link>
             <Nav.Link>
               <img

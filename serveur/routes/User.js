@@ -1,11 +1,9 @@
 const express = require("express");
 const auth = require("../middleware/auth"); //middleware next()
 const router = express.Router();
-
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("config");
-const gravatar = require("gravatar");
 const multer = require("multer");
 //models
 const Abonné = require("../models/Abonné");
@@ -76,17 +74,12 @@ router.post("/signup", async (req, res) => {
       imageProfile,
       adress,
     });
-    //generate avatar
-    const avatar = gravatar.url(req.body.email, {
-      s: "200", // Size
-      r: "pg", // Rating
-      d: "mm", // Default
-    });
+
     // encrypt password before store do database
     const salt = await bcrypt.genSalt(10);
     //add crypted password to user object before store it to db
     abonné.password = await bcrypt.hash(password, salt);
-    abonné.imageProfile = avatar;
+    abonné.imageProfile = "1625931739488photo-avatar-profil.png";
     abonné.adress = null;
     abonné.description = null;
     await abonné.save();
@@ -238,14 +231,14 @@ router.get("/loadUser/:abonneId", auth, async (req, res) => {
       profileInfo.followers &&
       profileInfo.followers.filter((item) => item.toString() === req.user.id)
         .length > 0;
-    if (profileInfo.userAvis !== null && profileInfo.userAvis.length > 0) {
+    if (profileInfo?.userAvis !== null && profileInfo?.userAvis.length > 0) {
       totalRate =
-        profileInfo.userAvis.reduce((accum, item) => accum + item.avis, 0) /
+        profileInfo?.userAvis.reduce((accum, item) => accum + item?.avis, 0) /
         profileInfo.userAvis.length;
-      actualRate = profileInfo.userAvis.filter(
+      actualRate = profileInfo?.userAvis.filter(
         (item) => item.user.toString() === req.user.id
       );
-      actualRate = actualRate[0].avis !== null ? actualRate[0].avis : 0;
+      actualRate = actualRate[0]?.avis !== null ? actualRate[0]?.avis : 0;
     }
 
     res.json({
@@ -269,14 +262,14 @@ router.get("/loadAnnonceur/:userId", auth, async (req, res) => {
       profileInfo.followers &&
       profileInfo.followers.filter((item) => item.toString() === req.user.id)
         .length > 0;
-    if (profileInfo.userAvis !== null && profileInfo.userAvis.length > 0) {
+    if (profileInfo?.userAvis !== null && profileInfo?.userAvis.length > 0) {
       totalRate =
-        profileInfo.userAvis.reduce((accum, item) => accum + item.avis, 0) /
+        profileInfo?.userAvis.reduce((accum, item) => accum + item?.avis, 0) /
         profileInfo.userAvis.length;
-      actualRate = profileInfo.userAvis.filter(
+      actualRate = profileInfo?.userAvis.filter(
         (item) => item.user.toString() === req.user.id
       );
-      actualRate = actualRate[0].avis !== null ? actualRate[0].avis : 0;
+      actualRate = actualRate[0]?.avis !== null ? actualRate[0]?.avis : 0;
     }
 
     res.json({

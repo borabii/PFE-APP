@@ -19,10 +19,10 @@ function PubCard(props) {
     getCatégorie();
   }, []);
   useEffect(() => {
-    if (fullCatégorieData !== null && props.act.categorie) {
+    if (fullCatégorieData && props.act.categorie) {
       setCatImage(
         fullCatégorieData.filter((item) =>
-          props.act.categorie.includes(item.typeCatégorie)
+          props.act?.categorie.includes(item.typeCatégorie)
         )[0]
       );
     }
@@ -32,13 +32,13 @@ function PubCard(props) {
     };
   }, [fullCatégorieData]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${props.act.adresse.coordinates[0]}&longitude=${props.act.adresse.coordinates[1]}&localityLanguage=fr`
-  //     )
-  //     .then((data) => setadresse(data.data));
-  // }, [props.act, fullCatégorieData]);
+  useEffect(() => {
+    axios
+      .get(
+        `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${props.act.adresse.coordinates[0]}&longitude=${props.act.adresse.coordinates[1]}&localityLanguage=fr`
+      )
+      .then((data) => setadresse(data.data));
+  }, [props.act, fullCatégorieData]);
   return (
     <Card className=" mb-3  pubCard pubCard-phone ">
       <div className="pubCard-image">

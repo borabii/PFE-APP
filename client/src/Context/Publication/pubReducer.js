@@ -14,6 +14,7 @@ import {
   CLEAR_ANNONCEURPUBS,
   CLEAR_ABONNÉPUB,
   GET_PUBSFORHOMEPAGE,
+  CLEAR_PUBS,
   ACCEPT_PARTICIPANT,
   REFUSE_PARTICIPANT,
   ACCEPTED_PARTICIPANT_DATA,
@@ -38,6 +39,12 @@ export default (state, action) => {
         ...state,
         pubs: action.payload,
         loading: false,
+      };
+    case CLEAR_PUBS:
+      return {
+        ...state,
+        pubs: null,
+        loading: true,
       };
     case EDIT_PUB:
       if (action.payload.pub.typePub === "Event") {

@@ -12,7 +12,7 @@ function AbonnéSearchParametre() {
   const { updateDistanceDeRecherhce, responseMessage, ClearResponseMessage } =
     usercontext;
   const authcontext = useContext(AuthContext);
-  const { user } = authcontext;
+  const { user, loadUser } = authcontext;
   //this state is used for handling the sider value that define the distance of searsh per km
   const [distance, setdistance] = useState(user.distanceDeRecherche / 1000);
 
@@ -22,6 +22,7 @@ function AbonnéSearchParametre() {
 
   const saveDistance = () => {
     updateDistanceDeRecherhce(distance);
+    loadUser();
   };
   //used for displaying response msg
   const { enqueueSnackbar } = useSnackbar();

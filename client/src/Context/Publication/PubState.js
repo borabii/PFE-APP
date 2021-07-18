@@ -18,6 +18,7 @@ import {
   CLEAR_ANNONCEURPUBS,
   CLEAR_ABONNÉPUB,
   GET_PUBSFORHOMEPAGE,
+  CLEAR_PUBS,
   ACCEPT_PARTICIPANT,
   REFUSE_PARTICIPANT,
   ACCEPTED_PARTICIPANT_DATA,
@@ -248,6 +249,8 @@ const PubState = (props) => {
       console.log(err);
     }
   };
+  //
+  const clearPubs = () => dispatch({ type: CLEAR_PUBS });
   //clear global state that handel response message
   const ClearPubResponseMsg = () =>
     dispatch({ type: REMOVE_PUBRSPONSEMESSAGE });
@@ -281,6 +284,7 @@ const PubState = (props) => {
         acceptedParticipantData: state.acceptedParticipantData,
         loadActOrganized,
         loadPubs,
+        clearPubs,
         addAct,
         editPub,
         ClearPubResponseMsg,

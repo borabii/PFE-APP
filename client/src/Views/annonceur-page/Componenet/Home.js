@@ -119,15 +119,15 @@ function AnnonceurVisitedProfile() {
     };
   }, [loading === false, annonceur]);
 
-  // useEffect(() => {
-  //   if (annonceur !== null) {
-  //     axios
-  //       .get(
-  //         `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${annonceur.adresseAnnonceur.coordinates[0]}&longitude=${annonceur.adresseAnnonceur.coordinates[1]}&localityLanguage=fr`
-  //       )
-  //       .then((data) => setAdresse(data.data));
-  //   }
-  // }, [annonceur]);
+  useEffect(() => {
+    if (annonceur !== null) {
+      axios
+        .get(
+          `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${annonceur.adresseAnnonceur.coordinates[0]}&longitude=${annonceur.adresseAnnonceur.coordinates[1]}&localityLanguage=fr`
+        )
+        .then((data) => setAdresse(data.data));
+    }
+  }, [annonceur]);
 
   const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {

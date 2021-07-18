@@ -83,6 +83,7 @@ function AbonnéVisitedProfile(props) {
       history.push(`/AbonnéHomePage/BoiteMsg`);
     }
   };
+
   return (
     <div className="abonnéVisitedProfile">
       {" "}

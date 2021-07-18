@@ -23,7 +23,7 @@ function AbonnéCenterOfInterest() {
   } = userContext;
   //app level state(auth context)
   const authContext = useContext(AuthContext);
-  const { user } = authContext;
+  const { user, loadUser } = authContext;
   //compoenet level state
   const [userInteret, setUserInteret] = useState();
 
@@ -42,11 +42,13 @@ function AbonnéCenterOfInterest() {
   //this method is user to delete user centre of interet
   const deleteInteret = (id, event) => {
     deleteCentreOfInteret(items[id].typeCatégorie);
+    loadUser();
   };
   //this method is user to add user centre of interet
   const addInteret = () => {
     let interet = userInteret.map((item) => item.label);
     addCentreOfInteret(interet);
+    loadUser();
   };
 
   //handel select change

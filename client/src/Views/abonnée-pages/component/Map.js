@@ -15,7 +15,10 @@ function Map() {
   const [modalShow, setModalShow] = useState(false);
   const [activeMark, setActiveMark] = useState({});
   const [org, setorg] = useState({});
-  const [position, setPosition] = useState(null);
+  const [position, setPosition] = useState({
+    lat: 35.52500536,
+    lng: 11.02998376,
+  });
   //app level state
   const pubContext = useContext(PubContext);
   const { pubs, loadPubs } = pubContext;
@@ -82,10 +85,18 @@ function Map() {
     }, [map]);
     useEffect(() => {
       map.locate().on("locationfound", function (e) {
-        setPosition(e.latlng);
-        map.flyTo(e.latlng, map.getZoom());
+        // setPosition(e.latlng);
+        // map.flyTo(e.latlng, map.getZoom());
+        // const radius = user.distanceDeRecherche;
+        // const circle = L.circle(e.latlng, radius);
+        // circle.addTo(map);
+        // setPosition();
+        map.flyTo({ lat: position.lat, lng: position.lng }, 10);
         const radius = user.distanceDeRecherche;
-        const circle = L.circle(e.latlng, radius);
+        const circle = L.circle(
+          { lat: position.lat, lng: position.lng },
+          radius
+        );
         circle.addTo(map);
       });
       return function cleanup() {
@@ -189,6 +200,7 @@ function Map() {
       <PubDetailPopUp
         show={editEventModalShow}
         data={activeMark}
+        participate={true}
         user={org}
         onHide={() => setEditEventModalShow(false)}
       />

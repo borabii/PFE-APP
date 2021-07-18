@@ -6,6 +6,8 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import AuthContext from "../../Context/auth/authContext";
 import history from "../../utilis/history";
 import signUpFormValidation from "../home-page/SignUpFormValidation";
+import addUserFormValidation from "../../utilis/addUserFormValidation";
+
 function SignUp() {
   const authContext = useContext(AuthContext);
   //app level state
@@ -36,12 +38,11 @@ function SignUp() {
       ...userForm,
       [event.target.name]: event.target.value,
     });
-    setErrorsMsg(signUpFormValidation(userForm));
+    setErrorsMsg(addUserFormValidation(userForm));
   };
-  console.log(userForm);
   const handleSubmit = (event) => {
     event.preventDefault();
-    setErrorsMsg(signUpFormValidation(userForm));
+    setErrorsMsg(addUserFormValidation(userForm));
 
     if (Object.keys(errorsMsg).length <= 0) {
       signUp({
@@ -56,7 +57,7 @@ function SignUp() {
   };
   useEffect(() => {
     if (isAuthenticated) {
-      history.push("/AbonnéHomePage/Compte");
+      history.push("/AbonnéHomePage");
     }
   }, [isAuthenticated]);
   return (
@@ -80,6 +81,8 @@ function SignUp() {
                 value={userForm.firstName}
                 onChange={handelChange}
               />
+              {errorsMsg && <p lassName="emailError">{errorsMsg.firstName}</p>}
+
               <input
                 type="text"
                 className="form-input"
@@ -89,6 +92,8 @@ function SignUp() {
                 value={userForm.lastName}
                 onChange={handelChange}
               />
+              {errorsMsg && <p className="emailError"> {errorsMsg.lastName}</p>}
+
               <input
                 type="Date"
                 className="form-input "
@@ -97,6 +102,7 @@ function SignUp() {
                 onChange={handelChange}
                 required
               />
+
               <input
                 type="text"
                 className="form-input"

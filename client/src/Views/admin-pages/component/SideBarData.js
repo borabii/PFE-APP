@@ -9,9 +9,8 @@ export const SideBarData = [
     title: "Gestion Catégorie",
     path: "/categoryManagment",
     cName: "nav-text",
-    permission: "1",
+    permission: "Gestion publication",
   },
-
   {
     title: "Annonce",
     path: "/pubAnnonce",
