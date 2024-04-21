@@ -1,1 +1,13 @@
-
+.app {
+  font-family: sans-serif;
+}
+.notFound {
+  display: flex;
+  text-align: center;
+  font-size: 30px;
+  flex-direction: column;
+  justify-content: center;
+}
+.notFound > h1 {
+  font-size: 100px;
+}

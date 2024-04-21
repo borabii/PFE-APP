@@ -3,13 +3,14 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import "./Header.css";
 import { Link } from "react-router-dom";
+import Logo from "../../image/Logo.png";
 function Header() {
   return (
     <div>
       <Navbar collapseOnSelect expand="lg" className="my-navbar" fixed="top">
         <Navbar.Brand>
           <Link to="/">
-            <h2>Logo</h2>
+            <img src={Logo} style={{ width: "90px", height: "50px" }} alt="" />
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-collpase" />

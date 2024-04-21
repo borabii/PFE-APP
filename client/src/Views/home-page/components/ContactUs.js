@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ContactUs.css";
+import axios from "axios";
 
 function ContactUs() {
+  const [message, setMessage] = useState({});
+  const handelChange = (event) => {
+    setMessage({
+      ...message,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handelSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:8000/api/Contact/ContactUs", message)
+      .then(setMessage({ nom: "", email: "", message: "" }));
+  };
   return (
     <div>
       <div id="contact">
@@ -17,12 +32,15 @@ function ContactUs() {
           </div>
           <div className="row">
             <div className="col  col-xs-2  col-sm-12 col-md-12 col-lg-9">
-              <form>
+              <form onClick={handelSubmit}>
                 <div className="form-group">
                   <input
                     type="text"
                     className="form-control"
                     placeholder="Nom"
+                    name="nom"
+                    onChange={handelChange}
+                    value={message.nom}
                     required
                   />
                 </div>
@@ -31,6 +49,9 @@ function ContactUs() {
                     type="email"
                     className="form-control"
                     placeholder="Email"
+                    name="email"
+                    onChange={handelChange}
+                    value={message.email}
                     required
                   />
                 </div>
@@ -39,12 +60,13 @@ function ContactUs() {
                     className="form-control"
                     rows="4"
                     placeholder="Message"
+                    name="message"
+                    value={message.message}
+                    onChange={handelChange}
                     required
-                  ></textarea>
+                  />
                 </div>
-                <button type="submit" className="btn btn-custom btn-lg">
-                  Envoyer
-                </button>
+                <button className="btn btn-custom btn-lg">Envoyer</button>
               </form>
             </div>
           </div>

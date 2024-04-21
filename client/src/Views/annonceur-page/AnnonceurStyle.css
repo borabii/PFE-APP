@@ -1,0 +1,678 @@
+/*******************************/
+/******Home profile style******/
+/*****************************/
+.annonceur-profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+#annonceurImage {
+  width: 400px;
+  height: 250px;
+}
+.annonceur-profile > .profile-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.profile-info > .annonceur-info {
+  display: flex;
+  background-color: #f6f5f5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  width: 100%;
+  padding: 10px;
+}
+#num-tel {
+  margin-top: 2px;
+  margin-left: 5px;
+  font-size: 20px;
+}
+#annoceur-contact {
+  display: flex;
+}
+#annonceur-tel {
+  font-size: 25px;
+}
+#annonceur-adresse {
+  display: flex;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+#annonceur-adresse > #annonceurLoc-icon {
+  color: red;
+}
+
+.annonceurProfile-rank {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.annonceur-EditTime {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #f6f5f5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  padding: 10px;
+}
+#HoraireTime {
+  display: flex;
+}
+#edit-profile {
+  display: flex;
+}
+#chaticon {
+  display: flex;
+  cursor: pointer;
+}
+#editInfoIcon {
+  color: #3aceb9;
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+  margin-top: 2px;
+}
+
+#editWorkIcon {
+  color: #3aceb9;
+  width: 35px;
+  height: 35px;
+  margin-top: 1px;
+  margin-left: 10px;
+}
+#middel-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 100px;
+  margin-bottom: 40px;
+}
+.addEvent-btn {
+  background-color: #fea041;
+  margin-right: 40px;
+  width: 200px;
+  height: 40px;
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  transition: all 0.5s linear;
+  letter-spacing: 0.02rem;
+  font-weight: 400;
+  font-size: 19px;
+  padding: 5px;
+}
+.annonceur-avis {
+  width: 20%;
+}
+.annonceur-avis > .annonceurProfile-rank {
+  display: flex;
+  width: 100%;
+}
+.noPadding {
+  padding-left: 10;
+  padding-right: 20;
+}
+#annonceur-score {
+  text-align: center;
+}
+/************************************/
+/**Annonceur visited profile style**/
+/**********************************/
+.annonceurVisitedProfile > .annonceurVisitedProfile-top {
+  display: flex;
+}
+
+.annonceurVisitedProfile-top > .top-left {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.annonceurVisitedProfile-top > .top-left > img {
+  width: 450px;
+  height: 300px;
+  border: 3px solid #3aceb9;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+.annonceurVisitedProfile-top > .top-middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+.annonceurVisitedProfile-top > .top-middle > .userProfile-info {
+  display: flex;
+  background-color: #f6f5f5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+}
+.top-middle > .userProfile-info > #user-name {
+  margin-left: 10px;
+  letter-spacing: 0.02rem;
+}
+
+.top-middle > .userProfile-info > #user-adresse {
+  display: flex;
+  margin-top: 10px;
+  margin-left: 10%;
+}
+.userProfile-info > #user-adresse > #userLoc-icon {
+  color: red;
+}
+.annonceurVisitedProfile-top > .top-middle > .userProfile-rank {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+.top-middle > .userProfile-rank > #user-avis > h3 {
+  letter-spacing: 0.02rem;
+}
+.top-middle > .userProfile-rank > #user-score,
+#user-avis {
+  text-align: center;
+}
+.top-middle > .userProfile-rank > #user-score > h3 {
+  letter-spacing: 0.02rem;
+}
+.annonceurVisitedProfile-top > .top-middle > .userProfile-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.top-middle > .userProfile-action > #user-sendMessage > a {
+  cursor: pointer;
+}
+
+.userProfile-action > #btn-follow {
+  width: 100px;
+  height: 45px;
+  background: #3aceb9;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+}
+.top-middle > .userProfile-action > #user-report > a {
+  cursor: pointer;
+}
+.annonceurVisitedProfile-top > .top-right {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.annonceurVisitedProfile-top > .top-right > .userProfile-note > #user-rate {
+  width: 249px;
+  height: 150px;
+  background: #f6f5f5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  letter-spacing: 0.02rem;
+  padding: 5px;
+}
+.annonceurVisitedProfile > .annonceurVisitedProfile-topSmallDevice {
+  display: none;
+}
+.annonceurVisitedProfile > .annonceurVisitedProfile-bottom {
+  margin-top: 40px;
+}
+.annonceurVisitedProfile-bottom > #user-interset {
+  display: flex;
+  justify-content: center;
+}
+
+.annonceurVisitedProfile > .annonceurVisitedProfile-topSmallDevice {
+  display: none;
+}
+.annonceurVisitedProfile-middel > h2,
+.annonceurVisitedProfile-bottom > h2 {
+  margin: 20px;
+}
+#add {
+  text-transform: uppercase;
+}
+/***************************************/
+/*******Annonce card style*************/
+/*************************************/
+.annonceCard {
+  position: relative;
+}
+#annonce-img {
+  display: block;
+  width: 100%;
+  height: 250px;
+  margin: 10px;
+  border-radius: 5px;
+  border: 3px solid #f8ac59;
+  cursor: pointer;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+#annonce-img:hover {
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+}
+.annonceCard-action {
+  position: absolute;
+  border-radius: 20px;
+  padding-left: 10px;
+  padding-right: 5px;
+  margin-bottom: 20px;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  background-color: #f6f5f5;
+}
+.annonceCard-action > #annonceCardAction-edit {
+  color: #3aceb9;
+  width: 50px;
+  height: 40px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.annonceCard-action > #annonceCardAction-detail {
+  color: #040941;
+  width: 50px;
+  height: 40px;
+  cursor: pointer;
+}
+.detailAnnonce__top > a > img {
+  width: 100%;
+  height: 300px;
+}
+/***************************************/
+/*******AnnonceurWorktimePopUp*********/
+/*************************************/
+.annonceurWorktimePopUp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.annonceurWorktimePopUp > h2 {
+  text-align: center;
+  text-transform: uppercase;
+}
+.annonceurWorktimePopUp > .worktime {
+  height: 70%;
+  width: 40%;
+}
+
+.annonceurWorktimePopUp > .worktime > tr > th {
+  color: orange;
+}
+.annonceurWorktimePopUp > .worktime > tr > th {
+  padding: 10px;
+}
+/***************************************/
+/************EditWorktimePopUp*********/
+/*************************************/
+.EditWorktimePopUp {
+  display: flex;
+  flex-direction: column;
+}
+.workTimeOption {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  width: 100%;
+}
+.workTimeOption > h2 {
+  margin-right: 50px;
+  margin-top: 8px;
+  font-size: 27px;
+}
+.workTimeOption > .TimeValue {
+  display: flex;
+}
+.workTimeOption > .TimeValue > input {
+  margin: 5px 10px 5px 10px;
+  border-radius: 10px;
+  width: 100px;
+  height: 40px;
+  padding-left: 20px;
+  outline: none;
+  border: 2px solid #3aceb9;
+  font-size: 20px;
+}
+.edit__action {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.edit__action > #edit__btn {
+  width: 150px;
+  height: 45px;
+  border-radius: 20px;
+  transition: all 0.5s linear;
+  outline: none;
+  font-family: "Roboto";
+  font-size: 20px;
+  font-weight: 400;
+  color: #040941;
+  background-color: transparent;
+  border: 2px solid #3aceb9;
+}
+.edit__action > #edit__btn:hover {
+  background-color: #3aceb9;
+  color: white;
+}
+/***************************************/
+/************EditInfoPopUp*************/
+/*************************************/
+#edit-InfoForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+#info-Nom,
+#info-tel,
+#info-adresse,
+#info-desription {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#annonceur-infoInput {
+  border-radius: 5px;
+  align-self: center;
+  border: 2px solid #3aceb9;
+  width: 100%;
+  height: 40px;
+  padding-left: 5px;
+  outline: none;
+}
+#info-desription > textarea {
+  border: 2px solid #3aceb9;
+  border-radius: 5px;
+
+  width: 100%;
+  padding-left: 5px;
+  outline: none;
+}
+/***************************************/
+/************AddEventPopUp*************/
+/*************************************/
+#tarifEvent {
+  border-right: 2px solid #3aceb9;
+  border-radius: 5px;
+  margin-bottom: 0px;
+}
+#eventEquipe {
+  margin-bottom: 20px;
+}
+.addEvent-mapContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.addActmap-style {
+  width: 400px;
+  height: 400px;
+}
+#tarif-event > input {
+  margin-bottom: 0px;
+}
+.adr-option {
+  display: flex;
+  justify-content: space-between;
+}
+.adr-option > p {
+  margin-top: 3px;
+}
+.adr-option > #openMap-btn {
+  border: none;
+  outline: none;
+  height: 30px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 20px;
+  background-color: #3aceb9;
+}
+/*************************************************/
+/************DetailEventPopUp********************/
+/***********************************************/
+#editEventAction {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+#delete-btn {
+  width: 150px;
+  height: 45px;
+  border-radius: 20px;
+  transition: all 0.5s linear;
+  outline: none;
+  font-family: "Roboto";
+  font-size: 20px;
+  font-weight: 400;
+  color: #040941;
+  background-color: transparent;
+  border: 2px solid red;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+#delete-btn:hover {
+  background-color: red;
+  color: white;
+}
+/************************************/
+/******add annonce popup style******/
+/**********************************/
+.addActivityPopUp > .img__holder > img {
+  border: 2px solid #3aceb9;
+  height: 300px;
+  width: 100%;
+}
+.addAct-form {
+  margin-bottom: 10px;
+}
+.addAct-principalInfo > h3 {
+  margin-top: 0px;
+}
+@media screen and (max-width: 600px) {
+  /*******************************/
+  /******Home profile style******/
+  /*****************************/
+  .annonceurVisitedProfile-middel {
+    width: 100%;
+  }
+
+  #middel-top > h2 {
+    font-size: 20px;
+    margin-top: 5px;
+    margin-left: 10px;
+  }
+  .annonceurProfile-rank {
+    margin-bottom: 10px;
+  }
+  #user-avis > h3 {
+    font-size: 20px;
+  }
+  #annonceur-score > h3 {
+    font-size: 20px;
+  }
+  #annonceur-score {
+    text-align: center;
+  }
+  .addEvent-btn {
+    font-size: 15px;
+    width: 150px;
+    font-weight: 500;
+    margin-right: 5px;
+  }
+  .annonceurVisitedProfile-topSmallDevice > #annonceurSmallDev-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .noPadding {
+    padding-left: 0;
+    padding-right: 20;
+  }
+  .annonceur-EditTime {
+    justify-content: center;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  /*********************************************/
+  /********************************************/
+  /**user visited profile small device style**/
+  /******************************************/
+
+  .annonceurVisitedProfile > .annonceurVisitedProfile-top {
+    display: none;
+  }
+  .annonceur-profile {
+    display: none;
+  }
+  .annonceurVisitedProfile > .annonceurVisitedProfile-topSmallDevice {
+    display: inline;
+  }
+  .annonceurVisitedProfile
+    > .annonceurVisitedProfile-topSmallDevice
+    > .top-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .annonceurVisitedProfile
+    > .annonceurVisitedProfile-topSmallDevice
+    > .top-left
+    > img {
+    width: 150px;
+    height: 150px;
+    border: 3px solid #3aceb9;
+    border-radius: 50%;
+  }
+
+  .annonceurVisitedProfile
+    > .annonceurVisitedProfile-topSmallDevice
+    > .top-middle
+    > .userProfile-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .annonceurVisitedProfile
+    > .annonceurVisitedProfile-topSmallDevice
+    > .top-middle
+    > .userProfile-info
+    > #user-adresse {
+    margin-left: -7px;
+    margin-top: -5px;
+  }
+  .annonceurVisitedProfile
+    > .annonceurVisitedProfile-topSmallDevice
+    > .top-middle
+    > .userProfile-rank {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  .annonceurVisitedProfile
+    > .annonceurVisitedProfile-topSmallDevice
+    > .top-middle
+    > .userProfile-rank
+    > #user-avis,
+  #user-score {
+    border-radius: 10px;
+    width: 90px;
+    border: 2px solid #3aceb9;
+    color: #040941;
+  }
+  .annonceurVisitedProfile
+    > .annonceurVisitedProfile-topSmallDevice
+    > .top-middle
+    > .userProfile-action {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .annonceurVisitedProfile
+    > .annonceurVisitedProfile-topSmallDevice
+    > .top-middle
+    > .userProfile-action
+    > #user-sendMessage
+    > a {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .annonceurVisitedProfile
+    > .annonceurVisitedProfile-topSmallDevice
+    > .top-middle
+    > .userProfile-action
+    > #btn-follow {
+    width: 90px;
+    height: 40px;
+  }
+  .annonceurVisitedProfile
+    > .annonceurVisitedProfile-topSmallDevice
+    > .top-right {
+    margin-top: 20px;
+  }
+  bh
+    .annonceurVisitedProfile
+    > .annonceurVisitedProfile-topSmallDevice
+    > .top-right
+    > .userProfile-note
+    > #user-rate {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+  #interest-card {
+    width: 100%;
+    margin: 0px;
+  }
+  .annonceurVisitedProfile-middel > #user-interset {
+    padding-top: 10px;
+  }
+  .annonceurVisitedProfile-bottom {
+    margin-top: 20px;
+  }
+  .annonceurVisitedProfile-bottom > h2 {
+    margin-bottom: 40px;
+  }
+  .addActivity-btn-small {
+    display: inline;
+    position: fixed;
+    top: 570px;
+    right: 0;
+    margin-right: 20px;
+    z-index: 999;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 2px solid #53d4c2;
+  }
+  .addActivity-btn-small:hover {
+    background-image: linear-gradient(to right, #55c3de 0%, #44c9bb 100%);
+    color: #040941;
+  }
+  #addAct-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: #44c9bb;
+    padding-right: 8px;
+  }
+  #addAct-icon:hover {
+    color: white;
+  }
+
+  .addActivity-btn {
+    display: none;
+  }
+}

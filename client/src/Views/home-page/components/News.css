@@ -1,9 +1,16 @@
 /* news section style */
 .news {
   margin-top: 10px;
+  /* height: 600px; */
+  padding-bottom: 10px;
 }
 .my-carousel {
   margin-top: 40px;
+}
+.tttt {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 .navbar-light .navbar-toggler {
   color: rgba(0, 0, 0, 0.5);
@@ -20,8 +27,22 @@
 
 .news-card {
   width: 18rem;
+  height: 24rem;
   border: none;
   outline: none;
+}
+.news-img {
+  height: 190px;
+}
+.cardBtn {
+  border: none;
+  outline: none;
+  width: 50%;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #3aceb9;
+  font-size: large;
+  letter-spacing: 0.02rem;
 }
 .news-card:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);

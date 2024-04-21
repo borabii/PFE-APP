@@ -1,8 +1,5 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Style.css";
-// React Clock for real time display
-import Clock from "react-live-clock";
-
 import BoiteMessage from "./component/BoiteMessage";
 import Dashboard from "./component/Dashboard";
 import DemandeManagment from "./component/DemandeManagment";
@@ -14,93 +11,93 @@ import UserAbonné from "./component/UserAbonné";
 import UserAnnonceur from "./component/UserAnnonceur";
 import Reclamation from "./component/Reclamation";
 import AdminManagment from "./component/AdminManagment";
-import AdressManagment from "./component/AdressManagment";
-
 import { SideBarData } from "./component/SideBarData";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-
+import { Route, Switch, useRouteMatch, NavLink } from "react-router-dom";
+import AdminNavbar from "./component/AdminNavbar";
+import AuthContext from "../../Context/auth/authContext";
 function AdminHomePage() {
+  const { url, path } = useRouteMatch();
+  const authContext = useContext(AuthContext);
+  const { user, loadUser } = authContext;
+  const [result, setResult] = useState([]);
+
+  useEffect(() => {
+    if (user.role === "Super Admin") {
+      return setResult(SideBarData);
+    } else {
+      return setResult(
+        SideBarData.filter((item) => item.permission === user.permission)
+      );
+    }
+  }, [user]);
+  useEffect(() => {
+    loadUser();
+  }, []);
   return (
     <div className="adminHomePage">
-      <div className=" navbar adminHomePage__navbar">
-        <div className=" nav__option">
-          <h2>Welcome Admin</h2>
+      <AdminNavbar />
+      <div className="adminHomePage__container">
+        <div className=" navbar px-0  adminHomePage__sidbar">
+          <div className="sidbar__item">
+            {/* get sid menu item from sideBarData */}
+            <NavLink
+              to={path}
+              exact
+              activeClassName="selected-admin"
+              id="link-style"
+            >
+              <span id="sidebar-itemTitle">Dashborad</span>
+            </NavLink>
+            {result.map((item, index) => {
+              return (
+                <NavLink
+                  key={index}
+                  to={`${url}${item.path}`}
+                  exact
+                  activeClassName="selected-admin"
+                  id="link-style"
+                >
+                  <span id="sidebar-itemTitle">{item.title}</span>
+                </NavLink>
+              );
+            })}
+          </div>
         </div>
-        <div className="nav__option clock">
-          {/* displaying system time for user ( set ticking to true for auto upadate each second) */}
-          <Clock format={"HH:mm:ss"} ticking={true} />
-        </div>
-        <div className="nav__option">
-          <Link to="/">
-            <button className="logoutBtn">
-              <p>déconnexion</p>
-            </button>
-          </Link>
+
+        <div className=" container">
+          <div className=" container  px-4  body-container">
+            <Switch>
+              <Route path={`${path}`} exact component={Dashboard} />
+
+              <Route path={`${path}/boiteMessage`} component={BoiteMessage} />
+              <Route
+                path={`${path}/demandeManagment`}
+                component={DemandeManagment}
+              />
+              <Route
+                path={`${path}/categoryManagment`}
+                component={CategoryManagment}
+              />
+              <Route
+                path={`${path}/pubActivity`}
+                component={PublicationActivity}
+              />
+              <Route
+                path={`${path}/pubAnnonce`}
+                component={PublicationAnnonce}
+              />
+              <Route path={`${path}/pubEvent`} component={PublicationEvent} />
+              <Route path={`${path}/userAbonné`} component={UserAbonné} />
+              <Route path={`${path}/userAnnonceur`} component={UserAnnonceur} />
+              <Route path={`${path}/reclamation`} component={Reclamation} />
+              <Route
+                path={`${path}/adminManagment`}
+                component={AdminManagment}
+              />
+            </Switch>
+          </div>
         </div>
       </div>
-      <Router>
-        <div className="adminHomePage__container">
-          <div className=" navbar adminHomePage__sidbar">
-            <div className="sidbar__item">
-              <ul>
-                {/* get sid menu item from sideBarData */}
-                {SideBarData.map((item, index) => {
-                  return (
-                    <li className={item.cName} key={index}>
-                      <Link to={item.path} id="link-style">
-                        <span>{item.title}</span>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </div>
-
-          <div className=" container">
-            <div className=" container  px-4  body-container">
-              <Switch>
-                <Route path="/boiteMessage">
-                  <BoiteMessage />
-                </Route>
-                <Route path="/demandeManagment">
-                  <DemandeManagment />
-                </Route>
-                <Route path="/categoryManagment">
-                  <CategoryManagment />
-                </Route>
-                <Route path="/pubActivity">
-                  <PublicationActivity />
-                </Route>
-                <Route path="/pubAnnonce">
-                  <PublicationAnnonce />
-                </Route>
-                <Route path="/pubEvent">
-                  <PublicationEvent />
-                </Route>
-                <Route path="/userAbonné">
-                  <UserAbonné />
-                </Route>
-                <Route path="/userAnnonceur">
-                  <UserAnnonceur />
-                </Route>
-                <Route path="/reclamation">
-                  <Reclamation />
-                </Route>
-                <Route path="/adminManagment">
-                  <AdminManagment />
-                </Route>
-                <Route path="/adressManagment">
-                  <AdressManagment />
-                </Route>
-                <Route exact path="/">
-                  <Dashboard />
-                </Route>
-              </Switch>
-            </div>
-          </div>
-        </div>
-      </Router>
     </div>
   );
 }

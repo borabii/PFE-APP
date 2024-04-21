@@ -51,6 +51,7 @@
 }
 .topUserCard-img {
   border-radius: 10px 10px 0px 0px;
+  height: 200px;
 }
 .grade-user {
   visibility: hidden;

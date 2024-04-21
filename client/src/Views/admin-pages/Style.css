@@ -1,12 +1,13 @@
 /* Admin home page style */
 .adminHomePage {
   overflow: hidden;
+  background-color: #f3f3f4;
 }
 .adminHomePage__navbar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: #f6f5f5;
+  background-color: white;
 }
 .nav__option > h2 {
   margin-top: 11px;
@@ -41,27 +42,42 @@
 .adminHomePage__sidbar {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  background: #3aceb9;
+  height: 91vh;
+  width: 20%;
+  background: #2f4050;
 }
 .adminHomePage__sidbar > .sidbar__item {
-  margin-top: 20%;
+  margin-top: 10%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
-.adminHomePage__sidbar > .sidbar__item > ul > li {
+
+.adminHomePage__sidbar > .sidbar__item > .selected-admin {
+  background-color: #293846;
+  border-left: 3px solid #3aceb9;
+  color: #fff;
+  font-size: 20px;
+}
+.adminHomePage__sidbar > .sidbar__item > #link-style:hover {
+  background-color: #293846;
+  color: #fff;
+}
+.adminHomePage__sidbar > .sidbar__item > #link-style {
+  color: #a7b1c2;
+  text-decoration: none;
+  list-style: none;
   font-family: "Roboto";
-  margin-bottom: 20px;
   text-transform: uppercase;
   letter-spacing: 0.02em;
   list-style: none;
-  line-height: 30px;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 400;
+  height: 50px;
+  padding-top: 10px;
 }
-#link-style {
-  color: #040941;
-  text-decoration: none;
-  list-style: none;
+#sidebar-itemTitle {
+  margin: 20px 10px 0px 10px;
 }
 
 .body-container {
@@ -80,25 +96,30 @@
   width: 50%;
 }
 .data-card {
-  width: 17rem;
-  height: 7rem;
-  background-color: #f6f5f5;
+  width: 18rem;
+  height: 8rem;
+  background-color: #fbbe7b;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
+  border-radius: 5px;
   margin: 20px 0px 10px;
   font-family: "Roboto";
   font-size: 1rem;
-  font-weight: 800;
+  font-weight: 600;
   text-transform: uppercase;
-  color: black;
+  color: #2f4050;
 }
 .data-cardTitle {
   font-family: "Roboto";
   font-size: 1.4rem;
-  letter-spacing: 0.01rem;
-  font-weight: 300;
+  letter-spacing: 0.02rem;
+  font-weight: 500;
 }
-
+.card-body > .card-text {
+  text-align: center;
+  color: white;
+  font-size: 2rem;
+  font-weight: 600;
+}
 .dataTable__top > form {
   display: flex;
   align-items: flex-end;
@@ -106,7 +127,7 @@
   margin-top: 125px;
   margin-bottom: 10px;
   border-radius: 10px;
-  background-color: #f6f5f5;
+  background-color: white;
 }
 .dataTable__top > form > input {
   outline: none;
@@ -121,13 +142,13 @@
   margin-bottom: 7px;
 }
 .dataTable__bottom {
-  background-color: #f6f5f5;
+  background-color: white;
   height: 400px;
-  /* width: 100%; */
-  border-radius: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .my-table > thead {
-  background-color: #f5b19d;
+  background-color: white;
 }
 
 .my-custom-scrollbar {
@@ -149,7 +170,14 @@
   margin-right: 20px;
   margin-left: 20px;
 }
-
+#dataTable-viewIcon {
+  color: #1ab394;
+  cursor: pointer;
+}
+#dataTable-delteIcon {
+  color: red;
+  cursor: pointer;
+}
 /* admin page componenet with add button style  */
 #form-1 {
   margin-top: 150px;
@@ -170,27 +198,26 @@
 
 /* dashboard  style*/
 .my-card {
-  width: 20rem;
+  width: 24rem;
   height: 10rem;
-  background-color: #f6f5f5;
+  background-color: #1ab394;
+  color: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
+  border-radius: 5px;
   margin: 20px;
   font-family: "Roboto";
-  font-size: 1.5rem;
-  font-weight: 800;
+  font-size: 25px;
+  font-weight: 600;
   text-transform: uppercase;
-  color: black;
+}
+.my-card:hover {
+  background-color: #17a084;
 }
 .mycard-title {
   font-family: "Roboto";
   font-size: 1.5rem;
   letter-spacing: 0.02rem;
-  font-weight: 400;
-}
-
-.bottom-dash {
-  background-color: red;
+  font-weight: 500;
 }
 
 /* modal popup style */
@@ -201,7 +228,13 @@
   display: flex;
   justify-content: center;
 }
-
+.dashboard-navLink,
+.dashboard-navLink:hover,
+.dashboard-navLink:focus,
+.dashboard-navLink:active {
+  text-decoration: none;
+  text-decoration-line: none;
+}
 /*  add admin popUp style*/
 .addAdminPopUP {
   display: flex;
@@ -330,6 +363,11 @@
   margin-top: 10px;
   border: 2px solid #3aceb9;
 }
+.addCategoryPopUP > .img__holder > img {
+  height: 246px;
+  width: 100%;
+  border-radius: 10px;
+}
 .addCategoryPopUP > form {
   display: flex;
   flex-direction: column;
@@ -348,6 +386,7 @@
   height: 40px;
   border-radius: 10px;
   margin-top: 15px;
+  outline: none;
 }
 
 /* detaill activity style */
@@ -400,7 +439,8 @@
   height: 100px;
   border-radius: 50px;
   border: 2px solid #3aceb9;
-  margin: 20px;
+  margin-top: 20px;
+  margin-left: 5px;
 }
 .bottom__info {
   display: flex;
@@ -497,10 +537,11 @@ dd {
 .demande__form {
   display: flex;
   flex-direction: row;
-  width: 50%;
-  justify-content: space-between;
+  width: 100%;
+  justify-content: space-around;
   background-color: white;
-  margin-top: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .demande__form > button {
   width: 150px;
@@ -529,7 +570,28 @@ dd {
   background-color: #dc3545;
   color: white;
 }
-
+.docJustif {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  background-color: #f6f5f5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  width: 100%;
+}
+.docJustif > img {
+  border: 3px solid #3aceb9;
+  border-radius: 5px;
+  margin: 30px;
+}
+.docJustif > h4 {
+  text-align: center;
+  font-family: "Roboto";
+  text-transform: uppercase;
+  letter-spacing: 0.01rem;
+  margin-top: 10px;
+}
 /* Detail annonce popUp style */
 .detailAnnonce {
   display: flex;
@@ -567,22 +629,6 @@ dd {
   align-items: center;
 }
 
-.bottom__container {
-  display: flex;
-  margin: 20px;
-  background-color: #f6f5f5;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  width: 100%;
-}
-
-.bottom__container > img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50px;
-  border: 2px solid #3aceb9;
-  margin: 20px;
-}
 .bottom__info {
   display: flex;
   margin-left: 30px;
@@ -628,22 +674,6 @@ dd {
   align-items: center;
 }
 
-.bottom__container {
-  display: flex;
-  margin: 20px;
-  background-color: #f6f5f5;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  width: 100%;
-}
-
-.bottom__container > img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50px;
-  border: 2px solid #3aceb9;
-  margin: 20px;
-}
 .event__info {
   display: flex;
   margin-top: 17px;
@@ -687,15 +717,17 @@ dd {
 .user__img > img {
   width: 100px;
   height: 100px;
-  margin-top: 14px;
   margin-left: 15px;
   margin-bottom: 20px;
   border: 3px solid #3aceb9;
   border-radius: 50%;
 }
+.user__Info {
+  display: inline-block;
+  word-break: break-all;
+}
 .user__Info > ul {
   margin-left: 0px;
-  margin-top: 10px;
   list-style: none;
 }
 .user__Info > ul > li {
@@ -763,17 +795,15 @@ dd {
   justify-content: center;
   align-items: center;
   width: 100%;
-  color: #040941;
 }
 .boite__container > p {
   margin: 20px;
-  font-family: "Roboto";
-  text-transform: uppercase;
-  font-size: 17px;
+  font-size: 18px;
 }
-.boite__container > h5 {
-  margin-left: 20px;
-  text-transform: uppercase;
+
+.boite__container > p > span {
+  font-size: 22px;
+  margin-right: 3px;
 }
 .boite__container > textarea {
   margin-left: 4%;
@@ -809,16 +839,19 @@ dd {
   justify-content: space-around;
   flex-wrap: wrap;
 }
+#dd {
+  margin-top: 300px;
+}
 
 .info-item {
   background-color: #3aceb9;
   color: white;
   margin: 20px;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 5px;
   text-transform: uppercase;
   text-align: center;
-  width: 25%;
+  width: 35%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -837,19 +870,19 @@ h5 {
   letter-spacing: 0.01rem;
 }
 .interet__categorie {
-  display: flex;
-  justify-content: space-between;
   margin-top: 5px;
   margin-bottom: 10px;
 }
 #cat {
+  width: 100%;
+  height: 50px;
   text-align: center;
   color: white;
   font-family: "Roboto";
   background-color: #ecad42;
   border-radius: 20px;
   padding: 5px 8px 5px 8px;
-  margin: 5px;
+  margin-bottom: 10px;
 }
 
 /* Detail catégorie popUp style */
@@ -877,4 +910,9 @@ h5 {
   border-radius: 10px;
   margin: 10px;
   border: 2px solid #3aceb9;
+}
+.catégorie__container > .img__holder > img {
+  height: 246px;
+  width: 100%;
+  border-radius: 10px;
 }
